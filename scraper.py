@@ -17,7 +17,7 @@ try:
 except ImportError:
     print("請先執行：pip install feedparser deep-translator"); sys.exit(1)
 
-OUT_HTML = Path(__file__).parent / "晨報.html"  # 輸出到 repo 根目錄
+OUT_HTML = Path(__file__).parent / "晨報.html"
 
 # ════════════════════════════════════════════════════════════
 #  股票清單
@@ -226,7 +226,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>晨報 · Morning Tape</title>
+<title>晨報</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
@@ -240,6 +240,12 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .logo{font-family:"Noto Serif TC",serif;font-weight:700;font-size:23px}
 .logo small{font-family:"Hanken Grotesk";font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-left:7px;vertical-align:middle}
 .gentime{margin-left:auto;font-family:"Hanken Grotesk";font-size:11.5px;color:var(--soft)}
+/* 播報控制列 */
+.tts-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:14px}
+.tts-controls{display:flex;align-items:center;gap:6px;font-family:"Hanken Grotesk";font-size:12.5px;color:var(--soft)}
+.tts-label{font-weight:600;white-space:nowrap}
+.auto-label{display:flex;align-items:center;gap:5px;font-family:"Hanken Grotesk";font-size:12.5px;font-weight:600;color:var(--soft);cursor:pointer;margin-left:auto;white-space:nowrap}
+.auto-label input{cursor:pointer;width:15px;height:15px}
 .cats{display:flex;gap:2px;overflow-x:auto;padding:9px 0 0;border-bottom:1px solid var(--line);scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
 .cat{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--soft);padding:6px 10px 9px;position:relative;white-space:nowrap;transition:color .15s}
@@ -306,10 +312,10 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.65}
 .src{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
 .none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px}
-/* play */
-.playbar{position:fixed;bottom:14px;right:14px;z-index:30}
-.playbtn{background:var(--ink);color:#fff;border:none;border-radius:22px;padding:10px 17px;font-size:12.5px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.28)}
-.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.7}
+/* 播報鈕 */
+.playbtn{background:var(--ink);color:#fff;border:none;border-radius:20px;padding:9px 18px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.playbtn:active{opacity:.75}
+.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.8}
 </style>
 </head>
 <body>
@@ -324,7 +330,20 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
   </div>
 </div>
 <div class="wrap">
-  <div class="lead">個股 __TOTAL__ 檔 · 近 14 天 · 依日期排序 · 自動翻譯繁體中文</div>
+  <div class="lead">共 __TOTAL__ 檔 · 近 14 天 · 依日期排序 · 自動翻譯繁體中文　生成：__GENTIME__</div>
+  <!-- 播報控制列 -->
+  <div class="tts-bar">
+    <button class="playbtn" id="playBtn" onclick="speakAll()">▶ 全部播報</button>
+    <div class="tts-controls">
+      <span class="tts-label">語速</span>
+      <input type="range" min="0.6" max="1.8" step="0.2" value="1.0"
+             oninput="setRate(this.value)" style="width:80px;vertical-align:middle">
+      <span id="rateLabel" style="font-size:12px;min-width:26px">1x</span>
+    </div>
+    <label class="auto-label" title="開啟後每次進入頁面自動播報">
+      <input type="checkbox" id="autoToggle"> 自動播報
+    </label>
+  </div>
   <section class="overview" id="overview"></section>
   <div class="dfilter" id="dfilter"></div>
   <div class="industry-box" id="industryBox">
@@ -336,9 +355,8 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
     <div class="industry-list" id="industryList" style="display:none"></div>
   </div>
   <main id="feed"></main>
-  <div class="foot">由 Python 爬蟲自動擷取並翻譯 · 僅供參考，非投資建議<br>來源：EE Times · Semiconductor Eng. · IEEE Spectrum · Tom's Hardware · VentureBeat · MIT Tech Review · Ars Technica · TechCrunch · Reuters · CNBC · 科技新報 · iThome</div>
+  <div class="foot">資料來源：Yahoo Finance · Google News · EE Times · IEEE Spectrum · VentureBeat · MIT Tech Review · Ars Technica · TechCrunch · Reuters · CNBC · 科技新報 · iThome<br>由 Python 爬蟲每日自動擷取翻譯 · 僅供參考，非投資建議</div>
 </div>
-<div class="playbar"><button class="playbtn" id="playBtn" onclick="speakAll()">▶ 播報</button></div>
 <script>
 const STOCKS_DATA=__STOCKS_JSON__;
 const INDUSTRY_DATA=__INDUSTRY_JSON__;
@@ -438,23 +456,35 @@ function buildDateFilter(){
 }
 
 // ── TTS ─────────────────────────────────────────────────────
+let ttsRate=1.0;
 function pickV(){const vs=window.speechSynthesis?speechSynthesis.getVoices():[];return vs.find(v=>/zh|cmn|chinese|mandarin/i.test((v.lang||"")+(v.name||"")));}
 function clearR(){document.querySelectorAll(".card.reading").forEach(c=>c.classList.remove("reading"));}
-function stopSpeak(){speaking=false;if(window.speechSynthesis)speechSynthesis.cancel();clearR();const b=document.getElementById("playBtn");if(b)b.textContent="▶ 播報";}
+function updatePlayBtn(){const b=document.getElementById("playBtn");if(b)b.textContent=speaking?"⏹ 停止":"▶ 全部播報";}
+function stopSpeak(){speaking=false;if(window.speechSynthesis)speechSynthesis.cancel();clearR();updatePlayBtn();}
 function buildSpeech(idxs){const seq=[];idxs.forEach(i=>{const s=STOCKS_DATA[i];if(!s)return;seq.push({idx:i,text:`${s.name}。${s.summary}。`});(s.items||[]).filter(it=>inRange(it.date)).forEach(it=>seq.push({idx:i,text:`${it.headline}。${it.detail}。`}));});return seq;}
 function visibleIdx(){return STOCKS_DATA.map((_,i)=>i).filter(i=>{const c=document.getElementById("card-"+i);return c&&c.style.display!=="none";});}
 function speakSeq(seq){
-  if(!window.speechSynthesis){alert("不支援語音");return;}
-  if(!seq.length){alert("無可朗讀內容");return;}
-  speechSynthesis.cancel();speaking=true;
+  if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能");return;}
+  if(!seq.length){alert("目前無可朗讀內容");return;}
+  speechSynthesis.cancel();speaking=true;updatePlayBtn();
   const btn=document.getElementById("playBtn");
   let p=0,cur=-1;
-  function next(){if(!speaking||p>=seq.length){stopSpeak();return;}const{idx,text}=seq[p++];if(idx!==cur){clearR();cur=idx;const c=document.getElementById("card-"+idx);if(c){c.classList.add("reading");c.scrollIntoView({behavior:"smooth",block:"center"});}if(btn)btn.textContent=`⏹ ${STOCKS_DATA[idx]?.sym||""}`;}const u=new SpeechSynthesisUtterance(text);u.lang="zh-TW";const v=pickV();if(v)u.voice=v;u.onend=next;u.onerror=next;try{speechSynthesis.resume();}catch(_){}speechSynthesis.speak(u);}
+  function next(){
+    if(!speaking||p>=seq.length){stopSpeak();return;}
+    const{idx,text}=seq[p++];
+    if(idx!==cur){clearR();cur=idx;const c=document.getElementById("card-"+idx);if(c){c.classList.add("reading");c.scrollIntoView({behavior:"smooth",block:"center"});}if(btn)btn.textContent=`⏹ ${STOCKS_DATA[idx]?.sym||""}`;}
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="zh-TW";u.rate=ttsRate;const v=pickV();if(v)u.voice=v;
+    u.onend=next;u.onerror=next;
+    try{speechSynthesis.resume();}catch(_){}
+    speechSynthesis.speak(u);
+  }
   next();
-  setTimeout(()=>{if(!speaking)return;if(!speechSynthesis.speaking&&!speechSynthesis.pending){stopSpeak();alert("語音啟動失敗。請確認手機音量已開，或安裝中文語音。");}},2000);
+  setTimeout(()=>{if(!speaking)return;if(!speechSynthesis.speaking&&!speechSynthesis.pending){stopSpeak();alert("語音啟動失敗。\n請確認：\n1. 手機音量是否開啟\n2. 是否安裝中文語音（設定 › 無障礙 › 文字轉語音）");}},2000);
 }
 function speakAll(){if(speaking){stopSpeak();return;}speakSeq(buildSpeech(visibleIdx()));}
 function speakCard(i){stopSpeak();speakSeq(buildSpeech([i]));}
+function setRate(v){ttsRate=parseFloat(v);document.getElementById("rateLabel").textContent=v+"x";}
 
 // ── 初始化 ───────────────────────────────────────────────────
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
@@ -462,6 +492,17 @@ buildCats();buildChips();buildOverview();buildDateFilter();
 buildITabs();renderIndustry();
 buildFeed();
 document.querySelector(".cat")?.classList.add("on");
+
+// 自動播報：若上次已開啟，進入頁面自動開始
+const autoKey="morningAutoPlay";
+const autoToggle=document.getElementById("autoToggle");
+if(autoToggle){
+  autoToggle.checked = localStorage.getItem(autoKey)==="1";
+  autoToggle.addEventListener("change",()=>localStorage.setItem(autoKey,autoToggle.checked?"1":"0"));
+}
+if(localStorage.getItem(autoKey)==="1"){
+  setTimeout(()=>{ if(!speaking) speakAll(); }, 1500);
+}
 </script>
 </body>
 </html>
