@@ -17,3 +17,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install feedparser deep-translator
+      - run: python scraper.py
+      - run: |
+          git config user.name "晨報機器人"
+          git config user.email "bot@bot.local"
+          git add 晨報.html
+          git diff --staged --quiet || git commit -m "📰 $(date '+%Y/%m/%d') 晨報更新"
+          git push
