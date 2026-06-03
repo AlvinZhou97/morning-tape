@@ -1,11 +1,14 @@
 name: 每日晨報自動生成
+
 on:
   schedule:
     - cron: '0 23 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
-  permissions:
-    contents: write
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -13,11 +16,4 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install feedparser deep-translator
-      - run: python scraper.py
-      - run: |
-          git config user.name "晨報機器人"
-          git config user.email "bot@bot.local"
-          git add 晨報.html
-          git diff --staged --quiet || git commit -m "📰 $(date '+%Y/%m/%d') 晨報更新"
-          git push
+      - run: pip install feedparser deep-translat
