@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-晨報爬蟲 v2 — 每天早上執行，輸出 晨報.html
-安裝依賴：pip install feedparser deep-translator
-執行方式：python3 scraper.py
-排程（Mac/Linux）：crontab -e 加入 → 0 7 * * * /usr/bin/python3 /絕對路徑/scraper.py
-排程（Windows）：工作排程器 → 每天 07:00 執行 python3 scraper.py
+晨報爬蟲 v3 — 每天早上執行，輸出 晨報.html
+安裝依賴：pip install feedparser deep-translator requests
 """
 
-import feedparser, json, time, re, sys
+import feedparser, json, time, re, sys, requests
 from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 from pathlib import Path
@@ -15,7 +12,7 @@ from pathlib import Path
 try:
     from deep_translator import GoogleTranslator
 except ImportError:
-    print("請先執行：pip install feedparser deep-translator"); sys.exit(1)
+    print("請先執行：pip install feedparser deep-translator requests"); sys.exit(1)
 
 OUT_HTML = Path(__file__).parent / "晨報.html"
 
@@ -49,6 +46,7 @@ STOCKS = [
 # ════════════════════════════════════════════════════════════
 INDUSTRY_FEEDS = [
     # 半導體 / 硬體
+    # ── 美國：半導體 / 硬體 ──────────────────────────────────────
     {"name":"EE Times",               "cat":"半導體", "lang":"en",
      "url":"https://www.eetimes.com/feed/"},
     {"name":"Semiconductor Eng.",      "cat":"半導體", "lang":"en",
@@ -57,29 +55,80 @@ INDUSTRY_FEEDS = [
      "url":"https://spectrum.ieee.org/feeds/feed.rss"},
     {"name":"Tom's Hardware",          "cat":"半導體", "lang":"en",
      "url":"https://www.tomshardware.com/feeds/all"},
-    # AI / 科技
-    {"name":"VentureBeat AI",         "cat":"AI",     "lang":"en",
+    {"name":"AnandTech (THW)",         "cat":"半導體", "lang":"en",
+     "url":"https://www.tomshardware.com/feeds/all"},
+    {"name":"EE Journal",              "cat":"半導體", "lang":"en",
+     "url":"https://www.eejournal.com/feed/"},
+    {"name":"Electronic Design",       "cat":"半導體", "lang":"en",
+     "url":"https://www.electronicdesign.com/rss"},
+    # ── 美國：AI / 科技 ───────────────────────────────────────
+    {"name":"VentureBeat AI",          "cat":"AI",     "lang":"en",
      "url":"https://venturebeat.com/category/ai/feed/"},
-    {"name":"MIT Tech Review",        "cat":"AI",     "lang":"en",
+    {"name":"MIT Tech Review",         "cat":"AI",     "lang":"en",
      "url":"https://www.technologyreview.com/feed/"},
-    {"name":"Ars Technica",           "cat":"科技",   "lang":"en",
+    {"name":"Wired Business",          "cat":"AI",     "lang":"en",
+     "url":"https://www.wired.com/feed/category/business/latest/rss"},
+    {"name":"Ars Technica",            "cat":"科技",   "lang":"en",
      "url":"https://feeds.arstechnica.com/arstechnica/technology-lab"},
-    {"name":"TechCrunch",             "cat":"科技",   "lang":"en",
+    {"name":"TechCrunch",              "cat":"科技",   "lang":"en",
      "url":"https://techcrunch.com/feed/"},
-    {"name":"The Verge",              "cat":"科技",   "lang":"en",
+    {"name":"The Verge",               "cat":"科技",   "lang":"en",
      "url":"https://www.theverge.com/rss/index.xml"},
-    # 財經科技
-    {"name":"Reuters Tech",           "cat":"財經",   "lang":"en",
+    {"name":"ZDNet",                   "cat":"科技",   "lang":"en",
+     "url":"https://www.zdnet.com/news/rss.xml"},
+    # ── 美國：財經 ────────────────────────────────────────────
+    {"name":"Reuters Business",        "cat":"美國財經","lang":"en",
+     "url":"https://feeds.reuters.com/reuters/businessNews"},
+    {"name":"Reuters Tech",            "cat":"美國財經","lang":"en",
      "url":"https://feeds.reuters.com/reuters/technologyNews"},
-    {"name":"CNBC Tech",              "cat":"財經",   "lang":"en",
+    {"name":"CNBC Tech",               "cat":"美國財經","lang":"en",
      "url":"https://www.cnbc.com/id/19854910/device/rss/rss.html"},
-    # 台灣（已是中文，無需翻譯）
-    {"name":"科技新報",               "cat":"台灣",   "lang":"zh",
+    {"name":"CNBC Finance",            "cat":"美國財經","lang":"en",
+     "url":"https://www.cnbc.com/id/10001147/device/rss/rss.html"},
+    {"name":"MarketWatch Top",         "cat":"美國財經","lang":"en",
+     "url":"https://feeds.marketwatch.com/marketwatch/topstories/"},
+    {"name":"Forbes Tech",             "cat":"美國財經","lang":"en",
+     "url":"https://www.forbes.com/technology/feed2/"},
+    {"name":"Bloomberg Markets",       "cat":"美國財經","lang":"en",
+     "url":"https://feeds.bloomberg.com/markets/news.rss"},
+    # ── 韓國：科技 / 財經 ─────────────────────────────────────
+    {"name":"Korea Herald Tech",       "cat":"韓國",   "lang":"en",
+     "url":"https://www.koreaherald.com/feed/technology.xml"},
+    {"name":"Korea Herald Business",   "cat":"韓國",   "lang":"en",
+     "url":"https://www.koreaherald.com/feed/finance.xml"},
+    {"name":"Business Korea",          "cat":"韓國",   "lang":"en",
+     "url":"https://www.businesskorea.co.kr/rss/allArticles.xml"},
+    {"name":"Korea JoongAng Daily",    "cat":"韓國",   "lang":"en",
+     "url":"https://koreajoongangdaily.joins.com/api/rss/feed"},
+    {"name":"Korea Times Biz",         "cat":"韓國",   "lang":"en",
+     "url":"https://www.koreatimes.co.kr/www/rss/rss.xml"},
+    {"name":"ET News Korea",           "cat":"韓國",   "lang":"en",
+     "url":"https://english.etnews.com/rss/allArticles.xml"},
+    # ── 日本：科技 / 財經 ─────────────────────────────────────
+    {"name":"Nikkei Asia",             "cat":"日本",   "lang":"en",
+     "url":"https://asia.nikkei.com/rss/feed/nar"},
+    {"name":"Japan Times Tech",        "cat":"日本",   "lang":"en",
+     "url":"https://www.japantimes.co.jp/feed/"},
+    {"name":"NHK World Business",      "cat":"日本",   "lang":"en",
+     "url":"https://www3.nhk.or.jp/rss/news/cat3.xml"},
+    {"name":"The Register",            "cat":"日本",   "lang":"en",
+     "url":"https://www.theregister.com/headlines.atom"},
+    # ── 亞洲：半導體 / 科技 ───────────────────────────────────
+    {"name":"DigiTimes (EN)",          "cat":"亞洲半導體","lang":"en",
+     "url":"https://www.digitimes.com/rss/daily.xml"},
+    {"name":"Asia Nikkei Semi",        "cat":"亞洲半導體","lang":"en",
+     "url":"https://asia.nikkei.com/rss/feed/nar"},
+    # ── 台灣 ─────────────────────────────────────────────────
+    {"name":"科技新報",                "cat":"台灣",   "lang":"zh",
      "url":"https://technews.tw/feed/"},
-    {"name":"iThome",                 "cat":"台灣",   "lang":"zh",
+    {"name":"iThome",                  "cat":"台灣",   "lang":"zh",
      "url":"https://www.ithome.com.tw/rss"},
-    {"name":"電子時報 Digitimes",     "cat":"台灣",   "lang":"zh",
+    {"name":"Digitimes 電子時報",      "cat":"台灣",   "lang":"zh",
      "url":"https://www.digitimes.com.tw/rss/rss.asp"},
+    {"name":"MoneyDJ 科技",            "cat":"台灣",   "lang":"zh",
+     "url":"https://www.moneydj.com/KMDJ/News/NewsRSS.aspx?SectionId=t"},
+    {"name":"鉅亨網科技",              "cat":"台灣",   "lang":"zh",
+     "url":"https://news.cnyes.com/api/v3/news/category/tech?hasImage=0&limit=20"},
 ]
 
 MAX_STOCK_ITEMS    = 6   # 每檔個股最多幾則
@@ -116,13 +165,59 @@ def is_recent(date_str: str) -> bool:
     except: return True
 
 def fetch_rss(url: str) -> list:
-    for attempt in range(3):
+    """用瀏覽器 User-Agent 抓取 RSS，避免被封鎖"""
+    AGENTS = [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Googlebot/2.1 (+http://www.google.com/bot.html)",
+    ]
+    headers_base = {"Accept": "application/rss+xml, application/xml, text/xml, */*",
+                    "Accept-Language": "en-US,en;q=0.9"}
+    for attempt, agent in enumerate(AGENTS):
         try:
+            hdrs = {**headers_base, "User-Agent": agent}
+            r = requests.get(url, headers=hdrs, timeout=12)
+            if r.status_code == 200 and r.content:
+                feed = feedparser.parse(r.content)
+                if feed.entries:
+                    return feed.entries
+            # 若 requests 抓到空，退回 feedparser 直連
             feed = feedparser.parse(url)
-            return feed.entries or []
+            if feed.entries:
+                return feed.entries
         except Exception as e:
-            if attempt < 2: time.sleep(2)
-            else: print(f"(RSS失敗:{e})", end=" "); return []
+            if attempt == len(AGENTS)-1:
+                print(f"(RSS失敗:{e})", end=" ")
+            else:
+                time.sleep(1.5)
+    return []
+
+def yahoo_url(ticker):
+    return f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US"
+
+def gnews_url(q, zh=False):
+    eq = quote(q)
+    if zh:
+        return f"https://news.google.com/rss/search?q={eq}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    return f"https://news.google.com/rss/search?q={eq}&hl=en-US&gl=US&ceid=US:en"
+
+def cnyes_url(stock_id):
+    """鉅亨網台股新聞 RSS（比 Google News 更穩定）"""
+    return f"https://news.cnyes.com/api/v3/news/category/tw_stock?hasImage=0&limit=30&startAt=0"
+
+def moneydj_url(stock_id):
+    """MoneyDJ 台股新聞 RSS"""
+    return f"https://www.moneydj.com/KMDJ/News/NewsRSS.aspx?StockSymbol={stock_id}"
+
+def tw_stock_news_urls(stock_id, stock_name):
+    """台股多來源 RSS 清單，按可靠度排序"""
+    q_tw = quote(f"{stock_name} {stock_id}")
+    q_en = quote(f"{stock_id} stock Taiwan")
+    return [
+        moneydj_url(stock_id),
+        f"https://news.google.com/rss/search?q={q_tw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant",
+        f"https://news.google.com/rss/search?q={q_en}&hl=en-US&gl=US&ceid=US:en",
+    ]
 
 def clean(text: str) -> str:
     return re.sub(r"<[^>]+>","",text or "").strip()
@@ -139,25 +234,33 @@ def sentiment(texts) -> str:
 # ════════════════════════════════════════════════════════════
 #  個股抓取
 # ════════════════════════════════════════════════════════════
-def yahoo_url(ticker): return f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US"
-def gnews_url(q, zh=False):
-    eq = quote(q)
-    if zh: return f"https://news.google.com/rss/search?q={eq}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-    return f"https://news.google.com/rss/search?q={eq}&hl=en-US&gl=US&ceid=US:en"
-
 def process_stock(stock: dict) -> dict:
     src  = stock["source"]
+    sym  = stock["sym"]
     need_tr = src != "gnews_zh"
+    entries = []
 
     if src == "yahoo":
+        # 美股：Yahoo Finance RSS → 補 Google News
         entries = fetch_rss(yahoo_url(stock["ticker"]))
-        # 若 Yahoo 不夠，補 Google News
         if len(entries) < 3:
             entries += fetch_rss(gnews_url(stock["q"]))
-    elif src == "gnews":
+            if len(entries) < 3:
+                # 再補 Bing News
+                entries += fetch_rss(f"https://www.bing.com/news/search?q={quote(stock['q'])}&format=rss")
+
+    elif src == "gnews_zh":
+        # 台股：MoneyDJ → Google News TW → Google News EN（多來源兜底）
+        name = stock.get("name","").replace("-KY","")
+        for url in tw_stock_news_urls(sym, name):
+            entries += fetch_rss(url)
+            if len(entries) >= 3:
+                break
+
+    else:  # gnews（韓股等）
         entries = fetch_rss(gnews_url(stock["q"]))
-    else:  # gnews_zh
-        entries = fetch_rss(gnews_url(stock["q"], zh=True))
+        if len(entries) < 3:
+            entries += fetch_rss(gnews_url(stock["q"].split()[0]))  # 試更短的關鍵字
 
     items, seen = [], set()
     for e in entries[:MAX_STOCK_ITEMS * 3]:
@@ -193,29 +296,38 @@ def process_stock(stock: dict) -> dict:
 #  產業動態抓取
 # ════════════════════════════════════════════════════════════
 def fetch_industry() -> list:
-    all_articles = []
+    all_articles, seen_titles = [], set()
+    success, failed = 0, 0
     for feed_cfg in INDUSTRY_FEEDS:
-        print(f"  [{feed_cfg['name']}]", end=" ", flush=True)
-        entries = fetch_rss(feed_cfg["url"])
-        need_tr = feed_cfg["lang"] != "zh"
-        count = 0
-        for e in entries[:MAX_INDUSTRY_ITEMS * 2]:
-            date  = parse_date(e)
-            if not is_recent(date): continue
-            title = clean(getattr(e,"title",""))
-            if not title: continue
-            link  = getattr(e,"link","")
-            all_articles.append({
-                "date":    date,
-                "source":  feed_cfg["name"],
-                "cat":     feed_cfg["cat"],
-                "headline": translate(title) if need_tr else title,
-                "link":    link,
-            })
-            count += 1
-            if count >= MAX_INDUSTRY_ITEMS: break
-        print(f"✓ {count} 則")
-    # 依日期排序，最新在前
+        try:
+            entries = fetch_rss(feed_cfg["url"])
+            need_tr = feed_cfg["lang"] != "zh"
+            count = 0
+            for e in entries[:MAX_INDUSTRY_ITEMS * 2]:
+                date  = parse_date(e)
+                if not is_recent(date): continue
+                title = clean(getattr(e,"title",""))
+                if not title or title in seen_titles: continue
+                seen_titles.add(title)
+                link  = getattr(e,"link","")
+                all_articles.append({
+                    "date":     date,
+                    "source":   feed_cfg["name"],
+                    "cat":      feed_cfg["cat"],
+                    "headline": translate(title) if need_tr else title,
+                    "link":     link,
+                })
+                count += 1
+                if count >= MAX_INDUSTRY_ITEMS: break
+            if count > 0:
+                print(f"    ✓ {feed_cfg['name']}: {count} 則")
+                success += 1
+            else:
+                print(f"    ○ {feed_cfg['name']}: 0 則（無最新文章）")
+        except Exception as e:
+            print(f"    ✗ {feed_cfg['name']}: 失敗 ({e})")
+            failed += 1
+    print(f"\n  產業動態：{success} 個來源成功，{failed} 個失敗，共 {len(all_articles)} 則")
     all_articles.sort(key=lambda x: x["date"], reverse=True)
     return all_articles
 
@@ -481,7 +593,7 @@ const MK={"美股":"us","台股":"tw","韓股":"kr"};
 const CATS=[{k:"all",l:"全部"},{k:"us",l:"美股"},{k:"tw",l:"台股"},{k:"kr",l:"韓股"}];
 const SENT={positive:["up","偏多 ▲"],negative:["down","偏空 ▼"],neutral:["flat","中性 ●"]};
 const DRANGES=[{d:0,l:"全部"},{d:1,l:"今天"},{d:3,l:"近3天"},{d:7,l:"近7天"},{d:14,l:"近14天"}];
-const CATS_I=["全部","半導體","AI","科技","財經","台灣"];
+const CATS_I=["全部","半導體","AI","科技","美國財經","韓國","日本","亞洲半導體","台灣"];
 let curF="all",dateDays=0,curICat="全部",industryOpen=false,speaking=false;
 
 function fmtD(iso){const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||"");if(!m)return iso||"";const d=new Date(+m[1],+m[2]-1,+m[3]),w=["日","一","二","三","四","五","六"];return m[1]+"/"+m[2]+"/"+m[3]+" 週"+w[d.getDay()]}
