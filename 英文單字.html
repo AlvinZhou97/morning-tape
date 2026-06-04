@@ -525,6 +525,23 @@ function speakDirect(text,lang){
   });
 }
 
+// ── Wake Lock（播報時保持螢幕常亮） ──────────────────────────
+let wakeLock = null;
+async function requestWakeLock(){
+  if(!('wakeLock' in navigator)) return;
+  try{
+    wakeLock = await navigator.wakeLock.request('screen');
+    console.log('螢幕鎖定：已啟用（播報期間螢幕不會關閉）');
+  }catch(e){ console.log('Wake lock 無法啟用:', e.message); }
+}
+function releaseWakeLock(){
+  if(wakeLock){ wakeLock.release(); wakeLock=null; }
+}
+// 頁面重新顯示時（切回來）若仍在播報則重新申請
+document.addEventListener('visibilitychange',async()=>{
+  if(document.visibilityState==='visible' && playing) await requestWakeLock();
+});
+
 // ── 播放控制 ──────────────────────────────────────────────────
 function updatePlayBtn(){
   const b=document.getElementById("playBtn");
@@ -533,11 +550,14 @@ function updatePlayBtn(){
 function togglePlay(){if(playing)stopPlay();else startPlay();}
 function startPlay(){
   if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能，請使用 Chrome");return;}
-  playing=true;cancelled=false;updatePlayBtn();playFrom(curIdx);
+  playing=true;cancelled=false;
+  requestWakeLock();
+  updatePlayBtn();playFrom(curIdx);
 }
 function stopPlay(){
   playing=false;cancelled=true;
   if(window.speechSynthesis)speechSynthesis.cancel();
+  releaseWakeLock();
   clearDots(curIdx);clearStatus(curIdx);
   document.querySelectorAll(".wcard.active").forEach(c=>{c.classList.remove("active");});
   updatePlayBtn();
