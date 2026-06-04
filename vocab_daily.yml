@@ -1,4 +1,4 @@
-name: 晨報每日更新
+name: 英文單字日報自動生成
 
 on:
   schedule:
@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # 避免 Node.js 20 deprecation 警告
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
 
 jobs:
-  morning:
+  vocab:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,16 +24,16 @@ jobs:
       - name: 安裝依賴
         run: |
           pip install --upgrade pip
-          pip install feedparser deep-translator requests
-          python -c "import feedparser, deep_translator, requests; print('✓ 依賴確認正常')"
+          pip install deep-translator
+          python -c "import deep_translator; print('✓ 依賴確認正常')"
 
       - name: 執行爬蟲
-        run: python scraper.py
+        run: python vocab_scraper.py
 
       - name: 推送更新
         run: |
-          git config user.name "晨報機器人"
+          git config user.name "單字機器人"
           git config user.email "bot@bot.local"
-          git add 晨報.html
-          git diff --staged --quiet || git commit -m "🗞 $(date '+%Y/%m/%d') 晨報更新"
+          git add 英文單字.html vocab_history.json
+          git diff --staged --quiet || git commit -m "📚 $(date '+%Y/%m/%d') 單字更新"
           git push

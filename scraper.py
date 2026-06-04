@@ -11,8 +11,10 @@ from pathlib import Path
 
 try:
     from deep_translator import GoogleTranslator
+    _HAS_TRANSLATOR = True
 except ImportError:
-    print("請先執行：pip install feedparser deep-translator requests"); sys.exit(1)
+    print("⚠️  deep-translator 未安裝，翻譯將跳過（英文標題直接顯示）")
+    _HAS_TRANSLATOR = False
 
 OUT_HTML = Path(__file__).parent / "晨報.html"
 
@@ -140,16 +142,23 @@ TRANS_DELAY        = 0.4
 # ════════════════════════════════════════════════════════════
 #  工具函式
 # ════════════════════════════════════════════════════════════
-_tr = GoogleTranslator(source="auto", target="zh-TW")
+_tr = GoogleTranslator(source="auto", target="zh-TW") if _HAS_TRANSLATOR else None
 
 def translate(text: str) -> str:
     if not text or not text.strip(): return text
-    try:
-        time.sleep(TRANS_DELAY)
-        return _tr.translate(text[:4500]) or text
-    except Exception as e:
-        print(f"(翻譯失敗:{e})", end=" ")
-        return text
+    if not _tr: return text          # 沒有翻譯器就直接回傳原文
+    for attempt in range(2):
+        try:
+            time.sleep(TRANS_DELAY)
+            result = _tr.translate(text[:4500])
+            return result if result else text
+        except Exception as e:
+            if attempt == 0:
+                time.sleep(2)        # 第一次失敗等2秒再試
+            else:
+                print(f"(翻譯略過:{type(e).__name__})", end=" ")
+                return text          # 第二次失敗就回傳原文，不中斷
+    return text
 
 def parse_date(entry) -> str:
     for f in ("published_parsed","updated_parsed"):
@@ -263,6 +272,52 @@ def process_stock(stock: dict) -> dict:
         if len(entries) < 3:
             entries += fetch_rss(gnews_url(stock["q"].split()[0]))  # 試更短的關鍵字
 
+def extract_content(entry) -> str:
+    """從 RSS entry 取得最完整的文章內容"""
+    parts = []
+
+    # 1. feedparser content 欄位（最完整，部分 RSS 提供全文）
+    content = getattr(entry, 'content', [])
+    if content:
+        c = content[0]
+        val = c.get('value', '') if isinstance(c, dict) else str(c)
+        t = clean(val)
+        if t: parts.append(t)
+
+    # 2. summary / description（通常是摘要段落）
+    for field in ('summary', 'description', 'subtitle'):
+        t = clean(getattr(entry, field, '') or '')
+        if t and t not in ' '.join(parts):
+            parts.append(t)
+
+    # 合併並整理空白
+    combined = ' '.join(parts)
+    combined = re.sub(r'\s{2,}', ' ', combined).strip()
+    return combined
+
+
+def build_detail(entry, need_tr: bool) -> str:
+    """組合文章內容，翻譯並格式化成可讀段落"""
+    text = extract_content(entry)
+    if not text:
+        return ''
+
+    # 保留最多 1200 字元（翻譯前）
+    text = text[:1200]
+
+    # 翻譯（失敗則顯示原文）
+    if need_tr:
+        text = translate(text)
+
+    # 斷句美化：超過 3 句就分段
+    sentences = re.split(r'(?<=[。.!?！？])\s*', text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    if len(sentences) >= 5:
+        mid = len(sentences) // 2
+        return '　　' + ''.join(sentences[:mid]) + '\n　　' + ''.join(sentences[mid:])
+    return '　　' + ''.join(sentences)
+
+
     items, seen = [], set()
     for e in entries[:MAX_STOCK_ITEMS * 3]:
         date    = parse_date(e)
@@ -270,14 +325,13 @@ def process_stock(stock: dict) -> dict:
         title   = clean(getattr(e,"title",""))
         if not title or title in seen: continue
         seen.add(title)
-        summary = clean(getattr(e,"summary","") or getattr(e,"description",""))
         src_obj = getattr(e,"source",{})
         src_name= src_obj.get("title","") if isinstance(src_obj,dict) else str(src_obj)
         link    = getattr(e,"link","")
         items.append({
             "date":     date,
             "headline": translate(title) if need_tr else title,
-            "detail":   translate(summary[:300]) if (need_tr and summary) else summary[:300],
+            "detail":   build_detail(e, need_tr),
             "source":   src_name,
             "link":     link,
         })
@@ -316,6 +370,7 @@ def fetch_industry() -> list:
                     "source":   feed_cfg["name"],
                     "cat":      feed_cfg["cat"],
                     "headline": translate(title) if need_tr else title,
+                    "detail":   build_detail(e, need_tr),
                     "link":     link,
                 })
                 count += 1
@@ -403,6 +458,7 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .iright a{font-family:"Noto Serif TC",serif;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;line-height:1.4;display:block}
 .iright a:hover{text-decoration:underline}
 .idate{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
+.idetail{font-size:12.5px;color:#4a4d54;line-height:1.72;margin-top:5px;white-space:pre-line}
 .catdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:middle}
 .catdot.半導體{background:#3b6abf}.catdot.AI{background:#9b3bde}.catdot.科技{background:#2d9b6a}.catdot.財經{background:#c87c1a}.catdot.台灣{background:#c2402d}
 /* cards */
@@ -423,7 +479,7 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .idate-s{font-family:"Hanken Grotesk";font-size:10.5px;font-weight:700;color:var(--soft);margin-bottom:3px}
 .item h3{font-family:"Noto Serif TC",serif;font-weight:600;font-size:15px;line-height:1.42;margin-bottom:3px}
 .item h3 a{color:inherit;text-decoration:none}.item h3 a:hover{text-decoration:underline}
-.item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.65}
+.item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.75;white-space:pre-line}
 .src{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
 .none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px}
 /* 管理股票抽屜 */
@@ -656,6 +712,7 @@ function renderIndustry(){
       <div class="isrc"><span class="catdot ${a.cat}"></span>${a.source}</div>
       <div class="iright">
         <a href="${a.link}" target="_blank" rel="noopener">${a.headline}</a>
+        ${a.detail?`<div class="idetail">${a.detail}</div>`:''}
         <div class="idate">${fmtD(a.date)}</div>
       </div>
      </div>`).join("");
@@ -1016,21 +1073,37 @@ def generate_html(stocks_data, industry_data, gen_time):
 # ════════════════════════════════════════════════════════════
 def main():
     gen_time = datetime.now().strftime("%Y/%m/%d %H:%M")
-    print(f"\n🗞  晨報爬蟲 v2 — {gen_time}")
-    print(f"   個股 {len(STOCKS)} 檔 + 產業來源 {len(INDUSTRY_FEEDS)} 個\n")
+    print(f"\n🗞  晨報爬蟲 v3 — {gen_time}")
+    print(f"   個股 {len(STOCKS)} 檔 + 產業來源 {len(INDUSTRY_FEEDS)} 個")
+    print(f"   翻譯：{'✓ 啟用' if _HAS_TRANSLATOR else '✗ 停用（英文直顯）'}\n")
 
     print("【個股新聞】")
     stocks_data = []
     for i, s in enumerate(STOCKS, 1):
-        print(f"[{i:2d}/{len(STOCKS)}]", end=" ")
-        stocks_data.append(process_stock(s))
+        try:
+            print(f"[{i:2d}/{len(STOCKS)}] {s['sym']}", end=" ")
+            stocks_data.append(process_stock(s))
+            print()
+        except Exception as e:
+            print(f"⚠️ 失敗({e})，跳過")
+            stocks_data.append({**s, "items":[], "summary":"（暫無資料）", "sentiment":"neutral"})
 
     print("\n【產業動態】")
-    industry_data = fetch_industry()
+    try:
+        industry_data = fetch_industry()
+    except Exception as e:
+        print(f"⚠️ 產業動態抓取失敗：{e}")
+        industry_data = []
 
     print(f"\n✅ 完成！共 {len(industry_data)} 則產業動態，生成 HTML...")
     OUT_HTML.write_text(generate_html(stocks_data, industry_data, gen_time), encoding="utf-8")
-    print(f"📄 輸出：{OUT_HTML}\n   用 Chrome 開啟即可閱覽\n")
+    print(f"📄 輸出：{OUT_HTML}\n")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        print(f"\n❌ 爬蟲發生未預期錯誤：{e}")
+        traceback.print_exc()
+        sys.exit(1)
