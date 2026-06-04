@@ -689,6 +689,12 @@ body{background:var(--bg);color:var(--ink);
   border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;
   transition:.15s;flex:0 0 auto}
 .pb-settings:hover{border-color:var(--ink)}
+.playbar-speed{max-width:640px;margin:0 auto;
+  display:flex;align-items:center;gap:8px;padding:0 16px 10px}
+.speed-icon{font-size:14px;flex:0 0 auto}
+.playbar-speed input[type=range]{flex:1;accent-color:var(--accent);height:3px}
+.speed-val{font-family:"Outfit";font-size:12px;font-weight:800;
+  color:var(--accent);min-width:32px;text-align:right}
 
 /* ── 設定抽屜 ──────────────────────────────────────────── */
 .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:45}
@@ -748,7 +754,7 @@ body{background:var(--bg);color:var(--ink);
 <div class="feed" id="feed"></div>
 
 <div class="foot" id="foot">
-  每段各重複 3 次：英文單字 → 發音拼音 → 中文意思 → 英文例句 → 中文例句
+  每個單字重複 3 次：單字 → 逐字母拼字 → 英文例句 → 中文例句
 </div>
 
 <!-- 設定抽屜 -->
@@ -756,11 +762,6 @@ body{background:var(--bg);color:var(--ink);
 <div class="settings-drawer" id="settingsDrawer">
   <div class="drawer-handle"></div>
   <div class="drawer-title">播報設定</div>
-  <div class="drawer-row">
-    <span>語速</span>
-    <input type="range" min="0.6" max="1.6" step="0.2" value="0.9" oninput="setRate(this.value)">
-    <span class="rval" id="rateLabel">0.9x</span>
-  </div>
   <label class="toggle-label">
     <input type="checkbox" id="autoToggle"> 進入頁面自動播報
   </label>
@@ -773,6 +774,13 @@ body{background:var(--bg);color:var(--ink);
     <button class="pb-play" id="playBtn" onclick="togglePlay()">▶ 播報全部</button>
     <button class="pb-next" onclick="nextWord()">›</button>
     <button class="pb-settings" onclick="toggleSettings()">⚙️</button>
+  </div>
+  <div class="playbar-speed">
+    <span class="speed-icon">🐢</span>
+    <input type="range" min="0.6" max="1.6" step="0.1" value="0.9"
+           oninput="setRate(this.value)" id="rateSlider">
+    <span class="speed-icon">🐇</span>
+    <span class="speed-val" id="rateLabel">0.9x</span>
   </div>
 </div>
 
@@ -887,7 +895,8 @@ function buildCards(){
       </div>
       <div class="word-row">
         <span class="word-en">${w.word}</span>
-        <button class="icon-btn" onclick="sayWord(${i})" title="聆聽">🔊</button>
+        <button class="icon-btn" onclick="sayWord(${i})" title="聆聽單字">🔊</button>
+        <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="font-size:14px;border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
         <button class="icon-btn mic" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)">🎤 練習</button>
       </div>
       <div class="ipa">${w.ipa}</div>
@@ -974,9 +983,26 @@ function clearStatus(idx){const el=document.getElementById("status-"+idx);if(el)
 // ── TTS ──────────────────────────────────────────────────────
 function enVoice(){const vs=speechSynthesis.getVoices();return vs.find(v=>v.lang==="en-US")||vs.find(v=>/en/i.test(v.lang));}
 function zhVoice(){const vs=speechSynthesis.getVoices();return vs.find(v=>/zh-TW|zh_TW/i.test(v.lang))||vs.find(v=>/zh/i.test(v.lang));}
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+async function sayWord(i){speechSynthesis.cancel();const w=filteredWords()[i];await speakDirect(w.word,"en-US");}
+async function saySpell(i){
+  speechSynthesis.cancel();
+  const w=filteredWords()[i];
+  for(const letter of w.word.toUpperCase()){
+    await speakDirect(letter,"en-US"); await pause(220);
+  }
+}
+async function sayExample(i){speechSynthesis.cancel();const w=filteredWords()[i];await speakDirect(w.example,"en-US");}
+function sayText(enc,lang){
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(decodeURIComponent(enc));
+  u.lang=lang;const v=lang.startsWith("zh")?zhVoice():enVoice();if(v)u.voice=v;
+  try{speechSynthesis.resume();}catch(_){}speechSynthesis.speak(u);
+}
+// 播放時用（檢查 playing flag）
 function speak(text,lang){
   return new Promise(res=>{
-    if(!playing&&lang!=="direct"){res();return;}
+    if(!playing){res();return;}
     const u=new SpeechSynthesisUtterance(text);
     u.lang=lang;u.rate=rate;
     const v=lang.startsWith("zh")?zhVoice():enVoice(); if(v)u.voice=v;
@@ -985,10 +1011,17 @@ function speak(text,lang){
     speechSynthesis.speak(u);
   });
 }
-const pause=ms=>new Promise(r=>setTimeout(r,ms));
-async function sayWord(i){speechSynthesis.cancel();const w=filteredWords()[i];await speak(w.word,"en-US");}
-async function sayExample(i){speechSynthesis.cancel();const w=filteredWords()[i];await speak(w.example,"en-US");}
-function sayText(enc,lang){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(decodeURIComponent(enc));u.lang=lang;const v=lang.startsWith("zh")?zhVoice():enVoice();if(v)u.voice=v;try{speechSynthesis.resume();}catch(_){}speechSynthesis.speak(u);}
+// 直接播放用（不檢查 playing flag）
+function speakDirect(text,lang){
+  return new Promise(res=>{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang;u.rate=rate;
+    const v=lang.startsWith("zh")?zhVoice():enVoice(); if(v)u.voice=v;
+    u.onend=res;u.onerror=res;
+    try{speechSynthesis.resume();}catch(_){}
+    speechSynthesis.speak(u);
+  });
+}
 
 // ── 播放控制 ──────────────────────────────────────────────────
 function updatePlayBtn(){
@@ -1011,29 +1044,50 @@ function prevWord(){stopPlay();if(curIdx>0){curIdx--;setActive(curIdx);}}
 function nextWord(){stopPlay();if(curIdx<filteredWords().length-1){curIdx++;setActive(curIdx);}}
 function setRate(v){rate=parseFloat(v);document.getElementById("rateLabel").textContent=v+"x";}
 
-const SECTIONS=[
-  {label:"🔤 英文單字",fn:(w)=>speak(w.word,"en-US"),gap:400},
-  {label:"🗣 發音拼音",fn:(w)=>speak(w.phonetic,"en-US"),gap:350},
-  {label:"🇹🇼 中文意思",fn:(w)=>speak(w.zh,"zh-TW"),gap:350},
-  {label:"📖 英文例句",fn:(w)=>speak(w.example,"en-US"),gap:450},
-  {label:"📝 中文例句",fn:(w)=>speak(w.example_zh,"zh-TW"),gap:500},
-];
+// 逐字母拼出單字（A-G-E-N-D-A）
+async function spellWord(word){
+  for(const letter of word.toUpperCase()){
+    if(!playing&&letter!==word[0])return;
+    await speak(letter,"en-US");
+    await pause(180);
+  }
+}
+
+// 播放順序：每個單字重複 3 次
+// 每次：單字 → 拼字 → 英文例句 → 中文例句
 async function playFrom(startIdx){
   const words=filteredWords();
   for(let i=startIdx;i<words.length;i++){
     if(!playing||cancelled)return;
     const w=words[i];
     setActive(i);clearDots(i);
-    for(const sec of SECTIONS){
-      for(let rep=0;rep<REPS;rep++){
-        if(!playing||cancelled)return;
-        setStatus(i,sec.label,rep+1);
-        await sec.fn(w);
-        await pause(sec.gap);
-      }
+
+    for(let rep=0;rep<REPS;rep++){
+      if(!playing||cancelled)return;
+      setDot(i,rep);
+
+      // 1. 單字
+      setStatus(i,`🔤 單字`,`${rep+1}/3`);
+      await speak(w.word,"en-US"); await pause(500);
+      if(!playing||cancelled)return;
+
+      // 2. 逐字母拼字
+      setStatus(i,`🔡 拼字`,`${rep+1}/3`);
+      await spellWord(w.word); await pause(400);
+      if(!playing||cancelled)return;
+
+      // 3. 英文例句
+      setStatus(i,`📖 英文例句`,`${rep+1}/3`);
+      await speak(w.example,"en-US"); await pause(450);
+      if(!playing||cancelled)return;
+
+      // 4. 中文例句
+      setStatus(i,`📝 中文例句`,`${rep+1}/3`);
+      await speak(w.example_zh,"zh-TW"); await pause(600);
     }
+
     setStatus(i,"✅ 完成","");
-    await pause(600);
+    await pause(800);
   }
   if(playing)stopPlay();
 }
