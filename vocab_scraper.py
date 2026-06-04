@@ -824,7 +824,6 @@ function sayText(enc, lang){
   try{speechSynthesis.resume();}catch(_){}
   speechSynthesis.speak(u);
 }
-function filteredWords(){return curCat==="全部"?WORDS:WORDS.filter(w=>w.category===curCat);}
 
 // ── 建立卡片 ─────────────────────────────────────────────────
 function buildCards(){
@@ -837,7 +836,7 @@ function buildCards(){
   words.forEach((w,i)=>{
     if(curDate==="全部" && w._date!==lastDate){
       lastDate=w._date;
-      html+=`<div class="date-header">${fmtDate(w._date)} · ${ALL_DATA[w._date]?.length||0} 個單字</div>`;
+      html+=`<div class="date-header">${fmtDate(w._date)} · ${getWords(w._date).length} 個單字</div>`;
     }
     // 用 data 屬性存文字，避免引號轉義問題
     const wEnc = encodeURIComponent(w.word);
