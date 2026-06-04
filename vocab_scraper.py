@@ -493,202 +493,300 @@ def daily_grammar():
 # ══════════════════════════════════════════════════════════════
 #  HTML 樣板
 # ══════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════════════
+#  HTML 樣板  (重設計版)
+# ══════════════════════════════════════════════════════════════
 HTML = r"""<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>英文單字日報</title>
+<title>英文學習日報</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f0f4f8;--card:#fff;--ink:#191b1f;--soft:#5a6270;--line:#e2e6ea;
-  --up:#1f7a4d;--accent:#1a56c4;--orange:#c45f1a;--red:#c2402d}
+:root{
+  --bg:#F7F6F3; --card:#FFFFFF; --ink:#1C1917; --muted:#78716C;
+  --border:#E7E5E4; --accent:#4F46E5; --gold:#B45309;
+  --green:#15803D; --red:#DC2626; --orange:#C2410C;
+  --accent-light:#EEF2FF; --gold-light:#FFFBEB;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Grotesk",sans-serif;min-height:100vh}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC","Outfit",sans-serif;
+  min-height:100vh;line-height:1.6;padding-bottom:90px}
 
-/* header */
-.header{background:var(--accent);color:#fff;padding:14px 16px 0;position:sticky;top:0;z-index:20}
-.header-top{display:flex;align-items:center;gap:10px;max-width:600px;margin:0 auto;padding-bottom:10px}
-.logo-text{font-family:"Hanken Grotesk";font-weight:800;font-size:16px;letter-spacing:.04em}
-.logo-sub{font-size:11px;opacity:.8;margin-top:1px}
-.date-badge{margin-left:auto;font-family:"Hanken Grotesk";font-size:11.5px;opacity:.85}
-/* 主分頁 */
-.main-tabs{display:flex;max-width:600px;margin:0 auto;border-top:1px solid rgba(255,255,255,.2)}
-.mtab{flex:1;background:none;border:none;color:rgba(255,255,255,.7);font-family:inherit;
-  font-size:14px;font-weight:700;padding:10px 0;cursor:pointer;position:relative;transition:.15s}
-.mtab:hover{color:#fff}
-.mtab.on{color:#fff}
-.mtab.on::after{content:"";position:absolute;left:20%;right:20%;bottom:0;height:3px;
-  background:#fff;border-radius:2px}
-/* grammar */
-.grammar-card{border-left:3px solid var(--orange)}
-.gcat-tag{display:inline-block;font-family:"Hanken Grotesk";font-size:10.5px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;background:#fef3e8;color:var(--orange);
-  border-radius:6px;padding:2px 8px}
-.g-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:19px;margin-bottom:6px}
-.g-rule{font-size:14px;color:#2c2f36;line-height:1.65;margin-bottom:8px;
-  background:#f8f9fa;border-radius:8px;padding:8px 10px}
-.g-pattern{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:10px}
-.g-pattern code{background:#e8f0fe;border-radius:6px;padding:2px 8px;font-family:monospace}
-.g-examples-label{font-family:"Hanken Grotesk";font-size:10.5px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:5px}
-.g-example{margin-bottom:8px;padding:8px 10px;background:var(--bg);border-radius:8px}
-.g-en{font-size:14.5px;color:var(--ink);line-height:1.55;display:flex;align-items:flex-start;gap:6px}
-.g-zh{font-size:13px;color:var(--soft);margin-top:2px;margin-left:26px}
-.g-compare{background:#fff5f5;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13px}
-.g-wrong{color:var(--red);margin-bottom:4px}
-.g-right{color:var(--up);font-weight:600}
-.g-tip{font-size:13px;background:#fffbea;border-radius:8px;padding:8px 10px;
-  color:#7a5800;font-weight:500;line-height:1.6}
+/* ── 頁首 ───────────────────────────────────────────────── */
+.header{background:#fff;border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:30}
+.header-inner{max-width:640px;margin:0 auto;padding:0 16px;
+  display:flex;align-items:center;gap:12px;height:52px}
+.logo{font-family:"Outfit";font-weight:800;font-size:17px;
+  letter-spacing:-.02em;color:var(--ink)}
+.logo span{color:var(--accent)}
+.hdate{margin-left:auto;font-family:"Outfit";font-size:12px;
+  font-weight:600;color:var(--muted);letter-spacing:.04em}
 
-/* progress */
-.progress-bar-wrap{max-width:600px;margin:10px auto 0;background:rgba(255,255,255,.25);border-radius:8px;height:5px;overflow:hidden}
-.progress-bar{height:100%;background:#fff;border-radius:8px;transition:width .4s}
-.progress-text{font-family:"Hanken Grotesk";font-size:12px;opacity:.85;margin-top:5px;text-align:center;max-width:600px;margin-left:auto;margin-right:auto}
+/* ── 分頁 ───────────────────────────────────────────────── */
+.tabs{background:#fff;border-bottom:2px solid var(--border);
+  display:flex;max-width:640px;margin:0 auto;padding:0 16px;gap:0;position:sticky;top:52px;z-index:28}
+.tab-btn{flex:1;background:none;border:none;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:700;color:var(--muted);
+  padding:12px 0;position:relative;transition:color .2s}
+.tab-btn.on{color:var(--accent)}
+.tab-btn.on::after{content:"";position:absolute;left:25%;right:25%;
+  bottom:-2px;height:2.5px;background:var(--accent);border-radius:2px}
+.tab-btn:hover:not(.on){color:var(--ink)}
 
-/* controls */
-.controls{background:#fff;border-bottom:1px solid var(--line);padding:10px 16px}
-.controls-inner{max-width:600px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.btn{border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;border-radius:20px;padding:8px 16px;transition:.15s}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:active{opacity:.8}
-.btn-outline{background:none;border:1.5px solid var(--line);color:var(--ink)}
-.btn-outline:active{background:var(--bg)}
-.btn-outline.active{border-color:var(--accent);color:var(--accent)}
-.speed-wrap{display:flex;align-items:center;gap:6px;font-family:"Hanken Grotesk";font-size:12px;color:var(--soft);margin-left:auto}
-.speed-wrap input{width:70px;accent-color:var(--accent)}
-.auto-wrap{display:flex;align-items:center;gap:5px;font-family:"Hanken Grotesk";font-size:12.5px;font-weight:600;color:var(--soft)}
-.auto-wrap input{width:16px;height:16px;cursor:pointer;accent-color:var(--accent)}
+/* ── 進度列 ────────────────────────────────────────────── */
+.progress-wrap{background:#fff;border-bottom:1px solid var(--border);
+  padding:8px 16px}
+.progress-track{max-width:640px;margin:0 auto;
+  display:flex;align-items:center;gap:10px}
+.progress-bar-bg{flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s}
+.progress-label{font-family:"Outfit";font-size:12px;font-weight:700;
+  color:var(--muted);white-space:nowrap;min-width:60px;text-align:right}
 
-/* 篩選列 */
-.filter-bar{background:#fff;border-bottom:1px solid var(--line);padding:8px 16px;display:flex;flex-direction:column;gap:6px}
-.filter-inner{max-width:600px;margin:0 auto;width:100%;display:flex;align-items:center;gap:8px}
-.filter-label{font-family:"Hanken Grotesk";font-size:11px;font-weight:800;color:var(--soft);
-  letter-spacing:.06em;white-space:nowrap;text-transform:uppercase;min-width:30px}
-.filter-chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;flex:1}
-.filter-chips::-webkit-scrollbar{display:none}
-.cat-btn,.date-btn{flex:0 0 auto;background:none;border:1.5px solid var(--line);border-radius:16px;
-  cursor:pointer;font-family:"Hanken Grotesk";font-size:12px;font-weight:600;color:var(--soft);
-  padding:4px 11px;white-space:nowrap;transition:.15s}
-.cat-btn:hover,.date-btn:hover{border-color:var(--accent);color:var(--accent)}
-.cat-btn.on,.date-btn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-/* 日期區塊標題 */
-.date-header{font-family:"Hanken Grotesk";font-weight:800;font-size:13px;
-  letter-spacing:.06em;color:var(--soft);padding:18px 4px 8px;
-  border-bottom:2px solid var(--line);margin-bottom:2px}
+/* ── 篩選列 ────────────────────────────────────────────── */
+.filters{background:#fff;border-bottom:1px solid var(--border);
+  padding:8px 16px;display:flex;flex-direction:column;gap:7px}
+.filter-row{max-width:640px;margin:0 auto;width:100%;
+  display:flex;align-items:center;gap:10px}
+.filter-label{font-family:"Outfit";font-size:11px;font-weight:800;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  white-space:nowrap;min-width:30px}
+.chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;flex:1}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font-family:"Outfit";font-size:12px;font-weight:600;
+  padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);
+  background:#fff;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* word cards */
-.wrap{max-width:600px;margin:0 auto;padding:14px 14px 60px}
-.card{background:var(--card);border-radius:18px;padding:20px;margin-bottom:12px;border:1px solid var(--line);transition:box-shadow .2s,border-color .2s;scroll-margin-top:170px}
-.card.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(26,86,196,.18)}
-.card.done{opacity:.55}
+/* ── 主內容 ────────────────────────────────────────────── */
+.feed{max-width:640px;margin:0 auto;padding:16px 16px 24px}
 
-/* word display */
-.cat-tag{display:inline-block;font-family:"Hanken Grotesk";font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:2px 8px;margin-bottom:8px}
-.cat-tag.會議{background:#e8f0fe;color:#1a56c4}
-.cat-tag.商業{background:#fef3e8;color:#c45f1a}
-.cat-tag.科技{background:#e8fef3;color:#1f7a4d}
-.cat-tag.財經{background:#fde8e8;color:#c2402d}
-.cat-tag.生活{background:#f3e8fe;color:#7c3aed}
+/* ── 日期分組標題 ──────────────────────────────────────── */
+.date-hdr{font-family:"Outfit";font-size:12px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  padding:20px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px}
 
-.word-num{font-family:"Hanken Grotesk";font-size:12px;font-weight:700;color:var(--soft);margin-bottom:4px}
-.word-en{font-family:"Hanken Grotesk";font-weight:800;font-size:32px;letter-spacing:-.01em;line-height:1.1;margin-bottom:4px;display:flex;align-items:center;gap:10px}
-.word-en .say-btn{font-size:20px;background:none;border:none;cursor:pointer;opacity:.5;padding:0;transition:opacity .15s}
-.word-en .say-btn:hover{opacity:1}
-.ipa{font-family:"Hanken Grotesk";font-size:14px;color:var(--soft);margin-bottom:2px}
-.phonetic{font-family:"Hanken Grotesk";font-size:13px;color:var(--accent);font-weight:600;background:#e8f0fe;border-radius:8px;padding:3px 10px;display:inline-block;margin-bottom:10px}
-.zh-meaning{font-family:"Noto Serif TC",serif;font-size:19px;font-weight:700;margin-bottom:12px;border-left:3px solid var(--accent);padding-left:10px}
-.example-label{font-family:"Hanken Grotesk";font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
-.example-en{font-size:14.5px;color:#2c2f36;line-height:1.6;margin-bottom:3px;display:flex;align-items:flex-start;gap:8px}
-.example-en .say-btn{font-size:15px;flex:0 0 auto;margin-top:2px;background:none;border:none;cursor:pointer;opacity:.45;transition:opacity .15s}
-.example-en .say-btn:hover{opacity:.9}
-.example-zh{font-size:13px;color:var(--soft);line-height:1.55}
-.rep-dots{display:flex;gap:5px;margin-top:8px}
-.rep-dot{width:8px;height:8px;border-radius:50%;background:var(--line);transition:.2s}
-.rep-dot.done{background:var(--accent)}
+/* ── 單字卡片 ───────────────────────────────────────────── */
+.wcard{background:var(--card);border-radius:20px;padding:20px 20px 16px;
+  margin-bottom:10px;border:1px solid var(--border);
+  transition:box-shadow .25s,border-color .25s;scroll-margin-top:180px}
+.wcard.active{border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-light),0 4px 16px rgba(79,70,229,.1)}
+.wcard.done{opacity:.5}
 
-.foot{text-align:center;font-size:11px;color:var(--soft);padding:10px 0}
-.play-status{margin-top:10px;background:#e8f0fe;border-radius:10px;padding:7px 12px;
-  font-family:"Hanken Grotesk";font-size:13px;font-weight:600;color:var(--accent);
-  display:flex;align-items:center;gap:8px}
-.play-status.hidden{display:none}
-/* 發音練習 */
-.mic-btn{background:none;border:1.5px solid var(--line);border-radius:16px;cursor:pointer;
-  font-size:13px;padding:2px 9px;color:var(--soft);font-family:inherit;font-weight:600;
-  transition:.15s;margin-left:4px;vertical-align:middle}
-.mic-btn:hover{border-color:var(--accent);color:var(--accent)}
-.mic-btn:disabled{opacity:.4;cursor:default}
-.rec-result{margin:5px 0 8px}
+.card-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px}
+.card-num{font-family:"Outfit";font-size:11px;font-weight:800;
+  letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding-top:2px}
+.cat-chip{margin-left:auto;font-family:"Outfit";font-size:10px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:3px 8px}
+.cat-chip.會議{background:var(--accent-light);color:var(--accent)}
+.cat-chip.商業{background:#FEF3C7;color:#92400E}
+.cat-chip.科技{background:#D1FAE5;color:#065F46}
+.cat-chip.財經{background:#FEE2E2;color:#991B1B}
+.cat-chip.生活{background:#F3E8FF;color:#6B21A8}
+
+.word-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.word-en{font-family:"Outfit";font-weight:800;font-size:30px;
+  letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.icon-btn{background:none;border:none;cursor:pointer;font-size:18px;
+  opacity:.45;padding:2px;transition:opacity .15s;line-height:1}
+.icon-btn:hover{opacity:.9}
+.icon-btn.mic{font-size:15px;border:1.5px solid var(--border);border-radius:12px;
+  padding:2px 8px;opacity:.6;font-family:"Outfit";font-weight:700;font-size:11px;color:var(--muted)}
+.icon-btn.mic:hover{border-color:var(--accent);color:var(--accent);opacity:1}
+.icon-btn.mic:disabled{opacity:.3;cursor:default}
+
+.ipa{font-family:"Outfit";font-size:13px;color:var(--muted);
+  letter-spacing:.02em;margin-bottom:6px}
+.phonetic-pill{display:inline-block;background:var(--gold-light);
+  color:var(--gold);font-family:"Outfit";font-size:12.5px;font-weight:700;
+  border-radius:8px;padding:3px 10px;margin-bottom:12px;border:1px solid #FDE68A}
+
+.meaning{font-family:"Noto Serif TC",serif;font-size:18px;font-weight:700;
+  color:var(--ink);margin-bottom:14px;line-height:1.5}
+
+.example-section{}
+.ex-label{font-family:"Outfit";font-size:10px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ex-en{font-size:14px;color:var(--ink);line-height:1.65;
+  display:flex;align-items:flex-start;gap:8px;margin-bottom:3px}
+.ex-en span{flex:1}
+.ex-zh{font-size:13px;color:var(--muted);line-height:1.55;margin-left:0}
+
+.rec-result{margin:8px 0}
 .rec-box{background:var(--bg);border-radius:12px;padding:10px 13px;font-size:13px;line-height:1.6}
-.rec-listening{animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-.rec-score{font-weight:700;font-size:14px;margin-bottom:5px}
-.rec-row{display:flex;gap:6px;margin-top:3px;flex-wrap:wrap}
-.rec-lbl{font-weight:600;color:var(--soft);white-space:nowrap}
+.rec-box.rec-listening{animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.rec-score{font-family:"Outfit";font-weight:800;font-size:14px;margin-bottom:5px}
+.rec-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;font-size:12.5px}
+.rec-lbl{font-weight:700;color:var(--muted);white-space:nowrap}
+
+.rep-dots{display:flex;gap:5px;margin-top:10px;padding-top:10px;
+  border-top:1px solid var(--border)}
+.rdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.25s}
+.rdot.lit{background:var(--accent)}
+.play-status{margin-top:8px;padding:7px 12px;background:var(--accent-light);
+  border-radius:10px;font-family:"Outfit";font-size:12.5px;font-weight:700;
+  color:var(--accent);display:flex;justify-content:space-between}
+.play-status.hidden{display:none}
+
+/* ── 文法卡片 ───────────────────────────────────────────── */
+.gcard{background:var(--card);border-radius:20px;padding:20px;
+  margin-bottom:10px;border:1px solid var(--border);
+  border-left:3px solid var(--gold)}
+.today-badge{display:inline-block;font-family:"Outfit";font-size:10px;
+  font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--accent-light);color:var(--accent);border-radius:8px;padding:2px 8px}
+.gcat-chip{display:inline-block;font-family:"Outfit";font-size:10px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;background:var(--gold-light);
+  color:var(--gold);border-radius:8px;padding:2px 8px;border:1px solid #FDE68A}
+.g-title{font-family:"Noto Serif TC",serif;font-size:19px;font-weight:700;
+  margin:8px 0 8px;line-height:1.4}
+.g-rule{font-size:13.5px;color:#292524;line-height:1.7;margin-bottom:10px;
+  background:#FAFAF9;border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
+.g-pattern-wrap{margin-bottom:12px}
+.g-pattern-label{font-family:"Outfit";font-size:10px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.g-pattern{font-family:"Outfit";font-size:13px;color:var(--accent);font-weight:600;
+  background:var(--accent-light);border-radius:8px;padding:6px 12px;
+  display:block;line-height:1.5}
+.g-ex-label{font-family:"Outfit";font-size:10px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.g-ex{background:var(--bg);border-radius:10px;padding:10px 12px;margin-bottom:7px}
+.g-ex-en{font-size:14px;color:var(--ink);line-height:1.6;
+  display:flex;align-items:flex-start;gap:7px}
+.g-ex-zh{font-size:12.5px;color:var(--muted);margin-top:3px;margin-left:26px}
+.g-compare{background:#FFF5F5;border-radius:10px;padding:11px 13px;
+  margin:10px 0;font-size:13px}
+.g-wrong{color:var(--red);margin-bottom:5px;line-height:1.55}
+.g-right{color:var(--green);font-weight:700;line-height:1.55}
+.g-tip{font-size:13px;background:#FFFBEB;border-radius:10px;
+  padding:10px 13px;color:#78350F;line-height:1.65;border:1px solid #FDE68A}
+
+/* ── 底部播放列 ────────────────────────────────────────── */
+.playbar{position:fixed;bottom:0;left:0;right:0;z-index:40;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  border-top:1px solid var(--border)}
+.playbar-inner{max-width:640px;margin:0 auto;padding:8px 16px;
+  display:flex;align-items:center;gap:8px}
+.pb-prev,.pb-next{background:none;border:1.5px solid var(--border);
+  border-radius:50%;width:38px;height:38px;font-size:16px;font-weight:700;
+  cursor:pointer;color:var(--ink);transition:.15s;flex:0 0 auto}
+.pb-prev:hover,.pb-next:hover{border-color:var(--accent);color:var(--accent)}
+.pb-play{flex:1;background:var(--accent);color:#fff;border:none;
+  border-radius:24px;height:44px;font-family:"Outfit";font-size:14px;
+  font-weight:800;cursor:pointer;letter-spacing:.02em;transition:opacity .15s}
+.pb-play:active{opacity:.8}
+.pb-settings{background:none;border:1.5px solid var(--border);
+  border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;
+  transition:.15s;flex:0 0 auto}
+.pb-settings:hover{border-color:var(--ink)}
+
+/* ── 設定抽屜 ──────────────────────────────────────────── */
+.settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:45}
+.settings-overlay.open{display:block}
+.settings-drawer{position:fixed;bottom:-200px;left:0;right:0;z-index:50;
+  background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 36px;
+  transition:bottom .3s cubic-bezier(.32,.72,0,1);border-top:1px solid var(--border)}
+.settings-drawer.open{bottom:0}
+.drawer-handle{width:36px;height:4px;background:var(--border);border-radius:4px;
+  margin:0 auto 18px}
+.drawer-title{font-family:"Outfit";font-weight:800;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;
+  max-width:640px;margin-left:auto;margin-right:auto}
+.drawer-row{display:flex;align-items:center;gap:12px;max-width:640px;
+  margin:0 auto 12px;font-family:"Outfit";font-size:14px;font-weight:600;color:var(--ink)}
+.drawer-row input[type=range]{flex:1;accent-color:var(--accent)}
+.drawer-row .rval{min-width:36px;font-weight:800;color:var(--accent);font-size:14px}
+.toggle-label{display:flex;align-items:center;gap:8px;cursor:pointer;
+  max-width:640px;margin:0 auto}
+.toggle-label input{width:18px;height:18px;cursor:pointer;accent-color:var(--accent)}
+
+.foot{text-align:center;font-size:11px;color:var(--muted);padding:12px 16px;
+  line-height:1.7;max-width:640px;margin:0 auto}
+.empty-msg{text-align:center;padding:48px 16px;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-top">
-    <div><div class="logo-text">📚 英文學習日報</div><div class="logo-sub">單字 · 文法 · 商務英文</div></div>
-    <div class="date-badge" id="dateBadge"></div>
+  <div class="header-inner">
+    <div class="logo">📚 <span>英文</span>學習日報</div>
+    <div class="hdate" id="dateBadge">__DATE__</div>
   </div>
-  <!-- 主分頁 -->
-  <div class="main-tabs" id="mainTabs"></div>
 </div>
 
-<div id="playControls">
-<div class="controls">
-  <div class="controls-inner">
-    <button class="btn btn-primary" id="playBtn" onclick="togglePlay()">▶ 開始播報</button>
-    <button class="btn btn-outline" onclick="prevWord()">‹ 上一個</button>
-    <button class="btn btn-outline" onclick="nextWord()">下一個 ›</button>
-    <div class="speed-wrap">
-      <span>語速</span>
-      <input type="range" min="0.6" max="1.6" step="0.2" value="0.9" oninput="setRate(this.value)">
-      <span id="rateLabel">0.9x</span>
-    </div>
-    <label class="auto-wrap" title="開啟後進入頁面自動播報">
-      <input type="checkbox" id="autoToggle"> 自動播報
-    </label>
-  </div>
-</div>
-</div>
+<div class="tabs" id="mainTabs"></div>
 
 <div id="subBars">
-<div class="filter-bar">
-  <div class="filter-inner">
-    <span class="filter-label">主題</span>
-    <div class="filter-chips" id="catBar"></div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+      <div class="progress-label" id="progressText">0 / 30</div>
+    </div>
   </div>
-  <div class="filter-inner">
-    <span class="filter-label">日期</span>
-    <div class="filter-chips" id="dateBar"></div>
+  <div class="filters">
+    <div class="filter-row">
+      <span class="filter-label">主題</span>
+      <div class="chips" id="catBar"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">日期</span>
+      <div class="chips" id="dateBar"></div>
+    </div>
   </div>
-</div>
 </div>
 
-<div class="wrap" id="feed"></div>
-<div class="foot">每段各重複 3 次：英文單字 → 發音拼音 → 中文意思 → 英文例句 → 中文例句<br>生成：__DATE__</div>
+<div class="feed" id="feed"></div>
+
+<div class="foot" id="foot">
+  每段各重複 3 次：英文單字 → 發音拼音 → 中文意思 → 英文例句 → 中文例句
+</div>
+
+<!-- 設定抽屜 -->
+<div class="settings-overlay" id="settingsOverlay" onclick="toggleSettings()"></div>
+<div class="settings-drawer" id="settingsDrawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title">播報設定</div>
+  <div class="drawer-row">
+    <span>語速</span>
+    <input type="range" min="0.6" max="1.6" step="0.2" value="0.9" oninput="setRate(this.value)">
+    <span class="rval" id="rateLabel">0.9x</span>
+  </div>
+  <label class="toggle-label">
+    <input type="checkbox" id="autoToggle"> 進入頁面自動播報
+  </label>
+</div>
+
+<!-- 底部播放列（僅單字分頁顯示） -->
+<div class="playbar" id="playbar">
+  <div class="playbar-inner">
+    <button class="pb-prev" onclick="prevWord()">‹</button>
+    <button class="pb-play" id="playBtn" onclick="togglePlay()">▶ 播報全部</button>
+    <button class="pb-next" onclick="nextWord()">›</button>
+    <button class="pb-settings" onclick="toggleSettings()">⚙️</button>
+  </div>
+</div>
 
 <script>
-const ALL_DATA = __ALL_DATA_JSON__;   // {date: {words:[...], grammar:[...]}, ...}
+const ALL_DATA = __ALL_DATA_JSON__;
 const CATS  = ["全部","會議","商業","科技","財經","生活"];
 const REPS  = 3;
 let curCat="全部", curDate="全部", curTab="單字", curIdx=0, rate=0.9, playing=false, cancelled=false;
 
-// 所有日期，由新到舊
 const ALL_DATES = Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
-
-// 取某日的單字（相容舊格式）
 function getWords(d){ const v=ALL_DATA[d]; return Array.isArray(v)?v:(v?.words||[]); }
 function getGrammar(d){ const v=ALL_DATA[d]; return Array.isArray(v)?[]:(v?.grammar||[]); }
 
-// 初始化
+// ── 初始化 ──────────────────────────────────────────────────
 document.getElementById("dateBadge").textContent = "__DATE__";
 buildMainTabs();
 buildCatBar();
@@ -696,270 +794,240 @@ buildDateBar();
 buildCards();
 updateProgress(0);
 
-// 自動播報設定
 const autoToggle = document.getElementById("autoToggle");
 autoToggle.checked = localStorage.getItem("vocabAuto")==="1";
 autoToggle.addEventListener("change",()=>localStorage.setItem("vocabAuto",autoToggle.checked?"1":"0"));
 if(localStorage.getItem("vocabAuto")==="1") setTimeout(()=>startPlay(), 1200);
+if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
 
-// ── 主分頁（單字 / 文法） ────────────────────────────────────
+// ── 設定抽屜 ─────────────────────────────────────────────────
+function toggleSettings(){
+  const drawer=document.getElementById("settingsDrawer");
+  const overlay=document.getElementById("settingsOverlay");
+  const open=drawer.classList.toggle("open");
+  overlay.classList.toggle("open",open);
+}
+
+// ── 主分頁 ───────────────────────────────────────────────────
 function buildMainTabs(){
-  document.getElementById("mainTabs").innerHTML=
-    ["單字","文法"].map(t=>
-      `<button class="mtab${t===curTab?" on":""}" onclick="setTab('${t}')">${t==="單字"?"📚 單字":"📐 文法"}</button>`
-    ).join("");
+  document.getElementById("mainTabs").innerHTML=["單字","文法"].map(t=>
+    `<button class="tab-btn${t===curTab?" on":""}" onclick="setTab('${t}')">${t==="單字"?"📚 單字":"📐 文法"}</button>`
+  ).join("");
 }
 function setTab(t){
   curTab=t; stopPlay(); curIdx=0;
   buildMainTabs();
-  const subBars=document.getElementById("subBars");
-  subBars.style.display=t==="單字"?"":"none";
-  document.getElementById("playControls").style.display=t==="單字"?"":"none";
-  if(t==="單字") buildCards();
+  const sub=document.getElementById("subBars");
+  const bar=document.getElementById("playbar");
+  sub.style.display=t==="單字"?"":"none";
+  if(bar) bar.style.display=t==="單字"?"":"none";
+  if(t==="單字"){ buildCards(); updateProgress(0); }
   else buildGrammarCards();
 }
 
-// ── 日期篩選 ─────────────────────────────────────────────────
+// ── 篩選 ─────────────────────────────────────────────────────
 function fmtDate(iso){
   const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||"");
   if(!m) return iso;
-  const d=new Date(+m[1],+m[2]-1,+m[3]);
-  const days=["日","一","二","三","四","五","六"];
-  return `${m[2]}/${m[3]} 週${days[d.getDay()]}`;
+  const d=new Date(+m[1],+m[2]-1,+m[3]),w=["日","一","二","三","四","五","六"];
+  return `${m[2]}/${m[3]} 週${w[d.getDay()]}`;
 }
-function buildDateBar(){
-  const bar=document.getElementById("dateBar");
-  const btns=[{k:"全部",l:`全部（${ALL_DATES.length}天）`},...ALL_DATES.map(d=>({k:d,l:fmtDate(d)}))];
-  bar.innerHTML = btns.map(b=>
-    `<button class="date-btn${b.k===curDate?" on":""}" onclick="setDate('${b.k}')">${b.l}</button>`
-  ).join("");
-}
-function setDate(d){
-  curDate=d; curIdx=0; stopPlay();
-  document.querySelectorAll(".date-btn").forEach(b=>b.classList.toggle("on",b.dataset?.d===d||b.textContent.startsWith(d==="全部"?"全部":fmtDate(d))));
-  buildDateBar();
-  buildCards();
-  updateProgress(0);
-}
-
-// ── 類別篩選 ─────────────────────────────────────────────────
 function buildCatBar(){
   const all=filteredWords();
   const cnt={}; all.forEach(w=>{cnt[w.category]=(cnt[w.category]||0)+1;});
-  document.getElementById("catBar").innerHTML = CATS.map(c=>{
+  document.getElementById("catBar").innerHTML=CATS.map(c=>{
     const n=c==="全部"?all.length:(cnt[c]||0);
-    return `<button class="cat-btn${c===curCat?" on":""}" onclick="setCat('${c}')">${c}<span style="font-size:10px;opacity:.7;margin-left:3px">${n}</span></button>`;
+    return `<button class="chip${c===curCat?" on":""}" onclick="setCat('${c}')">${c} <span style="opacity:.65;font-size:10px">${n}</span></button>`;
   }).join("");
 }
 function buildDateBar(){
   const btns=[{k:"全部",l:`全部（${ALL_DATES.length}天）`},...ALL_DATES.map(d=>({k:d,l:fmtDate(d)}))];
-  document.getElementById("dateBar").innerHTML = btns.map(b=>
-    `<button class="date-btn${b.k===curDate?" on":""}" onclick="setDate('${b.k}')">${b.l}</button>`
+  document.getElementById("dateBar").innerHTML=btns.map(b=>
+    `<button class="chip${b.k===curDate?" on":""}" onclick="setDate('${b.k}')">${b.l}</button>`
   ).join("");
 }
-function setCat(cat){
-  curCat=cat; curIdx=0; stopPlay();
-  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.toggle("on",b.textContent.startsWith(cat)));
-  buildCards(); updateProgress(0);
-}
+function setCat(c){curCat=c;curIdx=0;stopPlay();buildCatBar();buildCards();updateProgress(0);}
+function setDate(d){curDate=d;curIdx=0;stopPlay();buildDateBar();buildCards();updateProgress(0);}
 
-// 依日期+類別篩選出單字（含日期欄位）
 function filteredWords(){
-  let dates = curDate==="全部" ? ALL_DATES : [curDate];
-  let words = [];
-  dates.forEach(d=> getWords(d).forEach(w=>words.push({...w, _date:d})));
+  const dates=curDate==="全部"?ALL_DATES:[curDate];
+  let words=[];
+  dates.forEach(d=>getWords(d).forEach(w=>words.push({...w,_date:d})));
   if(curCat!=="全部") words=words.filter(w=>w.category===curCat);
   return words;
 }
 
-// ── 文法卡片 ─────────────────────────────────────────────────
-function buildGrammarCards(){
-  const feed=document.getElementById("feed");
-  // 蒐集所有日期的文法（去重）
-  const seen=new Set(); const all=[];
-  ALL_DATES.forEach(d=>{
-    getGrammar(d).forEach(g=>{
-      if(!seen.has(g.title)){ seen.add(g.title); all.push({...g,_date:d}); }
-    });
-  });
-  // 今天的排前面
-  const todayG = getGrammar(ALL_DATES[0]);
-  const todayTitles = new Set(todayG.map(g=>g.title));
-  const sorted = [...all.filter(g=>todayTitles.has(g.title)), ...all.filter(g=>!todayTitles.has(g.title))];
-
-  feed.innerHTML = sorted.map((g,i)=>{
-    const isToday = todayTitles.has(g.title);
-    return `
-    <div class="card grammar-card" id="gcard-${i}">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-        <span class="gcat-tag">${g.category}</span>
-        ${isToday?'<span style="font-size:11px;font-weight:700;color:var(--accent);background:#e8f0fe;padding:2px 8px;border-radius:6px">今日重點</span>':''}
-      </div>
-      <div class="g-title">${g.title}</div>
-      <div class="g-rule">${g.rule}</div>
-      <div class="g-pattern">📋 句型：<code>${g.pattern}</code></div>
-      <div class="g-examples-label">例句（各可點 🔊 聆聽）</div>
-      ${g.examples.map((ex,j)=>`
-        <div class="g-example">
-          <div class="g-en">
-            <button class="say-btn" onclick="sayText('${encodeURIComponent(ex.en)}','en-US')" title="聆聽">🔊</button>
-            ${ex.en}
-          </div>
-          <div class="g-zh">${ex.zh}</div>
-        </div>`).join("")}
-      <div class="g-compare">
-        <div class="g-wrong">❌ 常見錯誤：<span>${g.wrong}</span></div>
-        <div class="g-right">✅ 正確說法：<span>${g.right}</span></div>
-      </div>
-      <div class="g-tip">💡 ${g.tip}</div>
-    </div>`;
-  }).join("");
+// ── 進度 ─────────────────────────────────────────────────────
+function updateProgress(idx){
+  const total=filteredWords().length;
+  const pct=total?Math.round((idx/total)*100):0;
+  document.getElementById("progressBar").style.width=pct+"%";
+  document.getElementById("progressText").textContent=`${Math.min(idx+1,total)} / ${total}`;
 }
 
-function sayText(enc, lang){
-  const text=decodeURIComponent(enc);
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang=lang; const v=lang.startsWith("zh")?zhVoice():enVoice(); if(v)u.voice=v;
-  try{speechSynthesis.resume();}catch(_){}
-  speechSynthesis.speak(u);
-}
-
-// ── 建立卡片 ─────────────────────────────────────────────────
+// ── 建立單字卡片 ──────────────────────────────────────────────
 function buildCards(){
   const feed=document.getElementById("feed");
   const words=filteredWords();
   buildCatBar();
-  if(!words.length){ feed.innerHTML=`<div style="text-align:center;padding:40px;color:var(--soft)">此條件下無單字</div>`; return; }
-
-  let html="", lastDate="";
+  if(!words.length){feed.innerHTML=`<div class="empty-msg">此條件下無單字</div>`;return;}
+  let html="",lastDate="";
   words.forEach((w,i)=>{
-    if(curDate==="全部" && w._date!==lastDate){
+    if(curDate==="全部"&&w._date!==lastDate){
       lastDate=w._date;
-      html+=`<div class="date-header">${fmtDate(w._date)} · ${getWords(w._date).length} 個單字</div>`;
+      html+=`<div class="date-hdr">${fmtDate(w._date)} · ${getWords(w._date).length} 個單字</div>`;
     }
-    // 用 data 屬性存文字，避免引號轉義問題
-    const wEnc = encodeURIComponent(w.word);
-    const eEnc = encodeURIComponent(w.example);
+    const wEnc=encodeURIComponent(w.word);
+    const eEnc=encodeURIComponent(w.example);
     html+=`
-    <div class="card" id="card-${i}">
-      <span class="cat-tag ${w.category}">${w.category}</span>
-      <div class="word-num">第 ${i+1} 個</div>
-      <div class="word-en">
-        ${w.word}
-        <button class="say-btn" onclick="sayWord(${i})" title="聆聽">🔊</button>
-        <button class="mic-btn" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)" title="練習發音">🎤</button>
+    <div class="wcard" id="card-${i}">
+      <div class="card-top">
+        <span class="card-num">${i+1}</span>
+        <span class="cat-chip ${w.category}">${w.category}</span>
+      </div>
+      <div class="word-row">
+        <span class="word-en">${w.word}</span>
+        <button class="icon-btn" onclick="sayWord(${i})" title="聆聽">🔊</button>
+        <button class="icon-btn mic" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)">🎤 練習</button>
       </div>
       <div class="ipa">${w.ipa}</div>
-      <div class="phonetic">🗣 ${w.phonetic}</div>
+      <div class="phonetic-pill">🗣 ${w.phonetic}</div>
       <div id="wr-${i}" class="rec-result"></div>
-      <div class="zh-meaning">${w.zh}</div>
-      <div class="example-label">例句 <button class="say-btn" style="font-size:13px" onclick="sayExample(${i})" title="聆聽例句">🔊</button>
-        <button class="mic-btn" data-enc="${eEnc}" data-rid="er-${i}" onclick="startRec(this)" title="練習例句">🎤 練例句</button>
+      <div class="meaning">${w.zh}</div>
+      <div class="example-section">
+        <div class="ex-label">例句</div>
+        <div class="ex-en">
+          <button class="icon-btn" style="font-size:14px;flex:0 0 auto" onclick="sayExample(${i})">🔊</button>
+          <span>${w.example}</span>
+          <button class="icon-btn mic" style="flex:0 0 auto" data-enc="${eEnc}" data-rid="er-${i}" onclick="startRec(this)">🎤</button>
+        </div>
+        <div class="ex-zh">${w.example_zh}</div>
       </div>
-      <div class="example-en"><span>${w.example}</span></div>
-      <div class="example-zh">${w.example_zh}</div>
       <div id="er-${i}" class="rec-result"></div>
-      <div class="rep-dots" id="dots-${i}">
-        ${Array(REPS).fill('<span class="rep-dot"></span>').join("")}
-      </div>
+      <div class="rep-dots" id="dots-${i}">${Array(REPS).fill('<span class="rdot"></span>').join("")}</div>
       <div class="play-status hidden" id="status-${i}"></div>
     </div>`;
   });
   feed.innerHTML=html;
 }
 
-// ── 進度 ─────────────────────────────────────────────────────
-function updateProgress(idx){
-  const total=filteredWords().length;
-  const pct = total ? Math.round((idx/total)*100) : 0;
-  document.getElementById("progressBar").style.width=pct+"%";
-  document.getElementById("progressText").textContent=`第 ${Math.min(idx+1,total)} / ${total} 個單字`;
+// ── 建立文法卡片 ──────────────────────────────────────────────
+function buildGrammarCards(){
+  const feed=document.getElementById("feed");
+  const seen=new Set(); const all=[];
+  ALL_DATES.forEach(d=>getGrammar(d).forEach(g=>{
+    if(!seen.has(g.title)){seen.add(g.title);all.push({...g,_date:d});}
+  }));
+  const todayG=new Set(getGrammar(ALL_DATES[0]).map(g=>g.title));
+  const sorted=[...all.filter(g=>todayG.has(g.title)),...all.filter(g=>!todayG.has(g.title))];
+  feed.innerHTML=sorted.map((g,i)=>`
+    <div class="gcard">
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
+        <span class="gcat-chip">${g.category}</span>
+        ${todayG.has(g.title)?'<span class="today-badge">今日重點</span>':''}
+      </div>
+      <div class="g-title">${g.title}</div>
+      <div class="g-rule">${g.rule}</div>
+      <div class="g-pattern-wrap">
+        <div class="g-pattern-label">句型</div>
+        <code class="g-pattern">${g.pattern}</code>
+      </div>
+      <div class="g-ex-label">例句</div>
+      ${g.examples.map(ex=>`
+        <div class="g-ex">
+          <div class="g-ex-en">
+            <button class="icon-btn" style="font-size:14px;flex:0 0 auto" onclick="sayText('${encodeURIComponent(ex.en)}','en-US')">🔊</button>
+            <span>${ex.en}</span>
+          </div>
+          <div class="g-ex-zh">${ex.zh}</div>
+        </div>`).join("")}
+      <div class="g-compare">
+        <div class="g-wrong">❌ 常見錯誤：${g.wrong}</div>
+        <div class="g-right">✅ 正確說法：${g.right}</div>
+      </div>
+      <div class="g-tip">💡 ${g.tip}</div>
+    </div>`).join("");
 }
+
+// ── 卡片狀態 ──────────────────────────────────────────────────
 function setActive(idx){
-  document.querySelectorAll(".card").forEach((c,i)=>{
+  document.querySelectorAll(".wcard").forEach((c,i)=>{
     c.classList.toggle("active",i===idx);
-    if(i<idx) c.classList.add("done"); else c.classList.remove("done");
+    if(i<idx)c.classList.add("done"); else c.classList.remove("done");
   });
-  const card=document.getElementById("card-"+idx);
-  if(card) card.scrollIntoView({behavior:"smooth",block:"center"});
-  updateProgress(idx);
-  curIdx=idx;
+  const c=document.getElementById("card-"+idx);
+  if(c)c.scrollIntoView({behavior:"smooth",block:"center"});
+  updateProgress(idx); curIdx=idx;
 }
 function setDot(idx,rep){
-  const dots=document.querySelectorAll(`#dots-${idx} .rep-dot`);
-  dots.forEach((d,i)=>d.classList.toggle("done",i<=rep));
+  document.querySelectorAll(`#dots-${idx} .rdot`).forEach((d,i)=>d.classList.toggle("lit",i<=rep));
 }
-function clearDots(idx){
-  document.querySelectorAll(`#dots-${idx} .rep-dot`).forEach(d=>d.classList.remove("done"));
+function clearDots(idx){document.querySelectorAll(`#dots-${idx} .rdot`).forEach(d=>d.classList.remove("lit"));}
+function setStatus(idx,sec,rep){
+  const el=document.getElementById("status-"+idx);
+  if(!el)return;
+  el.classList.remove("hidden");
+  el.innerHTML=`<span>${sec}</span><span>${rep?rep+"/"+REPS:""}</span>`;
 }
+function clearStatus(idx){const el=document.getElementById("status-"+idx);if(el)el.classList.add("hidden");}
 
-// ── TTS 語音 ─────────────────────────────────────────────────
+// ── TTS ──────────────────────────────────────────────────────
 function enVoice(){const vs=speechSynthesis.getVoices();return vs.find(v=>v.lang==="en-US")||vs.find(v=>/en/i.test(v.lang));}
 function zhVoice(){const vs=speechSynthesis.getVoices();return vs.find(v=>/zh-TW|zh_TW/i.test(v.lang))||vs.find(v=>/zh/i.test(v.lang));}
-
-function speak(text,lang,r){
+function speak(text,lang){
   return new Promise(res=>{
     if(!playing&&lang!=="direct"){res();return;}
     const u=new SpeechSynthesisUtterance(text);
-    u.lang=lang; u.rate=r||rate;
-    const v=lang.startsWith("zh")?zhVoice():enVoice();
-    if(v)u.voice=v;
-    u.onend=res; u.onerror=res;
+    u.lang=lang;u.rate=rate;
+    const v=lang.startsWith("zh")?zhVoice():enVoice(); if(v)u.voice=v;
+    u.onend=res;u.onerror=res;
     try{speechSynthesis.resume();}catch(_){}
     speechSynthesis.speak(u);
   });
 }
-function pause(ms){return new Promise(r=>setTimeout(r,ms));}
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+async function sayWord(i){speechSynthesis.cancel();const w=filteredWords()[i];await speak(w.word,"en-US");}
+async function sayExample(i){speechSynthesis.cancel();const w=filteredWords()[i];await speak(w.example,"en-US");}
+function sayText(enc,lang){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(decodeURIComponent(enc));u.lang=lang;const v=lang.startsWith("zh")?zhVoice():enVoice();if(v)u.voice=v;try{speechSynthesis.resume();}catch(_){}speechSynthesis.speak(u);}
 
-// 單字與例句個別朗讀按鈕
-async function sayWord(i){
-  speechSynthesis.cancel();
-  const w=filteredWords()[i];
-  await speak(w.word,"en-US","direct");
+// ── 播放控制 ──────────────────────────────────────────────────
+function updatePlayBtn(){
+  const b=document.getElementById("playBtn");
+  if(b) b.textContent=playing?"⏹ 停止":"▶ 播報全部";
 }
-async function sayExample(i){
-  speechSynthesis.cancel();
-  const w=filteredWords()[i];
-  await speak(w.example,"en-US","direct");
-}
-
-// ── 播報控制 ─────────────────────────────────────────────────
 function togglePlay(){if(playing)stopPlay();else startPlay();}
 function startPlay(){
-  if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能");return;}
-  playing=true; cancelled=false;
-  document.getElementById("playBtn").textContent="⏹ 停止播報";
-  playFrom(curIdx);
+  if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能，請使用 Chrome");return;}
+  playing=true;cancelled=false;updatePlayBtn();playFrom(curIdx);
 }
 function stopPlay(){
-  playing=false; cancelled=true;
-  speechSynthesis.cancel();
-  document.getElementById("playBtn").textContent="▶ 開始播報";
+  playing=false;cancelled=true;
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  clearDots(curIdx);clearStatus(curIdx);
+  document.querySelectorAll(".wcard.active").forEach(c=>{c.classList.remove("active");});
+  updatePlayBtn();
 }
 function prevWord(){stopPlay();if(curIdx>0){curIdx--;setActive(curIdx);}}
 function nextWord(){stopPlay();if(curIdx<filteredWords().length-1){curIdx++;setActive(curIdx);}}
 function setRate(v){rate=parseFloat(v);document.getElementById("rateLabel").textContent=v+"x";}
 
+const SECTIONS=[
+  {label:"🔤 英文單字",fn:(w)=>speak(w.word,"en-US"),gap:400},
+  {label:"🗣 發音拼音",fn:(w)=>speak(w.phonetic,"en-US"),gap:350},
+  {label:"🇹🇼 中文意思",fn:(w)=>speak(w.zh,"zh-TW"),gap:350},
+  {label:"📖 英文例句",fn:(w)=>speak(w.example,"en-US"),gap:450},
+  {label:"📝 中文例句",fn:(w)=>speak(w.example_zh,"zh-TW"),gap:500},
+];
 async function playFrom(startIdx){
   const words=filteredWords();
-  const SECTIONS=[
-    {label:"🔤 英文單字",  fn:(w)=>speak(w.word,"en-US"),       gap:400},
-    {label:"🗣 發音拼音",  fn:(w)=>speak(w.phonetic,"en-US"),   gap:350},
-    {label:"🇹🇼 中文意思", fn:(w)=>speak(w.zh,"zh-TW"),         gap:350},
-    {label:"📖 英文例句",  fn:(w)=>speak(w.example,"en-US"),    gap:450},
-    {label:"📝 中文例句",  fn:(w)=>speak(w.example_zh,"zh-TW"), gap:500},
-  ];
-  for(let i=startIdx; i<words.length; i++){
-    if(!playing||cancelled) return;
+  for(let i=startIdx;i<words.length;i++){
+    if(!playing||cancelled)return;
     const w=words[i];
-    setActive(i);
-
-    for(let s=0;s<SECTIONS.length;s++){
-      const sec=SECTIONS[s];
+    setActive(i);clearDots(i);
+    for(const sec of SECTIONS){
       for(let rep=0;rep<REPS;rep++){
         if(!playing||cancelled)return;
-        setStatus(i, sec.label, rep+1);
+        setStatus(i,sec.label,rep+1);
         await sec.fn(w);
         await pause(sec.gap);
       }
@@ -967,88 +1035,64 @@ async function playFrom(startIdx){
     setStatus(i,"✅ 完成","");
     await pause(600);
   }
-  if(playing) stopPlay();
+  if(playing)stopPlay();
 }
 
-function setStatus(idx, section, rep){
-  const el=document.getElementById("status-"+idx);
-  if(!el)return;
-  el.classList.remove("hidden");
-  el.innerHTML=`<span>${section}</span><span style="margin-left:auto;opacity:.7">${rep?rep+"/"+REPS:""}</span>`;
-}
-function clearStatus(idx){
-  const el=document.getElementById("status-"+idx);
-  if(el)el.classList.add("hidden");
-}
-
-if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
-
-// ── 發音練習（語音辨識） ──────────────────────────────────────
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-
+// ── 發音辨識 ──────────────────────────────────────────────────
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 function levenshtein(s,t){
   const m=s.length,n=t.length;
   const dp=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i?j?0:i:j));
-  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
     dp[i][j]=s[i-1]===t[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
   return dp[m][n];
 }
 function similarity(a,b){
   a=a.toLowerCase().replace(/[^a-z\s']/g,"").trim();
   b=b.toLowerCase().replace(/[^a-z\s']/g,"").trim();
-  if(a===b) return 100;
-  if(!a||!b) return 0;
-  return Math.max(0, Math.round((1-levenshtein(a,b)/Math.max(a.length,b.length))*100));
+  if(a===b)return 100;
+  if(!a||!b)return 0;
+  return Math.max(0,Math.round((1-levenshtein(a,b)/Math.max(a.length,b.length))*100));
 }
-function showRecResult(rid, target, heard, score){
-  const el=document.getElementById(rid);
-  if(!el) return;
-  const [emoji,label,color] = score>=90?["🌟","非常準確！","var(--up)"]:
-    score>=70?["👍","不錯，再練幾次","var(--accent)"]:
-    score>=50?["📝","有些出入，慢慢說","var(--orange)"]:
-    ["🔄","差異較大，先多聽幾遍","var(--red)"];
-  // 標出差異（詞級）
-  const tWords=target.toLowerCase().split(/\s+/);
-  const hWords=heard.toLowerCase().split(/\s+/);
-  const diffHtml=hWords.map(w=>tWords.includes(w)?
-    `<span style="color:var(--up);font-weight:600">${w}</span>`:
-    `<span style="color:var(--red);text-decoration:underline">${w}</span>`
-  ).join(" ");
-  el.innerHTML=`
-    <div class="rec-box">
-      <div class="rec-score" style="color:${color}">${emoji} ${score}% ${label}</div>
-      <div class="rec-row"><span class="rec-lbl">你說：</span><span>${diffHtml}</span></div>
-      <div class="rec-row"><span class="rec-lbl">目標：</span><span style="color:var(--soft)">${target}</span></div>
-      <div style="font-size:11px;color:var(--soft);margin-top:4px">✅ 綠色=正確 🔴 紅色+底線=有出入</div>
-    </div>`;
+function showRecResult(rid,target,heard,score){
+  const el=document.getElementById(rid);if(!el)return;
+  const [e,l,c]=score>=90?["🌟","非常準確","var(--green)"]:
+    score>=70?["👍","不錯","var(--accent)"]:
+    score>=50?["📝","有些出入","var(--orange)"]:["🔄","差異較大","var(--red)"];
+  const tW=target.toLowerCase().split(/\s+/);
+  const diff=heard.toLowerCase().split(/\s+/).map(w=>
+    tW.includes(w)?`<span style="color:var(--green);font-weight:700">${w}</span>`:
+    `<span style="color:var(--red);text-decoration:underline">${w}</span>`).join(" ");
+  el.innerHTML=`<div class="rec-box">
+    <div class="rec-score" style="color:${c}">${e} ${score}% ${l}</div>
+    <div class="rec-row"><span class="rec-lbl">你說：</span><span>${diff}</span></div>
+    <div class="rec-row"><span class="rec-lbl">目標：</span><span style="color:var(--muted)">${target}</span></div>
+  </div>`;
 }
 function startRec(btn){
-  if(!SR){ alert("請用 Chrome 瀏覽器開啟此頁面，才能使用語音辨識功能。"); return; }
-  const target = decodeURIComponent(btn.dataset.enc);
-  const rid    = btn.dataset.rid;
-  const el     = document.getElementById(rid);
-  if(el) el.innerHTML=`<div class="rec-box rec-listening">🔴 請說：<b>${target}</b></div>`;
-  btn.textContent="⏳"; btn.disabled=true;
-
-  const rec = new SR();
-  rec.lang="en-US"; rec.interimResults=false; rec.maxAlternatives=3;
+  if(!SR){alert("請用 Chrome 瀏覽器才能使用語音辨識");return;}
+  const target=decodeURIComponent(btn.dataset.enc);
+  const rid=btn.dataset.rid;
+  const el=document.getElementById(rid);
+  if(el)el.innerHTML=`<div class="rec-box rec-listening">🔴 請說：<b>${target}</b></div>`;
+  btn.textContent="⏳";btn.disabled=true;
+  const rec=new SR();rec.lang="en-US";rec.interimResults=false;rec.maxAlternatives=3;
   rec.onresult=(e)=>{
-    const heard=e.results[0][0].transcript;
-    showRecResult(rid, target, heard, similarity(heard, target));
-    btn.textContent="🎤"; btn.disabled=false;
+    showRecResult(rid,target,e.results[0][0].transcript,similarity(e.results[0][0].transcript,target));
+    btn.textContent="🎤 練習";btn.disabled=false;
   };
   rec.onerror=(e)=>{
-    const msg={
-      "no-speech":"沒有偵測到聲音，請再試一次",
-      "not-allowed":"麥克風權限被拒絕，請在瀏覽器設定中允許",
-      "network":"網路連線問題",
+    const m={
+      "no-speech":"沒偵測到聲音，請再試",
+      "not-allowed":"麥克風權限被拒，請在瀏覽器設定允許",
+      "network":"網路問題"
     }[e.error]||`錯誤：${e.error}`;
-    if(el) el.innerHTML=`<div class="rec-box" style="color:var(--red)">⚠️ ${msg}</div>`;
-    btn.textContent="🎤"; btn.disabled=false;
+    if(el)el.innerHTML=`<div class="rec-box" style="color:var(--red)">⚠️ ${m}</div>`;
+    btn.textContent="🎤 練習";btn.disabled=false;
   };
-  rec.onend=()=>{ btn.textContent="🎤"; btn.disabled=false; };
-  try{ rec.start(); }catch(e){ btn.textContent="🎤"; btn.disabled=false; }
-  setTimeout(()=>{ try{rec.stop();}catch(_){} }, 9000);
+  rec.onend=()=>{btn.textContent="🎤 練習";btn.disabled=false;};
+  try{rec.start();}catch(e){btn.textContent="🎤 練習";btn.disabled=false;}
+  setTimeout(()=>{try{rec.stop();}catch(_){}},9000);
 }
 </script>
 </body>
