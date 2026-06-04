@@ -8,7 +8,9 @@
         "zh": "激勵；獎勵",
         "category": "商業",
         "example": "Performance bonuses are a great incentive for employees.",
-        "example_zh": "績效獎金是員工的絕佳激勵。"
+        "example_zh": "績效獎金是員工的絕佳激勵。",
+        "example2": "Stock options serve as a long-term incentive for key employees.",
+        "example2_zh": "股票期權作為關鍵員工的長期激勵。"
       },
       {
         "word": "valuation",
@@ -17,7 +19,9 @@
         "zh": "估值；評估",
         "category": "財經",
         "example": "The startup received a valuation of one billion dollars.",
-        "example_zh": "這家新創公司的估值達到了十億美元。"
+        "example_zh": "這家新創公司的估值達到了十億美元。",
+        "example2": "A fair valuation requires both financial data and market comparisons.",
+        "example2_zh": "公平的估值需要財務資料和市場比較。"
       },
       {
         "word": "audit",
@@ -26,7 +30,9 @@
         "zh": "審計；查帳",
         "category": "財經",
         "example": "An external auditor conducts the annual financial audit.",
-        "example_zh": "外部審計師進行年度財務審計。"
+        "example_zh": "外部審計師進行年度財務審計。",
+        "example2": "The annual audit revealed no material discrepancies in the accounts.",
+        "example2_zh": "年度審計未發現帳目中有任何重大差異。"
       },
       {
         "word": "takeaway",
@@ -35,7 +41,9 @@
         "zh": "重點結論；收穫",
         "category": "會議",
         "example": "The key takeaway from today's meeting is to focus on quality.",
-        "example_zh": "今天會議的重點結論是專注於品質。"
+        "example_zh": "今天會議的重點結論是專注於品質。",
+        "example2": "The key takeaway from the workshop was the importance of data.",
+        "example2_zh": "工作坊的主要收穫是資料的重要性。"
       },
       {
         "word": "virtualization",
@@ -44,7 +52,9 @@
         "zh": "虛擬化",
         "category": "科技",
         "example": "Server virtualization reduces hardware costs significantly.",
-        "example_zh": "伺服器虛擬化大幅降低了硬體成本。"
+        "example_zh": "伺服器虛擬化大幅降低了硬體成本。",
+        "example2": "Server virtualization allows one physical machine to run multiple systems.",
+        "example2_zh": "伺服器虛擬化允許一台實體機器運行多個系統。"
       },
       {
         "word": "firewall",
@@ -53,7 +63,9 @@
         "zh": "防火牆",
         "category": "科技",
         "example": "The firewall blocked the unauthorized access attempt.",
-        "example_zh": "防火牆阻擋了未授權的存取嘗試。"
+        "example_zh": "防火牆阻擋了未授權的存取嘗試。",
+        "example2": "The firewall rules were updated to allow traffic from new IPs.",
+        "example2_zh": "防火牆規則已更新，以允許來自新IP的流量。"
       },
       {
         "word": "follow-up",
@@ -62,7 +74,9 @@
         "zh": "後續跟進；追蹤",
         "category": "會議",
         "example": "I will send a follow-up email after the meeting.",
-        "example_zh": "會後我會發送一封跟進郵件。"
+        "example_zh": "會後我會發送一封跟進郵件。",
+        "example2": "A follow-up call was scheduled for the following Tuesday.",
+        "example2_zh": "後續通話安排在下週二。"
       },
       {
         "word": "venture",
@@ -71,7 +85,9 @@
         "zh": "冒險；合資企業",
         "category": "商業",
         "example": "They launched a joint venture with a European partner.",
-        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。"
+        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。",
+        "example2": "The venture proved profitable within 18 months of launch.",
+        "example2_zh": "這項合資企業在啟動後18個月內就實現了盈利。"
       },
       {
         "word": "user experience",
@@ -80,7 +96,9 @@
         "zh": "用戶體驗（UX）",
         "category": "科技",
         "example": "A great user experience keeps customers coming back.",
-        "example_zh": "出色的用戶體驗讓客戶持續回訪。"
+        "example_zh": "出色的用戶體驗讓客戶持續回訪。",
+        "example2": "Improving user experience is the top priority for our mobile app.",
+        "example2_zh": "改善用戶體驗是我們行動應用的首要任務。"
       },
       {
         "word": "amortization",
@@ -89,7 +107,9 @@
         "zh": "攤銷；分期償還",
         "category": "財經",
         "example": "The loan amortization schedule shows monthly payments.",
-        "example_zh": "貸款攤銷時間表顯示每月還款金額。"
+        "example_zh": "貸款攤銷時間表顯示每月還款金額。",
+        "example2": "The software license cost is spread through amortization over five years.",
+        "example2_zh": "軟體授權費用透過五年攤銷分攤。"
       },
       {
         "word": "proactive",
@@ -98,7 +118,9 @@
         "zh": "主動積極的",
         "category": "生活",
         "example": "Being proactive helps you solve problems before they arise.",
-        "example_zh": "積極主動幫助你在問題發生前解決它。"
+        "example_zh": "積極主動幫助你在問題發生前解決它。",
+        "example2": "Being proactive means anticipating problems before they occur.",
+        "example2_zh": "積極主動意味著在問題發生之前預見它們。"
       },
       {
         "word": "resilient",
@@ -107,7 +129,9 @@
         "zh": "有韌性的；恢復力強的",
         "category": "生活",
         "example": "Resilient employees adapt quickly to change.",
-        "example_zh": "有韌性的員工能快速適應變化。"
+        "example_zh": "有韌性的員工能快速適應變化。",
+        "example2": "A resilient team bounces back quickly after setbacks.",
+        "example2_zh": "有韌性的團隊在挫折後能夠迅速恢復。"
       },
       {
         "word": "bull market",
@@ -116,7 +140,9 @@
         "zh": "牛市（股市上漲）",
         "category": "財經",
         "example": "The tech sector thrived during the bull market.",
-        "example_zh": "科技板塊在牛市期間蓬勃發展。"
+        "example_zh": "科技板塊在牛市期間蓬勃發展。",
+        "example2": "The current bull market has lasted longer than most analysts expected.",
+        "example2_zh": "當前牛市持續的時間比大多數分析師預期的要長。"
       },
       {
         "word": "consensus",
@@ -125,7 +151,9 @@
         "zh": "共識；一致意見",
         "category": "會議",
         "example": "We need to reach a consensus before moving forward.",
-        "example_zh": "我們需要在推進之前達成共識。"
+        "example_zh": "我們需要在推進之前達成共識。",
+        "example2": "It took three rounds of discussion to build consensus.",
+        "example2_zh": "經過三輪討論，大家終於達成共識。"
       },
       {
         "word": "agile",
@@ -134,7 +162,9 @@
         "zh": "敏捷的；靈活的（開發方法）",
         "category": "科技",
         "example": "The team uses agile methodology for software development.",
-        "example_zh": "團隊使用敏捷方法論進行軟體開發。"
+        "example_zh": "團隊使用敏捷方法論進行軟體開發。",
+        "example2": "Adopting agile practices helped the team ship features faster.",
+        "example2_zh": "採用敏捷實踐幫助團隊更快地發布功能。"
       },
       {
         "word": "quorum",
@@ -143,7 +173,9 @@
         "zh": "法定人數",
         "category": "會議",
         "example": "We cannot vote until we have a quorum.",
-        "example_zh": "在達到法定人數之前我們無法投票。"
+        "example_zh": "在達到法定人數之前我們無法投票。",
+        "example2": "We finally reached a quorum after two members joined online.",
+        "example2_zh": "兩位成員線上加入後，我們終於達到了法定人數。"
       },
       {
         "word": "prototype",
@@ -152,7 +184,9 @@
         "zh": "原型；雛形",
         "category": "科技",
         "example": "We built a prototype to test the concept with users.",
-        "example_zh": "我們建立了原型來與用戶測試概念。"
+        "example_zh": "我們建立了原型來與用戶測試概念。",
+        "example2": "The engineering team built three prototypes before settling on a design.",
+        "example2_zh": "工程團隊在確定設計前製作了三個原型。"
       },
       {
         "word": "turnover",
@@ -161,7 +195,9 @@
         "zh": "營業額；人員流動率",
         "category": "商業",
         "example": "High employee turnover increases recruitment costs.",
-        "example_zh": "高員工流動率增加了招募成本。"
+        "example_zh": "高員工流動率增加了招募成本。",
+        "example2": "High turnover in sales roles is costly and disrupts client relationships.",
+        "example2_zh": "銷售職位的高人員流動率成本高昂，且會破壞客戶關係。"
       },
       {
         "word": "blockchain",
@@ -170,7 +206,9 @@
         "zh": "區塊鏈",
         "category": "科技",
         "example": "Blockchain technology ensures transparent and secure transactions.",
-        "example_zh": "區塊鏈技術確保交易透明且安全。"
+        "example_zh": "區塊鏈技術確保交易透明且安全。",
+        "example2": "The supply chain team is exploring blockchain for better traceability.",
+        "example2_zh": "供應鏈團隊正在探索區塊鏈以提升可追溯性。"
       },
       {
         "word": "empathy",
@@ -179,7 +217,9 @@
         "zh": "同理心；設身處地",
         "category": "生活",
         "example": "Empathy is a key skill for effective leadership.",
-        "example_zh": "同理心是有效領導的關鍵技能。"
+        "example_zh": "同理心是有效領導的關鍵技能。",
+        "example2": "Managers who show empathy build stronger, more loyal teams.",
+        "example2_zh": "展現同理心的管理者建立更強大、更忠誠的團隊。"
       },
       {
         "word": "arbitrage",
@@ -188,7 +228,9 @@
         "zh": "套利；仲裁",
         "category": "財經",
         "example": "Traders use arbitrage to profit from price differences.",
-        "example_zh": "交易員利用套利從價格差異中獲利。"
+        "example_zh": "交易員利用套利從價格差異中獲利。",
+        "example2": "Cryptocurrency arbitrage requires fast execution and low fees.",
+        "example2_zh": "加密貨幣套利需要快速執行和低費用。"
       },
       {
         "word": "brainstorm",
@@ -197,7 +239,9 @@
         "zh": "腦力激盪；集思廣益",
         "category": "會議",
         "example": "Let's brainstorm ideas for the new product launch.",
-        "example_zh": "我們來腦力激盪新產品上市的點子。"
+        "example_zh": "我們來腦力激盪新產品上市的點子。",
+        "example2": "Let's brainstorm ways to improve the onboarding process.",
+        "example2_zh": "我們來集思廣益，改善新員工入職流程。"
       },
       {
         "word": "optimization",
@@ -206,7 +250,9 @@
         "zh": "優化",
         "category": "科技",
         "example": "Search engine optimization improves your website ranking.",
-        "example_zh": "搜尋引擎優化提升您的網站排名。"
+        "example_zh": "搜尋引擎優化提升您的網站排名。",
+        "example2": "Database optimization reduced our page load time by 40%.",
+        "example2_zh": "資料庫優化將我們的頁面載入時間縮短了40%。"
       },
       {
         "word": "assertive",
@@ -215,7 +261,9 @@
         "zh": "果斷的；自信表達的",
         "category": "生活",
         "example": "Being assertive helps you communicate your needs clearly.",
-        "example_zh": "果斷有助於你清楚地溝通自己的需求。"
+        "example_zh": "果斷有助於你清楚地溝通自己的需求。",
+        "example2": "Be assertive when negotiating; know what you want and ask for it.",
+        "example2_zh": "談判時要果斷；清楚自己想要什麼並直接提出。"
       },
       {
         "word": "unanimous",
@@ -224,7 +272,9 @@
         "zh": "全體一致的",
         "category": "會議",
         "example": "The vote was unanimous in favor of the proposal.",
-        "example_zh": "投票結果全體一致支持該提案。"
+        "example_zh": "投票結果全體一致支持該提案。",
+        "example2": "Board members were unanimous in rejecting the proposal.",
+        "example2_zh": "董事會成員一致反對該提案。"
       },
       {
         "word": "liquidity",
@@ -233,7 +283,9 @@
         "zh": "流動性；變現能力",
         "category": "財經",
         "example": "High liquidity means assets can be quickly converted to cash.",
-        "example_zh": "高流動性意味著資產可以快速轉換為現金。"
+        "example_zh": "高流動性意味著資產可以快速轉換為現金。",
+        "example2": "During the crisis, even well-performing assets faced liquidity problems.",
+        "example2_zh": "危機期間，即使表現良好的資產也面臨流動性問題。"
       },
       {
         "word": "revenue",
@@ -242,7 +294,9 @@
         "zh": "收益；營業額",
         "category": "商業",
         "example": "Annual revenue grew by 15% compared to last year.",
-        "example_zh": "年收益比去年增長了15%。"
+        "example_zh": "年收益比去年增長了15%。",
+        "example2": "Subscription-based revenue provides more predictable cash flow.",
+        "example2_zh": "訂閱制收入提供了更可預測的現金流。"
       },
       {
         "word": "fiscal",
@@ -251,7 +305,9 @@
         "zh": "財政的；會計年度的",
         "category": "財經",
         "example": "The fiscal year ends on December 31st.",
-        "example_zh": "財政年度於12月31日結束。"
+        "example_zh": "財政年度於12月31日結束。",
+        "example2": "The fiscal year runs from April to March in Japan.",
+        "example2_zh": "日本的財政年度從4月到3月。"
       },
       {
         "word": "debrief",
@@ -260,7 +316,9 @@
         "zh": "彙報；事後討論",
         "category": "會議",
         "example": "Let's debrief after the client presentation.",
-        "example_zh": "客戶簡報後我們來做個彙報。"
+        "example_zh": "客戶簡報後我們來做個彙報。",
+        "example2": "After the product launch, the team gathered to debrief.",
+        "example2_zh": "產品發布後，團隊聚在一起做事後彙報。"
       },
       {
         "word": "accountability",
@@ -269,101 +327,103 @@
         "zh": "責任感；問責",
         "category": "生活",
         "example": "Accountability means taking responsibility for your actions.",
-        "example_zh": "問責意味著為自己的行動承擔責任。"
+        "example_zh": "問責意味著為自己的行動承擔責任。",
+        "example2": "A culture of accountability starts at the leadership level.",
+        "example2_zh": "問責文化從領導層開始。"
       }
     ],
     "grammar": [
       {
-        "title": "問接問句 — 禮貌問法",
-        "category": "句型結構",
-        "rule": "直接問句在商務場合可能太唐突，改用間接問句更有禮貌。",
-        "pattern": "Could you tell me [what/when/how] + [直敘句語序]?",
+        "title": "Must vs. Have to — 強制與義務",
+        "category": "情態動詞",
+        "rule": "must = 說話者認為必須（主觀）；have to = 外部規定必須（客觀）。",
+        "pattern": "We must [動詞] / We have to [動詞]",
         "examples": [
           {
-            "en": "Could you tell me when the report will be ready?",
-            "zh": "您能告訴我報告什麼時候會準備好嗎？"
+            "en": "We must deliver this project on time — it's non-negotiable.",
+            "zh": "我們必須準時交付這個專案——這是不可協商的。"
           },
           {
-            "en": "Do you know how many people will attend the conference?",
-            "zh": "您知道有多少人會參加會議嗎？"
+            "en": "All employees have to complete the compliance training.",
+            "zh": "所有員工都必須完成合規培訓。"
           },
           {
-            "en": "I was wondering if you have reviewed the proposal yet.",
-            "zh": "我想知道您是否已經審查過提案了。"
+            "en": "You must not share confidential information externally.",
+            "zh": "您絕對不能對外分享機密信息。"
           }
         ],
-        "wrong": "Could you tell me when will the report be ready?",
-        "right": "Could you tell me when the report will be ready?",
-        "tip": "間接問句用直敘句語序（主詞在前），不用疑問句語序（助動詞不提前）。"
+        "wrong": "We must to deliver this project on time.",
+        "right": "We must deliver this project on time.",
+        "tip": "must 和 have to 後面都接動詞原形，不加 to。"
       },
       {
-        "title": "表達意見：In my opinion / I believe",
-        "category": "表達意見",
-        "rule": "提出個人看法時使用，讓對方知道這是你的觀點，不是事實。",
-        "pattern": "In my opinion, [觀點]. / I believe [that] [觀點].",
+        "title": "過去完成式 — 先後順序",
+        "category": "時態",
+        "rule": "Had + 過去分詞。強調兩件過去的事中，先發生的那件用過去完成式。",
+        "pattern": "By the time [過去簡單式], [主詞] had already [過去分詞].",
         "examples": [
           {
-            "en": "In my opinion, we should prioritize customer satisfaction over cost-cutting.",
-            "zh": "在我看來，我們應該把客戶滿意度放在降低成本之上。"
+            "en": "By the time the manager arrived, the team had already finished the report.",
+            "zh": "主管到達時，團隊已經完成了報告。"
           },
           {
-            "en": "I believe this partnership will benefit both companies significantly.",
-            "zh": "我相信這次合作將對兩家公司都大有裨益。"
+            "en": "We had reviewed all the proposals before making a final decision.",
+            "zh": "在做出最終決定之前，我們已經審查了所有提案。"
           },
           {
-            "en": "In my view, the timeline is too aggressive.",
-            "zh": "在我看來，這個時間表太緊迫了。"
+            "en": "The client had confirmed the order before we received the payment.",
+            "zh": "在我們收到付款之前，客戶已經確認了訂單。"
           }
         ],
-        "wrong": "In my opinion is that we should prioritize customers.",
-        "right": "In my opinion, we should prioritize customers.",
-        "tip": "In my opinion 後面直接接句子，不加 is that。"
+        "wrong": "By the time the manager arrived, the team already finished.",
+        "right": "By the time the manager arrived, the team had already finished the report.",
+        "tip": "兩件過去的事，先發生的用 had+過去分詞，後發生的用過去簡單式。"
       },
       {
-        "title": "確認理解：If I understand correctly...",
-        "category": "澄清確認",
-        "rule": "重述對方的意思以確認自己理解正確，商務溝通中避免誤解的關鍵技巧。",
-        "pattern": "If I understand correctly, [重述]. / So what you're saying is [重述]?",
+        "title": "Should — 建議與責任",
+        "category": "情態動詞",
+        "rule": "表示應該做某事（建議、義務）。比 must 柔和，比 could 更明確。",
+        "pattern": "We should [動詞原形] / You should consider [V-ing]",
         "examples": [
           {
-            "en": "If I understand correctly, you want to delay the project by two weeks?",
-            "zh": "如果我理解正確，您想將專案延遲兩週？"
+            "en": "We should review the budget before the Q3 planning.",
+            "zh": "我們應該在Q3規劃前審查預算。"
           },
           {
-            "en": "So what you're saying is that the budget needs to be approved first?",
-            "zh": "所以您的意思是預算需要先獲得批准？"
+            "en": "You should consider the risks before making a decision.",
+            "zh": "您應該在做決定前考慮風險。"
           },
           {
-            "en": "Let me confirm — you need the report by Monday morning, correct?",
-            "zh": "讓我確認一下——您需要在週一早上前收到報告，對嗎？"
+            "en": "This issue should be escalated to management.",
+            "zh": "這個問題應該呈報給管理層。"
           }
         ],
-        "wrong": "You mean delay two weeks?",
-        "right": "If I understand correctly, you want to delay the project by two weeks?",
-        "tip": "用完整句型重述，讓對方確認，可以避免很多誤解。"
+        "wrong": "We should to review the budget.",
+        "right": "We should review the budget.",
+        "tip": "情態動詞後面直接接動詞原形，不加 to。"
       },
       {
-        "title": "被動語態 — 商務報告常用",
-        "category": "被動語態",
-        "rule": "be + 過去分詞。強調動作的對象而非執行者，商務書信和報告很常見。",
-        "pattern": "[主詞] + is/was/will be + [過去分詞] (+ by [執行者])",
+        "title": "Could — 委婉請求與可能性",
+        "category": "情態動詞",
+        "rule": "比 can 更禮貌；用於請求、建議、可能性。商務場合常用。",
+        "pattern": "Could you [動詞原形]... ?  /  We could [動詞原形]...",
         "examples": [
           {
-            "en": "The proposal was approved by the board last week.",
-            "zh": "提案上週獲得董事會批准。"
+            "en": "Could you send me the report by Friday?",
+            "zh": "您能在週五前把報告發給我嗎？"
           },
           {
-            "en": "The meeting has been rescheduled to Thursday.",
-            "zh": "會議已改期至週四。"
+            "en": "We could schedule a follow-up meeting next week.",
+            "zh": "我們可以安排下週的後續會議。"
           },
           {
-            "en": "All contracts must be reviewed by the legal team.",
-            "zh": "所有合約必須由法務團隊審查。"
+            "en": "Could you elaborate on that point?",
+            "zh": "您能詳細說明那個觀點嗎？"
           }
         ],
-        "wrong": "The proposal was approve by the board.",
-        "right": "The proposal was approved by the board.",
-        "tip": "被動語態一定是 be + 過去分詞（approved、reviewed 等）。"
+        "wrong": "Can you elaborate that point?",
+        "right": "Could you elaborate on that point?",
+        "tip": "在正式會議中用 could 比 can 更有禮貌，也更專業。"
       }
     ]
   }
