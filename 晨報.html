@@ -89,28 +89,144 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.65}
 .src{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
 .none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px}
-/* 播報鈕 */
+/* 管理股票抽屜 */
+.manage-btn{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:5px 12px;font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--soft);cursor:pointer;transition:.15s;white-space:nowrap}
+.manage-btn:hover{border-color:var(--ink);color:var(--ink)}
+.mgr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:50}
+.mgr-overlay.open{display:block}
+.mgr-drawer{position:fixed;top:0;right:-340px;width:320px;height:100vh;
+  background:#fff;z-index:51;transition:right .3s cubic-bezier(.32,.72,0,1);
+  display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.12)}
+.mgr-drawer.open{right:0}
+.mgr-head{padding:16px 16px 12px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px}
+.mgr-head h3{font-size:15px;font-weight:800;flex:1}
+.mgr-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--soft);padding:2px 6px}
+.mgr-tabs{display:flex;border-bottom:1px solid var(--line)}
+.mgr-tab{flex:1;background:none;border:none;cursor:pointer;font-family:inherit;
+  font-size:13px;font-weight:700;color:var(--soft);padding:10px 0;position:relative;transition:.15s}
+.mgr-tab.on{color:var(--ink)}
+.mgr-tab.on::after{content:"";position:absolute;left:20%;right:20%;bottom:0;
+  height:2px;background:var(--ink);border-radius:2px}
+.mgr-body{flex:1;overflow-y:auto;padding:12px 16px}
+.mgr-section{font-family:"Hanken Grotesk";font-size:11px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  margin:12px 0 6px}
+.mgr-row{display:flex;align-items:center;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--line)}
+.mgr-row:last-child{border-bottom:none}
+.mgr-sym{font-family:"Hanken Grotesk";font-weight:800;font-size:13px;min-width:48px}
+.mgr-name{font-size:13px;flex:1;color:var(--soft)}
+.mgr-mkt{font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px}
+.mgr-mkt.美股{background:#EEF2FF;color:#3730A3}
+.mgr-mkt.台股{background:#F0FDF4;color:#166534}
+.mgr-toggle{width:36px;height:20px;border-radius:10px;border:none;cursor:pointer;
+  position:relative;transition:.2s;flex:0 0 auto}
+.mgr-toggle.on{background:#4F46E5}
+.mgr-toggle.off{background:#D1D5DB}
+.mgr-toggle::after{content:"";position:absolute;width:16px;height:16px;
+  background:#fff;border-radius:50%;top:2px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.mgr-toggle.on::after{left:18px}
+.mgr-toggle.off::after{left:2px}
+.mgr-del{background:none;border:none;cursor:pointer;color:#DC2626;font-size:15px;padding:2px 5px}
+/* 新增表單 */
+.mgr-field{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px 12px;font-family:inherit;font-size:14px;margin-bottom:8px;
+  outline:none;transition:.15s}
+.mgr-field:focus{border-color:#4F46E5}
+.mgr-select{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px 12px;font-family:inherit;font-size:14px;margin-bottom:8px;
+  background:#fff;cursor:pointer}
+.mgr-validate{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px;font-family:inherit;font-size:13.5px;font-weight:700;
+  cursor:pointer;transition:.15s;margin-bottom:6px}
+.mgr-validate:hover{border-color:#4F46E5;color:#4F46E5}
+.mgr-add-btn{width:100%;background:#4F46E5;color:#fff;border:none;border-radius:10px;
+  padding:10px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;
+  transition:opacity .15s}
+.mgr-add-btn:active{opacity:.8}
+.mgr-add-btn:disabled{opacity:.4;cursor:default}
+.mgr-msg{font-size:12.5px;padding:7px 10px;border-radius:8px;margin-bottom:8px}
+.mgr-msg.ok{background:#F0FDF4;color:#166534}
+.mgr-msg.err{background:#FFF5F5;color:#DC2626}
+.mgr-hint{font-size:12px;color:var(--soft);line-height:1.55;
+  background:#F9FAFB;border-radius:8px;padding:8px 10px;margin-top:6px}
+/* 股價列 */
+.price-row{display:flex;align-items:center;gap:8px;padding:8px 0 4px;
+  border-top:1px solid var(--line);margin-top:8px;flex-wrap:wrap}
+.price-val{font-family:"Hanken Grotesk";font-weight:800;font-size:18px;color:var(--ink)}
+.price-chg{font-family:"Hanken Grotesk";font-size:12.5px;font-weight:700}
+.price-chg.up{color:var(--up)}.price-chg.down{color:var(--down)}.price-chg.flat{color:var(--flat)}
+.price-time{font-size:11px;color:var(--soft);margin-left:auto}
+.price-refresh{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--soft);transition:.15s}
+.price-refresh:hover{border-color:var(--ink);color:var(--ink)}
+.price-skeleton{font-size:12px;color:var(--soft);font-style:italic}
 .playbtn{background:var(--ink);color:#fff;border:none;border-radius:20px;padding:9px 18px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;transition:opacity .15s}
 .playbtn:active{opacity:.75}
-.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.8}
-</style>
+.refresh-all-btn{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--soft);cursor:pointer;transition:.15s;white-space:nowrap}
+.refresh-all-btn:hover{border-color:var(--ink);color:var(--ink)}
+.refresh-all-btn:disabled{opacity:.45;cursor:default}
+.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.8}</style>
 </head>
 <body>
 <div class="topbar">
   <div class="inner">
     <div class="head-row">
       <div class="logo">晨報<small>Morning Tape</small></div>
-      <span class="gentime">2026/06/04 00:28</span>
+      <button class="manage-btn" onclick="openMgr()">⚙️ 管理股票</button>
+      <span class="gentime">2026/06/04 03:02</span>
     </div>
     <div class="cats" id="cats"></div>
     <div class="chips" id="chips"></div>
   </div>
 </div>
+
+<!-- 管理股票抽屜 -->
+<div class="mgr-overlay" id="mgrOverlay" onclick="closeMgr()"></div>
+<div class="mgr-drawer" id="mgrDrawer">
+  <div class="mgr-head">
+    <h3>⚙️ 管理股票</h3>
+    <button class="mgr-close" onclick="closeMgr()">✕</button>
+  </div>
+  <div class="mgr-tabs">
+    <button class="mgr-tab on" id="mgrTab1" onclick="switchMgrTab('list')">目前清單</button>
+    <button class="mgr-tab" id="mgrTab2" onclick="switchMgrTab('add')">＋ 新增</button>
+  </div>
+  <div class="mgr-body" id="mgrList"><!-- 清單由 JS 建立 --></div>
+  <div class="mgr-body" id="mgrAdd" style="display:none">
+    <div class="mgr-section">市場</div>
+    <select class="mgr-select" id="addMkt">
+      <option value="美股">🇺🇸 美股（NYSE / NASDAQ）</option>
+      <option value="台股">🇹🇼 台股（TWSE / OTC）</option>
+      <option value="韓股">🇰🇷 韓股（KRW）</option>
+    </select>
+    <div class="mgr-section">股票代號</div>
+    <input class="mgr-field" id="addSym" placeholder="美股：AAPL　台股：2330"
+           oninput="resetAddMsg()" autocapitalize="characters" autocorrect="off">
+    <div class="mgr-section">公司名稱（可選）</div>
+    <input class="mgr-field" id="addName" placeholder="留空會用代號代替">
+    <button class="mgr-validate" onclick="doValidate()">🔍 驗證代號格式</button>
+    <div id="addMsg"></div>
+    <button class="mgr-add-btn" id="addBtn" onclick="doAdd()" disabled>＋ 加入清單</button>
+    <div class="mgr-hint">
+      ✅ 美股代號：1-5 個英文字母，如 AAPL、NVDA、TSM<br>
+      ✅ 台股代號：4 位數字，如 2330、0050<br>
+      ✅ 韓股代號：6 位數字，如 005930（三星）、000660（海力士）<br>
+      ⚠️ 新增的股票需要重新執行爬蟲才會有新聞資料
+    </div>
+  </div>
+</div>
 <div class="wrap">
-  <div class="lead">共 18 檔 · 近 14 天 · 依日期排序 · 自動翻譯繁體中文　生成：2026/06/04 00:28</div>
+  <div class="lead">共 16 檔 · 近 14 天 · 依日期排序 · 自動翻譯繁體中文　生成：2026/06/04 03:02</div>
   <!-- 播報控制列 -->
   <div class="tts-bar">
     <button class="playbtn" id="playBtn" onclick="speakAll()">▶ 全部播報</button>
+    <button class="refresh-all-btn" id="refreshAllBtn" onclick="refreshAllPrices()">🔄 更新股價</button>
     <div class="tts-controls">
       <span class="tts-label">語速</span>
       <input type="range" min="0.6" max="1.8" step="0.2" value="1.0"
@@ -135,10 +251,10 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
   <div class="foot">資料來源：Yahoo Finance · Google News · EE Times · IEEE Spectrum · VentureBeat · MIT Tech Review · Ars Technica · TechCrunch · Reuters · CNBC · 科技新報 · iThome<br>由 Python 爬蟲每日自動擷取翻譯 · 僅供參考，非投資建議</div>
 </div>
 <script>
-const STOCKS_DATA=[{"sym": "RDW", "name": "Redwire", "market": "美股", "sentiment": "positive", "summary": "第一季航空航太股回顧：Redwire (NYSE:RDW) 與同業對比", "items": [{"date": "2026-06-03", "headline": "第一季航空航太股回顧：Redwire (NYSE:RDW) 與同業對比", "detail": "獲利結果通常顯示公司未來幾個月的發展方向。第一季過去了，讓我們來看看 Redwire （NYSE：RDW）及其同業。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/aerospace-stocks-q1-review-redwire-220733214.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "為什麼 Redwire (RDW) 股價今天暴跌", "detail": "航空航太和國防公司 Redwire (NYSE:RDW) 的股價早盤下跌 8.8%，分析師下調評級引發了估值擔憂，該股延續近期跌勢。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/why-redwire-rdw-shares-plunging-203933218.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "Redwire股價6個月上漲235.2%：投資人該做什麼？", "detail": "RDW 股價在六個月內飆升 235.2%，但成本上升、預估削減和市銷率溢價使風險成為焦點。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/redwire-stock-rises-235-2-132000382.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "隨著 SpaceX IPO 條款的熱議，ASTS、RKLB、LUNR、RDW 下跌——分析師預測悲觀，零售業大多保持看漲", "detail": "晨星公司給 SpaceX 的公允價值估計為 7,800 億美元，稱其股價在擬議的 IPO 估值中可能「被高估」。", "source": "", "link": "https://stocktwits.com/news-articles/markets/equity/space-stocks-slip-spacex-ipo-buzz-retail-bullish-bear-case/cZ0Sr77ReDq?.tsrc=rss"}, {"date": "2026-06-02", "headline": "Unusual Machines (UMAC) 在政府資助熱潮中創下歷史新高", "detail": "Redwire Corp.（NYSE：RDW）是提供巨額回報的 10 隻股票之一。 Unusual Machines 股價週二攀升至歷史新高，投資人預期該公司將受益於美國政府在國防和無人機領域的財政支持，從而調整其投資組合。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/unusual-machines-umac-notches-time-234957296.html?.tsrc=rss"}, {"date": "2026-06-02", "headline": "藍色起源執行長表示，今年將再次飛行。太空股因美國太空總署更新而上漲。", "detail": "新格倫爆炸後，藍色起源應該會在 2026 年再次飛行。太空股因美國太空總署商業站計畫而上漲。", "source": "", "link": "https://finance.yahoo.com/m/54fa8963-fc2a-392b-9364-44783d709ffe/blue-origin-to-fly-again-this.html?.tsrc=rss"}]}, {"sym": "ORCL", "name": "Oracle", "market": "美股", "sentiment": "positive", "summary": "隨著投資人關注人工智慧的成長，甲骨文的獲利下滑", "items": [{"date": "2026-06-03", "headline": "隨著投資人關注人工智慧的成長，甲骨文的獲利下滑", "detail": "在第四財季財報公佈之前，甲骨文股價下跌超過 4%。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/oracle-slips-ahead-earnings-investors-201208502.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "五星級分析師重置甲骨文股價目標", "detail": "甲骨文 (ORCL) 股票 6 月 2 日交易日收盤下跌 1.44%，報 244.58 美元。儘管略有下跌，但截至 6 月 3 日星期三上午撰寫本文時，該股今年迄今已上漲約 25.48%。同時，SPDR 標準普爾 500 指數 (SPY) 同期上漲約 11.39%。甲骨文有...", "source": "", "link": "https://www.thestreet.com/investing/stocks/5-star-analyst-resets-oracle-stock-price-target?.tsrc=rss"}, {"date": "2026-06-03", "headline": "Alphabet 850 億美元的股票交易可能為大型科技產品打開水龍頭", "detail": "Alphabet 計劃透過股權銷售籌集 850 億美元，為其 2026 年和 2027 年的資本支出提供資金。", "source": "", "link": "https://finance.yahoo.com/m/9904766d-191b-336c-af1d-f28077a237ad/alphabet%E2%80%99s-%2485-billion-stock.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "Extreme Networks 和其他兩隻股票的交易價格可能低於其估計價值", "detail": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/extreme-networks-2-other-stocks-173802234.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "今日股市，6 月 3 日：由於新的地緣政治緊張局勢，股市午盤下跌", "detail": "今天，即 2026 年 6 月 3 日，隨著中東不確定性的增加降低了風險偏好，油價今早上漲。", "source": "", "link": "https://www.fool.com/coverage/stock-market-today/2026/06/03/stock-market-today-june-3-stocks-slip-in-morning-trading-on-fresh-geopolitical-tensions/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "買入、持有或賣出：甲骨文股票在 245 美元時值得買入嗎？", "detail": "甲骨文（NYSE：ORCL）股價為 244.58 美元，正在吸引新的投資者關注。這家資料庫巨頭剛剛發布了一個季度報告，重新建構了其整個投資敘述，將一個沉睡的企業軟體故事變成了大型科技領域最激進的人工智慧基礎設施之一。 Oracle銷售資料庫軟體", "source": "", "link": "https://247wallst.com/investing/2026/06/03/buy-hold-or-sell-is-oracle-stock-a-buy-at-245/?.tsrc=rss"}]}, {"sym": "BE", "name": "Bloom Energy", "market": "美股", "sentiment": "neutral", "summary": "隨著 Bloom Energy 下滑，燃料電池能源暴跌 10%，Plug Power 下降 6%", "items": [{"date": "2026-06-03", "headline": "隨著 Bloom Energy 下滑，燃料電池能源暴跌 10%，Plug Power 下降 6%", "detail": "燃料電池股週三中午大幅回落，其中 FuelCell Energy（納斯達克股票代碼：FCEL）領跌。 FuelCell Energy 股價週二收在 24.64 美元後，下跌 10% 至 22 美元左右。 Plug Power (NASDAQ:PLUG) 股價下跌 6% 至 3.83 美元左右，而 Bloom Energy (NYSE:BE) 股價下跌", "source": "", "link": "https://247wallst.com/investing/2026/06/03/fuelcell-energy-plunges-10-plug-power-falls-6-in-fuel-cell-rout-as-bloom-energy-slips/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "Plug Power 能否成為下一個蓬勃發展的能源？", "detail": "蓬勃發展的人工智慧基礎設施支出使 Bloom Energy 的股價飆升。 Plug Power 會成為下一個受益者嗎？", "source": "", "link": "https://www.fool.com/investing/2026/06/03/could-plug-power-become-the-next-bloom-energy/?.tsrc=rss"}, {"date": "2026-06-02", "headline": "Oracle 透過清潔能源和手臂轉移重塑 AI 資料中心", "detail": "甲骨文（NYSE：ORCL）正在與 Bloom Energy 合作，為其資料中心提供千兆瓦級清潔燃料電池電力，旨在降低現場排放並提高能源彈性。該公司還在其人工智慧資料中心推出基於 Arm 的 CPU，擴展到傳統伺服器晶片之外", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/oracle-reshapes-ai-data-centers-220809670.html?.tsrc=rss"}, {"date": "2026-06-02", "headline": "產業動態：能源股午後上漲", "detail": "週二下午晚些時候，能源股走高，紐約證券交易所能源板塊指數上漲 1.5%，", "source": "", "link": "https://finance.yahoo.com/sectors/energy/articles/sector-energy-stocks-rise-afternoon-195254632.html?.tsrc=rss"}, {"date": "2026-06-02", "headline": "產業動態：能源股週二下午上漲", "detail": "週二下午能源股走高，紐約證券交易所能源板塊指數上漲 1.3%，S", "source": "", "link": "https://finance.yahoo.com/sectors/energy/articles/sector-energy-stocks-rise-tuesday-175647619.html?.tsrc=rss"}, {"date": "2026-06-02", "headline": "Plug Power設備實力增強：未來路在何處？", "detail": "儘管產品線較弱，但由於電解槽需求增加了兩倍多，而且氫基礎設施仍在成長，PLUG 的設備銷售額第一季成長了 24.4%。", "source": "", "link": "https://finance.yahoo.com/sectors/energy/articles/plug-powers-equipment-strength-grows-144400803.html?.tsrc=rss"}]}, {"sym": "INTC", "name": "Intel", "market": "美股", "sentiment": "negative", "summary": "法拉利失去理智了嗎？", "items": [{"date": "2026-06-04", "headline": "法拉利失去理智了嗎？", "detail": "有史以來第一輛全電動法拉利已經發布，但它已經因其非常不法拉利的設計而受到廣泛批評。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/has-ferrari-lost-its-mind/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "為什麼Circle Internet Group股票今天會暴跌", "detail": "金融業重量級人物的三人組（甚至可能是四人組）顯然正在推出一種新的穩定幣。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/why-circle-internet-group-stock-tumbled-today/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "SpaceX 還是特斯拉：6 月 12 日買哪個比較好？", "detail": "SpaceX 股票預計將於下週末開始交易。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/spacex-or-tesla-what-will-be-the-better-buy-on-jun/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "股市交易仍接近歷史高點。這是投資者忽視的最大風險。", "detail": "主要指數基金接近歷史新高，但隱藏在顯而易見的風險可能會改變新資金的計算方式。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/the-stock-market-is-still-trading-near-record-high/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "5年後耐吉股票會怎樣？", "detail": "過去五年，這家運動服裝和運動鞋巨頭的股價下跌了近 68%。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/where-will-stock-stock-be-in-5-years/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "今日股市，6 月 3 日：市場因中東升級擔憂而終結連漲勢頭", "detail": "今天，即 2026 年 6 月 3 日，隨著人工智慧領頭羊面臨新的泡沫言論，油價飆升至 100 美元，伊朗相關緊張局勢擾亂了風險偏好。", "source": "", "link": "https://www.fool.com/coverage/stock-market-today/2026/06/03/stock-market-today-june-3-markets-end-winning-streak-on-middle-east-escalation-fears/?.tsrc=rss"}]}, {"sym": "MU", "name": "美光 Micron", "market": "美股", "sentiment": "positive", "summary": "Marvell Technology (MRVL) 真的會成為下一個兆美元股票嗎？", "items": [{"date": "2026-06-03", "headline": "Marvell Technology (MRVL) 真的會成為下一個兆美元股票嗎？", "detail": "在英偉達 (NVDA) 執行長黃仁勳 (Jensen Huang) 稱這家專業晶片領導者為「下一個萬億美元公司」之後，Marvell Technology (MRVL) 正成為華爾街最熱門的人工智慧股票之一。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/marvell-technology-mrvl-really-become-225200098.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "今日股市，6 月 3 日：市場因中東升級擔憂而終結連漲勢頭", "detail": "今天，即 2026 年 6 月 3 日，隨著人工智慧領頭羊面臨新的泡沫言論，油價飆升至 100 美元，伊朗相關緊張局勢擾亂了風險偏好。", "source": "", "link": "https://www.fool.com/coverage/stock-market-today/2026/06/03/stock-market-today-june-3-markets-end-winning-streak-on-middle-east-escalation-fears/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "為什麼 Advanced Micro Devices 可能成為下一隻價值 1 兆美元的股票", "detail": "專題 Nvidia 執行長黃仁勳最近表示 Marvell Technology 可能成為下一個數兆美元的股票。嗯，看起來 Advanced Micro Devices 的投資者希望對此有所了解。 AMD 股價上漲 4%，至 542 美元。", "source": "", "link": "https://finance.yahoo.com/m/cec2f166-9b78-3334-8399-a6c6c0649c62/why-advanced-micro-devices.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "這些專家表示內存庫存上漲可能尚未結束", "detail": "摩根士丹利分析師表示，需求成長和價格上漲可能意味著這些內存股在經歷近幾個月的強勁上漲後，未來將進一步上漲。", "source": "", "link": "https://www.investopedia.com/morgan-stanley-says-there-is-no-quick-fix-to-memory-shortage-benefiting-these-ai-investor-favorites-11990225?.tsrc=rss"}, {"date": "2026-06-03", "headline": "隨著記憶體短缺的持續，美光的價格目標上升", "detail": "分析師正在提高目標，但美光科技的上漲讓犯錯的空間越來越小。", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/micron-price-targets-rise-memory-201203613.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "美光科技市值剛達到 1 兆美元。現在買股票是否太晚了？", "detail": "美光科技已加入兆美元俱樂部，但投資者可能關注了錯誤的問題。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/micron-just-reached-a-1-trillion-market-cap-is-it/?.tsrc=rss"}]}, {"sym": "SNDK", "name": "SanDisk", "market": "美股", "sentiment": "positive", "summary": "Marvell 股票收盤創歷史新高。下一個重大催化劑就在眼前。", "items": [{"date": "2026-06-03", "headline": "Marvell 股票收盤創歷史新高。下一個重大催化劑就在眼前。", "detail": "Marvell Technology 股票週三再次飆升，其近期上漲可能意味著被納入標準普爾 500 指數已成為必然。", "source": "", "link": "https://finance.yahoo.com/m/dff80836-a338-3d49-b526-1bc0a9e4f8e0/marvell-stock-closes-at-a.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "今日股市，6 月 3 日：市場因中東升級擔憂而終結連漲勢頭", "detail": "今天，即 2026 年 6 月 3 日，隨著人工智慧領頭羊面臨新的泡沫言論，油價飆升至 100 美元，伊朗相關緊張局勢擾亂了風險偏好。", "source": "", "link": "https://www.fool.com/coverage/stock-market-today/2026/06/03/stock-market-today-june-3-markets-end-winning-streak-on-middle-east-escalation-fears/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "這些專家表示內存庫存上漲可能尚未結束", "detail": "摩根士丹利分析師表示，需求成長和價格上漲可能意味著這些內存股在經歷近幾個月的強勁上漲後，未來將進一步上漲。", "source": "", "link": "https://www.investopedia.com/morgan-stanley-says-there-is-no-quick-fix-to-memory-shortage-benefiting-these-ai-investor-favorites-11990225?.tsrc=rss"}, {"date": "2026-06-03", "headline": "SNDK 股價創歷史新高：摩根士丹利將 PT 提高 59%，預計未來將進一步上漲", "detail": "週三，摩根士丹利將 SanDisk 的目標價從 1,100 美元上調至 1,750 美元。", "source": "", "link": "https://stocktwits.com/news-articles/markets/equity/sndk-stock-hits-record-high-morgan-stanley-raises-pt-by-59-sees-further-upside-ahead/cZ0j156ReUN?.tsrc=rss"}, {"date": "2026-06-03", "headline": "蘋果股票、Google股票等在泡沫市場中吸引投資人。如何保持腳踏實地。", "detail": "蘋果股票、Alphabet、ASML 等公司的股票都順應了市場的強勁趨勢。但他們也提供了有關何時以及如何購買股票的課程。", "source": "", "link": "https://finance.yahoo.com/m/7eb4a3b5-2d13-3fbe-a794-3c0f420b3b8c/apple-stock%2C-google-and-more.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "中東局勢惡化後美國股市走低", "detail": "由於中東局勢惡化，美國股指周三走低", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/us-equity-markets-lower-middle-202525846.html?.tsrc=rss"}]}, {"sym": "TSLA", "name": "特斯拉 Tesla", "market": "美股", "sentiment": "neutral", "summary": "道瓊斯指數錄得自 3 月以來最糟糕的一天，標準普爾 500 指數和納斯達克指數在美伊交火後連漲——SNDK、TSLA、GOOGL、META、IREN 成為焦點", "items": [{"date": "2026-06-03", "headline": "道瓊斯指數錄得自 3 月以來最糟糕的一天，標準普爾 500 指數和納斯達克指數在美伊交火後連漲——SNDK、TSLA、GOOGL、META、IREN 成為焦點", "detail": "伊朗準軍事革命衛隊表示，他們襲擊了位於巴林的美國海軍第五艦隊總部，破壞了美伊停火談判。", "source": "", "link": "https://stocktwits.com/news-articles/markets/equity/dow-logs-worst-day-since-march-s-and-p-500-and-nasdaq-snap-win-streak-after-us-iran-exchange-fire-sndk-tsla-googl-meta-iren-in-focus/cZ0jVb2ReUp?.tsrc=rss"}, {"date": "2026-06-03", "headline": "SpaceX 還是特斯拉：6 月 12 日買哪個比較好？", "detail": "SpaceX 股票預計將於下週末開始交易。", "source": "", "link": "https://www.fool.com/investing/2026/06/03/spacex-or-tesla-what-will-be-the-better-buy-on-jun/?.tsrc=rss"}, {"date": "2026-06-03", "headline": "SpaceX IPO 定價為每股 135 美元，這家火箭製造商的估值將為 1.77 兆美元——馬斯克將保持鐵定控制", "detail": "SpaceX 正在發起美國歷史上最大規模的 IPO，其股票定價為 135 美元，籌集了 750 億美元用於燃料火箭、星鍊和人工智慧，同時該公司估值為 1.77 兆美元，並讓 Elon Musk 牢牢掌控公司。", "source": "", "link": "https://stocktwits.com/news-articles/markets/equity/spacex-ipo-pricing-135-per-share-will-value-the-rocket-maker-at-1.77-trillion/cZ0jlpNReUn?.tsrc=rss"}, {"date": "2026-06-03", "headline": "斯堪的納維亞需求激增，特斯拉股票測試短期移動平均線", "detail": "特斯拉公司股價週一下跌，因投資人權衡近期股價壓力，以及電動車製造商正在多個歐洲市場恢復銷售動能的跡象。歐洲註冊量顯示復甦 5 月份，多個歐洲國家的特斯拉註冊量增加，...", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/tesla-stock-tests-short-term-220159294.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "Einride AB 將作為貨運平台上市，電動和自動駕駛車隊不斷增長 - 啟動報告", "detail": "在此下載完整報告 Einride AB（擬定股票代碼：ENRD）綜合貨運平台將合約需求擴展到電動和自主部署 Einride 作為具有即時電動和自主部署牽引力的商業貨運技術平台進入公開市場。成立", "source": "", "link": "https://finance.yahoo.com/markets/stocks/articles/einride-ab-become-public-freight-215508005.html?.tsrc=rss"}, {"date": "2026-06-03", "headline": "今日股市，6 月 3 日：Rivian Automotive 因 R2 SUV 訂單興趣強勁而上漲", "detail": "2026 年 6 月 3 日，投資者正在權衡 R2 需求的激增、AT&T 新的支援以及 Rivian 的新技術授權希望。", "source": "", "link": "https://www.fool.com/coverage/stock-market-today/2026/06/03/stock-market-today-june-3-rivian-automotive-jumps-on-strong-r2-suv-order-interest/?.tsrc=rss"}]}, {"sym": "SPACEX", "name": "SpaceX", "market": "未上市", "sentiment": "positive", "summary": "現場報導：SpaceX 將利用獵鷹 9 號火箭從范登堡發射 24 顆星鏈衛星 - Spaceflight Now", "items": [{"date": "2026-06-03", "headline": "現場報導：SpaceX 將利用獵鷹 9 號火箭從范登堡發射 24 顆星鏈衛星 - Spaceflight Now", "detail": "現場報導：SpaceX 將使用獵鷹 9 號火箭從范登堡發射 24 顆星鏈衛星 Spaceflight Now", "source": "Spaceflight Now", "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNSUptLVZlc0V0WTVVNlpkS29IUXlHeEZra2NtMW45RGNUMFBfaVp3NHpEYlhmbUJMYjZoVGNrMG5uTUYyZ0hjODVhUjhCeXlDd0F3RkNuS3NTLVBBTkFrSGRSZ0JKalZrRzA0LUhENzBOR2gxWDFTQzBmbENXUHpOU3RrRDBXWExJdEpJa0gyZHdzd3d5Wk41UElrZjdxZGxyMjlEaUVyR3pqRDViZ3pYaC1DVEFBUnV0TGFEbnJlSFh1cFJNZU8tTQ?oc=5"}, {"date": "2026-06-01", "headline": "佛羅裡達州卡納維爾角將於六月發射火箭 - 今日佛羅裡達", "detail": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "source": "Florida Today", "link": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNd0VRTjYzdE1RVjZjb2FsaExWQTlLel9tVHdHcFE2b3VyTU1xVzctdG9od3N4cmkyd3dSa2pTdGxaVFJzVHl6VGVvS3RudURtNldQV1V5WDBoQ2Vsdi0yNzhuSHNRSUtrcC1UUmNBWHdvSDdMcEpKY0thby14QlhYOUFIN0N4TWtkUXRpajdsc1lqNnJDUGZobEhUeWhESjFRN2JOSlFvemlHc2tHWTlSd0tMR1lTVGpHa0NVN3l6bGxudlhCWmVFWUV5TzBsVWdQMmxXR25LRXF1Q2l5ckNqYlNIU0lQNFhSSmNtUzJ0NWxGbTVwT0ZMc0hsZVFfZjBHVnM0OEh3?oc=5"}, {"date": "2026-06-03", "headline": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "detail": "惡劣天氣迫使 SpaceX 的獵鷹 9 號火箭從卡納維拉爾角發射火箭 &nbsp;&nbsp;Spaceflight Now", "source": "Spaceflight Now", "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNVlhmUHhDZzJoZEVxbkpvVXBVZVIwYTRHY2d5eVRIWTRFR09KTmtmTzhMM2hQX3diZEhmZy14M1AwMmRmUjVtYU9Zb0RtX1dyUTBHT0dwSGJfS1ZpVklDSmdUeDJzNFdRcU45Qjdsc0xUTGs5SHZ5Z1NvZTJKZFBRWjYycUJQMkdPZ1JLV0tfVmRjV2xGdUYwcEJaUmYyQVJDOTNsZmhyV01lTkgtUktUd2VMazUwNXB1MVROR2dfVjJIcG1GRGlzT1pyX0dNRjQ?oc=5"}, {"date": "2026-06-02", "headline": "SpaceX 清晨從佛羅裡達州發射火箭。什麼時候升空？ - 今日佛羅裡達", "detail": "SpaceX 清晨從佛羅裡達州發射火箭。何時發射？ &nbsp;&nbsp;今日佛羅裡達", "source": "Florida Today", "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQMUFnSVpkOGhFbVgtOWdDTld6TFFTaFBKdHFEdW5tLXlyNUxKSmRTM0htdjJ1dm44Y3AxaHVXSmdVWXpuVjY5eUF5UHRrQjJ3Y0lKMU80MHFUekVWSHVxcjd3UFNydGx4bkRqRnQwdTZnU1FKdEpFZTQwNkhKNzNKUHRZVEVUbkVMMU1RV3k0NmVBS09HVDA5SGRRWkV0VWhZbXlMVXpqSFlUZ0pzRWh3bGptR0Q5RHRGd25yd0w3dU9TUUpJSnRJUTJ6bUVkRTlLLWp5b25GaC0zRnVpSUxZckxyS1MtZkMwNXBzLWxxbEJ1RTJC?oc=5"}, {"date": "2026-05-22", "headline": "SpaceX 剛剛在壯觀的 Flight 12 測試中首次將 Starship V3（迄今為止最強大的巨型火箭）送入太空（視頻） - 太空", "detail": "SpaceX 剛剛在壯觀的 Flight 12 測試中首次將 Starship V3（迄今為止最強大的巨型火箭）送入太空（視頻）", "source": "Space", "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYmxZYjRxWU15ZEM0SVJJRkZwallWeG1wN2lBQmREQUJZZExpdThLY0lDa1hVNkFJbXE1ZGllTW55ZDdIck0zTzNXMXNZSUxVaGk1dXVwVVR1ODg5RHY1ZmVsNlV4TEJ1YTBJVVVRaFVwNFFCZUpfVXBxYTc0SjhzTzhuVl9Pek1YQkh5ak1kWmFBV21JQy14aGpvYkhtaDN6dDRnc3R5RXhBNUk?oc=5"}, {"date": "2026-05-22", "headline": "SpaceX 火箭濺落後印度洋爆炸的瞬間 - BBC", "detail": "SpaceX 火箭濺落後印度洋爆炸的瞬間 &nbsp;&nbsp;BBC", "source": "BBC", "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5XUUxXVkI1b0tuZ0FKc3hFRVBnejVSdGVRWV92SlVpNV92OXk2VklhbVpteVVrZmVRajlPQjhHQTNxemhKWWZjcVlWYkdoQklZNFY1dTBWRQ?oc=5"}]}, {"sym": "KIOXIA", "name": "鎧俠 Kioxia", "market": "日股", "sentiment": "neutral", "summary": "AI 熱潮重塑日本市場 Kioxia 股價飆漲 660% - TradingView", "items": [{"date": "2026-06-03", "headline": "AI 熱潮重塑日本市場 Kioxia 股價飆漲 660% - TradingView", "detail": "AI 熱潮重塑日本市場 Kioxia 股價飆漲 660% TradingView", "source": "TradingView", "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPaW5hdEFlWnFMWTg1dlJKSTJfcG45ZVcyTnlIYjZTR1EwWGs2QktPRHJtT3NndHhOcFFraXJnWjFZQVVsak1EVmNtQnNTT2Z0a2ZSY0NUREh1WlR6ZnNQdmhFMFRvTGVoc2xNY0hPajN3WEQ3d2xOVUx1YlVIOGJoVlRrVlFjdnp3a19vMXBhNm40MDNXVUt5ajhCckZhOGtUS2dDSEdFMGhpaVh3cFcwWDNR?oc=5"}, {"date": "2026-06-01", "headline": "G Sachs 上調三星電子、SK 海力士的目標價；將 Kioxia (285A.JP) 升級為買入 - AASTOCKS.com", "detail": "G Sachs 上調三星電子、SK 海力士的目標價；將 Kioxia (285A.JP) 升級為「買入」AASTOCKS.com", "source": "AASTOCKS.com", "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUGo2Q3gwSmJnNHBOVnNqSGgzU09kWjJYUnhXRHUtQnkzX21MZ3gxOHhUdnp5VjlTRHhjMEtEUlktZXdSQVN0MjZCbWdqV25GWFd6SUtvWFh4M1o2MkJkLVFSWEFjNFFFMlNHMTdxVDdsUWMtWVFGM29ndGFuS2txaG5XYnNHSHpvNmVkdVNVZU55MHJpTFE?oc=5"}]}, {"sym": "HYNIX", "name": "SK海力士", "market": "韓股", "sentiment": "positive", "summary": "液化空氣集團宣佈在韓國進行里程碑式投資，支援SK海力士的先進人工智慧儲存晶片專案 - Air Liquide", "items": [{"date": "2026-06-03", "headline": "液化空氣集團宣佈在韓國進行里程碑式投資，支援SK海力士的先進人工智慧儲存晶片專案 - Air Liquide", "detail": "液化空氣集團宣佈在韓國進行里程碑式投資，支援 SK 海力士的先進人工智慧記憶體晶片專案 液化空氣集團", "source": "Air Liquide", "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNUFJqY2p5enlqM2xGVVBBeW15TXBfN0RYcGpuRDI2eDI5emo0cEh3anJuSE9tZVdnWHc0cDh3WGVtUkhCaGVMaXM4SmMwT0NhT3BGdXM1SjNtZEJwM2F6LXNEVHFheUExNk54V3pNX2lpSkxtZG9GQ2p0dmZVX0s2RVNzWnJ6QVpsNXpTT2VOWWVhSm9xazg5UG9qZDVaa2pfOWt1NWg1bl9OUUN6eVZIakNyaWtvSnVoUVp1bUtYcTlZSTRLcW9DN1ZoZnJjaGI3V0pNSVY3aERkaEVicEhFSmJJSDAyTnIyZ1pQWXVESjFHRTA4?oc=5"}, {"date": "2026-06-03", "headline": "記憶體晶片市場風靡，美光、SK海力士成萬億美元公司 - 雅虎財經", "detail": "記憶體晶片市場風靡 美光、SK海力士成兆美元公司 雅虎財經", "source": "Yahoo Finance", "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQUTdzQ2pZWDd0YlF3OGozdkV5R3ktN19FZ0ZYNDJGMFdXc3FBMTlWSFRTakUxTnUzYWRyX0pNcmh0U0RFaHpwM2hHWDlibGc4QzY0X3NDVm03YzdPa2p4WlhaM0s5Vm1FZDJtdXptLVNtTGYxZTRfN2pybzI3OXU2bl9FdlNaTEtibm43Z1BzaUQ5VDZBVVRmMTR5b0hvdw?oc=5"}, {"date": "2026-06-03", "headline": "AI晶片讓開：記憶體晶片風靡市場，美光、SK海力士成萬億美元公司 - AOL.com", "detail": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "source": "AOL.com", "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBtS0M4TjVjY1p4by1SYzlJa2w1Yks0V29OODdjbWhIMkVydTBGMUZhWXpuRDZFTDkxd2F1ZDZDSVVzM2g3MmFSVkFWV1NneWJGeWJ4VmZyT1FlcHF5Mi1CQlBqZzZBUTktWWRuc0o4eE1LZUJ0M0tv?oc=5"}, {"date": "2026-06-02", "headline": "Nvidia CEO敦促SK海力士生產更多HBM晶片 - upi.com", "detail": "Nvidia執行長敦促SK海力士生產更多HBM晶片&nbsp;&nbsp;upi.com", "source": "upi.com", "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZElIdW9sd0EtdnFnSmNVaHhlV0luelV2QnpFY2E4Tmx3WlZabkdfYkducy1TOW5kTmtiVWptQXVqTE01MFBCRUgzZTlLUE9lV1Bia1V3dDA2eVF2ZTJpNlUzYzM1b3owMm9TdVRKakdHaDg2VHBQQVl1WU90ZFlIZGx2c2hfM2xkd0ZPMTNreWVFQVZLSjNQS1I4czJKN2daNDZn0gGoAUFVX3lxTFBMUkFiVTRYWVh2dXB3b0tRdG43U25CTE4wa3FMUTQ3Z1EzdFZfTF9YTHZmMlFFeUZtMmNzQ05PUG0zRldqQUZlOHFyX1Z5c2JsTC12TWFLNDc5aW5CTDNBWk9JQ1hiS1g1ZHJMam5uT1VnS0dHbmV4SGhpMngyV2Q4Rll4ZnowZ3h2TENlWUdlbHZyQ2VndER1eE5ub3NmVDkwUDk2T2hxZg?oc=5"}, {"date": "2026-06-02", "headline": "集團董事長稱SK海力士計劃在未來五年內將晶圓產能翻倍 - 路透社中文網", "detail": "集團董事長表示 SK 海力士計劃在未來五年內將晶圓產能翻倍&nbsp;&nbsp;路透", "source": "Reuters", "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPVUxDSjFBdU1LVEVOWEJBdUI1WllsMUxldl8xRTYxdTlpSGFBSFk4N0FzNXozbFFhYl8wbGZWNkI5MUJCNjF2bUNhSG0yQWJHMGpaSlB4M2NBc0I5d25QbXJueERtdUFyZzYzdC1fT245N20xa3VFZ2FNSXZsTFRUSkpORFk4VHhjRGhvYTBaS29ObEhxWmlPTGtMcncyYXlBc3czZV96YWhlaWY4U0J5NXFsZHFWSEdLU05vaENNNnFVQUZkQXc?oc=5"}, {"date": "2026-06-02", "headline": "SK海力士憑藉高頻寬AI晶片成為新的記憶體王者 - 日經亞洲", "detail": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "source": "Nikkei Asia", "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxObW1RY0c3NjlJbG9tQVBxRER2WmtSMm13QzZvdm9SeTlhNUpnTUdiNWU2YXdCRGl0dnJWLUJpMXJIdXFBVmp6NEFTOTBjUVdKVUpiTHpJRHhMR2c3bENMVFpBQXRmWnB2anZ5blhUcWhIb3hDNUNINTk3UHcxWjFWekV0azBfeTFHYkVVdkk1d05NSDY0QUgyOU9qNnJlWUttaFVnbUtuOEs0RENjaEhxWTBCOWNrcExZ?oc=5"}]}, {"sym": "SAMSUNG", "name": "三星電子", "market": "韓股", "sentiment": "neutral", "summary": "三星電子開始出貨業界首款 HBM4E 樣品 - samsung.com", "items": [{"date": "2026-05-29", "headline": "三星電子開始出貨業界首款 HBM4E 樣品 - samsung.com", "detail": "三星電子開始出貨業界首款 HBM4E 樣品&nbsp;&nbsp;samsung.com", "source": "samsung.com", "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQRlQ4UUE0MWp1eVQ2QWItejU2WV9ZSG5TLVRYa005NFhISm81VWhpZnhnb3gzWUY2Sno3SHhVY0wxNEZWVHpjNG43bW9JbjZTUFZmZXBPaXJPSVpxTzBzdmoyUDFDTmtIaUg3V0M0Zkh3OTVBQ2Y2TWtJZGNaOEZlaEc4b2F2ZnNBaWxLWWY4eVpHWGJRdUVoYm1aalNDZjQ3d192Zk9OeTZfUnRKbzVNVEs4dmNOcDFrbnd3?oc=5"}, {"date": "2026-05-25", "headline": "人工智慧熱潮中三星晶片工人平均獲得 34 萬美元獎金 - 西雅圖時報", "detail": "人工智慧熱潮中三星晶片工人平均獲得 34 萬美元獎金 西雅圖時報", "source": "The Seattle Times", "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNRXc1bzZ2WDlnb3NlSGdRV19aTDQ0dm4zQkhVQV9SYnVEVkc2UjVkbDJNeFl3dXVETzZ3Z1NQX2N4OFd5LVd4SE1IV3JMM1k2NDNhdjRTR3dCdDIzdkZFaGNwRm5Oc0tRLU0tQ09Rek1ULURRaGRIeF9yXzV4UlJmeVgxVGpidmtNVUhVaFdfcnZqeUFyYXlYZWFtaV9HeVE?oc=5"}, {"date": "2026-05-26", "headline": "文件顯示三星計劃在越南投資 15 億美元的晶片測試工廠：路透社 - CNBC", "detail": "文件顯示，三星計劃在越南投資 15 億美元的晶片測試工廠：路透社&nbsp;&nbsp;CNBC", "source": "CNBC", "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQSE02ZEVTYUhRUGZsT0F3S3VCd0E3NEl5bVN0QWRwNGdjUWMxRm4yQjdxS29XUFdSd3UwVFZLSUNKOE9iNzl0dHZiMTlCWWREUnZsX3lYWWVfZHBQVVhUVnJVWFhjS0tyOTdScFhtUHUybmY2d2J2ODJnMFFYZFAtX2Q5SjBMQnFKZng1RkduZ1FqZEsxTmpaaU55TDNSU0RtN0hxcVYxWVJjaHFNZFh4QTdFbVpBQ09tXzJ30gHAAUFVX3lxTE9QNENMb0gyZ1RRNU9DcmE2aFZSSnIzalhmMU01TDhPWUx6T3AzYi1JZGx5MThtSVR5Y2tyaHo1M3l1YzFvdFVkelNvcU9xbGNUSksyVFpQblVHQzV5bjhrMV9OUEZxbVZGZW5Eejh1MXJ1elEtSTVkclYtWlNRRWJvdTFUV2FyMkQyYTdqSWo4Z1JfU0d2RGVXWnRHcnhiODdrbk5wSk9ROVFPQS1RUDhlNkEySGRrWUozUzFsZ05FQg?oc=5"}, {"date": "2026-05-29", "headline": "三星電子少數族裔工會在法庭上挑戰薪資協議 - 路透社中文網", "detail": "三星電子少數族裔工會在法庭上質疑薪資協議 路透社", "source": "Reuters", "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNWnppM3Jla2xWUzlmcEFYYmoxc2hkdVJZbHlfanZlOHVESkpyRHczREloeGp3TlBLd3MxOVB0a0FYeV9kalVOb1EzaG5sc01EbVRNdVFQbWx6cW81b3l5VVV4ekdXQ3JjejdOQnFRckZwbmE1b291QkFCTlFQZG5ISi16eXRVTHBpNUswZzVCZzduNG45OXZQaUFmSFR2RVQ4dFVLeTVzN2hzak9kbklKOWZiWUdHM3ZxSGc?oc=5"}, {"date": "2026-06-01", "headline": "Cadence 與三星擴大 2nm 先進晶片設計合作夥伴關係 - New Electronics", "detail": "Cadence 與三星擴大 2nm 先進晶片設計合作夥伴關係 New Electronics", "source": "New Electronics", "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQd0FrTGpNUlJ1X19sdDQ3RVFSVDJ2MnV5SlRoX3otbk8zZEpOMnVXMHltZ3RWTU96bmV5UEpJdEEzRlp6UXFUUlVZblYxcVVOUEVlZlUyY2l2WGVTVTlacE9laFhDbF96azZsWGhtMG02N3hSQW1Bck9SS0tiWnlNcF8wNG9vc18xbF9JNllSMDM1NlgzVXBFc2ZMMkNJUC1TMktZOE1hWXlsVXBfS1ZaU2s3emlIdnc?oc=5"}, {"date": "2026-05-27", "headline": "三星半導體員工 40 萬美元獎金交易：需要了解的 4 件事 - 日經亞洲", "detail": "三星半導體員工 40 萬美元獎金交易：需要了解的 4 件事日經亞洲", "source": "Nikkei Asia", "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPdjdXVTRKRUtBa3N4Z3JVWnBiWTdKSDVuVTlQdVZhZFNSZHRaRzl5ZVZZRWNaSF82OVpkajhCM2dJS200YmdWT0tqeDYwTlBkYlhTUE80WDlGTUxlNVdWVU1INE1HaktFSFd2cjNjYkhTeHlRUHN1M2dPOEdiQnFBdE91MEVGT002TGRVWFhMRElLY1hYR0FYWHFZbHhaaklBY0pGT0JuZmhsODlvVllXcGxzZ3RqemdaS3c?oc=5"}]}, {"sym": "2344", "name": "華邦電", "market": "台股", "sentiment": "positive", "summary": "目標價給到183元！「記憶體大廠」Q1獲利超預 4大雲端巨頭砸7250億美元助攻景氣 - Yahoo股市", "items": [{"date": "2026-06-03", "headline": "目標價給到183元！「記憶體大廠」Q1獲利超預 4大雲端巨頭砸7250億美元助攻景氣 - Yahoo股市", "detail": "目標價給到183元！「記憶體大廠」Q1獲利超預 4大雲端巨頭砸7250億美元助攻景氣&nbsp;&nbsp;Yahoo股市", "source": "Yahoo股市", "link": "https://news.google.com/rss/articles/CBMivANBVV95cUxOajlCTHpkLUlDdVB1ZE95NllyVDJVWUF1MTYtNDBRTHhTTDFVN1ZIVEtlT2l2U2FvQU93Mk4tcGxvQTJBNEl1YzNmLU5zVFFERFpwVmJCWGd6UHFHQ05JMVNLQW5fQThrSmhmZjlXUW0yQ2N6VWl3UTdVTHBYU0VxVG9Pd0V4dEdKTTA1cTFvVDhhejNEVTlaVzZFV1Q4TWlwQTE1SF8xX0tFTzNLVS1kLWY2eFBydlFQWmJhN18xNjh5WmMxakRaNkZXVlRNUEtCMklwWFhYWlpseEJmTXFWLWlHcGlGNm5uNVNwRXFfZEtqMkJ4RWZQVF9xWGJybjVYMTJyOHlMWm1kLW10bnVLb21JNmtOY0Y0TDh2NS1wTWhaTDY2LXU4eDRXMXA2UFNpZWZSWnRlYlZXX2dYdl9YUkNfS3JMNnBneDhBQ3ZIb2ZSd3RRVEl5Tk5GQ2EyN0VzRHl0MDl1NHlUYjFEanBTRzIyY0hKRDRzdDM5SnZQU2l5anBEamR0ZWd0NTJ5SlpBNkNHQlF4bWJreG1IMF8wNmgzeTNGdF9ld2NjVzRKUW9FNnVEVVBqZHFyT1A?oc=5"}, {"date": "2026-06-03", "headline": "記憶體最新報告來了！南亞科、華邦電目標價又刷新老牌法人揭最大風險是它- 上市櫃 - 旺得富理財網", "detail": "記憶體最新報告來了！南亞科、華邦電目標價又刷新老牌法人揭最大風險是它- 上市櫃&nbsp;&nbsp;旺得富理財網", "source": "旺得富理財網", "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5uVV85SDNWTFVDU181d0hpX2dHNVhROHBIMnNiOUl3SVFyVXBiUU9fT1pNODgtbGVmTFN5T2VZcTRtcXdQZVMwZ3dCT2QybzJsRVIxdmc1MTM1TU8xSTdHOWpkODNzb1JxWXc?oc=5"}, {"date": "2026-06-02", "headline": "華邦電漲停飆天價！00403A神級卡位 抱63億元市值成最大贏家 - news.cnyes.com", "detail": "華邦電漲停飆天價！00403A神級卡位 抱63億元市值成最大贏家&nbsp;&nbsp;news.cnyes.com", "source": "news.cnyes.com", "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBWdndsdE94eW9ycTlVWnlDY3U5NjFKUFE3aGlCbFFHcXFQaXRFYjB1eVM4UlkwOGM1eUt0V29kOURuQ3NUcksyWDBjTW5aM1k?oc=5"}, {"date": "2026-05-29", "headline": "DRAM後換NAND暴動？華邦電董座喊記憶體全面缺貨明年下半年也難解- 日報 - 工商時報", "detail": "DRAM後換NAND暴動？華邦電董座喊記憶體全面缺貨明年下半年也難解- 日報&nbsp;&nbsp;工商時報", "source": "工商時報", "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9Ya2t0dHE0M2hfQWRCZG1vZnVHT0dpc3NtVG5FWDNEVmM4dWliMWxfbFluWjJ6NE53OFRuaUFQM1RvVzFfWTJtMl9VUmtRelBsdmJpZHZKSFRaR3JkUm9z?oc=5"}, {"date": "2026-06-02", "headline": "華邦電、威剛、南亞科、旺宏…漲停還會有幾根？記憶體市場規模破表，最新目標價揭有多少肉可吃 - 今周刊", "detail": "華邦電、威剛、南亞科、旺宏…漲停還會有幾根？記憶體市場規模破表，最新目標價揭有多少肉可吃&nbsp;&nbsp;今周刊", "source": "今周刊", "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOb2ZTTUFLY0RXekZBdlFfcEhWdEdiYlVJSDdJWGVkX25Ud1ZhcFlpY004Tlp2cW1OaURFRnpTU2RjeDlzdTk0NDFDOEpiSFN2TXhxQ1ZYY1hwdXNQWjZHeDVzZzVQMHpQOUFiQzVwOVFRak1WZFAzc202OW1yTndfQw?oc=5"}, {"date": "2026-05-30", "headline": "華邦電董座：記憶體缺貨漲價延燒 明年下半年難紓解 - 自由財經", "detail": "華邦電董座：記憶體缺貨漲價延燒 明年下半年難紓解&nbsp;&nbsp;自由財經", "source": "自由財經", "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5qTXk3V0xDNmViZWxlbE9yMjZlYTBJMF9NUjMxVHAwRHV1U3FUODZESEUzSVlrcUF3REZmbWhxd2oxUXk0T2tMenVUM2ZvZVJfeGpGd3ZkTmJJMXlZeHY00gFkQVVfeXFMTWlvMW5TcmE3MFZfQ0lJTUNGR2taOC1obTBPaV90dGQ1TFRoU1puZUl2Mjk4MC1vQWFyaWVpcnNTZS1pX25iR3FaYUkyN3pRbjFKLS0wc0lLWENieFllTzJnZk5SMA?oc=5"}]}, {"sym": "2408", "name": "南亞科", "market": "台股", "sentiment": "neutral", "summary": "記憶體最新報告來了！南亞科、華邦電目標價又刷新老牌法人揭最大風險是它- 上市櫃 - 旺得富理財網", "items": [{"date": "2026-06-03", "headline": "記憶體最新報告來了！南亞科、華邦電目標價又刷新老牌法人揭最大風險是它- 上市櫃 - 旺得富理財網", "detail": "記憶體最新報告來了！南亞科、華邦電目標價又刷新老牌法人揭最大風險是它- 上市櫃&nbsp;&nbsp;旺得富理財網", "source": "旺得富理財網", "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5uVV85SDNWTFVDU181d0hpX2dHNVhROHBIMnNiOUl3SVFyVXBiUU9fT1pNODgtbGVmTFN5T2VZcTRtcXdQZVMwZ3dCT2QybzJsRVIxdmc1MTM1TU8xSTdHOWpkODNzb1JxWXc?oc=5"}, {"date": "2026-06-02", "headline": "華邦電、威剛、南亞科、旺宏…漲停還會有幾根？記憶體市場規模破表，最新目標價揭有多少肉可吃 - 今周刊", "detail": "華邦電、威剛、南亞科、旺宏…漲停還會有幾根？記憶體市場規模破表，最新目標價揭有多少肉可吃&nbsp;&nbsp;今周刊", "source": "今周刊", "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOb2ZTTUFLY0RXekZBdlFfcEhWdEdiYlVJSDdJWGVkX25Ud1ZhcFlpY004Tlp2cW1OaURFRnpTU2RjeDlzdTk0NDFDOEpiSFN2TXhxQ1ZYY1hwdXNQWjZHeDVzZzVQMHpQOUFiQzVwOVFRak1WZFAzc202OW1yTndfQw?oc=5"}, {"date": "2026-06-01", "headline": "外資驚天報告…成熟型記憶體迎來暴利敲門 大升二檔個股目標價 - UDN", "detail": "外資驚天報告…成熟型記憶體迎來暴利敲門 大升二檔個股目標價&nbsp;&nbsp;UDN", "source": "UDN", "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9BQTRQajEwcTZiLWZLUVVxWmZXWkhpdFR3R1d5SmtLOUd4Tk05NlhjdG5jRFJfcEpfVlJpc21RVUlScXpieUttZEpmYjJvLUNZ0gFWQVVfeXFMTTY5UkM0dUJaRU9lWnRHVWR5dDgzR1RBS3lPMFFnaS1qUVVHTjU2MU1uX0dDa2c3MThjMk1UaldIS3VSd2dYR0FaY2hUMmZVS2Q1VWhZU3c?oc=5"}, {"date": "2026-06-01", "headline": "【Hot台股】南亞科亮燈漲停！網嗨「超級落後補漲」 分析師：記憶體行情還沒完 - Yahoo股市", "detail": "【Hot台股】南亞科亮燈漲停！網嗨「超級落後補漲」 分析師：記憶體行情還沒完&nbsp;&nbsp;Yahoo股市", "source": "Yahoo股市", "link": "https://news.google.com/rss/articles/CBMi-ANBVV95cUxOX1gxX001d2FwMUY2LVpKQXM4bU8zZHZvZnEwLUhvb0kxcGhGYWN3V1ZkT3ZpMHBVck4yb1lZY3BHbnZUME9mTERNX3FnZTFid2YzN3prQ21VYkxxeUExdFpBNHIzYlNvWmk2eWVVVnQ0UjNnc3lnNjBaQlRvUGdpSnVrZHVROXBTWGxKOTdxU1FvOGpMb2JjckNmOGxORlh5OTJ4d3VOUXd0N0VmT0p3SmxOVnNkVW5lVURlUUdnYld5SUpxWVBqeHU2Z2YzcEIyWkZZa2U4bk02aXhKaWM1d2dRYU1zYUo2LUhPNmhqTXRmMzJuZDFNZzRhWDM3bmRGZU1ZQnYtdmRpYmhsSHdiMW5DOEx2YVhKNGx3V0JXZzZBNnR5NlQ1M1ZFQTZBMmREbkxLNW84dWZhYUNjQUZlV3lBN2Z6YWRnR1k0TkxOVmJORHVfZm5wQWg3UjdQUWQxZEM5MmFrOFNzaHNDOGlmbTNfelJJWDFFMjg1TzZyRkg4aVhwQmJLam1yTnpPbUxQek9CX0JGQmJTUjdaN1hEOFFnOHlza2J6b2ttWTE1VGwxUmk0TFZXUnhRTlJwbXNERkhuR3VfSkd5cU5VYlZ2VExIYVY5b3g3T005UThhdzFySHFadUk5UkpxZUt3bDF2OEk2dlZSRDE?oc=5"}, {"date": "2026-06-01", "headline": "記憶體挾AI開趴！4檔飆漲停　華邦電、南亞科刷天價 - ETtoday財經雲", "detail": "記憶體挾AI開趴！4檔飆漲停　華邦電、南亞科刷天價&nbsp;&nbsp;ETtoday財經雲", "source": "ETtoday財經雲", "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBiM2c0Mktxc1JRd0hLVUhxY2E5OXJrVUtUQ1VCSzQ3UmVDWE1qTUNPa0xfUENUNnEtRWx2bkpDM0F6QWY5b05iUlp2ckZPWlg1R0HSAW5BVV95cUxPTjFwNWIxVklPUEJ0NE5IYmNhTzBWWFE0RmowSldLTGRYQTR1WFVpN05rRXhIQ2VoamZlTzlvdGZqdVNGdUNZb0Q0SHEyYjY4YnhtLUotaU9XUEVQcnVmM1dHc0pUWE1oY0NnLWxPQQ?oc=5"}, {"date": "2026-06-01", "headline": "焦點股》外資認錯 南亞科、華邦電續領漲記憶體族群 - 自由財經", "detail": "焦點股》外資認錯 南亞科、華邦電續領漲記憶體族群&nbsp;&nbsp;自由財經", "source": "自由財經", "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9PVnQyVXRsX2ZZSlFELU95X1JyTHhIblB5NXlMRnd0RVBaVEUyUGJBQ3cya3JOZVR5NEJ6elVLMWsxNnJWM0JKN1BQOVJiZmY4eDc1RGtaNVNJSXpkTzRr0gFkQVVfeXFMTVpzYXRFTFJ3bW4yZHl1dTEzWE1fTjhRRkMybC1EQ2J3V0xNLWNDMTFoa2dSaGlhWi00c1hIdzY5Y2c0d05tbjVzWWNvZUF2TmFMVFZQUnhwTS1mWlZhSk9FcU02dg?oc=5"}]}, {"sym": "2337", "name": "旺宏", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "8299", "name": "群聯", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "4172", "name": "因華生技", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "6541", "name": "泰福-KY", "market": "台股", "sentiment": "neutral", "summary": "泰福-KY(6541) 個股概覽 | 個股 - 股市 - CMoney", "items": [{"date": "2026-06-01", "headline": "泰福-KY(6541) 個股概覽 | 個股 - 股市 - CMoney", "detail": "泰福-KY(6541) 個股概覽 | 個股 - 股市&nbsp;&nbsp;CMoney", "source": "CMoney", "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5tSThsUlZ1TFFCeWxNZzBWa1VUWXJaRnRvaEw4dVppcjE3TzhRSWNaYXpPR0xqd2JZX19CVkNrWTNMLXlNNTRoZzc0ajRjUkZEYzZv?oc=5"}, {"date": "2026-05-26", "headline": "尹衍樑辭世！潤泰集團上市櫃橫跨營建、環保生技等　股價表現平穩 - ETtoday財經雲", "detail": "尹衍樑辭世！潤泰集團上市櫃橫跨營建、環保生技等　股價表現平穩&nbsp;&nbsp;ETtoday財經雲", "source": "ETtoday財經雲", "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1WU282VGoxTTcyTGVmdHoySHgyRi1IQVMxSzNQVDYzUTBDdUpKYk5LVVhqTi0zV0VlbDRrNjlXZEx6NDJDbnlINzhlbHhmNU1ndnfSAW5BVV95cUxPdXlmeVN3RjlfMHdPZTgtYkxWTnpub2xXU3NUSm5QSkpvdERmSjlia0ZOSXlRUENqUGRLVHVYVHBUQUIxZHZlbG5NOWh2aU93Ri1wTFhuZlJ2ZjM3R0pFd09mdW5sTjFZQTNuN1hMZw?oc=5"}]}, {"sym": "4726", "name": "永昕生醫", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}];
-const INDUSTRY_DATA=[{"date": "2026-06-04", "source": "TechCrunch", "cat": "科技", "headline": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "link": "https://techcrunch.com/2026/06/03/firstclub-doubles-valuation-to-255m-in-nine-months-on-quality-first-grocery-bet/"}, {"date": "2026-06-04", "source": "The Verge", "cat": "科技", "headline": "任天堂確認將在歐盟銷售配備可更換電池的新 Switch 2", "link": "https://www.theverge.com/games/942808/nintendo-switch-2-replaceable-battery-eu"}, {"date": "2026-06-04", "source": "CNBC Tech", "cat": "財經", "headline": "亞馬遜西雅圖工程師抨擊雇主建立人工智慧資料中心並解僱 3 萬名員工", "link": "https://www.cnbc.com/2026/06/03/amazon-engineers-in-seattle-slam-employer-for-ai-data-amid-layoffs.html"}, {"date": "2026-06-04", "source": "科技新報", "cat": "台灣", "headline": "提高稼動率  日產英國工廠考慮代工生產奇瑞乘用車", "link": "https://technews.tw/2026/06/04/nissan-and-chery-international-uk-to-study-manufacturing-chery-international-uk-passenger-vehicles-at-sunderland-plant/"}, {"date": "2026-06-04", "source": "科技新報", "cat": "台灣", "headline": "經部：美 301 關稅不疊加 122 條款，台灣具相對優勢", "link": "https://technews.tw/2026/06/04/moea-us-301-tariffs-not-stacked-122-taiwan-relative-advantage/"}, {"date": "2026-06-04", "source": "科技新報", "cat": "台灣", "headline": "下一個 AI 危機是什麼？答案可能藏在生物實驗室裡", "link": "https://infosecu.technews.tw/2026/06/04/the-case-for-esm3-as-a-general-purpose-ai-model-with-systemic-risk-under-the-eu-ai-act/"}, {"date": "2026-06-04", "source": "科技新報", "cat": "台灣", "headline": "淺談 Arc G3 Extreme：問鼎掌機效能王座？", "link": "https://ccc.technews.tw/2026/06/04/arc-g3-extreme/"}, {"date": "2026-06-04", "source": "iThome", "cat": "台灣", "headline": "微軟9月強化Entra ID自助式密碼重設，僅允許已註冊驗證方法", "link": "https://www.ithome.com.tw/news/176333"}, {"date": "2026-06-03", "source": "EE Times", "cat": "半導體", "headline": "InchFab 出售 1000 萬美元迷你晶圓廠以實現晶片製造大眾化", "link": "https://www.eetimes.com/inchfab-sells-10m-mini-fabs-to-democratize-chipmaking/"}, {"date": "2026-06-03", "source": "EE Times", "cat": "半導體", "headline": "確保您的供應，加速您的設計：記憶體超級週期實用指南", "link": "https://www.eetimes.com/secure-your-supply-accelerate-your-designs-a-practical-guide-to-the-memory-super-cycle/"}, {"date": "2026-06-03", "source": "EE Times", "cat": "半導體", "headline": "LPDDR6 路線圖通往資料中心", "link": "https://www.eetimes.com/lpddr6-roadmap-leads-to-the-data-center/"}, {"date": "2026-06-03", "source": "EE Times", "cat": "半導體", "headline": "台灣部長強調光子學、寬頻隙和量子領域的合作和未來重點", "link": "https://www.eetimes.com/taiwan-minister-emphasizes-collaboration-and-future-focus-on-photonics-wbg-and-quantum/"}, {"date": "2026-06-03", "source": "Semiconductor Eng.", "cat": "半導體", "headline": "使用單層 TMD 縮放奈米帶電晶體（Stanford、Chalmers、Horiba、SLAC）", "link": "https://semiengineering.com/scaling-nanoribbon-transistors-with-monolayer-tmds-stanford-chalmers-horiba-slac/"}, {"date": "2026-06-03", "source": "Semiconductor Eng.", "cat": "半導體", "headline": "部落格評論：6 月 3 日", "link": "https://semiengineering.com/blog-review-jun-3/"}, {"date": "2026-06-03", "source": "Semiconductor Eng.", "cat": "半導體", "headline": "資料中心 1 兆瓦機架", "link": "https://semiengineering.com/1-megawatt-racks-in-data-centers/"}, {"date": "2026-06-03", "source": "Semiconductor Eng.", "cat": "半導體", "headline": "從電路到系統：釋放週期性穩態分析的力量（電子書）", "link": "https://semiengineering.com/from-circuits-to-systems-unlocking-the-power-of-periodic-steady-state-analysis-ebook/"}, {"date": "2026-06-03", "source": "IEEE Spectrum", "cat": "半導體", "headline": "新工程師在人工智慧時代蓬勃發展的 7 種方法", "link": "https://spectrum.ieee.org/7-ways-engineers-flourish-ai"}, {"date": "2026-06-03", "source": "IEEE Spectrum", "cat": "半導體", "headline": "面向未來的配電需要什麼", "link": "https://spectrum.ieee.org/distribution-grid-modernization"}, {"date": "2026-06-03", "source": "Tom's Hardware", "cat": "半導體", "headline": "MSI Claw 8 EX AI+ 將 Intel Arc G3 Extreme 引入手持裝置 — 8 吋、120 Hz 顯示器與全新人體工學手柄", "link": "https://www.tomshardware.com/video-games/handheld-gaming/msi-claw-8-ex-ai-brings-intel-arc-g3-extreme-to-handhelds-8-inch-120-hz-display-and-new-ergonomic-grips"}, {"date": "2026-06-03", "source": "Tom's Hardware", "cat": "半導體", "headline": "購買這款配備 RTX 5080 的 4K 版 Alienware Aurora 桌上型電腦可節省 1,280 美元 — 只需 2,919 美元即可輕鬆享受高性能遊戲", "link": "https://www.tomshardware.com/desktops/gaming-pcs/save-usd1-280-on-this-4k-ready-alienware-aurora-desktop-pc-with-rtx-5080-high-performance-gaming-at-your-fingertips-for-usd2-919"}, {"date": "2026-06-03", "source": "Tom's Hardware", "cat": "半導體", "headline": "Lian Li 的 Edge Platinum V2 PSU 配備 LED 灰塵指示器、磁性過濾器、卡扣式風扇和 USB 接頭集線器 — Edge line 的商標 90 度電源連接器也回歸", "link": "https://www.tomshardware.com/pc-components/power-supplies/lian-lis-edge-platinum-v2-psus-have-an-led-dust-indicator-magnetic-filter-and-a-snap-on-fan-and-usb-header-hub-edge-lines-trademark-90-degree-power-connector-also-returns"}, {"date": "2026-06-03", "source": "Tom's Hardware", "cat": "半導體", "headline": "華擎展示了一系列新的 AIO、電源和 10 週年紀念硬體 - 用於 AI 的巨型 3KW Taichi 電源和混合 Taichi Aqua AIO/定制循環在人群中脫穎而出", "link": "https://www.tomshardware.com/pc-components/power-supplies/asrock-shows-off-a-slew-of-new-aios-power-supplies-and-10th-anniversary-hardware-a-monster-3kw-taichi-power-supply-for-ai-and-hybrid-taichi-aqua-aio-custom-loop-stand-out-in-the-crowd"}, {"date": "2026-06-03", "source": "MIT Tech Review", "cat": "AI", "headline": "虛擬發電廠如何為資料中心提供能源", "link": "https://www.technologyreview.com/2026/06/03/1138350/virtual-power-plants-data-centers/"}, {"date": "2026-06-03", "source": "MIT Tech Review", "cat": "AI", "headline": "下載：川普的新人工智慧命令和用於戰爭的智慧眼鏡", "link": "https://www.technologyreview.com/2026/06/03/1138322/the-download-trump-ai-order-smart-glasses-warfare/"}, {"date": "2026-06-03", "source": "Ars Technica", "cat": "科技", "headline": "无法理解 Dashlane 的金库失窃通知？你並不孤單。", "link": "https://arstechnica.com/security/2026/06/dashlane-issues-opaque-advisory-warning-20-encrypted-vaults-were-stolen/"}, {"date": "2026-06-03", "source": "TechCrunch", "cat": "科技", "headline": "消息人士稱，Lovable 與 Google Cloud 簽署多年協議，將使用量提高 5 倍", "link": "https://techcrunch.com/2026/06/03/lovable-signs-multi-year-deal-with-google-cloud-to-up-usage-5x-source-says/"}, {"date": "2026-06-03", "source": "TechCrunch", "cat": "科技", "headline": "國防技術充斥著金錢，但誰能經久不衰？", "link": "https://techcrunch.com/video/defense-tech-is-flooded-with-money-but-whos-built-to-last/"}, {"date": "2026-06-03", "source": "TechCrunch", "cat": "科技", "headline": "Uber 今年將投放 500 輛數據採集車上路", "link": "https://techcrunch.com/2026/06/03/uber-to-put-500-data-collection-vehicles-on-the-road-this-year/"}, {"date": "2026-06-03", "source": "The Verge", "cat": "科技", "headline": "蘋果本週將在德州推出年齡驗證功能", "link": "https://www.theverge.com/tech/942761/apple-texas-age-verification-app-store"}, {"date": "2026-06-03", "source": "The Verge", "cat": "科技", "headline": "WiiM 透過新的條形音箱擴展其整個家庭生態系統", "link": "https://www.theverge.com/tech/942748/wiim-releases-first-soundbar"}, {"date": "2026-06-03", "source": "The Verge", "cat": "科技", "headline": "Nvidia 已經在規劃 N2X 和 N3X 晶片——目標是《星際爭霸戰》計算機", "link": "https://www.theverge.com/tech/942588/nvidia-rtx-spark-n2x-n3x-r2-d2-star-trek-star-wars-plan"}, {"date": "2026-06-03", "source": "CNBC Tech", "cat": "財經", "headline": "馬斯克（Elon Musk）的淨資產預計將在 SpaceX IPO 中突破 1 兆美元", "link": "https://www.cnbc.com/2026/06/03/elon-musks-net-worth-poised-to-sail-past-1-trillion-in-spacex-ipo.html"}, {"date": "2026-06-03", "source": "CNBC Tech", "cat": "財經", "headline": "吉姆克萊默警告供應過剩可能是牛市的下一個最大威脅", "link": "https://www.cnbc.com/2026/06/03/jim-cramer-warns-excess-supply-could-be-the-next-biggest-threat-to-the-bull-market.html"}, {"date": "2026-06-03", "source": "CNBC Tech", "cat": "財經", "headline": "CrowdStrike 略優於人工智慧推動力的預期，但股價下跌 10%", "link": "https://www.cnbc.com/2026/06/03/crowdstrike-crwd-q1-2027-earnings.html"}, {"date": "2026-06-03", "source": "iThome", "cat": "台灣", "headline": "駭客Storm-2949接管雲端帳號，濫用Azure權限滲透正式環境竊取資料", "link": "https://www.ithome.com.tw/news/176337"}, {"date": "2026-06-03", "source": "iThome", "cat": "台灣", "headline": "Veeam 13.0.2解決備份伺服器高可用性與跨平臺支援問題，修正檔案層級資料復原流程設定", "link": "https://www.ithome.com.tw/news/176339"}, {"date": "2026-06-03", "source": "iThome", "cat": "台灣", "headline": "首期碳費徵收近50億元，半導體業碳費占比逾4成，企業減碳投資開始反映在國家排放數據", "link": "https://www.ithome.com.tw/news/176338"}, {"date": "2026-06-02", "source": "IEEE Spectrum", "cat": "半導體", "headline": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.", "link": "https://content.knowledgehub.wiley.com/direct-to-cell-technology-enabling-satellite-connectivity-for-legacy-devices/"}, {"date": "2026-06-02", "source": "MIT Tech Review", "cat": "AI", "headline": "下載：人工智慧現在可以運行你的管理部門", "link": "https://www.technologyreview.com/2026/06/02/1138277/the-download-ai-tips-small-businesses-admin/"}, {"date": "2026-06-02", "source": "MIT Tech Review", "cat": "AI", "headline": "利用代理人工智慧重新人性化全球醫療保健", "link": "https://www.technologyreview.com/2026/06/02/1137827/rehumanizing-global-health-care-with-agentic-ai/"}, {"date": "2026-06-01", "source": "IEEE Spectrum", "cat": "半導體", "headline": "IEEE 主席致詞：為兒童設計更安全的數位世界", "link": "https://spectrum.ieee.org/ieee-presidents-note-june-2026"}, {"date": "2026-06-01", "source": "Ars Technica", "cat": "科技", "headline": "數十個紅帽軟體套件透過其官方 NPM 管道植入後門", "link": "https://arstechnica.com/security/2026/06/dozens-of-red-hat-packages-backdoored-through-its-offical-npm-channel/"}, {"date": "2026-05-29", "source": "Ars Technica", "cat": "科技", "headline": "拆除超過 1700 萬台設備的殭屍網絡", "link": "https://arstechnica.com/security/2026/05/botnet-of-more-than-17-million-devices-dismantled/"}, {"date": "2026-05-28", "source": "Ars Technica", "cat": "科技", "headline": "受夠了氛圍編碼器，開發人員偷偷地將資料破壞性提示注入到他們的程式碼中", "link": "https://arstechnica.com/security/2026/05/fed-up-with-vibe-coders-dev-sneaks-data-nuking-prompt-injection-into-their-code/"}];
-const MK={"美股":"us","台股":"tw","日股":"jp","韓股":"kr","未上市":"pv"};
-const CATS=[{k:"all",l:"全部"},{k:"us",l:"美股"},{k:"tw",l:"台股"},{k:"jp",l:"日股"},{k:"kr",l:"韓股"},{k:"pv",l:"未上市"}];
+const STOCKS_DATA=[{"sym": "RDW", "name": "Redwire", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "ORCL", "name": "Oracle", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "BE", "name": "Bloom Energy", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "INTC", "name": "Intel", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "MU", "name": "美光 Micron", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "SNDK", "name": "SanDisk", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "TSLA", "name": "特斯拉 Tesla", "market": "美股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "2344", "name": "華邦電", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "2408", "name": "南亞科", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "2337", "name": "旺宏", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "8299", "name": "群聯", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "4172", "name": "因華生技", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "6541", "name": "泰福-KY", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "4726", "name": "永昕生醫", "market": "台股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "SAMSUNG", "name": "三星電子", "market": "韓股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}, {"sym": "HYNIX", "name": "SK海力士", "market": "韓股", "sentiment": "neutral", "summary": "近期無重大消息", "items": []}];
+const INDUSTRY_DATA=[];
+const MK={"美股":"us","台股":"tw","韓股":"kr"};
+const CATS=[{k:"all",l:"全部"},{k:"us",l:"美股"},{k:"tw",l:"台股"},{k:"kr",l:"韓股"}];
 const SENT={positive:["up","偏多 ▲"],negative:["down","偏空 ▼"],neutral:["flat","中性 ●"]};
 const DRANGES=[{d:0,l:"全部"},{d:1,l:"今天"},{d:3,l:"近3天"},{d:7,l:"近7天"},{d:14,l:"近14天"}];
 const CATS_I=["全部","半導體","AI","科技","財經","台灣"];
@@ -211,7 +327,8 @@ function toggleIndustry(){
 
 // ── 個股卡片 ────────────────────────────────────────────────
 function buildFeed(){
-  document.getElementById("feed").innerHTML=STOCKS_DATA.map((s,i)=>{
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  document.getElementById("feed").innerHTML=STOCKS_DATA.filter(s=>!hidden.includes(s.sym)).map((s,i)=>{
     const[cls,label]=SENT[s.sentiment]||SENT.neutral;
     const sorted=(s.items||[]).slice().sort((a,b)=>(b.date||"").localeCompare(a.date||""));
     const items=sorted.filter(it=>inRange(it.date));
@@ -225,7 +342,8 @@ function buildFeed(){
         <p>${it.detail||""}</p>
         ${it.source?`<div class="src">— ${it.source}</div>`:""}
        </div>`).join("");
-    return`<article class="card" id="card-${i}"><div class="card-head"><span class="badge">${s.sym}</span><span class="cname">${s.name}</span><span class="mktag">${s.market}</span><span class="pill ${cls}">${label}</span><button class="saybtn" onclick="speakCard(${i})">🔊</button></div>${body}</article>`;
+    const priceRow=`<div class="price-row" id="price-${s.sym}"><span class="price-skeleton">股價載入中...</span></div>`;
+    return`<article class="card" id="card-${i}"><div class="card-head"><span class="badge">${s.sym}</span><span class="cname">${s.name}</span><span class="mktag">${s.market}</span><span class="pill ${cls}">${label}</span><button class="saybtn" onclick="speakCard(${i})">🔊</button></div>${priceRow}${body}</article>`;
   }).join("");
 }
 function buildDateFilter(){
@@ -239,7 +357,15 @@ function clearR(){document.querySelectorAll(".card.reading").forEach(c=>c.classL
 function updatePlayBtn(){const b=document.getElementById("playBtn");if(b)b.textContent=speaking?"⏹ 停止":"▶ 全部播報";}
 function stopSpeak(){speaking=false;if(window.speechSynthesis)speechSynthesis.cancel();clearR();updatePlayBtn();}
 function buildSpeech(idxs){const seq=[];idxs.forEach(i=>{const s=STOCKS_DATA[i];if(!s)return;seq.push({idx:i,text:`${s.name}。${s.summary}。`});(s.items||[]).filter(it=>inRange(it.date)).forEach(it=>seq.push({idx:i,text:`${it.headline}。${it.detail}。`}));});return seq;}
-function visibleIdx(){return STOCKS_DATA.map((_,i)=>i).filter(i=>{const c=document.getElementById("card-"+i);return c&&c.style.display!=="none";});}
+function visibleIdx(){
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  return STOCKS_DATA.map((_,i)=>i).filter(i=>{
+    const s=STOCKS_DATA[i];
+    if(hidden.includes(s?.sym)) return false;
+    const c=document.getElementById("card-"+i);
+    return c&&c.style.display!=="none";
+  });
+}
 function speakSeq(seq){
   if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能");return;}
   if(!seq.length){alert("目前無可朗讀內容");return;}
@@ -269,8 +395,8 @@ buildCats();buildChips();buildOverview();buildDateFilter();
 buildITabs();renderIndustry();
 buildFeed();
 document.querySelector(".cat")?.classList.add("on");
+setTimeout(refreshAllPrices, 500); // 頁面載入後自動取得股價
 
-// 自動播報：若上次已開啟，進入頁面自動開始
 const autoKey="morningAutoPlay";
 const autoToggle=document.getElementById("autoToggle");
 if(autoToggle){
@@ -279,6 +405,253 @@ if(autoToggle){
 }
 if(localStorage.getItem(autoKey)==="1"){
   setTimeout(()=>{ if(!speaking) speakAll(); }, 1500);
+}
+
+// ── 股價即時更新 ──────────────────────────────────────────────
+const priceCache={};
+
+function yfSym(sym,market){
+  if(market==='台股') return sym+'.TW';
+  if(market==='韓股'){
+    const kr={SAMSUNG:'005930.KS',HYNIX:'000660.KS'};
+    return kr[sym]||sym+'.KS';
+  }
+  return sym;
+}
+
+function fmtCurrency(price,currency){
+  if(price==null||isNaN(price)) return '—';
+  if(currency==='USD') return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(currency==='TWD') return 'NT$'+Math.round(price).toLocaleString('zh-TW');
+  if(currency==='KRW') return '₩'+Math.round(price).toLocaleString('ko-KR');
+  return price.toFixed(2)+' '+(currency||'');
+}
+
+async function fetchYF(ticker){
+  const base=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`;
+  // 先試直連，再試 CORS proxy
+  const urls=[
+    base,
+    `https://corsproxy.io/?${encodeURIComponent(base)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`,
+  ];
+  for(const url of urls){
+    try{
+      const r=await Promise.race([
+        fetch(url,{headers:{Accept:'application/json'}}),
+        new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),6000))
+      ]);
+      if(!r.ok) continue;
+      const d=await r.json();
+      const meta=d?.chart?.result?.[0]?.meta;
+      if(meta?.regularMarketPrice) return meta;
+    }catch{continue;}
+  }
+  return null;
+}
+
+async function fetchPrice(sym,market){
+  const el=document.getElementById('price-'+sym);
+  if(!el) return;
+  el.innerHTML='<span class="price-skeleton">更新中...</span>';
+  const meta=await fetchYF(yfSym(sym,market));
+  if(!meta){
+    el.innerHTML=`<span class="price-skeleton">⚠️ 無法取得</span> <button class="price-refresh" onclick="fetchPrice('${sym}','${market}')">重試</button>`;
+    return;
+  }
+  const price=meta.regularMarketPrice;
+  const prev=meta.chartPreviousClose||meta.regularMarketPreviousClose||price;
+  const chg=price-prev, pct=prev?(chg/prev)*100:0;
+  priceCache[sym]={price,chg,pct,cur:meta.currency||'USD',time:new Date()};
+  renderPrice(sym,market);
+}
+
+function renderPrice(sym,market){
+  const el=document.getElementById('price-'+sym);
+  if(!el) return;
+  const d=priceCache[sym]; if(!d) return;
+  const cls=d.chg>0?'up':d.chg<0?'down':'flat';
+  const sign=d.chg>=0?'+':'';
+  const t=d.time.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+  el.innerHTML=`
+    <span class="price-val">${fmtCurrency(d.price,d.cur)}</span>
+    <span class="price-chg ${cls}">${sign}${fmtCurrency(d.chg,d.cur)} (${sign}${d.pct.toFixed(2)}%)</span>
+    <span class="price-time">${t} 更新</span>
+    <button class="price-refresh" onclick="fetchPrice('${sym}','${market}')">🔄</button>`;
+}
+
+async function refreshAllPrices(){
+  const btn=document.getElementById('refreshAllBtn');
+  if(btn){btn.textContent='更新中...';btn.disabled=true;}
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  await Promise.allSettled(
+    STOCKS_DATA.filter(s=>!hidden.includes(s.sym)).map(s=>fetchPrice(s.sym,s.market))
+  );
+  if(btn){btn.textContent='🔄 更新股價';btn.disabled=false;}
+}
+
+// ── 股票管理 ──────────────────────────────────────────────────
+const HIDDEN_KEY='morningHidden'; // 隱藏的代號 array
+const CUSTOM_KEY='morningCustom'; // 自訂新增的股票 array
+
+function getHidden(){try{return JSON.parse(localStorage.getItem(HIDDEN_KEY)||'[]');}catch{return[];}}
+function getCustom(){try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');}catch{return[];}}
+function saveHidden(a){localStorage.setItem(HIDDEN_KEY,JSON.stringify(a));}
+function saveCustom(a){localStorage.setItem(CUSTOM_KEY,JSON.stringify(a));}
+
+// 開關抽屜
+function openMgr(){
+  document.getElementById('mgrOverlay').classList.add('open');
+  document.getElementById('mgrDrawer').classList.add('open');
+  buildMgrList();
+}
+function closeMgr(){
+  document.getElementById('mgrOverlay').classList.remove('open');
+  document.getElementById('mgrDrawer').classList.remove('open');
+}
+function switchMgrTab(t){
+  document.getElementById('mgrList').style.display=t==='list'?'':'none';
+  document.getElementById('mgrAdd').style.display=t==='add'?'':'none';
+  document.getElementById('mgrTab1').classList.toggle('on',t==='list');
+  document.getElementById('mgrTab2').classList.toggle('on',t==='add');
+  if(t==='list') buildMgrList();
+}
+
+// 建立管理清單
+function buildMgrList(){
+  const hidden=getHidden();
+  const custom=getCustom();
+  const el=document.getElementById('mgrList');
+  let html='';
+
+  // 美股
+  const us=STOCKS_DATA.filter(s=>s.market==='美股');
+  html+=`<div class="mgr-section">🇺🇸 美股（${us.length} 檔）</div>`;
+  us.forEach(s=>{
+    const on=!hidden.includes(s.sym);
+    html+=`<div class="mgr-row">
+      <span class="mgr-sym">${s.sym}</span>
+      <span class="mgr-name">${s.name}</span>
+      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
+    </div>`;
+  });
+
+  // 台股
+  const tw=STOCKS_DATA.filter(s=>s.market==='台股');
+  html+=`<div class="mgr-section" style="margin-top:14px">🇹🇼 台股（${tw.length} 檔）</div>`;
+  tw.forEach(s=>{
+    const on=!hidden.includes(s.sym);
+    html+=`<div class="mgr-row">
+      <span class="mgr-sym">${s.sym}</span>
+      <span class="mgr-name">${s.name}</span>
+      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
+    </div>`;
+  });
+
+  // 自訂股票
+  if(custom.length){
+    html+=`<div class="mgr-section" style="margin-top:14px">⭐ 自訂新增（${custom.length} 檔）</div>`;
+    html+=`<div style="font-size:11.5px;color:var(--soft);margin-bottom:6px">需重新執行爬蟲才有新聞資料</div>`;
+    custom.forEach(s=>{
+      html+=`<div class="mgr-row">
+        <span class="mgr-sym">${s.sym}</span>
+        <span class="mgr-name">${s.name}</span>
+        <span class="mgr-mkt ${s.market}">${s.market}</span>
+        <button class="mgr-del" onclick="removeCustom('${s.sym}')" title="移除">✕</button>
+      </div>`;
+    });
+  }
+
+  el.innerHTML=html;
+}
+
+function toggleStock(sym){
+  const hidden=getHidden();
+  const idx=hidden.indexOf(sym);
+  if(idx>=0) hidden.splice(idx,1); else hidden.push(sym);
+  saveHidden(hidden);
+  buildFeed();
+  buildChips();
+  buildMgrList();
+}
+
+function removeCustom(sym){
+  const custom=getCustom().filter(s=>s.sym!==sym);
+  saveCustom(custom);
+  buildMgrList();
+}
+
+// 驗證代號
+function validateTicker(sym,mkt){
+  if(!sym) return {ok:false,msg:'請輸入代號'};
+  if(mkt==='美股'){
+    if(/^[A-Z]{1,5}$/.test(sym)) return {ok:true};
+    if(/^[A-Z]{1,4}[-\.][A-Z]$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 美股代號格式錯誤：應為 1-5 個大寫英文字母（如 AAPL、NVDA）'};
+  }
+  if(mkt==='台股'){
+    if(/^\d{4,5}$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 台股代號格式錯誤：應為 4 位數字（如 2330、0050）'};
+  }
+  if(mkt==='韓股'){
+    if(/^\d{6}$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 韓股代號格式錯誤：應為 6 位數字（如 005930）'};
+  }
+  return {ok:false,msg:'請選擇市場'};
+}
+
+function showMsg(html,type){
+  const el=document.getElementById('addMsg');
+  el.innerHTML=`<div class="mgr-msg ${type}">${html}</div>`;
+}
+function resetAddMsg(){
+  document.getElementById('addMsg').innerHTML='';
+  document.getElementById('addBtn').disabled=true;
+}
+
+function doValidate(){
+  const sym=document.getElementById('addSym').value.trim().toUpperCase();
+  const mkt=document.getElementById('addMkt').value;
+  document.getElementById('addSym').value=sym;
+
+  // 檢查是否已存在
+  const allSyms=[...STOCKS_DATA.map(s=>s.sym),...getCustom().map(s=>s.sym)];
+  if(allSyms.includes(sym)){
+    showMsg(`⚠️ ${sym} 已在清單中`,'err');
+    document.getElementById('addBtn').disabled=true;
+    return;
+  }
+
+  const v=validateTicker(sym,mkt);
+  if(v.ok){
+    showMsg(`✅ 代號格式正確！可以加入清單`,'ok');
+    document.getElementById('addBtn').disabled=false;
+  } else {
+    showMsg(v.msg,'err');
+    document.getElementById('addBtn').disabled=true;
+  }
+}
+
+function doAdd(){
+  const sym=document.getElementById('addSym').value.trim().toUpperCase();
+  const name=document.getElementById('addName').value.trim()||sym;
+  const mkt=document.getElementById('addMkt').value;
+
+  const v=validateTicker(sym,mkt);
+  if(!v.ok){showMsg(v.msg,'err');return;}
+
+  const custom=getCustom();
+  custom.push({sym,name,market:mkt});
+  saveCustom(custom);
+
+  // 重置表單
+  document.getElementById('addSym').value='';
+  document.getElementById('addName').value='';
+  document.getElementById('addMsg').innerHTML='';
+  document.getElementById('addBtn').disabled=true;
+
+  showMsg(`✅ ${sym}（${name}）已加入自訂清單！下次執行爬蟲後即可看到新聞。`,'ok');
+  buildMgrList();
 }
 </script>
 </body>

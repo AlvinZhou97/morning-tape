@@ -23,24 +23,25 @@ OUT_HTML = Path(__file__).parent / "晨報.html"
 #  股票清單
 # ════════════════════════════════════════════════════════════
 STOCKS = [
-    {"sym":"RDW",     "name":"Redwire",       "market":"美股",   "source":"yahoo", "ticker":"RDW",  "q":"Redwire RDW"},
-    {"sym":"ORCL",    "name":"Oracle",        "market":"美股",   "source":"yahoo", "ticker":"ORCL", "q":"Oracle ORCL"},
-    {"sym":"BE",      "name":"Bloom Energy",  "market":"美股",   "source":"yahoo", "ticker":"BE",   "q":"Bloom Energy BE"},
-    {"sym":"INTC",    "name":"Intel",         "market":"美股",   "source":"yahoo", "ticker":"INTC", "q":"Intel INTC semiconductor"},
-    {"sym":"MU",      "name":"美光 Micron",   "market":"美股",   "source":"yahoo", "ticker":"MU",   "q":"Micron MU memory chip"},
-    {"sym":"SNDK",    "name":"SanDisk",       "market":"美股",   "source":"yahoo", "ticker":"SNDK", "q":"SanDisk SNDK flash"},
-    {"sym":"TSLA",    "name":"特斯拉 Tesla",  "market":"美股",   "source":"yahoo", "ticker":"TSLA", "q":"Tesla TSLA"},
-    {"sym":"SPACEX",  "name":"SpaceX",        "market":"未上市", "source":"gnews", "ticker":"",     "q":"SpaceX launch rocket"},
-    {"sym":"KIOXIA",  "name":"鎧俠 Kioxia",   "market":"日股",   "source":"gnews", "ticker":"",     "q":"Kioxia 285A NAND flash"},
-    {"sym":"HYNIX",   "name":"SK海力士",      "market":"韓股",   "source":"gnews", "ticker":"",     "q":"SK Hynix HBM memory chip"},
-    {"sym":"SAMSUNG", "name":"三星電子",      "market":"韓股",   "source":"gnews", "ticker":"",     "q":"Samsung Electronics semiconductor chip"},
-    {"sym":"2344",    "name":"華邦電",        "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"華邦電 2344 DRAM"},
-    {"sym":"2408",    "name":"南亞科",        "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"南亞科 2408 記憶體"},
-    {"sym":"2337",    "name":"旺宏",          "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"旺宏 2337 NOR Flash"},
-    {"sym":"8299",    "name":"群聯",          "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"群聯 8299 NAND控制器"},
-    {"sym":"4172",    "name":"因華生技",      "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"因華生技 4172"},
-    {"sym":"6541",    "name":"泰福-KY",       "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"泰福 6541 生技"},
-    {"sym":"4726",    "name":"永昕生醫",      "market":"台股",   "source":"gnews_zh","ticker":"",   "q":"永昕生醫 4726"},
+    # ── 美股 US Stocks ──────────────────────────────────────────
+    {"sym":"RDW",     "name":"Redwire",       "market":"美股", "source":"yahoo",    "ticker":"RDW",  "q":"Redwire RDW"},
+    {"sym":"ORCL",    "name":"Oracle",        "market":"美股", "source":"yahoo",    "ticker":"ORCL", "q":"Oracle ORCL"},
+    {"sym":"BE",      "name":"Bloom Energy",  "market":"美股", "source":"yahoo",    "ticker":"BE",   "q":"Bloom Energy BE"},
+    {"sym":"INTC",    "name":"Intel",         "market":"美股", "source":"yahoo",    "ticker":"INTC", "q":"Intel INTC semiconductor"},
+    {"sym":"MU",      "name":"美光 Micron",   "market":"美股", "source":"yahoo",    "ticker":"MU",   "q":"Micron MU memory chip"},
+    {"sym":"SNDK",    "name":"SanDisk",       "market":"美股", "source":"yahoo",    "ticker":"SNDK", "q":"SanDisk SNDK flash"},
+    {"sym":"TSLA",    "name":"特斯拉 Tesla",  "market":"美股", "source":"yahoo",    "ticker":"TSLA", "q":"Tesla TSLA"},
+    # ── 台股 Taiwan Stocks ──────────────────────────────────────
+    {"sym":"2344",    "name":"華邦電",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"華邦電 2344 DRAM"},
+    {"sym":"2408",    "name":"南亞科",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"南亞科 2408 記憶體"},
+    {"sym":"2337",    "name":"旺宏",          "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"旺宏 2337 NOR Flash"},
+    {"sym":"8299",    "name":"群聯",          "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"群聯 8299 NAND控制器"},
+    {"sym":"4172",    "name":"因華生技",      "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"因華生技 4172"},
+    {"sym":"6541",    "name":"泰福-KY",       "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"泰福 6541 生技"},
+    {"sym":"4726",    "name":"永昕生醫",      "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"永昕生醫 4726"},
+    # ── 韓股 Korean Stocks ─────────────────────────────────────
+    {"sym":"SAMSUNG", "name":"三星電子",      "market":"韓股", "source":"gnews",    "ticker":"005930.KS", "q":"Samsung Electronics semiconductor chip"},
+    {"sym":"HYNIX",   "name":"SK海力士",      "market":"韓股", "source":"gnews",    "ticker":"000660.KS", "q":"SK Hynix HBM memory chip"},
 ]
 
 # ════════════════════════════════════════════════════════════
@@ -312,21 +313,136 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.65}
 .src{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
 .none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px}
-/* 播報鈕 */
+/* 管理股票抽屜 */
+.manage-btn{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:5px 12px;font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--soft);cursor:pointer;transition:.15s;white-space:nowrap}
+.manage-btn:hover{border-color:var(--ink);color:var(--ink)}
+.mgr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:50}
+.mgr-overlay.open{display:block}
+.mgr-drawer{position:fixed;top:0;right:-340px;width:320px;height:100vh;
+  background:#fff;z-index:51;transition:right .3s cubic-bezier(.32,.72,0,1);
+  display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.12)}
+.mgr-drawer.open{right:0}
+.mgr-head{padding:16px 16px 12px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px}
+.mgr-head h3{font-size:15px;font-weight:800;flex:1}
+.mgr-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--soft);padding:2px 6px}
+.mgr-tabs{display:flex;border-bottom:1px solid var(--line)}
+.mgr-tab{flex:1;background:none;border:none;cursor:pointer;font-family:inherit;
+  font-size:13px;font-weight:700;color:var(--soft);padding:10px 0;position:relative;transition:.15s}
+.mgr-tab.on{color:var(--ink)}
+.mgr-tab.on::after{content:"";position:absolute;left:20%;right:20%;bottom:0;
+  height:2px;background:var(--ink);border-radius:2px}
+.mgr-body{flex:1;overflow-y:auto;padding:12px 16px}
+.mgr-section{font-family:"Hanken Grotesk";font-size:11px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  margin:12px 0 6px}
+.mgr-row{display:flex;align-items:center;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--line)}
+.mgr-row:last-child{border-bottom:none}
+.mgr-sym{font-family:"Hanken Grotesk";font-weight:800;font-size:13px;min-width:48px}
+.mgr-name{font-size:13px;flex:1;color:var(--soft)}
+.mgr-mkt{font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px}
+.mgr-mkt.美股{background:#EEF2FF;color:#3730A3}
+.mgr-mkt.台股{background:#F0FDF4;color:#166534}
+.mgr-toggle{width:36px;height:20px;border-radius:10px;border:none;cursor:pointer;
+  position:relative;transition:.2s;flex:0 0 auto}
+.mgr-toggle.on{background:#4F46E5}
+.mgr-toggle.off{background:#D1D5DB}
+.mgr-toggle::after{content:"";position:absolute;width:16px;height:16px;
+  background:#fff;border-radius:50%;top:2px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.mgr-toggle.on::after{left:18px}
+.mgr-toggle.off::after{left:2px}
+.mgr-del{background:none;border:none;cursor:pointer;color:#DC2626;font-size:15px;padding:2px 5px}
+/* 新增表單 */
+.mgr-field{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px 12px;font-family:inherit;font-size:14px;margin-bottom:8px;
+  outline:none;transition:.15s}
+.mgr-field:focus{border-color:#4F46E5}
+.mgr-select{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px 12px;font-family:inherit;font-size:14px;margin-bottom:8px;
+  background:#fff;cursor:pointer}
+.mgr-validate{width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px;font-family:inherit;font-size:13.5px;font-weight:700;
+  cursor:pointer;transition:.15s;margin-bottom:6px}
+.mgr-validate:hover{border-color:#4F46E5;color:#4F46E5}
+.mgr-add-btn{width:100%;background:#4F46E5;color:#fff;border:none;border-radius:10px;
+  padding:10px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;
+  transition:opacity .15s}
+.mgr-add-btn:active{opacity:.8}
+.mgr-add-btn:disabled{opacity:.4;cursor:default}
+.mgr-msg{font-size:12.5px;padding:7px 10px;border-radius:8px;margin-bottom:8px}
+.mgr-msg.ok{background:#F0FDF4;color:#166534}
+.mgr-msg.err{background:#FFF5F5;color:#DC2626}
+.mgr-hint{font-size:12px;color:var(--soft);line-height:1.55;
+  background:#F9FAFB;border-radius:8px;padding:8px 10px;margin-top:6px}
+/* 股價列 */
+.price-row{display:flex;align-items:center;gap:8px;padding:8px 0 4px;
+  border-top:1px solid var(--line);margin-top:8px;flex-wrap:wrap}
+.price-val{font-family:"Hanken Grotesk";font-weight:800;font-size:18px;color:var(--ink)}
+.price-chg{font-family:"Hanken Grotesk";font-size:12.5px;font-weight:700}
+.price-chg.up{color:var(--up)}.price-chg.down{color:var(--down)}.price-chg.flat{color:var(--flat)}
+.price-time{font-size:11px;color:var(--soft);margin-left:auto}
+.price-refresh{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--soft);transition:.15s}
+.price-refresh:hover{border-color:var(--ink);color:var(--ink)}
+.price-skeleton{font-size:12px;color:var(--soft);font-style:italic}
 .playbtn{background:var(--ink);color:#fff;border:none;border-radius:20px;padding:9px 18px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;transition:opacity .15s}
 .playbtn:active{opacity:.75}
-.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.8}
-</style>
+.refresh-all-btn{background:none;border:1.5px solid var(--line);border-radius:20px;
+  padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--soft);cursor:pointer;transition:.15s;white-space:nowrap}
+.refresh-all-btn:hover{border-color:var(--ink);color:var(--ink)}
+.refresh-all-btn:disabled{opacity:.45;cursor:default}
+.foot{text-align:center;font-size:11px;color:var(--soft);margin-top:18px;line-height:1.8}</style>
 </head>
 <body>
 <div class="topbar">
   <div class="inner">
     <div class="head-row">
       <div class="logo">晨報<small>Morning Tape</small></div>
+      <button class="manage-btn" onclick="openMgr()">⚙️ 管理股票</button>
       <span class="gentime">__GENTIME__</span>
     </div>
     <div class="cats" id="cats"></div>
     <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<!-- 管理股票抽屜 -->
+<div class="mgr-overlay" id="mgrOverlay" onclick="closeMgr()"></div>
+<div class="mgr-drawer" id="mgrDrawer">
+  <div class="mgr-head">
+    <h3>⚙️ 管理股票</h3>
+    <button class="mgr-close" onclick="closeMgr()">✕</button>
+  </div>
+  <div class="mgr-tabs">
+    <button class="mgr-tab on" id="mgrTab1" onclick="switchMgrTab('list')">目前清單</button>
+    <button class="mgr-tab" id="mgrTab2" onclick="switchMgrTab('add')">＋ 新增</button>
+  </div>
+  <div class="mgr-body" id="mgrList"><!-- 清單由 JS 建立 --></div>
+  <div class="mgr-body" id="mgrAdd" style="display:none">
+    <div class="mgr-section">市場</div>
+    <select class="mgr-select" id="addMkt">
+      <option value="美股">🇺🇸 美股（NYSE / NASDAQ）</option>
+      <option value="台股">🇹🇼 台股（TWSE / OTC）</option>
+      <option value="韓股">🇰🇷 韓股（KRW）</option>
+    </select>
+    <div class="mgr-section">股票代號</div>
+    <input class="mgr-field" id="addSym" placeholder="美股：AAPL　台股：2330"
+           oninput="resetAddMsg()" autocapitalize="characters" autocorrect="off">
+    <div class="mgr-section">公司名稱（可選）</div>
+    <input class="mgr-field" id="addName" placeholder="留空會用代號代替">
+    <button class="mgr-validate" onclick="doValidate()">🔍 驗證代號格式</button>
+    <div id="addMsg"></div>
+    <button class="mgr-add-btn" id="addBtn" onclick="doAdd()" disabled>＋ 加入清單</button>
+    <div class="mgr-hint">
+      ✅ 美股代號：1-5 個英文字母，如 AAPL、NVDA、TSM<br>
+      ✅ 台股代號：4 位數字，如 2330、0050<br>
+      ✅ 韓股代號：6 位數字，如 005930（三星）、000660（海力士）<br>
+      ⚠️ 新增的股票需要重新執行爬蟲才會有新聞資料
+    </div>
   </div>
 </div>
 <div class="wrap">
@@ -334,6 +450,7 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
   <!-- 播報控制列 -->
   <div class="tts-bar">
     <button class="playbtn" id="playBtn" onclick="speakAll()">▶ 全部播報</button>
+    <button class="refresh-all-btn" id="refreshAllBtn" onclick="refreshAllPrices()">🔄 更新股價</button>
     <div class="tts-controls">
       <span class="tts-label">語速</span>
       <input type="range" min="0.6" max="1.8" step="0.2" value="1.0"
@@ -360,8 +477,8 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 <script>
 const STOCKS_DATA=__STOCKS_JSON__;
 const INDUSTRY_DATA=__INDUSTRY_JSON__;
-const MK={"美股":"us","台股":"tw","日股":"jp","韓股":"kr","未上市":"pv"};
-const CATS=[{k:"all",l:"全部"},{k:"us",l:"美股"},{k:"tw",l:"台股"},{k:"jp",l:"日股"},{k:"kr",l:"韓股"},{k:"pv",l:"未上市"}];
+const MK={"美股":"us","台股":"tw","韓股":"kr"};
+const CATS=[{k:"all",l:"全部"},{k:"us",l:"美股"},{k:"tw",l:"台股"},{k:"kr",l:"韓股"}];
 const SENT={positive:["up","偏多 ▲"],negative:["down","偏空 ▼"],neutral:["flat","中性 ●"]};
 const DRANGES=[{d:0,l:"全部"},{d:1,l:"今天"},{d:3,l:"近3天"},{d:7,l:"近7天"},{d:14,l:"近14天"}];
 const CATS_I=["全部","半導體","AI","科技","財經","台灣"];
@@ -434,7 +551,8 @@ function toggleIndustry(){
 
 // ── 個股卡片 ────────────────────────────────────────────────
 function buildFeed(){
-  document.getElementById("feed").innerHTML=STOCKS_DATA.map((s,i)=>{
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  document.getElementById("feed").innerHTML=STOCKS_DATA.filter(s=>!hidden.includes(s.sym)).map((s,i)=>{
     const[cls,label]=SENT[s.sentiment]||SENT.neutral;
     const sorted=(s.items||[]).slice().sort((a,b)=>(b.date||"").localeCompare(a.date||""));
     const items=sorted.filter(it=>inRange(it.date));
@@ -448,7 +566,8 @@ function buildFeed(){
         <p>${it.detail||""}</p>
         ${it.source?`<div class="src">— ${it.source}</div>`:""}
        </div>`).join("");
-    return`<article class="card" id="card-${i}"><div class="card-head"><span class="badge">${s.sym}</span><span class="cname">${s.name}</span><span class="mktag">${s.market}</span><span class="pill ${cls}">${label}</span><button class="saybtn" onclick="speakCard(${i})">🔊</button></div>${body}</article>`;
+    const priceRow=`<div class="price-row" id="price-${s.sym}"><span class="price-skeleton">股價載入中...</span></div>`;
+    return`<article class="card" id="card-${i}"><div class="card-head"><span class="badge">${s.sym}</span><span class="cname">${s.name}</span><span class="mktag">${s.market}</span><span class="pill ${cls}">${label}</span><button class="saybtn" onclick="speakCard(${i})">🔊</button></div>${priceRow}${body}</article>`;
   }).join("");
 }
 function buildDateFilter(){
@@ -462,7 +581,15 @@ function clearR(){document.querySelectorAll(".card.reading").forEach(c=>c.classL
 function updatePlayBtn(){const b=document.getElementById("playBtn");if(b)b.textContent=speaking?"⏹ 停止":"▶ 全部播報";}
 function stopSpeak(){speaking=false;if(window.speechSynthesis)speechSynthesis.cancel();clearR();updatePlayBtn();}
 function buildSpeech(idxs){const seq=[];idxs.forEach(i=>{const s=STOCKS_DATA[i];if(!s)return;seq.push({idx:i,text:`${s.name}。${s.summary}。`});(s.items||[]).filter(it=>inRange(it.date)).forEach(it=>seq.push({idx:i,text:`${it.headline}。${it.detail}。`}));});return seq;}
-function visibleIdx(){return STOCKS_DATA.map((_,i)=>i).filter(i=>{const c=document.getElementById("card-"+i);return c&&c.style.display!=="none";});}
+function visibleIdx(){
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  return STOCKS_DATA.map((_,i)=>i).filter(i=>{
+    const s=STOCKS_DATA[i];
+    if(hidden.includes(s?.sym)) return false;
+    const c=document.getElementById("card-"+i);
+    return c&&c.style.display!=="none";
+  });
+}
 function speakSeq(seq){
   if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能");return;}
   if(!seq.length){alert("目前無可朗讀內容");return;}
@@ -492,8 +619,8 @@ buildCats();buildChips();buildOverview();buildDateFilter();
 buildITabs();renderIndustry();
 buildFeed();
 document.querySelector(".cat")?.classList.add("on");
+setTimeout(refreshAllPrices, 500); // 頁面載入後自動取得股價
 
-// 自動播報：若上次已開啟，進入頁面自動開始
 const autoKey="morningAutoPlay";
 const autoToggle=document.getElementById("autoToggle");
 if(autoToggle){
@@ -502,6 +629,253 @@ if(autoToggle){
 }
 if(localStorage.getItem(autoKey)==="1"){
   setTimeout(()=>{ if(!speaking) speakAll(); }, 1500);
+}
+
+// ── 股價即時更新 ──────────────────────────────────────────────
+const priceCache={};
+
+function yfSym(sym,market){
+  if(market==='台股') return sym+'.TW';
+  if(market==='韓股'){
+    const kr={SAMSUNG:'005930.KS',HYNIX:'000660.KS'};
+    return kr[sym]||sym+'.KS';
+  }
+  return sym;
+}
+
+function fmtCurrency(price,currency){
+  if(price==null||isNaN(price)) return '—';
+  if(currency==='USD') return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(currency==='TWD') return 'NT$'+Math.round(price).toLocaleString('zh-TW');
+  if(currency==='KRW') return '₩'+Math.round(price).toLocaleString('ko-KR');
+  return price.toFixed(2)+' '+(currency||'');
+}
+
+async function fetchYF(ticker){
+  const base=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`;
+  // 先試直連，再試 CORS proxy
+  const urls=[
+    base,
+    `https://corsproxy.io/?${encodeURIComponent(base)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`,
+  ];
+  for(const url of urls){
+    try{
+      const r=await Promise.race([
+        fetch(url,{headers:{Accept:'application/json'}}),
+        new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),6000))
+      ]);
+      if(!r.ok) continue;
+      const d=await r.json();
+      const meta=d?.chart?.result?.[0]?.meta;
+      if(meta?.regularMarketPrice) return meta;
+    }catch{continue;}
+  }
+  return null;
+}
+
+async function fetchPrice(sym,market){
+  const el=document.getElementById('price-'+sym);
+  if(!el) return;
+  el.innerHTML='<span class="price-skeleton">更新中...</span>';
+  const meta=await fetchYF(yfSym(sym,market));
+  if(!meta){
+    el.innerHTML=`<span class="price-skeleton">⚠️ 無法取得</span> <button class="price-refresh" onclick="fetchPrice('${sym}','${market}')">重試</button>`;
+    return;
+  }
+  const price=meta.regularMarketPrice;
+  const prev=meta.chartPreviousClose||meta.regularMarketPreviousClose||price;
+  const chg=price-prev, pct=prev?(chg/prev)*100:0;
+  priceCache[sym]={price,chg,pct,cur:meta.currency||'USD',time:new Date()};
+  renderPrice(sym,market);
+}
+
+function renderPrice(sym,market){
+  const el=document.getElementById('price-'+sym);
+  if(!el) return;
+  const d=priceCache[sym]; if(!d) return;
+  const cls=d.chg>0?'up':d.chg<0?'down':'flat';
+  const sign=d.chg>=0?'+':'';
+  const t=d.time.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+  el.innerHTML=`
+    <span class="price-val">${fmtCurrency(d.price,d.cur)}</span>
+    <span class="price-chg ${cls}">${sign}${fmtCurrency(d.chg,d.cur)} (${sign}${d.pct.toFixed(2)}%)</span>
+    <span class="price-time">${t} 更新</span>
+    <button class="price-refresh" onclick="fetchPrice('${sym}','${market}')">🔄</button>`;
+}
+
+async function refreshAllPrices(){
+  const btn=document.getElementById('refreshAllBtn');
+  if(btn){btn.textContent='更新中...';btn.disabled=true;}
+  const hidden=typeof getHidden==='function'?getHidden():[];
+  await Promise.allSettled(
+    STOCKS_DATA.filter(s=>!hidden.includes(s.sym)).map(s=>fetchPrice(s.sym,s.market))
+  );
+  if(btn){btn.textContent='🔄 更新股價';btn.disabled=false;}
+}
+
+// ── 股票管理 ──────────────────────────────────────────────────
+const HIDDEN_KEY='morningHidden'; // 隱藏的代號 array
+const CUSTOM_KEY='morningCustom'; // 自訂新增的股票 array
+
+function getHidden(){try{return JSON.parse(localStorage.getItem(HIDDEN_KEY)||'[]');}catch{return[];}}
+function getCustom(){try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');}catch{return[];}}
+function saveHidden(a){localStorage.setItem(HIDDEN_KEY,JSON.stringify(a));}
+function saveCustom(a){localStorage.setItem(CUSTOM_KEY,JSON.stringify(a));}
+
+// 開關抽屜
+function openMgr(){
+  document.getElementById('mgrOverlay').classList.add('open');
+  document.getElementById('mgrDrawer').classList.add('open');
+  buildMgrList();
+}
+function closeMgr(){
+  document.getElementById('mgrOverlay').classList.remove('open');
+  document.getElementById('mgrDrawer').classList.remove('open');
+}
+function switchMgrTab(t){
+  document.getElementById('mgrList').style.display=t==='list'?'':'none';
+  document.getElementById('mgrAdd').style.display=t==='add'?'':'none';
+  document.getElementById('mgrTab1').classList.toggle('on',t==='list');
+  document.getElementById('mgrTab2').classList.toggle('on',t==='add');
+  if(t==='list') buildMgrList();
+}
+
+// 建立管理清單
+function buildMgrList(){
+  const hidden=getHidden();
+  const custom=getCustom();
+  const el=document.getElementById('mgrList');
+  let html='';
+
+  // 美股
+  const us=STOCKS_DATA.filter(s=>s.market==='美股');
+  html+=`<div class="mgr-section">🇺🇸 美股（${us.length} 檔）</div>`;
+  us.forEach(s=>{
+    const on=!hidden.includes(s.sym);
+    html+=`<div class="mgr-row">
+      <span class="mgr-sym">${s.sym}</span>
+      <span class="mgr-name">${s.name}</span>
+      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
+    </div>`;
+  });
+
+  // 台股
+  const tw=STOCKS_DATA.filter(s=>s.market==='台股');
+  html+=`<div class="mgr-section" style="margin-top:14px">🇹🇼 台股（${tw.length} 檔）</div>`;
+  tw.forEach(s=>{
+    const on=!hidden.includes(s.sym);
+    html+=`<div class="mgr-row">
+      <span class="mgr-sym">${s.sym}</span>
+      <span class="mgr-name">${s.name}</span>
+      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
+    </div>`;
+  });
+
+  // 自訂股票
+  if(custom.length){
+    html+=`<div class="mgr-section" style="margin-top:14px">⭐ 自訂新增（${custom.length} 檔）</div>`;
+    html+=`<div style="font-size:11.5px;color:var(--soft);margin-bottom:6px">需重新執行爬蟲才有新聞資料</div>`;
+    custom.forEach(s=>{
+      html+=`<div class="mgr-row">
+        <span class="mgr-sym">${s.sym}</span>
+        <span class="mgr-name">${s.name}</span>
+        <span class="mgr-mkt ${s.market}">${s.market}</span>
+        <button class="mgr-del" onclick="removeCustom('${s.sym}')" title="移除">✕</button>
+      </div>`;
+    });
+  }
+
+  el.innerHTML=html;
+}
+
+function toggleStock(sym){
+  const hidden=getHidden();
+  const idx=hidden.indexOf(sym);
+  if(idx>=0) hidden.splice(idx,1); else hidden.push(sym);
+  saveHidden(hidden);
+  buildFeed();
+  buildChips();
+  buildMgrList();
+}
+
+function removeCustom(sym){
+  const custom=getCustom().filter(s=>s.sym!==sym);
+  saveCustom(custom);
+  buildMgrList();
+}
+
+// 驗證代號
+function validateTicker(sym,mkt){
+  if(!sym) return {ok:false,msg:'請輸入代號'};
+  if(mkt==='美股'){
+    if(/^[A-Z]{1,5}$/.test(sym)) return {ok:true};
+    if(/^[A-Z]{1,4}[-\.][A-Z]$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 美股代號格式錯誤：應為 1-5 個大寫英文字母（如 AAPL、NVDA）'};
+  }
+  if(mkt==='台股'){
+    if(/^\d{4,5}$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 台股代號格式錯誤：應為 4 位數字（如 2330、0050）'};
+  }
+  if(mkt==='韓股'){
+    if(/^\d{6}$/.test(sym)) return {ok:true};
+    return {ok:false,msg:'❌ 韓股代號格式錯誤：應為 6 位數字（如 005930）'};
+  }
+  return {ok:false,msg:'請選擇市場'};
+}
+
+function showMsg(html,type){
+  const el=document.getElementById('addMsg');
+  el.innerHTML=`<div class="mgr-msg ${type}">${html}</div>`;
+}
+function resetAddMsg(){
+  document.getElementById('addMsg').innerHTML='';
+  document.getElementById('addBtn').disabled=true;
+}
+
+function doValidate(){
+  const sym=document.getElementById('addSym').value.trim().toUpperCase();
+  const mkt=document.getElementById('addMkt').value;
+  document.getElementById('addSym').value=sym;
+
+  // 檢查是否已存在
+  const allSyms=[...STOCKS_DATA.map(s=>s.sym),...getCustom().map(s=>s.sym)];
+  if(allSyms.includes(sym)){
+    showMsg(`⚠️ ${sym} 已在清單中`,'err');
+    document.getElementById('addBtn').disabled=true;
+    return;
+  }
+
+  const v=validateTicker(sym,mkt);
+  if(v.ok){
+    showMsg(`✅ 代號格式正確！可以加入清單`,'ok');
+    document.getElementById('addBtn').disabled=false;
+  } else {
+    showMsg(v.msg,'err');
+    document.getElementById('addBtn').disabled=true;
+  }
+}
+
+function doAdd(){
+  const sym=document.getElementById('addSym').value.trim().toUpperCase();
+  const name=document.getElementById('addName').value.trim()||sym;
+  const mkt=document.getElementById('addMkt').value;
+
+  const v=validateTicker(sym,mkt);
+  if(!v.ok){showMsg(v.msg,'err');return;}
+
+  const custom=getCustom();
+  custom.push({sym,name,market:mkt});
+  saveCustom(custom);
+
+  // 重置表單
+  document.getElementById('addSym').value='';
+  document.getElementById('addName').value='';
+  document.getElementById('addMsg').innerHTML='';
+  document.getElementById('addBtn').disabled=true;
+
+  showMsg(`✅ ${sym}（${name}）已加入自訂清單！下次執行爬蟲後即可看到新聞。`,'ok');
+  buildMgrList();
 }
 </script>
 </body>
