@@ -469,16 +469,175 @@ GRAMMAR = [
      {"en":"I was wondering if you have reviewed the proposal yet.","zh":"我想知道您是否已經審查過提案了。"},
    ],"wrong":"Could you tell me when will the report be ready?","right":"Could you tell me when the report will be ready?",
    "tip":"間接問句用直敘句語序（主詞在前），不用疑問句語序（助動詞不提前）。"},
+
+  # ── 第三條件句 & 混合條件 ────────────────────────────────────
+  {"title":"第三條件句 — 假設過去不同的結果","category":"條件句",
+   "rule":"If + had + 過去分詞, would have + 過去分詞。討論過去「如果當時不同」的假設結果。",
+   "pattern":"If we had [過去分詞], we would have [過去分詞].",
+   "examples":[
+     {"en":"If we had invested earlier, we would have made a larger profit.","zh":"如果我們早點投資，就會獲得更大的利潤。"},
+     {"en":"If they had checked the data, they would have found the error.","zh":"如果他們核查了資料，就會發現錯誤。"},
+     {"en":"If I had known about the meeting, I would have attended.","zh":"如果我知道有這個會議，我就會參加了。"},
+   ],"wrong":"If we invested earlier, we would make larger profit.","right":"If we had invested earlier, we would have made a larger profit.",
+   "tip":"第三條件：if 子句用 had+過去分詞，主句用 would have+過去分詞。"},
+
+  {"title":"限定相對子句 — which/that/who","category":"句型結構",
+   "rule":"which 修飾事物，who 修飾人，that 兩者皆可（口語）。限定子句不加逗號。",
+   "pattern":"[名詞] + which/that/who + [動詞子句]",
+   "examples":[
+     {"en":"The report that you submitted yesterday was very well-written.","zh":"你昨天提交的報告寫得非常好。"},
+     {"en":"We need an employee who can speak both English and Mandarin.","zh":"我們需要一位能說英文和普通話的員工。"},
+     {"en":"This is the software which the team developed last year.","zh":"這是團隊去年開發的軟體。"},
+   ],"wrong":"The report, that you submitted, was well-written.","right":"The report that you submitted was well-written.",
+   "tip":"限定子句（指出是哪個）不加逗號；補充說明才加逗號。"},
+
+  {"title":"表示對比：On the other hand / In contrast","category":"連接詞",
+   "rule":"提出不同觀點或相反情況。in contrast 強調差異；on the other hand 提出另一方觀點。",
+   "pattern":"On the other hand, [句子]. / In contrast, [句子].",
+   "examples":[
+     {"en":"The first option is cheaper. On the other hand, it takes longer to implement.","zh":"第一個選項更便宜。另一方面，實施起來需要更長時間。"},
+     {"en":"Our revenue increased by 20%. In contrast, our main competitor saw a decline.","zh":"我們的收入增長了20%。相比之下，主要競爭對手出現了下滑。"},
+     {"en":"The new system is more complex. On the other hand, it offers more features.","zh":"新系統更複雜。另一方面，它提供了更多功能。"},
+   ],"wrong":"On the other hand the option is cheaper.","right":"The first option is cheaper. On the other hand, it takes longer.",
+   "tip":"On the other hand / In contrast 句首加逗號。"},
+
+  {"title":"表示讓步：Even though / Despite","category":"連接詞",
+   "rule":"Even though 後接完整子句；despite 後接名詞或動名詞。都表示「雖然…但還是…」。",
+   "pattern":"Even though [子句], [主句]. / Despite [名詞/V-ing], [主句].",
+   "examples":[
+     {"en":"Even though the budget was tight, we completed the project on time.","zh":"儘管預算緊張，我們還是按時完成了專案。"},
+     {"en":"Despite the economic slowdown, our sales remained strong.","zh":"儘管經濟放緩，我們的銷售額仍然強勁。"},
+     {"en":"Even though she had no prior experience, she performed exceptionally well.","zh":"儘管她沒有相關經驗，但表現非常出色。"},
+   ],"wrong":"Despite the budget was tight, we completed the project.","right":"Despite the tight budget, we completed the project.",
+   "tip":"Despite 後接名詞，不接子句。要接子句用 Even though / Although。"},
+
+  {"title":"表示結論：In conclusion / To summarize","category":"連接詞",
+   "rule":"用於簡報、報告結尾總結主要論點。",
+   "pattern":"In conclusion, [總結]. / To summarize, [要點].",
+   "examples":[
+     {"en":"In conclusion, this strategy will reduce costs while improving efficiency.","zh":"總而言之，這個策略將在提升效率的同時降低成本。"},
+     {"en":"To summarize, we need to focus on three key areas: quality, speed, and cost.","zh":"總結來說，我們需要專注於三個關鍵領域：品質、速度和成本。"},
+     {"en":"In conclusion, I strongly recommend proceeding with the proposed merger.","zh":"總而言之，我強烈建議推進擬議中的合併。"},
+   ],"wrong":"In conclusion the strategy will reduce costs.","right":"In conclusion, this strategy will reduce costs.",
+   "tip":"In conclusion / To summarize 後加逗號。常用於簡報最後一張投影片。"},
+
+  {"title":"強調句型：It is... that/who...","category":"句型結構",
+   "rule":"把要強調的成分移到 It is 後面，其餘用 that/who 連接。",
+   "pattern":"It is/was [強調部分] that/who [其餘部分].",
+   "examples":[
+     {"en":"It was the marketing team that identified this opportunity.","zh":"正是行銷團隊發現了這個機會。"},
+     {"en":"It is the quality of our product that sets us apart from competitors.","zh":"正是我們產品的品質使我們有別於競爭對手。"},
+     {"en":"It was the client who requested an urgent revision.","zh":"正是客戶要求緊急修改的。"},
+   ],"wrong":"It is that the marketing team identified this opportunity.","right":"It was the marketing team that identified this opportunity.",
+   "tip":"強調人用 who，強調其他成分用 that。"},
+
+  {"title":"Make vs. Do — 常見搭配","category":"動詞搭配",
+   "rule":"make 常用於創造/產生；do 常用於執行/進行。固定搭配需整組記憶。",
+   "pattern":"make [decision/profit/mistake] / do [business/research/work]",
+   "examples":[
+     {"en":"We need to make a decision before the end of the quarter.","zh":"我們需要在季度結束前做出決定。"},
+     {"en":"The team did extensive research before launching the product.","zh":"團隊在產品上市前做了大量研究。"},
+     {"en":"The company made significant progress in reducing emissions.","zh":"公司在減少排放方面取得了顯著進展。"},
+   ],"wrong":"We need to do a decision.","right":"We need to make a decision.",
+   "tip":"make：decision, profit, mistake, progress, effort, offer。do：business, research, damage, work, a favor。"},
+
+  {"title":"商務常見片語動詞","category":"片語動詞",
+   "rule":"片語動詞 = 動詞 + 介系詞/副詞，整體意思與原動詞不同，必須整組記憶。",
+   "pattern":"[動詞] + [介系詞/副詞]",
+   "examples":[
+     {"en":"Please follow up with the client about the contract status.","zh":"請跟進客戶了解合約狀態。"},
+     {"en":"We need to put off the meeting until next week.","zh":"我們需要將會議推遲到下週。"},
+     {"en":"Let's go over the proposal before presenting it to the client.","zh":"在向客戶呈報之前，我們先看一遍提案。"},
+   ],"wrong":"Please follow the client up about the contract.","right":"Please follow up with the client about the contract.",
+   "tip":"follow up with（跟進）/ put off（推遲）/ go over（審閱）/ carry out（執行）/ look into（調查）。"},
+
+  {"title":"描述趨勢：rise/fall/increase/decrease","category":"數字統計",
+   "rule":"描述數字變化的動詞（直接用）和名詞（搭配形容詞）。",
+   "pattern":"[指標] + [動詞] + by [數量] / a [形容詞] + [名詞] + in [指標]",
+   "examples":[
+     {"en":"Revenue rose by 15% compared to last year.","zh":"與去年相比，收入上升了15%。"},
+     {"en":"There was a significant drop in production costs last quarter.","zh":"上季度生產成本大幅下降。"},
+     {"en":"Sales have increased steadily over the past three months.","zh":"過去三個月銷售額穩步上升。"},
+   ],"wrong":"Revenue rose by 15% is an increase.","right":"Revenue rose by 15% compared to last year.",
+   "tip":"形容詞搭配：sharp/dramatic（大幅）/ steady/gradual（穩定）/ slight/marginal（輕微）。"},
+
+  {"title":"簡報開場白","category":"簡報技巧",
+   "rule":"正式開場的標準句型。清楚說明目的、時間和結構。",
+   "pattern":"I'd like to / Today I'm going to + [動詞原形]...",
+   "examples":[
+     {"en":"Good morning. I'd like to present our Q3 financial results.","zh":"早安。我想報告我們第三季的財務業績。"},
+     {"en":"Today I'm going to walk you through our new product roadmap.","zh":"今天我將帶大家了解我們新的產品路線圖。"},
+     {"en":"My presentation will cover three main areas: market analysis, strategy, and implementation.","zh":"我的簡報將涵蓋三個主要領域：市場分析、策略和執行。"},
+   ],"wrong":"I will tell you about our results today.","right":"I'd like to present our Q3 financial results.",
+   "tip":"I'd like to（較正式）。結尾說 I'll be happy to take any questions at the end."},
+
+  {"title":"電子郵件常用句：請求與回應","category":"電子郵件",
+   "rule":"禮貌請求的標準句型，避免直接命令。",
+   "pattern":"Could you please [動詞]... / I would appreciate it if [子句]",
+   "examples":[
+     {"en":"Could you please send me the updated report by Friday?","zh":"您能在週五前把更新的報告發給我嗎？"},
+     {"en":"I would appreciate it if you could confirm your attendance by tomorrow.","zh":"如果您能在明天前確認是否出席，我將不勝感激。"},
+     {"en":"Please find attached the document you requested.","zh":"請見附件，是您要求的文件。"},
+   ],"wrong":"Send me the report by Friday.","right":"Could you please send me the updated report by Friday?",
+   "tip":"Please find attached...（請見附件）是電子郵件中最常用的句型之一。"},
+
+  {"title":"過去完成式 — 先後順序","category":"時態",
+   "rule":"Had + 過去分詞。強調兩件過去的事中，先發生的那件用過去完成式。",
+   "pattern":"By the time [過去簡單式], [主詞] had already [過去分詞].",
+   "examples":[
+     {"en":"By the time the manager arrived, the team had already finished the report.","zh":"主管到達時，團隊已經完成了報告。"},
+     {"en":"We had reviewed all the proposals before making a final decision.","zh":"在做出最終決定之前，我們已經審查了所有提案。"},
+     {"en":"The client had confirmed the order before we received the payment.","zh":"在我們收到付款之前，客戶已經確認了訂單。"},
+   ],"wrong":"By the time the manager arrived, the team already finished.","right":"By the time the manager arrived, the team had already finished the report.",
+   "tip":"兩件過去的事，先發生的用 had+過去分詞，後發生的用過去簡單式。"},
+
+  {"title":"現在完成進行式 — 持續到現在","category":"時態",
+   "rule":"Have/has been + V-ing。強調從過去開始、持續到現在仍在進行的動作。",
+   "pattern":"We have been [V-ing] since/for [時間].",
+   "examples":[
+     {"en":"We have been working on this project for six months.","zh":"我們一直在做這個專案，已經六個月了。"},
+     {"en":"The team has been experiencing technical difficulties since Monday.","zh":"自週一起，團隊一直在遭遇技術困難。"},
+     {"en":"I have been trying to reach you all morning.","zh":"我整個上午都在試圖聯繫你。"},
+   ],"wrong":"We are working on this project for six months.","right":"We have been working on this project for six months.",
+   "tip":"for + 時間長度 / since + 時間點，配合完成（進行）式使用。"},
+
+  {"title":"定冠詞 the — 何時使用","category":"文章用法",
+   "rule":"用 the 當雙方都知道指哪個（特定的），或前文已提到的，或獨一無二的事物。",
+   "pattern":"the + [特定/已提到/獨一無二的名詞]",
+   "examples":[
+     {"en":"The meeting we discussed yesterday has been rescheduled.","zh":"我們昨天討論的那個會議已改期。"},
+     {"en":"Please submit the report to the manager by Friday.","zh":"請在週五前將報告提交給主管。"},
+     {"en":"The CEO announced a new policy this morning.","zh":"執行長今早宣布了一項新政策。"},
+   ],"wrong":"Please submit a report to a manager by Friday.","right":"Please submit the report to the manager by Friday.",
+   "tip":"第一次提到用 a/an，之後再提同一個用 the。獨一無二的職位（the CEO）用 the。"},
+
+  {"title":"被動語態的商務用法","category":"被動語態",
+   "rule":"當執行者不重要或不知道，或強調被影響的對象時，用被動語態。商業公文很常見。",
+   "pattern":"[主詞] + is/was/will be + [過去分詞]",
+   "examples":[
+     {"en":"All employees are required to complete the training by Friday.","zh":"所有員工必須在週五前完成培訓。"},
+     {"en":"The decision was made after careful consideration.","zh":"這個決定是經過深思熟慮後做出的。"},
+     {"en":"The new policy will be implemented starting next quarter.","zh":"新政策將從下季度開始實施。"},
+   ],"wrong":"Someone requires all employees to complete training.","right":"All employees are required to complete the training.",
+   "tip":"商業報告、通知、政策說明常用被動語態，因為重點是事情本身，不是誰做的。"},
 ]
 
 # ══════════════════════════════════════════════════════════════
-#  每日選字（以日期為種子，固定同一天的30個單字）
+#  每日選字（優先讀取 vocab_words.json；若無則用內建單字庫）
 # ══════════════════════════════════════════════════════════════
 def daily_words():
     today = datetime.now().strftime("%Y-%m-%d")
     seed  = int(hashlib.md5(today.encode()).hexdigest(), 16) % (2**32)
     rng   = random.Random(seed)
-    pool  = WORDS.copy()
+
+    external = Path(__file__).parent / "vocab_words.json"
+    if external.exists():
+        pool = json.loads(external.read_text(encoding="utf-8"))
+        print(f"  → 從 vocab_words.json 讀取（共 {len(pool)} 個單字）")
+    else:
+        pool = WORDS.copy()
+        print(f"  → 使用內建單字庫（{len(pool)} 個）；執行 build_vocab.py 可擴充至 3000 個")
+
     rng.shuffle(pool)
     return pool[:30]
 
@@ -486,7 +645,14 @@ def daily_grammar():
     today = datetime.now().strftime("%Y-%m-%d")
     seed  = int(hashlib.md5(("g"+today).encode()).hexdigest(), 16) % (2**32)
     rng   = random.Random(seed)
-    pool  = GRAMMAR.copy()
+
+    external = Path(__file__).parent / "vocab_grammar.json"
+    if external.exists():
+        pool = json.loads(external.read_text(encoding="utf-8"))
+        print(f"  → 從 vocab_grammar.json 讀取（共 {len(pool)} 個文法重點）")
+    else:
+        pool = GRAMMAR.copy()
+
     rng.shuffle(pool)
     return pool[:4]
 
@@ -675,6 +841,30 @@ body{background:var(--bg);color:var(--ink);
 .playbar{position:fixed;bottom:0;left:0;right:0;z-index:40;
   background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
   border-top:1px solid var(--border)}
+
+/* ── 文法說明框 ────────────────────────────────────────── */
+.gram-box{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;
+  padding:10px 13px;margin:10px 0 4px}
+.gram-title{font-family:"Outfit";font-size:11px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:#166534;margin-bottom:5px}
+.gram-name{font-family:"Outfit";font-size:13px;font-weight:800;
+  color:#15803D;background:#DCFCE7;border-radius:6px;
+  padding:1px 8px;display:inline-block;margin-bottom:4px}
+.gram-why{font-size:13px;color:#166534;line-height:1.6;margin-bottom:6px}
+.gram-warn{font-size:12.5px;color:#9A3412;background:#FFF7ED;
+  border-radius:8px;padding:5px 10px;border-left:2px solid #EA580C;
+  line-height:1.55}
+.gram-hl{background:#BBF7D0;border-radius:3px;padding:0 2px;
+  font-weight:700;color:#166534;font-style:normal}
+
+/* ── 發音細節 ──────────────────────────────────────────── */
+.pron-detail{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;
+  padding:10px 13px;margin:8px 0}
+.pron-title{font-family:"Outfit";font-size:11px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:#92400E;margin-bottom:5px}
+.pron-stress{font-size:13.5px;font-weight:600;color:#78350F;margin-bottom:4px}
+.pron-stress b{color:var(--accent);font-size:15px;border-bottom:2px solid var(--accent)}
+.pron-warn{font-size:12.5px;color:#9A3412;line-height:1.55}
 .playbar-inner{max-width:640px;margin:0 auto;padding:8px 16px;
   display:flex;align-items:center;gap:8px}
 .pb-prev,.pb-next{background:none;border:1.5px solid var(--border);
@@ -873,6 +1063,87 @@ function updateProgress(idx){
   document.getElementById("progressText").textContent=`${Math.min(idx+1,total)} / ${total}`;
 }
 
+// ── 文法自動分析 ──────────────────────────────────────────────
+const GRAM_RULES = [
+  { name:"被動語態", zh:"強調「事情被做」，不強調誰做的。常見於商業公文、政策說明。",
+    warn:"注意：be 動詞要跟時態一致（is/was/will be）後面跟過去分詞。",
+    test:/\b(is|are|was|were|will be|has been|have been|be)\s+\w+(ed|en)\b/i,
+    hl:/\b(is|are|was|were|will be|has been|have been|be)\s+(\w+(ed|en))\b/gi },
+  { name:"現在完成式 have/has + p.p.", zh:"強調過去動作對現在的影響，或從過去持續到現在。",
+    warn:"注意：不能說『I have went』，要用過去分詞（gone）。",
+    test:/\b(has|have)\s+\w+(ed|en|ne|t|ought|aught)\b/i,
+    hl:/\b(has|have)\s+(\w+(ed|en|ne|t|ought|aught))\b/gi },
+  { name:"情態動詞 should", zh:"表示建議或義務（比 must 柔和）。後面接動詞原形，不加 to。",
+    warn:"注意：不能說『should to do』，直接說『should do』。",
+    test:/\bshould\b/i, hl:/\bshould\s+\w+/gi },
+  { name:"情態動詞 would", zh:"表示禮貌請求、假設結果、過去習慣。比 will 更正式禮貌。",
+    warn:"注意：正式場合用 I would 比 I will 更禮貌，如 I would like to...。",
+    test:/\bwould\b/i, hl:/\bwould\s+\w+/gi },
+  { name:"情態動詞 could", zh:"表示可能性或禮貌請求（比 can 更客氣）。後面接動詞原形。",
+    warn:"注意：Could you...? 比 Can you...? 更禮貌，商務場合建議用 could。",
+    test:/\bcould\b/i, hl:/\bcould\s+\w+/gi },
+  { name:"情態動詞 must", zh:"表示強烈義務或推斷。後面接動詞原形，不加 to。",
+    warn:"注意：must not（禁止）和 don't have to（不必要）意思完全不同！",
+    test:/\bmust\b/i, hl:/\bmust\s+\w+/gi },
+  { name:"第一條件句 if + 現在式", zh:"表達可能發生的情況。if 子句用現在式，主句用 will。",
+    warn:"注意：if 子句不能用 will！說『If we finish』，不說『If we will finish』。",
+    test:/\bif\b.*\bwill\b/i, hl:/\bif\b.*?(?=,|$)/gi },
+  { name:"第二條件句 if + 過去式", zh:"表達假設或不太可能的情況。if 子句用過去式，主句用 would。",
+    warn:"注意：be 動詞的假設用 were（不用 was），如 If I were you...。",
+    test:/\bif\b.*\bwould\b/i, hl:/\bif\b.*?(?=,|$)/gi },
+  { name:"現在進行式 be + V-ing", zh:"表示正在進行的動作，或未來已安排好的計畫。",
+    warn:"注意：know, believe, want 等狀態動詞通常不用進行式。",
+    test:/\b(is|are|am|were|was)\s+\w+ing\b/i, hl:/\b(is|are|am|were|was)\s+\w+ing\b/gi },
+  { name:"不定式 to + 動詞原形", zh:"表達目的、計畫或意圖。decide/plan/want/need 後面接 to V。",
+    warn:"注意：suggest/recommend/avoid 後面接 V-ing，不接 to V。",
+    test:/\bto\s+[a-z]{3,}\b/i, hl:/\bto\s+[a-z]{3,}\b/gi },
+  { name:"動名詞 V-ing 作受詞", zh:"consider/recommend/suggest/avoid/finish 後面接 V-ing。",
+    warn:"注意：這些動詞後面不能接 to V，只能接 V-ing。",
+    test:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/i,
+    hl:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/gi },
+  { name:"比較級 more/[adj]-er than", zh:"比較兩者時使用。短形容詞加 -er，長形容詞加 more。",
+    warn:"注意：不能同時用 more + -er（如『more bigger』是錯誤的）。",
+    test:/\b(more|less|\w+er)\s+than\b/i, hl:/\b(more|less|\w+er)\s+than\b/gi },
+];
+
+function analyzeGrammar(sentence){
+  for(const rule of GRAM_RULES){
+    if(rule.test.test(sentence)){
+      const highlighted = sentence.replace(rule.hl,
+        m=>`<mark class="gram-hl">${m}</mark>`);
+      return {...rule, highlighted};
+    }
+  }
+  return null;
+}
+
+// 發音重音分析：找到大寫音節
+function parsePronunciation(phonetic, word){
+  if(!phonetic) return null;
+  const parts = phonetic.split('-');
+  const stressIdx = parts.findIndex(p=>p===p.toUpperCase()&&p.length>0&&/[A-Z]/.test(p));
+  if(stressIdx<0) return null;
+  const markedPhonetic = parts.map((p,i)=>
+    i===stressIdx?`<b>${p}</b>`:p).join('-');
+  const total = parts.length;
+  const ordinal = ['第一','第二','第三','第四'][stressIdx]||`第${stressIdx+1}`;
+  // 中文使用者常見錯誤提示
+  const commonMistakes = {
+    '/θ/':'「th」聲音：舌頭輕咬上下牙，不是「s」或「t」',
+    '/ð/':'「th」聲音：舌頭輕咬上下牙（有聲），不是「d」',
+    '/æ/':'「a」短促音：嘴巴張大，比「ㄝ」更開',
+    '/ʌ/':'「u」短音：類似「ㄚ」但更短，很多人讀成「oo」',
+    '/r/':'英文「r」：嘴唇微圓，舌頭不捲，不要像注音「ㄖ」',
+    '/v/':'「v」：上牙輕咬下唇摩擦，不是「b」或「w」',
+    '/l/':'「l」結尾：舌頭要碰上牙齦收尾（如 call, full）',
+  };
+  let warnTip = '';
+  for(const [sym,tip] of Object.entries(commonMistakes)){
+    if((phonetic||'').includes(sym.replace(/\//g,''))){warnTip=tip;break;}
+  }
+  return {markedPhonetic, ordinal, total, warnTip};
+}
+
 // ── 建立單字卡片 ──────────────────────────────────────────────
 function buildCards(){
   const feed=document.getElementById("feed");
@@ -887,6 +1158,27 @@ function buildCards(){
     }
     const wEnc=encodeURIComponent(w.word);
     const eEnc=encodeURIComponent(w.example);
+
+    // 文法分析
+    const gram=analyzeGrammar(w.example);
+    const gramHtml=gram?`
+      <div class="gram-box">
+        <div class="gram-title">📐 例句文法分析</div>
+        <div class="gram-name">${gram.name}</div>
+        <div class="gram-why">${gram.zh}</div>
+        <div class="ex-en" style="margin:6px 0 6px"><span>${gram.highlighted}</span></div>
+        <div class="gram-warn">⚠️ 常見錯誤：${gram.warn}</div>
+      </div>`:'';
+
+    // 發音分析
+    const pron=parsePronunciation(w.phonetic,w.word);
+    const pronHtml=pron?`
+      <div class="pron-detail">
+        <div class="pron-title">🎯 發音重點</div>
+        <div class="pron-stress">重音在${pron.ordinal}音節（共${pron.total}個）：${pron.markedPhonetic}</div>
+        ${pron.warnTip?`<div class="pron-warn">💡 中文使用者注意：${pron.warnTip}</div>`:''}
+      </div>`:'';
+
     html+=`
     <div class="wcard" id="card-${i}">
       <div class="card-top">
@@ -896,11 +1188,12 @@ function buildCards(){
       <div class="word-row">
         <span class="word-en">${w.word}</span>
         <button class="icon-btn" onclick="sayWord(${i})" title="聆聽單字">🔊</button>
-        <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="font-size:14px;border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
+        <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
         <button class="icon-btn mic" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)">🎤 練習</button>
       </div>
       <div class="ipa">${w.ipa}</div>
       <div class="phonetic-pill">🗣 ${w.phonetic}</div>
+      ${pronHtml}
       <div id="wr-${i}" class="rec-result"></div>
       <div class="meaning">${w.zh}</div>
       <div class="example-section">
@@ -912,6 +1205,7 @@ function buildCards(){
         </div>
         <div class="ex-zh">${w.example_zh}</div>
       </div>
+      ${gramHtml}
       <div id="er-${i}" class="rec-result"></div>
       <div class="rep-dots" id="dots-${i}">${Array(REPS).fill('<span class="rdot"></span>').join("")}</div>
       <div class="play-status hidden" id="status-${i}"></div>

@@ -177,6 +177,30 @@ body{background:var(--bg);color:var(--ink);
 .playbar{position:fixed;bottom:0;left:0;right:0;z-index:40;
   background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
   border-top:1px solid var(--border)}
+
+/* ── 文法說明框 ────────────────────────────────────────── */
+.gram-box{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;
+  padding:10px 13px;margin:10px 0 4px}
+.gram-title{font-family:"Outfit";font-size:11px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:#166534;margin-bottom:5px}
+.gram-name{font-family:"Outfit";font-size:13px;font-weight:800;
+  color:#15803D;background:#DCFCE7;border-radius:6px;
+  padding:1px 8px;display:inline-block;margin-bottom:4px}
+.gram-why{font-size:13px;color:#166534;line-height:1.6;margin-bottom:6px}
+.gram-warn{font-size:12.5px;color:#9A3412;background:#FFF7ED;
+  border-radius:8px;padding:5px 10px;border-left:2px solid #EA580C;
+  line-height:1.55}
+.gram-hl{background:#BBF7D0;border-radius:3px;padding:0 2px;
+  font-weight:700;color:#166534;font-style:normal}
+
+/* ── 發音細節 ──────────────────────────────────────────── */
+.pron-detail{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;
+  padding:10px 13px;margin:8px 0}
+.pron-title{font-family:"Outfit";font-size:11px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:#92400E;margin-bottom:5px}
+.pron-stress{font-size:13.5px;font-weight:600;color:#78350F;margin-bottom:4px}
+.pron-stress b{color:var(--accent);font-size:15px;border-bottom:2px solid var(--accent)}
+.pron-warn{font-size:12.5px;color:#9A3412;line-height:1.55}
 .playbar-inner{max-width:640px;margin:0 auto;padding:8px 16px;
   display:flex;align-items:center;gap:8px}
 .pb-prev,.pb-next{background:none;border:1.5px solid var(--border);
@@ -375,6 +399,87 @@ function updateProgress(idx){
   document.getElementById("progressText").textContent=`${Math.min(idx+1,total)} / ${total}`;
 }
 
+// ── 文法自動分析 ──────────────────────────────────────────────
+const GRAM_RULES = [
+  { name:"被動語態", zh:"強調「事情被做」，不強調誰做的。常見於商業公文、政策說明。",
+    warn:"注意：be 動詞要跟時態一致（is/was/will be）後面跟過去分詞。",
+    test:/\b(is|are|was|were|will be|has been|have been|be)\s+\w+(ed|en)\b/i,
+    hl:/\b(is|are|was|were|will be|has been|have been|be)\s+(\w+(ed|en))\b/gi },
+  { name:"現在完成式 have/has + p.p.", zh:"強調過去動作對現在的影響，或從過去持續到現在。",
+    warn:"注意：不能說『I have went』，要用過去分詞（gone）。",
+    test:/\b(has|have)\s+\w+(ed|en|ne|t|ought|aught)\b/i,
+    hl:/\b(has|have)\s+(\w+(ed|en|ne|t|ought|aught))\b/gi },
+  { name:"情態動詞 should", zh:"表示建議或義務（比 must 柔和）。後面接動詞原形，不加 to。",
+    warn:"注意：不能說『should to do』，直接說『should do』。",
+    test:/\bshould\b/i, hl:/\bshould\s+\w+/gi },
+  { name:"情態動詞 would", zh:"表示禮貌請求、假設結果、過去習慣。比 will 更正式禮貌。",
+    warn:"注意：正式場合用 I would 比 I will 更禮貌，如 I would like to...。",
+    test:/\bwould\b/i, hl:/\bwould\s+\w+/gi },
+  { name:"情態動詞 could", zh:"表示可能性或禮貌請求（比 can 更客氣）。後面接動詞原形。",
+    warn:"注意：Could you...? 比 Can you...? 更禮貌，商務場合建議用 could。",
+    test:/\bcould\b/i, hl:/\bcould\s+\w+/gi },
+  { name:"情態動詞 must", zh:"表示強烈義務或推斷。後面接動詞原形，不加 to。",
+    warn:"注意：must not（禁止）和 don't have to（不必要）意思完全不同！",
+    test:/\bmust\b/i, hl:/\bmust\s+\w+/gi },
+  { name:"第一條件句 if + 現在式", zh:"表達可能發生的情況。if 子句用現在式，主句用 will。",
+    warn:"注意：if 子句不能用 will！說『If we finish』，不說『If we will finish』。",
+    test:/\bif\b.*\bwill\b/i, hl:/\bif\b.*?(?=,|$)/gi },
+  { name:"第二條件句 if + 過去式", zh:"表達假設或不太可能的情況。if 子句用過去式，主句用 would。",
+    warn:"注意：be 動詞的假設用 were（不用 was），如 If I were you...。",
+    test:/\bif\b.*\bwould\b/i, hl:/\bif\b.*?(?=,|$)/gi },
+  { name:"現在進行式 be + V-ing", zh:"表示正在進行的動作，或未來已安排好的計畫。",
+    warn:"注意：know, believe, want 等狀態動詞通常不用進行式。",
+    test:/\b(is|are|am|were|was)\s+\w+ing\b/i, hl:/\b(is|are|am|were|was)\s+\w+ing\b/gi },
+  { name:"不定式 to + 動詞原形", zh:"表達目的、計畫或意圖。decide/plan/want/need 後面接 to V。",
+    warn:"注意：suggest/recommend/avoid 後面接 V-ing，不接 to V。",
+    test:/\bto\s+[a-z]{3,}\b/i, hl:/\bto\s+[a-z]{3,}\b/gi },
+  { name:"動名詞 V-ing 作受詞", zh:"consider/recommend/suggest/avoid/finish 後面接 V-ing。",
+    warn:"注意：這些動詞後面不能接 to V，只能接 V-ing。",
+    test:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/i,
+    hl:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/gi },
+  { name:"比較級 more/[adj]-er than", zh:"比較兩者時使用。短形容詞加 -er，長形容詞加 more。",
+    warn:"注意：不能同時用 more + -er（如『more bigger』是錯誤的）。",
+    test:/\b(more|less|\w+er)\s+than\b/i, hl:/\b(more|less|\w+er)\s+than\b/gi },
+];
+
+function analyzeGrammar(sentence){
+  for(const rule of GRAM_RULES){
+    if(rule.test.test(sentence)){
+      const highlighted = sentence.replace(rule.hl,
+        m=>`<mark class="gram-hl">${m}</mark>`);
+      return {...rule, highlighted};
+    }
+  }
+  return null;
+}
+
+// 發音重音分析：找到大寫音節
+function parsePronunciation(phonetic, word){
+  if(!phonetic) return null;
+  const parts = phonetic.split('-');
+  const stressIdx = parts.findIndex(p=>p===p.toUpperCase()&&p.length>0&&/[A-Z]/.test(p));
+  if(stressIdx<0) return null;
+  const markedPhonetic = parts.map((p,i)=>
+    i===stressIdx?`<b>${p}</b>`:p).join('-');
+  const total = parts.length;
+  const ordinal = ['第一','第二','第三','第四'][stressIdx]||`第${stressIdx+1}`;
+  // 中文使用者常見錯誤提示
+  const commonMistakes = {
+    '/θ/':'「th」聲音：舌頭輕咬上下牙，不是「s」或「t」',
+    '/ð/':'「th」聲音：舌頭輕咬上下牙（有聲），不是「d」',
+    '/æ/':'「a」短促音：嘴巴張大，比「ㄝ」更開',
+    '/ʌ/':'「u」短音：類似「ㄚ」但更短，很多人讀成「oo」',
+    '/r/':'英文「r」：嘴唇微圓，舌頭不捲，不要像注音「ㄖ」',
+    '/v/':'「v」：上牙輕咬下唇摩擦，不是「b」或「w」',
+    '/l/':'「l」結尾：舌頭要碰上牙齦收尾（如 call, full）',
+  };
+  let warnTip = '';
+  for(const [sym,tip] of Object.entries(commonMistakes)){
+    if((phonetic||'').includes(sym.replace(/\//g,''))){warnTip=tip;break;}
+  }
+  return {markedPhonetic, ordinal, total, warnTip};
+}
+
 // ── 建立單字卡片 ──────────────────────────────────────────────
 function buildCards(){
   const feed=document.getElementById("feed");
@@ -389,6 +494,27 @@ function buildCards(){
     }
     const wEnc=encodeURIComponent(w.word);
     const eEnc=encodeURIComponent(w.example);
+
+    // 文法分析
+    const gram=analyzeGrammar(w.example);
+    const gramHtml=gram?`
+      <div class="gram-box">
+        <div class="gram-title">📐 例句文法分析</div>
+        <div class="gram-name">${gram.name}</div>
+        <div class="gram-why">${gram.zh}</div>
+        <div class="ex-en" style="margin:6px 0 6px"><span>${gram.highlighted}</span></div>
+        <div class="gram-warn">⚠️ 常見錯誤：${gram.warn}</div>
+      </div>`:'';
+
+    // 發音分析
+    const pron=parsePronunciation(w.phonetic,w.word);
+    const pronHtml=pron?`
+      <div class="pron-detail">
+        <div class="pron-title">🎯 發音重點</div>
+        <div class="pron-stress">重音在${pron.ordinal}音節（共${pron.total}個）：${pron.markedPhonetic}</div>
+        ${pron.warnTip?`<div class="pron-warn">💡 中文使用者注意：${pron.warnTip}</div>`:''}
+      </div>`:'';
+
     html+=`
     <div class="wcard" id="card-${i}">
       <div class="card-top">
@@ -398,11 +524,12 @@ function buildCards(){
       <div class="word-row">
         <span class="word-en">${w.word}</span>
         <button class="icon-btn" onclick="sayWord(${i})" title="聆聽單字">🔊</button>
-        <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="font-size:14px;border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
+        <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
         <button class="icon-btn mic" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)">🎤 練習</button>
       </div>
       <div class="ipa">${w.ipa}</div>
       <div class="phonetic-pill">🗣 ${w.phonetic}</div>
+      ${pronHtml}
       <div id="wr-${i}" class="rec-result"></div>
       <div class="meaning">${w.zh}</div>
       <div class="example-section">
@@ -414,6 +541,7 @@ function buildCards(){
         </div>
         <div class="ex-zh">${w.example_zh}</div>
       </div>
+      ${gramHtml}
       <div id="er-${i}" class="rec-result"></div>
       <div class="rep-dots" id="dots-${i}">${Array(REPS).fill('<span class="rdot"></span>').join("")}</div>
       <div class="play-status hidden" id="status-${i}"></div>
