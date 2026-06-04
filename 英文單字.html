@@ -400,15 +400,16 @@ function updateProgress(idx){
 }
 
 // ── 文法自動分析 ──────────────────────────────────────────────
-const GRAM_RULES = [
+function analyzeGrammar(sentence){
+  const GRAM_RULES = [
   { name:"被動語態", zh:"強調「事情被做」，不強調誰做的。常見於商業公文、政策說明。",
     warn:"注意：be 動詞要跟時態一致（is/was/will be）後面跟過去分詞。",
     test:/\b(is|are|was|were|will be|has been|have been|be)\s+\w+(ed|en)\b/i,
-    hl:/\b(is|are|was|were|will be|has been|have been|be)\s+(\w+(ed|en))\b/gi },
+    hl:/\b(is|are|was|were|will be|has been|have been|be)\s+\w+(ed|en)\b/gi },
   { name:"現在完成式 have/has + p.p.", zh:"強調過去動作對現在的影響，或從過去持續到現在。",
     warn:"注意：不能說『I have went』，要用過去分詞（gone）。",
     test:/\b(has|have)\s+\w+(ed|en|ne|t|ought|aught)\b/i,
-    hl:/\b(has|have)\s+(\w+(ed|en|ne|t|ought|aught))\b/gi },
+    hl:/\b(has|have)\s+\w+(ed|en|ne|t|ought|aught)\b/gi },
   { name:"情態動詞 should", zh:"表示建議或義務（比 must 柔和）。後面接動詞原形，不加 to。",
     warn:"注意：不能說『should to do』，直接說『should do』。",
     test:/\bshould\b/i, hl:/\bshould\s+\w+/gi },
@@ -421,33 +422,28 @@ const GRAM_RULES = [
   { name:"情態動詞 must", zh:"表示強烈義務或推斷。後面接動詞原形，不加 to。",
     warn:"注意：must not（禁止）和 don't have to（不必要）意思完全不同！",
     test:/\bmust\b/i, hl:/\bmust\s+\w+/gi },
-  { name:"第一條件句 if + 現在式", zh:"表達可能發生的情況。if 子句用現在式，主句用 will。",
+  { name:"條件句 if", zh:"表達可能或假設的情況。if 子句用現在式，主句用 will/would。",
     warn:"注意：if 子句不能用 will！說『If we finish』，不說『If we will finish』。",
-    test:/\bif\b.*\bwill\b/i, hl:/\bif\b.*?(?=,|$)/gi },
-  { name:"第二條件句 if + 過去式", zh:"表達假設或不太可能的情況。if 子句用過去式，主句用 would。",
-    warn:"注意：be 動詞的假設用 were（不用 was），如 If I were you...。",
-    test:/\bif\b.*\bwould\b/i, hl:/\bif\b.*?(?=,|$)/gi },
+    test:/\bif\b/i, hl:/\bif\b[^,.]*/gi },
   { name:"現在進行式 be + V-ing", zh:"表示正在進行的動作，或未來已安排好的計畫。",
     warn:"注意：know, believe, want 等狀態動詞通常不用進行式。",
     test:/\b(is|are|am|were|was)\s+\w+ing\b/i, hl:/\b(is|are|am|were|was)\s+\w+ing\b/gi },
-  { name:"不定式 to + 動詞原形", zh:"表達目的、計畫或意圖。decide/plan/want/need 後面接 to V。",
-    warn:"注意：suggest/recommend/avoid 後面接 V-ing，不接 to V。",
-    test:/\bto\s+[a-z]{3,}\b/i, hl:/\bto\s+[a-z]{3,}\b/gi },
   { name:"動名詞 V-ing 作受詞", zh:"consider/recommend/suggest/avoid/finish 後面接 V-ing。",
     warn:"注意：這些動詞後面不能接 to V，只能接 V-ing。",
     test:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/i,
     hl:/\b(consider|recommend|suggest|avoid|finish|keep|enjoy)\s+\w+ing\b/gi },
-  { name:"比較級 more/[adj]-er than", zh:"比較兩者時使用。短形容詞加 -er，長形容詞加 more。",
+  { name:"比較級 more / -er than", zh:"比較兩者時使用。短形容詞加 -er，長形容詞加 more。",
     warn:"注意：不能同時用 more + -er（如『more bigger』是錯誤的）。",
     test:/\b(more|less|\w+er)\s+than\b/i, hl:/\b(more|less|\w+er)\s+than\b/gi },
-];
-
-function analyzeGrammar(sentence){
+  { name:"不定式 to + 動詞原形", zh:"表達目的、計畫或意圖。decide/plan/want/need 後面接 to V。",
+    warn:"注意：suggest/recommend/avoid 後面接 V-ing，不接 to V。",
+    test:/\bto\s+[a-z]{3,}\b/i, hl:/\bto\s+[a-z]{3,}\b/gi },
+  ];
   for(const rule of GRAM_RULES){
     if(rule.test.test(sentence)){
       const highlighted = sentence.replace(rule.hl,
         m=>`<mark class="gram-hl">${m}</mark>`);
-      return {...rule, highlighted};
+      return {name:rule.name, zh:rule.zh, warn:rule.warn, highlighted};
     }
   }
   return null;
