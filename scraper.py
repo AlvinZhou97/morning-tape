@@ -31,6 +31,7 @@ STOCKS = [
     # ── 台股 Taiwan Stocks ──────────────────────────────────────
     {"sym":"2344",    "name":"華邦電",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"華邦電 2344 DRAM"},
     {"sym":"2408",    "name":"南亞科",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"南亞科 2408 記憶體"},
+    {"sym":"2409",    "name":"友達光電",       "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"友達光電 2409 面板"},
     {"sym":"2337",    "name":"旺宏",          "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"旺宏 2337 NOR Flash"},
     {"sym":"8299",    "name":"群聯",          "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"群聯 8299 NAND控制器"},
     {"sym":"4172",    "name":"因華生技",      "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"因華生技 4172"},
@@ -535,6 +536,11 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
   </div>
   <div class="mgr-body" id="mgrList"><!-- 清單由 JS 建立 --></div>
   <div class="mgr-body" id="mgrAdd" style="display:none">
+    <div class="mgr-hint" style="margin-bottom:14px;background:#EEF2FF;border:1px solid #C7D2FE">
+      📋 <b>說明：</b>爬蟲清單（上方）的股票每天自動更新新聞。<br>
+      這裡新增的是<b>額外的自訂股票</b>，儲存在您的手機瀏覽器，<b>不會有新聞資料</b>，只顯示股價。<br>
+      如需新聞，請告知我把它加進爬蟲清單。
+    </div>
     <div class="mgr-section">市場</div>
     <select class="mgr-select" id="addMkt">
       <option value="美股">🇺🇸 美股（NYSE / NASDAQ）</option>
@@ -548,12 +554,11 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
     <input class="mgr-field" id="addName" placeholder="留空會用代號代替">
     <button class="mgr-validate" onclick="doValidate()">🔍 驗證代號格式</button>
     <div id="addMsg"></div>
-    <button class="mgr-add-btn" id="addBtn" onclick="doAdd()" disabled>＋ 加入清單</button>
+    <button class="mgr-add-btn" id="addBtn" onclick="doAdd()" disabled>＋ 加入自訂清單</button>
     <div class="mgr-hint">
       ✅ 美股代號：1-5 個英文字母，如 AAPL、NVDA、TSM<br>
       ✅ 台股代號：4 位數字，如 2330、0050<br>
-      ✅ 韓股代號：6 位數字，如 005930（三星）、000660（海力士）<br>
-      ⚠️ 新增的股票需要重新執行爬蟲才會有新聞資料
+      ✅ 韓股代號：6 位數字，如 005930（三星）、000660（海力士）
     </div>
   </div>
 </div>
@@ -858,44 +863,48 @@ function buildMgrList(){
   const hidden=getHidden();
   const custom=getCustom();
   const el=document.getElementById('mgrList');
+  const badge=(t,c)=>`<span style="font-size:10px;color:${c==='g'?'#166534':'#9A3412'};background:${c==='g'?'#D1FAE5':'#FFF7ED'};border-radius:5px;padding:1px 6px;white-space:nowrap">${t}</span>`;
   let html='';
+
+  html+=`<div class="mgr-hint" style="margin-bottom:12px;background:#F0FDF4;border:1px solid #BBF7D0">
+    📰 <b>爬蟲清單</b>：每天自動抓取新聞，可開關顯示<br>
+    ⭐ <b>自訂清單</b>：只存在您的手機，只顯示股價，無新聞
+  </div>`;
 
   // 美股
   const us=STOCKS_DATA.filter(s=>s.market==='美股');
-  html+=`<div class="mgr-section">🇺🇸 美股（${us.length} 檔）</div>`;
+  html+=`<div class="mgr-section">📰 爬蟲清單 — 🇺🇸 美股（${us.length} 檔，每日自動更新新聞）</div>`;
   us.forEach(s=>{
     const on=!hidden.includes(s.sym);
-    html+=`<div class="mgr-row">
-      <span class="mgr-sym">${s.sym}</span>
-      <span class="mgr-name">${s.name}</span>
-      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
-    </div>`;
+    html+=`<div class="mgr-row"><span class="mgr-sym">${s.sym}</span><span class="mgr-name">${s.name}</span>${badge('有新聞','g')}<button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')"></button></div>`;
   });
 
   // 台股
   const tw=STOCKS_DATA.filter(s=>s.market==='台股');
-  html+=`<div class="mgr-section" style="margin-top:14px">🇹🇼 台股（${tw.length} 檔）</div>`;
+  html+=`<div class="mgr-section" style="margin-top:14px">📰 爬蟲清單 — 🇹🇼 台股（${tw.length} 檔，每日自動更新新聞）</div>`;
   tw.forEach(s=>{
     const on=!hidden.includes(s.sym);
-    html+=`<div class="mgr-row">
-      <span class="mgr-sym">${s.sym}</span>
-      <span class="mgr-name">${s.name}</span>
-      <button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')" title="${on?'點擊隱藏':'點擊顯示'}"></button>
-    </div>`;
+    html+=`<div class="mgr-row"><span class="mgr-sym">${s.sym}</span><span class="mgr-name">${s.name}</span>${badge('有新聞','g')}<button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')"></button></div>`;
   });
 
-  // 自訂股票
-  if(custom.length){
-    html+=`<div class="mgr-section" style="margin-top:14px">⭐ 自訂新增（${custom.length} 檔）</div>`;
-    html+=`<div style="font-size:11.5px;color:var(--soft);margin-bottom:6px">需重新執行爬蟲才有新聞資料</div>`;
-    custom.forEach(s=>{
-      html+=`<div class="mgr-row">
-        <span class="mgr-sym">${s.sym}</span>
-        <span class="mgr-name">${s.name}</span>
-        <span class="mgr-mkt ${s.market}">${s.market}</span>
-        <button class="mgr-del" onclick="removeCustom('${s.sym}')" title="移除">✕</button>
-      </div>`;
+  // 韓股
+  const kr=STOCKS_DATA.filter(s=>s.market==='韓股');
+  if(kr.length){
+    html+=`<div class="mgr-section" style="margin-top:14px">📰 爬蟲清單 — 🇰🇷 韓股（${kr.length} 檔，每日自動更新新聞）</div>`;
+    kr.forEach(s=>{
+      const on=!hidden.includes(s.sym);
+      html+=`<div class="mgr-row"><span class="mgr-sym">${s.sym}</span><span class="mgr-name">${s.name}</span>${badge('有新聞','g')}<button class="mgr-toggle ${on?'on':'off'}" onclick="toggleStock('${s.sym}')"></button></div>`;
     });
+  }
+
+  // 自訂清單
+  html+=`<div class="mgr-section" style="margin-top:16px;padding-top:14px;border-top:2px solid var(--line)">⭐ 自訂清單（${custom.length} 檔）— 永久儲存於本機，按 ✕ 才會刪除</div>`;
+  if(custom.length){
+    custom.forEach(s=>{
+      html+=`<div class="mgr-row"><span class="mgr-sym">${s.sym}</span><span class="mgr-name">${s.name}</span><span class="mgr-mkt ${s.market}">${s.market}</span>${badge('僅股價','r')}<button class="mgr-del" onclick="removeCustom('${s.sym}')" title="永久刪除">✕</button></div>`;
+    });
+  } else {
+    html+=`<div style="font-size:12.5px;color:var(--soft);padding:8px 0 4px">目前沒有自訂股票。點上方「＋ 新增」分頁加入。</div>`;
   }
 
   el.innerHTML=html;
