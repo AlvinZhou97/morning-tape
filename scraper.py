@@ -23,13 +23,13 @@ OUT_HTML = Path(__file__).parent / "晨報.html"
 # ════════════════════════════════════════════════════════════
 STOCKS = [
     # ── 美股 US Stocks ──────────────────────────────────────────
-    {"sym":"RDW",     "name":"Redwire",       "market":"美股", "source":"yahoo",    "ticker":"RDW",  "q":"Redwire RDW"},
-    {"sym":"ORCL",    "name":"Oracle",        "market":"美股", "source":"yahoo",    "ticker":"ORCL", "q":"Oracle ORCL"},
-    {"sym":"BE",      "name":"Bloom Energy",  "market":"美股", "source":"yahoo",    "ticker":"BE",   "q":"Bloom Energy BE"},
-    {"sym":"INTC",    "name":"Intel",         "market":"美股", "source":"yahoo",    "ticker":"INTC", "q":"Intel INTC semiconductor"},
-    {"sym":"MU",      "name":"美光 Micron",   "market":"美股", "source":"yahoo",    "ticker":"MU",   "q":"Micron MU memory chip"},
-    {"sym":"SNDK",    "name":"SanDisk",       "market":"美股", "source":"yahoo",    "ticker":"SNDK", "q":"SanDisk SNDK flash"},
-    {"sym":"TSLA",    "name":"特斯拉 Tesla",  "market":"美股", "source":"yahoo",    "ticker":"TSLA", "q":"Tesla TSLA"},
+    {"sym":"RDW",     "name":"Redwire",       "market":"美股", "source":"yahoo",    "ticker":"RDW",  "q":"Redwire RDW space"},
+    {"sym":"ORCL",    "name":"Oracle",        "market":"美股", "source":"yahoo",    "ticker":"ORCL", "q":"Oracle ORCL earnings cloud AI database"},
+    {"sym":"BE",      "name":"Bloom Energy",  "market":"美股", "source":"yahoo",    "ticker":"BE",   "q":"Bloom Energy BE fuel cell hydrogen power"},
+    {"sym":"INTC",    "name":"Intel",         "market":"美股", "source":"yahoo",    "ticker":"INTC", "q":"Intel INTC chip semiconductor foundry"},
+    {"sym":"MU",      "name":"美光 Micron",   "market":"美股", "source":"yahoo",    "ticker":"MU",   "q":"Micron MU DRAM HBM memory earnings"},
+    {"sym":"SNDK",    "name":"SanDisk",       "market":"美股", "source":"yahoo",    "ticker":"SNDK", "q":"SanDisk SNDK Western Digital flash storage"},
+    {"sym":"TSLA",    "name":"特斯拉 Tesla",  "market":"美股", "source":"yahoo",    "ticker":"TSLA", "q":"Tesla TSLA EV earnings deliveries"},
     # ── 台股 Taiwan Stocks ──────────────────────────────────────
     {"sym":"2344",    "name":"華邦電",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"華邦電 2344 DRAM"},
     {"sym":"2408",    "name":"南亞科",        "market":"台股", "source":"gnews_zh", "ticker":"",     "q":"南亞科 2408 記憶體"},
@@ -464,7 +464,11 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Hanken Gr
 .item h3 a{color:inherit;text-decoration:none}.item h3 a:hover{text-decoration:underline}
 .item p{font-size:13.5px;font-weight:300;color:#41454b;line-height:1.75;white-space:pre-line}
 .src{font-family:"Hanken Grotesk";font-size:10.5px;color:var(--soft);margin-top:3px}
-.none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px}
+.none{font-family:"Noto Serif TC",serif;font-style:italic;color:var(--soft);padding:5px 0 10px;font-size:13.5px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.show-older{background:none;border:1.5px solid var(--line);border-radius:16px;
+  padding:3px 10px;font-size:12px;font-weight:700;color:var(--soft);cursor:pointer;
+  font-family:"Hanken Grotesk",sans-serif;transition:.15s;font-style:normal}
+.show-older:hover{border-color:var(--ink);color:var(--ink)}
 /* 管理股票抽屜 */
 .manage-btn{background:none;border:1.5px solid var(--line);border-radius:20px;
   padding:5px 12px;font-family:inherit;font-size:12px;font-weight:700;
@@ -714,15 +718,31 @@ function buildFeed(){
     const sorted=(s.items||[]).slice().sort((a,b)=>(b.date||"").localeCompare(a.date||""));
     const items=sorted.filter(it=>inRange(it.date));
     let body=`<div class="summary">${s.summary||""}</div>`;
-    if(!sorted.length) body+=`<p class="none">— 近期無重大消息 —</p>`;
-    else if(!items.length) body+=`<p class="none">— 此期間無消息（共 ${sorted.length} 則較早消息）—</p>`;
-    else body+=items.map(it=>
-      `<div class="item">
-        <div class="idate-s">${fmtD(it.date)}</div>
-        <h3>${it.link?`<a href="${it.link}" target="_blank" rel="noopener">${it.headline||""}</a>`:it.headline||""}</h3>
-        <p>${it.detail||""}</p>
-        ${it.source?`<div class="src">— ${it.source}</div>`:""}
-       </div>`).join("");
+    if(!sorted.length){
+      body+=`<p class="none">— 近期無重大消息 —</p>`;
+    } else if(!items.length){
+      // 有舊消息但被日期過濾，提供展開按鈕
+      body+=`<p class="none">— 目前期間無新消息 —
+        <button class="show-older" onclick="toggleOlder(this,'older-${i}')">
+          顯示 ${sorted.length} 則較早消息 ▾
+        </button></p>
+        <div id="older-${i}" style="display:none">
+          ${sorted.map(it=>`<div class="item">
+            <div class="idate-s">${fmtD(it.date)}</div>
+            <h3>${it.link?`<a href="${it.link}" target="_blank" rel="noopener">${it.headline||""}</a>`:it.headline||""}</h3>
+            <p>${it.detail||""}</p>
+            ${it.source?`<div class="src">— ${it.source}</div>`:""}
+          </div>`).join("")}
+        </div>`;
+    } else {
+      body+=items.map(it=>
+        `<div class="item">
+          <div class="idate-s">${fmtD(it.date)}</div>
+          <h3>${it.link?`<a href="${it.link}" target="_blank" rel="noopener">${it.headline||""}</a>`:it.headline||""}</h3>
+          <p>${it.detail||""}</p>
+          ${it.source?`<div class="src">— ${it.source}</div>`:""}
+         </div>`).join("");
+    }
     const priceRow=`<div class="price-row" id="price-${s.sym}"><span class="price-skeleton">股價載入中...</span></div>`;
     return`<article class="card" id="card-${i}"><div class="card-head"><span class="badge">${s.sym}</span><span class="cname">${s.name}</span><span class="mktag">${s.market}</span><span class="pill ${cls}">${label}</span><button class="saybtn" onclick="speakCard(${i})">🔊</button></div>${priceRow}${body}</article>`;
   }).join("");
@@ -746,6 +766,13 @@ function visibleIdx(){
     const c=document.getElementById("card-"+i);
     return c&&c.style.display!=="none";
   });
+}
+function toggleOlder(btn,id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const open=el.style.display==='none';
+  el.style.display=open?'':'none';
+  btn.textContent=open?`收起 ▴`:`顯示 ${el.querySelectorAll('.item').length} 則較早消息 ▾`;
 }
 function speakSeq(seq){
   if(!window.speechSynthesis){alert("此瀏覽器不支援語音功能");return;}
