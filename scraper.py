@@ -244,53 +244,19 @@ def sentiment(texts) -> str:
 # ════════════════════════════════════════════════════════════
 #  個股抓取
 # ════════════════════════════════════════════════════════════
-def process_stock(stock: dict) -> dict:
-    src  = stock["source"]
-    sym  = stock["sym"]
-    need_tr = src != "gnews_zh"
-    entries = []
-
-    if src == "yahoo":
-        # 美股：Yahoo Finance RSS → 補 Google News
-        entries = fetch_rss(yahoo_url(stock["ticker"]))
-        if len(entries) < 3:
-            entries += fetch_rss(gnews_url(stock["q"]))
-            if len(entries) < 3:
-                # 再補 Bing News
-                entries += fetch_rss(f"https://www.bing.com/news/search?q={quote(stock['q'])}&format=rss")
-
-    elif src == "gnews_zh":
-        # 台股：MoneyDJ → Google News TW → Google News EN（多來源兜底）
-        name = stock.get("name","").replace("-KY","")
-        for url in tw_stock_news_urls(sym, name):
-            entries += fetch_rss(url)
-            if len(entries) >= 3:
-                break
-
-    else:  # gnews（韓股等）
-        entries = fetch_rss(gnews_url(stock["q"]))
-        if len(entries) < 3:
-            entries += fetch_rss(gnews_url(stock["q"].split()[0]))  # 試更短的關鍵字
-
 def extract_content(entry) -> str:
     """從 RSS entry 取得最完整的文章內容"""
     parts = []
-
-    # 1. feedparser content 欄位（最完整，部分 RSS 提供全文）
     content = getattr(entry, 'content', [])
     if content:
         c = content[0]
         val = c.get('value', '') if isinstance(c, dict) else str(c)
         t = clean(val)
         if t: parts.append(t)
-
-    # 2. summary / description（通常是摘要段落）
     for field in ('summary', 'description', 'subtitle'):
         t = clean(getattr(entry, field, '') or '')
         if t and t not in ' '.join(parts):
             parts.append(t)
-
-    # 合併並整理空白
     combined = ' '.join(parts)
     combined = re.sub(r'\s{2,}', ' ', combined).strip()
     return combined
@@ -301,15 +267,9 @@ def build_detail(entry, need_tr: bool) -> str:
     text = extract_content(entry)
     if not text:
         return ''
-
-    # 保留最多 1200 字元（翻譯前）
     text = text[:1200]
-
-    # 翻譯（失敗則顯示原文）
     if need_tr:
         text = translate(text)
-
-    # 斷句美化：超過 3 句就分段
     sentences = re.split(r'(?<=[。.!?！？])\s*', text)
     sentences = [s.strip() for s in sentences if s.strip()]
     if len(sentences) >= 5:
@@ -317,6 +277,29 @@ def build_detail(entry, need_tr: bool) -> str:
         return '　　' + ''.join(sentences[:mid]) + '\n　　' + ''.join(sentences[mid:])
     return '　　' + ''.join(sentences)
 
+
+def process_stock(stock: dict) -> dict:
+    src     = stock["source"]
+    sym     = stock["sym"]
+    need_tr = src != "gnews_zh"
+    entries = []
+
+    if src == "yahoo":
+        entries = fetch_rss(yahoo_url(stock["ticker"]))
+        if len(entries) < 3:
+            entries += fetch_rss(gnews_url(stock["q"]))
+        if len(entries) < 3:
+            entries += fetch_rss(f"https://www.bing.com/news/search?q={quote(stock['q'])}&format=rss")
+    elif src == "gnews_zh":
+        name = stock.get("name","").replace("-KY","")
+        for url in tw_stock_news_urls(sym, name):
+            entries += fetch_rss(url)
+            if len(entries) >= 3:
+                break
+    else:
+        entries = fetch_rss(gnews_url(stock["q"]))
+        if len(entries) < 3:
+            entries += fetch_rss(gnews_url(stock["q"].split()[0]))
 
     items, seen = [], set()
     for e in entries[:MAX_STOCK_ITEMS * 3]:

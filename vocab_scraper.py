@@ -5,7 +5,7 @@
 不需要任何外部 API，完全離線生成
 """
 import json, random, hashlib
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 OUT_HTML = Path(__file__).parent / "英文單字.html"
@@ -626,7 +626,9 @@ GRAMMAR = [
 #  每日選字（優先讀取 vocab_words.json；若無則用內建單字庫）
 # ══════════════════════════════════════════════════════════════
 def daily_words():
-    today = datetime.now().strftime("%Y-%m-%d")
+    # 用台灣時區（UTC+8）確保日期正確
+    tz_tw = timezone(timedelta(hours=8))
+    today = datetime.now(tz_tw).strftime("%Y-%m-%d")
     seed  = int(hashlib.md5(today.encode()).hexdigest(), 16) % (2**32)
     rng   = random.Random(seed)
 
@@ -642,7 +644,8 @@ def daily_words():
     return pool[:30]
 
 def daily_grammar():
-    today = datetime.now().strftime("%Y-%m-%d")
+    tz_tw = timezone(timedelta(hours=8))
+    today = datetime.now(tz_tw).strftime("%Y-%m-%d")
     seed  = int(hashlib.md5(("g"+today).encode()).hexdigest(), 16) % (2**32)
     rng   = random.Random(seed)
 
@@ -1500,8 +1503,9 @@ function startRec(btn){
 #  生成 HTML
 # ══════════════════════════════════════════════════════════════
 def main():
-    today    = datetime.now().strftime("%Y-%m-%d")
-    gen_date = datetime.now().strftime("%Y/%m/%d")
+    tz_tw    = timezone(timedelta(hours=8))
+    today    = datetime.now(tz_tw).strftime("%Y-%m-%d")
+    gen_date = datetime.now(tz_tw).strftime("%Y/%m/%d")
 
     # 讀取歷史記錄
     history_file = Path(__file__).parent / "vocab_history.json"
