@@ -426,5 +426,433 @@
         "tip": "在正式會議中用 could 比 can 更有禮貌，也更專業。"
       }
     ]
+  },
+  "2026-06-05": {
+    "words": [
+      {
+        "word": "keynote",
+        "ipa": "/ˈkiːnoʊt/",
+        "phonetic": "KEE-note",
+        "zh": "主題演講",
+        "category": "會議",
+        "example": "The CEO delivered the keynote at the conference.",
+        "example_zh": "執行長在大會發表了主題演講。",
+        "example2": "The CEO gave a powerful keynote on digital transformation.",
+        "example2_zh": "執行長就數位轉型發表了一場有力的主題演講。"
+      },
+      {
+        "word": "virtualization",
+        "ipa": "/ˌvɜːrtʃuəlaɪˈzeɪʃən/",
+        "phonetic": "vur-choo-uh-ly-ZAY-shun",
+        "zh": "虛擬化",
+        "category": "科技",
+        "example": "Server virtualization reduces hardware costs significantly.",
+        "example_zh": "伺服器虛擬化大幅降低了硬體成本。",
+        "example2": "Server virtualization allows one physical machine to run multiple systems.",
+        "example2_zh": "伺服器虛擬化允許一台實體機器運行多個系統。"
+      },
+      {
+        "word": "debrief",
+        "ipa": "/diːˈbriːf/",
+        "phonetic": "dee-BREEF",
+        "zh": "彙報；事後討論",
+        "category": "會議",
+        "example": "Let's debrief after the client presentation.",
+        "example_zh": "客戶簡報後我們來做個彙報。",
+        "example2": "After the product launch, the team gathered to debrief.",
+        "example2_zh": "產品發布後，團隊聚在一起做事後彙報。"
+      },
+      {
+        "word": "user experience",
+        "ipa": "/ˈjuːzər ɪkˈspɪriəns/",
+        "phonetic": "YOO-zer ik-SPEER-ee-uns",
+        "zh": "用戶體驗（UX）",
+        "category": "科技",
+        "example": "A great user experience keeps customers coming back.",
+        "example_zh": "出色的用戶體驗讓客戶持續回訪。",
+        "example2": "Improving user experience is the top priority for our mobile app.",
+        "example2_zh": "改善用戶體驗是我們行動應用的首要任務。"
+      },
+      {
+        "word": "collaborate",
+        "ipa": "/kəˈlæbəreɪt/",
+        "phonetic": "kuh-LAB-uh-rayt",
+        "zh": "合作；協作",
+        "category": "生活",
+        "example": "Teams that collaborate effectively achieve better results.",
+        "example_zh": "有效合作的團隊能取得更好的成果。",
+        "example2": "Teams that collaborate across departments drive better innovation.",
+        "example2_zh": "跨部門合作的團隊推動更好的創新。"
+      },
+      {
+        "word": "unanimous",
+        "ipa": "/juːˈnænɪməs/",
+        "phonetic": "yoo-NAN-uh-mus",
+        "zh": "全體一致的",
+        "category": "會議",
+        "example": "The vote was unanimous in favor of the proposal.",
+        "example_zh": "投票結果全體一致支持該提案。",
+        "example2": "Board members were unanimous in rejecting the proposal.",
+        "example2_zh": "董事會成員一致反對該提案。"
+      },
+      {
+        "word": "follow-up",
+        "ipa": "/ˈfɒloʊˌʌp/",
+        "phonetic": "FOL-oh-up",
+        "zh": "後續跟進；追蹤",
+        "category": "會議",
+        "example": "I will send a follow-up email after the meeting.",
+        "example_zh": "會後我會發送一封跟進郵件。",
+        "example2": "A follow-up call was scheduled for the following Tuesday.",
+        "example2_zh": "後續通話安排在下週二。"
+      },
+      {
+        "word": "merger",
+        "ipa": "/ˈmɜːrdʒər/",
+        "phonetic": "MUR-jer",
+        "zh": "合併",
+        "category": "商業",
+        "example": "The merger created the largest company in the sector.",
+        "example_zh": "這次合併創造了該行業最大的公司。",
+        "example2": "The merger resulted in significant cost savings for both parties.",
+        "example2_zh": "合併為雙方帶來了顯著的成本節省。"
+      },
+      {
+        "word": "takeaway",
+        "ipa": "/ˈteɪkəweɪ/",
+        "phonetic": "TAYK-uh-way",
+        "zh": "重點結論；收穫",
+        "category": "會議",
+        "example": "The key takeaway from today's meeting is to focus on quality.",
+        "example_zh": "今天會議的重點結論是專注於品質。",
+        "example2": "The key takeaway from the workshop was the importance of data.",
+        "example2_zh": "工作坊的主要收穫是資料的重要性。"
+      },
+      {
+        "word": "securities",
+        "ipa": "/sɪˈkjʊərɪtiz/",
+        "phonetic": "suh-KYOOR-uh-teez",
+        "zh": "有價證券",
+        "category": "財經",
+        "example": "Government securities are considered low-risk investments.",
+        "example_zh": "政府有價證券被視為低風險投資。",
+        "example2": "Mortgage-backed securities played a key role in the 2008 financial crisis.",
+        "example2_zh": "抵押貸款支持的有價證券在2008年金融危機中發揮了關鍵作用。"
+      },
+      {
+        "word": "resilient",
+        "ipa": "/rɪˈzɪliənt/",
+        "phonetic": "ruh-ZIL-ee-unt",
+        "zh": "有韌性的；恢復力強的",
+        "category": "生活",
+        "example": "Resilient employees adapt quickly to change.",
+        "example_zh": "有韌性的員工能快速適應變化。",
+        "example2": "A resilient team bounces back quickly after setbacks.",
+        "example2_zh": "有韌性的團隊在挫折後能夠迅速恢復。"
+      },
+      {
+        "word": "amortization",
+        "ipa": "/əˌmɔːrtɪˈzeɪʃən/",
+        "phonetic": "uh-mor-tuh-ZAY-shun",
+        "zh": "攤銷；分期償還",
+        "category": "財經",
+        "example": "The loan amortization schedule shows monthly payments.",
+        "example_zh": "貸款攤銷時間表顯示每月還款金額。",
+        "example2": "The software license cost is spread through amortization over five years.",
+        "example2_zh": "軟體授權費用透過五年攤銷分攤。"
+      },
+      {
+        "word": "depreciation",
+        "ipa": "/dɪˌpriːʃɪˈeɪʃən/",
+        "phonetic": "duh-pree-shee-AY-shun",
+        "zh": "折舊；貶值",
+        "category": "財經",
+        "example": "Equipment depreciation reduces taxable income.",
+        "example_zh": "設備折舊可減少應稅收入。",
+        "example2": "Machinery depreciation is recorded as an expense each year.",
+        "example2_zh": "機械折舊每年記錄為一項費用。"
+      },
+      {
+        "word": "yield",
+        "ipa": "/jiːld/",
+        "phonetic": "YEELD",
+        "zh": "收益率；產生",
+        "category": "財經",
+        "example": "The bond yield increased to 4.5% this quarter.",
+        "example_zh": "本季債券收益率上升至4.5%。",
+        "example2": "Investors moved to high-yield bonds to compensate for higher risk.",
+        "example2_zh": "投資者轉向高收益債券以補償更高的風險。"
+      },
+      {
+        "word": "automation",
+        "ipa": "/ˌɔːtəˈmeɪʃən/",
+        "phonetic": "aw-tuh-MAY-shun",
+        "zh": "自動化",
+        "category": "科技",
+        "example": "Automation has transformed manufacturing processes worldwide.",
+        "example_zh": "自動化改變了全球的製造流程。",
+        "example2": "Process automation reduced manual errors by over 60%.",
+        "example2_zh": "流程自動化將手動錯誤減少了60%以上。"
+      },
+      {
+        "word": "audit",
+        "ipa": "/ˈɔːdɪt/",
+        "phonetic": "AW-dit",
+        "zh": "審計；查帳",
+        "category": "財經",
+        "example": "An external auditor conducts the annual financial audit.",
+        "example_zh": "外部審計師進行年度財務審計。",
+        "example2": "The annual audit revealed no material discrepancies in the accounts.",
+        "example2_zh": "年度審計未發現帳目中有任何重大差異。"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。"
+      },
+      {
+        "word": "accountability",
+        "ipa": "/əˌkaʊntəˈbɪlɪti/",
+        "phonetic": "uh-kown-tuh-BIL-uh-tee",
+        "zh": "責任感；問責",
+        "category": "生活",
+        "example": "Accountability means taking responsibility for your actions.",
+        "example_zh": "問責意味著為自己的行動承擔責任。",
+        "example2": "A culture of accountability starts at the leadership level.",
+        "example2_zh": "問責文化從領導層開始。"
+      },
+      {
+        "word": "adaptable",
+        "ipa": "/əˈdæptəbəl/",
+        "phonetic": "uh-DAP-tuh-bul",
+        "zh": "適應力強的；靈活的",
+        "category": "生活",
+        "example": "Adaptable employees are valuable in a changing environment.",
+        "example_zh": "適應力強的員工在變化的環境中非常寶貴。",
+        "example2": "The most adaptable employees are often the most valuable.",
+        "example2_zh": "適應性最強的員工往往是最有價值的。"
+      },
+      {
+        "word": "punctual",
+        "ipa": "/ˈpʌŋktʃuəl/",
+        "phonetic": "PUNK-choo-ul",
+        "zh": "準時的",
+        "category": "生活",
+        "example": "Being punctual shows respect for others' time.",
+        "example_zh": "準時表現了對他人時間的尊重。",
+        "example2": "Punctual employees signal professionalism and respect for others.",
+        "example2_zh": "準時的員工傳達出專業精神和對他人的尊重。"
+      },
+      {
+        "word": "delegate",
+        "ipa": "/ˈdɛlɪɡeɪt/",
+        "phonetic": "DEL-uh-gayt",
+        "zh": "授權；委派；代表",
+        "category": "會議",
+        "example": "A good manager knows how to delegate tasks effectively.",
+        "example_zh": "好的管理者知道如何有效授權。",
+        "example2": "She learned to delegate work so she could focus on strategy.",
+        "example2_zh": "她學會了授權，以便集中精力在策略上。"
+      },
+      {
+        "word": "proactive",
+        "ipa": "/proʊˈæktɪv/",
+        "phonetic": "pro-AK-tiv",
+        "zh": "主動積極的",
+        "category": "生活",
+        "example": "Being proactive helps you solve problems before they arise.",
+        "example_zh": "積極主動幫助你在問題發生前解決它。",
+        "example2": "Being proactive means anticipating problems before they occur.",
+        "example2_zh": "積極主動意味著在問題發生之前預見它們。"
+      },
+      {
+        "word": "optimization",
+        "ipa": "/ˌɒptɪmaɪˈzeɪʃən/",
+        "phonetic": "op-tuh-my-ZAY-shun",
+        "zh": "優化",
+        "category": "科技",
+        "example": "Search engine optimization improves your website ranking.",
+        "example_zh": "搜尋引擎優化提升您的網站排名。",
+        "example2": "Database optimization reduced our page load time by 40%.",
+        "example2_zh": "資料庫優化將我們的頁面載入時間縮短了40%。"
+      },
+      {
+        "word": "deliverable",
+        "ipa": "/dɪˈlɪvərəbəl/",
+        "phonetic": "duh-LIV-er-uh-bul",
+        "zh": "交付成果；交付物",
+        "category": "商業",
+        "example": "Please list all deliverables in the project plan.",
+        "example_zh": "請在專案計畫中列出所有交付成果。",
+        "example2": "All deliverables must be reviewed by the project manager first.",
+        "example2_zh": "所有交付成果必須先由專案經理審查。"
+      },
+      {
+        "word": "arbitrage",
+        "ipa": "/ˈɑːrbɪtrɑːʒ/",
+        "phonetic": "AR-buh-trazh",
+        "zh": "套利；仲裁",
+        "category": "財經",
+        "example": "Traders use arbitrage to profit from price differences.",
+        "example_zh": "交易員利用套利從價格差異中獲利。",
+        "example2": "Cryptocurrency arbitrage requires fast execution and low fees.",
+        "example2_zh": "加密貨幣套利需要快速執行和低費用。"
+      },
+      {
+        "word": "encryption",
+        "ipa": "/ɪnˈkrɪpʃən/",
+        "phonetic": "in-KRIP-shun",
+        "zh": "加密",
+        "category": "科技",
+        "example": "End-to-end encryption protects your private messages.",
+        "example_zh": "端對端加密保護您的私人訊息。",
+        "example2": "All customer data is protected using 256-bit encryption.",
+        "example2_zh": "所有客戶資料都使用256位元加密保護。"
+      },
+      {
+        "word": "compliance",
+        "ipa": "/kəmˈplaɪəns/",
+        "phonetic": "kum-PLY-uns",
+        "zh": "合規；遵從",
+        "category": "商業",
+        "example": "All employees must attend the compliance training.",
+        "example_zh": "所有員工必須參加合規培訓。",
+        "example2": "The new compliance framework applies to all global offices.",
+        "example2_zh": "新的合規框架適用於所有全球辦事處。"
+      },
+      {
+        "word": "moderator",
+        "ipa": "/ˈmɒdəreɪtər/",
+        "phonetic": "MOD-uh-ray-ter",
+        "zh": "主持人；協調人",
+        "category": "會議",
+        "example": "The moderator kept the discussion on track.",
+        "example_zh": "主持人讓討論保持在正確方向。",
+        "example2": "The moderator skillfully managed the Q&A session.",
+        "example2_zh": "主持人熟練地掌控了問答環節。"
+      },
+      {
+        "word": "cash flow",
+        "ipa": "/ˈkæʃ floʊ/",
+        "phonetic": "KASH floh",
+        "zh": "現金流",
+        "category": "財經",
+        "example": "Positive cash flow is vital for business survival.",
+        "example_zh": "正向現金流對企業生存至關重要。",
+        "example2": "Startups often fail due to poor cash flow management, not lack of profit.",
+        "example2_zh": "新創公司失敗通常是因為現金流管理不善，而非缺乏利潤。"
+      },
+      {
+        "word": "transparent",
+        "ipa": "/trænsˈpærənt/",
+        "phonetic": "trans-PAIR-unt",
+        "zh": "透明的；坦誠的",
+        "category": "生活",
+        "example": "Leaders should be transparent about company challenges.",
+        "example_zh": "領導者應該對公司挑戰保持透明。",
+        "example2": "We believe in being transparent about our pricing and policies.",
+        "example2_zh": "我們相信對定價和政策保持透明。"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "表示對比：On the other hand / In contrast",
+        "category": "連接詞",
+        "rule": "提出不同觀點或相反情況。in contrast 強調差異；on the other hand 提出另一方觀點。",
+        "pattern": "On the other hand, [句子]. / In contrast, [句子].",
+        "examples": [
+          {
+            "en": "The first option is cheaper. On the other hand, it takes longer to implement.",
+            "zh": "第一個選項更便宜。另一方面，實施起來需要更長時間。"
+          },
+          {
+            "en": "Our revenue increased by 20%. In contrast, our main competitor saw a decline.",
+            "zh": "我們的收入增長了20%。相比之下，主要競爭對手出現了下滑。"
+          },
+          {
+            "en": "The new system is more complex. On the other hand, it offers more features.",
+            "zh": "新系統更複雜。另一方面，它提供了更多功能。"
+          }
+        ],
+        "wrong": "On the other hand the option is cheaper.",
+        "right": "The first option is cheaper. On the other hand, it takes longer.",
+        "tip": "On the other hand / In contrast 句首加逗號。"
+      },
+      {
+        "title": "強調句型：It is... that/who...",
+        "category": "句型結構",
+        "rule": "把要強調的成分移到 It is 後面，其餘用 that/who 連接。",
+        "pattern": "It is/was [強調部分] that/who [其餘部分].",
+        "examples": [
+          {
+            "en": "It was the marketing team that identified this opportunity.",
+            "zh": "正是行銷團隊發現了這個機會。"
+          },
+          {
+            "en": "It is the quality of our product that sets us apart from competitors.",
+            "zh": "正是我們產品的品質使我們有別於競爭對手。"
+          },
+          {
+            "en": "It was the client who requested an urgent revision.",
+            "zh": "正是客戶要求緊急修改的。"
+          }
+        ],
+        "wrong": "It is that the marketing team identified this opportunity.",
+        "right": "It was the marketing team that identified this opportunity.",
+        "tip": "強調人用 who，強調其他成分用 that。"
+      },
+      {
+        "title": "表示原因：Because / Due to",
+        "category": "連接詞",
+        "rule": "Because 後接完整子句；due to 後接名詞或名詞片語。",
+        "pattern": "Because [子句] / Due to [名詞片語]",
+        "examples": [
+          {
+            "en": "We postponed the launch because the product needed more testing.",
+            "zh": "我們推遲了發布，因為產品需要更多測試。"
+          },
+          {
+            "en": "Due to budget constraints, we cannot proceed with the original plan.",
+            "zh": "由於預算限制，我們無法繼續原計畫。"
+          },
+          {
+            "en": "Sales declined because of the global economic slowdown.",
+            "zh": "由於全球經濟放緩，銷售額下降。"
+          }
+        ],
+        "wrong": "Due to we don't have enough budget, we cannot proceed.",
+        "right": "Due to budget constraints, we cannot proceed.",
+        "tip": "due to 後面接名詞，不接子句！要接子句就用 because。"
+      },
+      {
+        "title": "問接問句 — 禮貌問法",
+        "category": "句型結構",
+        "rule": "直接問句在商務場合可能太唐突，改用間接問句更有禮貌。",
+        "pattern": "Could you tell me [what/when/how] + [直敘句語序]?",
+        "examples": [
+          {
+            "en": "Could you tell me when the report will be ready?",
+            "zh": "您能告訴我報告什麼時候會準備好嗎？"
+          },
+          {
+            "en": "Do you know how many people will attend the conference?",
+            "zh": "您知道有多少人會參加會議嗎？"
+          },
+          {
+            "en": "I was wondering if you have reviewed the proposal yet.",
+            "zh": "我想知道您是否已經審查過提案了。"
+          }
+        ],
+        "wrong": "Could you tell me when will the report be ready?",
+        "right": "Could you tell me when the report will be ready?",
+        "tip": "間接問句用直敘句語序（主詞在前），不用疑問句語序（助動詞不提前）。"
+      }
+    ]
   }
 }
