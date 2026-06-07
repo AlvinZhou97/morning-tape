@@ -14,6 +14,7 @@ TZ_TW     = timezone(timedelta(hours=8))
 _D = ["零","一","二","三","四","五","六","七","八","九"]
 def num_zh(n):
     if n == 0: return "零"
+    if n == 100: return "一百"
     if n <= 9: return _D[n]
     if n == 10: return "十"
     if 11 <= n <= 19: return "十" + _D[n-10]
@@ -41,7 +42,7 @@ def make_opts(ans, lo=0, hi=99, n=4, rng=None):
 # ═══════════════════════════════════════════════════════════════
 #  題庫（固定種子，500 題）
 # ═══════════════════════════════════════════════════════════════
-CAT_NAMES = ["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題","動畫"]
+CAT_NAMES = ["50以內的數","100內加法","100內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題","動畫"]
 
 def gen_pool():
     rng = random.Random(20240901)
@@ -76,53 +77,67 @@ def gen_pool():
         add("50以內的數",q,q_zh,ans,make_opts(ans,max(1,ans-10),min(50,ans+10),4,rng),
             f"每次增加{step}，空格是{ans}")
 
-    # ── 2. 18以內加法（65題：進位35＋填空20＋基礎10）──────────
-    # A. 進位題 35題（和>10）
-    for _ in range(35):
-        while True:
-            a=rng.randint(2,9); b=rng.randint(2,9)
-            if a+b>10 and a+b<=18: break
+    # ── 2. 100以內加法（65題：整十15＋兩位數20＋進位15＋填空15）
+    # A. 整十數加法 15題（10~90）
+    for _ in range(15):
+        a=rng.randint(1,8)*10; b=rng.randint(1,9-a//10)*10
         ans=a+b
-        add("18內加法",f"{a} + {b} = ?",
-            f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,max(8,ans-3),18,4,rng), f"{a}+{b}={ans}")
-    # B. 填空題 20題（□ + b = sum，逆向思考）
+        add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(10,ans-20),min(100,ans+20),4,rng),f"{a}+{b}={ans}")
+    # B. 兩位數+兩位數（不進位）20題
     for _ in range(20):
+        a1=rng.randint(1,5)*10; a2=rng.randint(1,8)
+        b1=rng.randint(1,4)*10; b2=rng.randint(0,9-a2)
+        a=a1+a2; b=b1+b2; ans=a+b
+        if ans>99: continue
+        add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(10,ans-15),min(99,ans+15),4,rng),f"{a}+{b}={ans}")
+    # C. 兩位數+兩位數（進位，個位和>10）15題
+    for _ in range(15):
         while True:
-            a=rng.randint(2,9); b=rng.randint(2,9)
-            if a+b>=10 and a+b<=18: break
-        ans_val=a; total=a+b
-        add("18內加法",f"□ + {b} = {total}",
+            a=rng.randint(15,65); b=rng.randint(15,65)
+            if a%10+b%10>10 and a+b<=100: break
+        ans=a+b
+        add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(20,ans-15),min(100,ans+15),4,rng),f"{a}+{b}={ans}（進位）")
+    # D. 填空題 15題（□ + b = sum，逆向思考）
+    for _ in range(15):
+        b=rng.choice([10,20,30,40,50]); a=rng.randint(10,50)
+        total=a+b
+        if total>100: continue
+        add("100內加法",f"□ + {b} = {total}",
             f"空格加{num_zh(b)}等於{num_zh(total)}，空格是幾？",
-            ans_val, make_opts(ans_val,1,9,4,rng), f"{total}-{b}={ans_val}")
-    # C. 基礎題 10題（和≤10）
-    for _ in range(10):
-        a=rng.randint(1,9); b=rng.randint(1,10-a)
-        ans=a+b
-        add("18內加法",f"{a} + {b} = ?",
-            f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,1,10,4,rng), f"{a}+{b}={ans}")
+            a,make_opts(a,max(5,a-15),min(90,a+15),4,rng),f"{total}-{b}={a}")
 
-    # ── 3. 18以內減法（65題：基礎25＋大數20＋填空20）────────
-    # A. 基礎（b最多9，a=10~18，含借位）25題
-    for _ in range(25):
-        a=rng.randint(10,18); b=rng.randint(3,min(a-1,9)); ans=a-b
-        add("18內減法",f"{a} - {b} = ?",
-            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,1,15,4,rng), f"{a}-{b}={ans}")
-    # B. 大數減法（a=11~18，結果也較大）20題
+    # ── 3. 100以內減法（65題：整十15＋兩位數20＋借位15＋填空15）
+    # A. 整十數減法 15題
+    for _ in range(15):
+        a=rng.randint(2,9)*10; b=rng.randint(1,a//10-1)*10
+        ans=a-b
+        add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(0,ans-20),min(90,ans+20),4,rng),f"{a}-{b}={ans}")
+    # B. 兩位數-兩位數（不借位）20題
     for _ in range(20):
-        b=rng.randint(2,8); ans=rng.randint(4,10); a=ans+b
-        if a>18: a,ans=18,18-b
-        add("18內減法",f"{a} - {b} = ?",
-            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,max(1,ans-3),min(15,ans+3),4,rng), f"{a}-{b}={ans}")
-    # C. 填空題（a - □ = remain）20題
-    for _ in range(20):
-        a=rng.randint(10,18); ans_val=rng.randint(3,a-3); b=a-ans_val
-        add("18內減法",f"{a} - □ = {ans_val}",
+        b1=rng.randint(1,5)*10; b2=rng.randint(0,8)
+        a1=rng.randint(b1//10+1,8)*10; a2=rng.randint(b2,9)
+        a=a1+a2; b=b1+b2; ans=a-b
+        if ans<=0: continue
+        add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(1,ans-15),min(89,ans+15),4,rng),f"{a}-{b}={ans}")
+    # C. 兩位數-兩位數（借位，個位不夠減）15題
+    for _ in range(15):
+        while True:
+            a=rng.randint(30,90); b=rng.randint(15,a-5)
+            if a%10<b%10 and a-b>0: break  # 個位不夠，需借位
+        ans=a-b
+        add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(1,ans-15),min(89,ans+15),4,rng),f"{a}-{b}={ans}（借位）")
+    # D. 填空題 15題（a - □ = remain）
+    for _ in range(15):
+        a=rng.randint(30,90); ans_val=rng.randint(10,a-10); b=a-ans_val
+        add("100內減法",f"{a} - □ = {ans_val}",
             f"{num_zh(a)}減空格等於{num_zh(ans_val)}，空格是幾？",
-            b, make_opts(b,1,9,4,rng), f"{a}-{ans_val}={b}")
+            b,make_opts(b,max(5,b-15),min(80,b+15),4,rng),f"{a}-{ans_val}={b}")
 
     # ── 4. 圖形與分類（60題）──────────────────────────────────
     shape_pool = [
@@ -739,10 +754,21 @@ HTML = r"""<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#FFF9F0;--card:#fff;--ink:#1a1a2e;--soft:#6b7280;--border:#e5e7eb;
-  --correct:#16A34A;--wrong:#DC2626;--add:#3B82F6;--app:#10B981}
+  --correct:#16A34A;--wrong:#DC2626;--add:#3B82F6;--app:#10B981;--maxw:640px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
   min-height:100vh;padding-bottom:80px}
+/* 寬螢幕置中：全頁限制在 640px，左右置中 */
+@media(min-width:680px){
+  body{background:#D1D5DB;display:flex;flex-direction:column;align-items:center}
+  .header,.progress-wrap,.filters{width:var(--maxw)!important;
+    border-left:1px solid var(--border);border-right:1px solid var(--border)}
+  .feed{width:var(--maxw)}
+  .submit-bar{width:var(--maxw);left:50%;transform:translateX(-50%);
+    border-left:1px solid var(--border);border-right:1px solid var(--border);
+    border-radius:0 0 12px 12px}
+  .result-banner{border-radius:12px}
+}
 
 .header{background:#fff;border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:20;padding:0 16px}
