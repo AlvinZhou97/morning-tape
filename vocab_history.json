@@ -1282,5 +1282,433 @@
         "tip": "already、just、yet 這些詞通常配合現在完成式使用。"
       }
     ]
+  },
+  "2026-06-07": {
+    "words": [
+      {
+        "word": "mentor",
+        "ipa": "/ˈmɛntɔːr/",
+        "phonetic": "MEN-tor",
+        "zh": "導師；指導者",
+        "category": "生活",
+        "example": "Having a mentor can accelerate your career growth.",
+        "example_zh": "有一位導師可以加速你的職業發展。",
+        "example2": "She mentored three junior employees who all received promotions.",
+        "example2_zh": "她指導了三位初級員工，他們都獲得了晉升。"
+      },
+      {
+        "word": "collaborate",
+        "ipa": "/kəˈlæbəreɪt/",
+        "phonetic": "kuh-LAB-uh-rayt",
+        "zh": "合作；協作",
+        "category": "生活",
+        "example": "Teams that collaborate effectively achieve better results.",
+        "example_zh": "有效合作的團隊能取得更好的成果。",
+        "example2": "Teams that collaborate across departments drive better innovation.",
+        "example2_zh": "跨部門合作的團隊推動更好的創新。"
+      },
+      {
+        "word": "benchmark",
+        "ipa": "/ˈbɛntʃmɑːrk/",
+        "phonetic": "BENCH-mark",
+        "zh": "基準；標竿",
+        "category": "商業",
+        "example": "Our performance is measured against industry benchmarks.",
+        "example_zh": "我們的表現以行業基準來衡量。",
+        "example2": "We regularly benchmark our pricing against competitors.",
+        "example2_zh": "我們定期將定價與競爭對手進行基準比較。"
+      },
+      {
+        "word": "hedge fund",
+        "ipa": "/ˈhɛdʒ fʌnd/",
+        "phonetic": "HEJ fund",
+        "zh": "對沖基金",
+        "category": "財經",
+        "example": "Hedge funds often use complex strategies to generate returns.",
+        "example_zh": "對沖基金常使用複雜策略來產生回報。",
+        "example2": "The hedge fund posted a 30% return even during the market downturn.",
+        "example2_zh": "即使在市場低迷期間，對沖基金也錄得30%的回報。"
+      },
+      {
+        "word": "bandwidth",
+        "ipa": "/ˈbændwɪdθ/",
+        "phonetic": "BAND-width",
+        "zh": "頻寬；處理能力",
+        "category": "科技",
+        "example": "We need more bandwidth to support video conferencing.",
+        "example_zh": "我們需要更多頻寬來支援視訊會議。",
+        "example2": "Heavy video streaming is consuming most of our bandwidth.",
+        "example2_zh": "大量的視訊串流佔用了我們大部分的頻寬。"
+      },
+      {
+        "word": "iteration",
+        "ipa": "/ˌɪtəˈreɪʃən/",
+        "phonetic": "it-uh-RAY-shun",
+        "zh": "迭代；反覆修改",
+        "category": "科技",
+        "example": "Each iteration of the product improves based on feedback.",
+        "example_zh": "產品的每次迭代都根據回饋進行改進。",
+        "example2": "We are on the fifth iteration and the product is much improved.",
+        "example2_zh": "我們已進行第五次迭代，產品改善了很多。"
+      },
+      {
+        "word": "repository",
+        "ipa": "/rɪˈpɒzɪtɔːri/",
+        "phonetic": "ruh-POZ-uh-tor-ee",
+        "zh": "程式庫；儲存庫",
+        "category": "科技",
+        "example": "All code is stored in the GitHub repository.",
+        "example_zh": "所有程式碼都儲存在GitHub儲存庫中。",
+        "example2": "Please push your changes to the main repository before 6 PM.",
+        "example2_zh": "請在下午6點前將您的更改推送到主儲存庫。"
+      },
+      {
+        "word": "securities",
+        "ipa": "/sɪˈkjʊərɪtiz/",
+        "phonetic": "suh-KYOOR-uh-teez",
+        "zh": "有價證券",
+        "category": "財經",
+        "example": "Government securities are considered low-risk investments.",
+        "example_zh": "政府有價證券被視為低風險投資。",
+        "example2": "Mortgage-backed securities played a key role in the 2008 financial crisis.",
+        "example2_zh": "抵押貸款支持的有價證券在2008年金融危機中發揮了關鍵作用。"
+      },
+      {
+        "word": "arbitrage",
+        "ipa": "/ˈɑːrbɪtrɑːʒ/",
+        "phonetic": "AR-buh-trazh",
+        "zh": "套利；仲裁",
+        "category": "財經",
+        "example": "Traders use arbitrage to profit from price differences.",
+        "example_zh": "交易員利用套利從價格差異中獲利。",
+        "example2": "Cryptocurrency arbitrage requires fast execution and low fees.",
+        "example2_zh": "加密貨幣套利需要快速執行和低費用。"
+      },
+      {
+        "word": "prototype",
+        "ipa": "/ˈproʊtətaɪp/",
+        "phonetic": "PRO-tuh-typ",
+        "zh": "原型；雛形",
+        "category": "科技",
+        "example": "We built a prototype to test the concept with users.",
+        "example_zh": "我們建立了原型來與用戶測試概念。",
+        "example2": "The engineering team built three prototypes before settling on a design.",
+        "example2_zh": "工程團隊在確定設計前製作了三個原型。"
+      },
+      {
+        "word": "bear market",
+        "ipa": "/ˈbɛr ˈmɑːrkɪt/",
+        "phonetic": "BAIR MAR-kit",
+        "zh": "熊市（股市下跌）",
+        "category": "財經",
+        "example": "Investors are cautious during a bear market.",
+        "example_zh": "在熊市期間投資者會保持謹慎。",
+        "example2": "In a bear market, defensive stocks tend to outperform growth stocks.",
+        "example2_zh": "在熊市中，防禦性股票往往優於成長股。"
+      },
+      {
+        "word": "quorum",
+        "ipa": "/ˈkwɔːrəm/",
+        "phonetic": "KWOR-um",
+        "zh": "法定人數",
+        "category": "會議",
+        "example": "We cannot vote until we have a quorum.",
+        "example_zh": "在達到法定人數之前我們無法投票。",
+        "example2": "We finally reached a quorum after two members joined online.",
+        "example2_zh": "兩位成員線上加入後，我們終於達到了法定人數。"
+      },
+      {
+        "word": "delegate",
+        "ipa": "/ˈdɛlɪɡeɪt/",
+        "phonetic": "DEL-uh-gayt",
+        "zh": "授權；委派；代表",
+        "category": "會議",
+        "example": "A good manager knows how to delegate tasks effectively.",
+        "example_zh": "好的管理者知道如何有效授權。",
+        "example2": "She learned to delegate work so she could focus on strategy.",
+        "example2_zh": "她學會了授權，以便集中精力在策略上。"
+      },
+      {
+        "word": "turnover",
+        "ipa": "/ˈtɜːrnoʊvər/",
+        "phonetic": "TURN-oh-ver",
+        "zh": "營業額；人員流動率",
+        "category": "商業",
+        "example": "High employee turnover increases recruitment costs.",
+        "example_zh": "高員工流動率增加了招募成本。",
+        "example2": "High turnover in sales roles is costly and disrupts client relationships.",
+        "example2_zh": "銷售職位的高人員流動率成本高昂，且會破壞客戶關係。"
+      },
+      {
+        "word": "balance sheet",
+        "ipa": "/ˈbæləns ʃiːt/",
+        "phonetic": "BAL-uns sheet",
+        "zh": "資產負債表",
+        "category": "財經",
+        "example": "The balance sheet shows the company's financial position.",
+        "example_zh": "資產負債表顯示公司的財務狀況。",
+        "example2": "A strong balance sheet gives companies the flexibility to weather downturns.",
+        "example2_zh": "強健的資產負債表使公司在經濟下滑時有靈活應對的空間。"
+      },
+      {
+        "word": "synergy",
+        "ipa": "/ˈsɪnərdʒi/",
+        "phonetic": "SIN-er-jee",
+        "zh": "協同效應",
+        "category": "商業",
+        "example": "The merger created significant synergy between the two teams.",
+        "example_zh": "合併在兩個團隊之間創造了顯著的協同效應。",
+        "example2": "The synergy from integrating their logistics networks was impressive.",
+        "example2_zh": "整合其物流網絡所產生的協同效應令人印象深刻。"
+      },
+      {
+        "word": "acquisition",
+        "ipa": "/ˌækwɪˈzɪʃən/",
+        "phonetic": "ak-wih-ZIH-shun",
+        "zh": "收購；購買",
+        "category": "商業",
+        "example": "The company announced the acquisition of a startup.",
+        "example_zh": "公司宣布收購一家新創公司。",
+        "example2": "The acquisition is expected to close in the third quarter.",
+        "example2_zh": "此次收購預計在第三季完成。"
+      },
+      {
+        "word": "bull market",
+        "ipa": "/ˈbʊl ˈmɑːrkɪt/",
+        "phonetic": "BOOL MAR-kit",
+        "zh": "牛市（股市上漲）",
+        "category": "財經",
+        "example": "The tech sector thrived during the bull market.",
+        "example_zh": "科技板塊在牛市期間蓬勃發展。",
+        "example2": "The current bull market has lasted longer than most analysts expected.",
+        "example2_zh": "當前牛市持續的時間比大多數分析師預期的要長。"
+      },
+      {
+        "word": "stakeholder",
+        "ipa": "/ˈsteɪkhoʊldər/",
+        "phonetic": "STAYK-hol-der",
+        "zh": "利害關係人",
+        "category": "商業",
+        "example": "All stakeholders must approve the project before launch.",
+        "example_zh": "所有利害關係人必須在啟動前批准該專案。",
+        "example2": "Stakeholder feedback shaped the final design of the product.",
+        "example2_zh": "利害關係人的回饋影響了產品的最終設計。"
+      },
+      {
+        "word": "takeaway",
+        "ipa": "/ˈteɪkəweɪ/",
+        "phonetic": "TAYK-uh-way",
+        "zh": "重點結論；收穫",
+        "category": "會議",
+        "example": "The key takeaway from today's meeting is to focus on quality.",
+        "example_zh": "今天會議的重點結論是專注於品質。",
+        "example2": "The key takeaway from the workshop was the importance of data.",
+        "example2_zh": "工作坊的主要收穫是資料的重要性。"
+      },
+      {
+        "word": "equity",
+        "ipa": "/ˈɛkwɪti/",
+        "phonetic": "EK-wuh-tee",
+        "zh": "股權；公平",
+        "category": "商業",
+        "example": "They offered equity as part of the compensation package.",
+        "example_zh": "他們提供股權作為薪酬方案的一部分。",
+        "example2": "The startup raised capital in exchange for equity.",
+        "example2_zh": "這家新創公司以股權換取了資金。"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。"
+      },
+      {
+        "word": "transparent",
+        "ipa": "/trænsˈpærənt/",
+        "phonetic": "trans-PAIR-unt",
+        "zh": "透明的；坦誠的",
+        "category": "生活",
+        "example": "Leaders should be transparent about company challenges.",
+        "example_zh": "領導者應該對公司挑戰保持透明。",
+        "example2": "We believe in being transparent about our pricing and policies.",
+        "example2_zh": "我們相信對定價和政策保持透明。"
+      },
+      {
+        "word": "proactive",
+        "ipa": "/proʊˈæktɪv/",
+        "phonetic": "pro-AK-tiv",
+        "zh": "主動積極的",
+        "category": "生活",
+        "example": "Being proactive helps you solve problems before they arise.",
+        "example_zh": "積極主動幫助你在問題發生前解決它。",
+        "example2": "Being proactive means anticipating problems before they occur.",
+        "example2_zh": "積極主動意味著在問題發生之前預見它們。"
+      },
+      {
+        "word": "latency",
+        "ipa": "/ˈleɪtənsi/",
+        "phonetic": "LAY-ten-see",
+        "zh": "延遲時間",
+        "category": "科技",
+        "example": "Low latency is essential for real-time gaming applications.",
+        "example_zh": "低延遲對於即時遊戲應用至關重要。",
+        "example2": "High latency is causing complaints from users in remote regions.",
+        "example2_zh": "高延遲導致偏遠地區的用戶投訴。"
+      },
+      {
+        "word": "scalable",
+        "ipa": "/ˈskeɪləbəl/",
+        "phonetic": "SKAY-luh-bul",
+        "zh": "可擴展的；可規模化的",
+        "category": "商業",
+        "example": "We need a scalable solution for our growing customer base.",
+        "example_zh": "我們需要一個可擴展的方案來應對不斷增長的客戶群。",
+        "example2": "Investors prefer scalable business models with recurring revenue.",
+        "example2_zh": "投資者偏好具有定期收入的可規模化商業模式。"
+      },
+      {
+        "word": "deadline",
+        "ipa": "/ˈdɛdlaɪn/",
+        "phonetic": "DED-lyn",
+        "zh": "截止日期",
+        "category": "生活",
+        "example": "Always submit your work before the deadline.",
+        "example_zh": "始終在截止日期前提交你的工作。",
+        "example2": "Missing a deadline reflects poorly on your reliability.",
+        "example2_zh": "錯過截止日期會對你的可靠性產生負面影響。"
+      },
+      {
+        "word": "punctual",
+        "ipa": "/ˈpʌŋktʃuəl/",
+        "phonetic": "PUNK-choo-ul",
+        "zh": "準時的",
+        "category": "生活",
+        "example": "Being punctual shows respect for others' time.",
+        "example_zh": "準時表現了對他人時間的尊重。",
+        "example2": "Punctual employees signal professionalism and respect for others.",
+        "example2_zh": "準時的員工傳達出專業精神和對他人的尊重。"
+      },
+      {
+        "word": "automation",
+        "ipa": "/ˌɔːtəˈmeɪʃən/",
+        "phonetic": "aw-tuh-MAY-shun",
+        "zh": "自動化",
+        "category": "科技",
+        "example": "Automation has transformed manufacturing processes worldwide.",
+        "example_zh": "自動化改變了全球的製造流程。",
+        "example2": "Process automation reduced manual errors by over 60%.",
+        "example2_zh": "流程自動化將手動錯誤減少了60%以上。"
+      },
+      {
+        "word": "amortization",
+        "ipa": "/əˌmɔːrtɪˈzeɪʃən/",
+        "phonetic": "uh-mor-tuh-ZAY-shun",
+        "zh": "攤銷；分期償還",
+        "category": "財經",
+        "example": "The loan amortization schedule shows monthly payments.",
+        "example_zh": "貸款攤銷時間表顯示每月還款金額。",
+        "example2": "The software license cost is spread through amortization over five years.",
+        "example2_zh": "軟體授權費用透過五年攤銷分攤。"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "in / on / at — 時間介系詞",
+        "category": "介系詞",
+        "rule": "at 用於具體時刻；on 用於日期和星期；in 用於月份、年份、時段。",
+        "pattern": "at [時刻] / on [日期/星期] / in [月/年/時段]",
+        "examples": [
+          {
+            "en": "The meeting starts at 9 AM on Monday.",
+            "zh": "會議在週一上午9點開始。"
+          },
+          {
+            "en": "We will launch the product in Q3.",
+            "zh": "我們將在第三季推出產品。"
+          },
+          {
+            "en": "The report is due on Friday, March 15th.",
+            "zh": "報告的截止日期是3月15日（週五）。"
+          }
+        ],
+        "wrong": "The meeting starts in Monday at morning.",
+        "right": "The meeting starts at 9 AM on Monday.",
+        "tip": "at + 時刻、on + 日期/星期、in + 月份/季度/年份，不要混用。"
+      },
+      {
+        "title": "委婉不同意：I understand, however...",
+        "category": "表達意見",
+        "rule": "先認可對方觀點，再提出不同意見。這是商務英文中非常重要的禮貌技巧。",
+        "pattern": "I understand your point, however [你的觀點]. / I see what you mean, but [補充].",
+        "examples": [
+          {
+            "en": "I understand your concern, however, the data supports a different approach.",
+            "zh": "我理解您的顧慮，然而，數據支持不同的方法。"
+          },
+          {
+            "en": "I see what you mean, but I think we should consider the long-term impact.",
+            "zh": "我明白您的意思，但我認為我們應該考慮長期影響。"
+          },
+          {
+            "en": "That's a valid point. However, we also need to consider the budget constraints.",
+            "zh": "這是一個有效的觀點。然而，我們還需要考慮預算限制。"
+          }
+        ],
+        "wrong": "I don't agree. The data is different.",
+        "right": "I understand your point, however, the data suggests a different approach.",
+        "tip": "直接說「I don't agree」在商務場合太強硬，先認可再反駁更專業。"
+      },
+      {
+        "title": "Should — 建議與責任",
+        "category": "情態動詞",
+        "rule": "表示應該做某事（建議、義務）。比 must 柔和，比 could 更明確。",
+        "pattern": "We should [動詞原形] / You should consider [V-ing]",
+        "examples": [
+          {
+            "en": "We should review the budget before the Q3 planning.",
+            "zh": "我們應該在Q3規劃前審查預算。"
+          },
+          {
+            "en": "You should consider the risks before making a decision.",
+            "zh": "您應該在做決定前考慮風險。"
+          },
+          {
+            "en": "This issue should be escalated to management.",
+            "zh": "這個問題應該呈報給管理層。"
+          }
+        ],
+        "wrong": "We should to review the budget.",
+        "right": "We should review the budget.",
+        "tip": "情態動詞後面直接接動詞原形，不加 to。"
+      },
+      {
+        "title": "第一條件句 — 可能發生的情況",
+        "category": "條件句",
+        "rule": "If + 現在式, will/can + 動詞原形。用於討論可能發生的結果。",
+        "pattern": "If we [現在式動詞], we will [動詞原形].",
+        "examples": [
+          {
+            "en": "If we close this deal, we will exceed our quarterly target.",
+            "zh": "如果我們完成這筆交易，我們將超過季度目標。"
+          },
+          {
+            "en": "If the budget is approved, we can start next month.",
+            "zh": "如果預算獲批，我們可以下個月開始。"
+          },
+          {
+            "en": "If you have any concerns, please raise them now.",
+            "zh": "如果您有任何顧慮，請現在提出。"
+          }
+        ],
+        "wrong": "If we will close this deal, we will exceed our target.",
+        "right": "If we close this deal, we will exceed our target.",
+        "tip": "if 子句用現在式，不用 will（這是最常見的錯誤！）"
+      }
+    ]
   }
 }
