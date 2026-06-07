@@ -885,14 +885,13 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .cat-badge.c_anim{background:#FEF3C7;color:#B45309}
 .submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.96);
   backdrop-filter:blur(12px);border-top:2px solid var(--border);padding:12px 16px 16px;
-  z-index:30;display:flex;justify-content:center}
-.submit-btn{display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;max-width:560px;margin:0 auto;
+  z-index:30;text-align:center}
+.submit-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:min(calc(100% - 32px),520px);
   background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;
   border-radius:28px;padding:17px 24px;font-family:"Nunito";font-size:20px;
   font-weight:900;letter-spacing:.03em;cursor:pointer;
-  box-shadow:0 6px 24px rgba(16,185,129,.45);transition:transform .15s,box-shadow .15s;
-  display:flex;align-items:center;justify-content:center}
+  box-shadow:0 6px 24px rgba(16,185,129,.45);transition:transform .15s,box-shadow .15s}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(16,185,129,.5)}
 .submit-btn:active{transform:translateY(1px);box-shadow:0 3px 12px rgba(16,185,129,.35)}
 .sub-count{font-size:13px;font-weight:700;opacity:.85;
