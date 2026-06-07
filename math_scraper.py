@@ -41,7 +41,7 @@ def make_opts(ans, lo=0, hi=99, n=4, rng=None):
 # ═══════════════════════════════════════════════════════════════
 #  題庫（固定種子，500 題）
 # ═══════════════════════════════════════════════════════════════
-CAT_NAMES = ["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長"]
+CAT_NAMES = ["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題"]
 
 def gen_pool():
     rng = random.Random(20240901)
@@ -345,6 +345,126 @@ def gen_pool():
         add_len(q,q,total,make_opts(total,4,20,4,rng),
             f"{a}有{la}個，{b}有{lb}個，{la}+{lb}={total}",a,b,la,lb,unit)
 
+    # ── 11. 應用題（80題，7種類型）────────────────────────────
+    # 場景物件池
+    FOOD   = ["糖果","餅乾","蘋果","香蕉","橘子","草莓","葡萄","包子","饅頭","湯圓"]
+    ANIMAL = ["小雞","小鴨","兔子","小魚","小鳥","蝴蝶","螢火蟲","青蛙","烏龜","蝸牛"]
+    STATY  = ["鉛筆","橡皮擦","貼紙","彩色筆","本子","書本","剪刀","蠟筆","迴紋針","磁鐵"]
+    PERSON = ["同學","小朋友","男生","女生","小孩","姊姊","弟弟","同班同學","隊員","朋友"]
+    NATURE = ["花朵","葉子","石頭","貝殼","松果","氣球","星星","雲朵","水滴","落葉"]
+    ALL_OBJ = FOOD+ANIMAL+STATY+PERSON+NATURE
+
+    def robj(): return rng.choice(ALL_OBJ)
+    def rsmall(lo=2,hi=9): return rng.randint(lo,hi)
+    def rbig(lo=10,hi=18): return rng.randint(lo,hi)
+    def rmed(lo=5,hi=15): return rng.randint(lo,hi)
+
+    # ── A. 合併型（兩組合在一起）──────────────────────────────
+    A_tmpl = [
+        lambda a,b,o: (f"花園裡有{a}朵紅花和{b}朵黃花，一共有幾朵花？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"籃子裡有{a}個{o}，旁邊又有{b}個{o}，合起來共有幾個{o}？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"操場上有{a}位男生和{b}位女生在玩，一共有幾位小朋友？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"桌上有{a}本書，地板上有{b}本書，合起來共有幾本書？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"左邊有{a}隻{rng.choice(ANIMAL)}，右邊有{b}隻，一共有幾隻？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"小明有{a}張貼紙，小花有{b}張貼紙，兩人共有幾張貼紙？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"袋子裡有{a}顆{rng.choice(FOOD)}，又加入{b}顆，共有幾顆？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"一班有{a}人，二班有{b}人，兩班合計有幾人？", a+b, f"{a}+{b}={a+b}"),
+    ]
+    for _ in range(12):
+        a,b=rsmall(),rsmall(); o=robj()
+        q_fn=rng.choice(A_tmpl); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,1,18,4,rng),exp)
+
+    # ── B. 添加型（原來+再來）──────────────────────────────────
+    B_tmpl = [
+        lambda a,b,o: (f"樹上有{a}隻{rng.choice(ANIMAL)}，又飛來{b}隻，現在樹上有幾隻？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"停車場有{a}輛車，又開進來{b}輛，現在共有幾輛車？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"小明有{a}顆{rng.choice(FOOD)}，媽媽又給了他{b}顆，他現在有幾顆？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"書架上有{a}本書，老師再放上{b}本，現在共有幾本書？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"花瓶裡有{a}朵花，又插入{b}朵，現在花瓶裡有幾朵花？", a+b, f"{a}+{b}={a+b}"),
+    ]
+    for _ in range(10):
+        a,b=rsmall(),rsmall(); o=robj()
+        q_fn=rng.choice(B_tmpl); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,1,18,4,rng),exp)
+
+    # ── C. 拿走型（原來-拿走）──────────────────────────────────
+    C_tmpl = [
+        lambda a,b,o: (f"盤子裡有{a}顆{rng.choice(FOOD)}，吃掉{b}顆，還剩幾顆？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"停車場有{a}輛車，開走{b}輛，剩下幾輛？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"班上有{a}位同學，有{b}位請假，今天來了幾位？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"樹上有{a}隻{rng.choice(ANIMAL)}，飛走{b}隻，還剩幾隻？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"小花有{a}張{rng.choice(STATY)}，送給朋友{b}張，還剩幾張？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"架子上有{a}本書，借走{b}本，還剩幾本？", a-b, f"{a}-{b}={a-b}"),
+    ]
+    for _ in range(12):
+        a=rng.randint(6,18); b=rng.randint(1,a-1)
+        o=robj(); q_fn=rng.choice(C_tmpl); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,0,17,4,rng),exp)
+
+    # ── D. 比多型（A比B多幾個，B有X，求A）────────────────────
+    D_tmpl = [
+        lambda a,d,o: (f"小明有{a}顆{rng.choice(FOOD)}，小花比小明多{d}顆，小花有幾顆？", a+d, f"{a}+{d}={a+d}"),
+        lambda a,d,o: (f"哥哥有{a}張貼紙，弟弟比哥哥多{d}張，弟弟有幾張貼紙？", a+d, f"{a}+{d}={a+d}"),
+        lambda a,d,o: (f"籃子裡有{a}個{rng.choice(FOOD)}，盒子裡比籃子多{d}個，盒子裡有幾個？", a+d, f"{a}+{d}={a+d}"),
+        lambda a,d,o: (f"小紅有{a}本書，小藍比小紅多{d}本，小藍有幾本書？", a+d, f"{a}+{d}={a+d}"),
+    ]
+    for _ in range(10):
+        a=rsmall(3,9); d=rsmall(1,5)
+        o=robj(); q_fn=rng.choice(D_tmpl); q,ans,exp=q_fn(a,d,o)
+        add("應用題",q,q,ans,make_opts(ans,2,18,4,rng),exp)
+
+    # ── E. 比少型（A比B少幾個，A有X，求B）────────────────────
+    E_tmpl = [
+        lambda a,d,o: (f"小花有{a}顆{rng.choice(FOOD)}，小明比小花少{d}顆，小明有幾顆？", a-d, f"{a}-{d}={a-d}"),
+        lambda a,d,o: (f"姊姊有{a}張貼紙，妹妹比姊姊少{d}張，妹妹有幾張貼紙？", a-d, f"{a}-{d}={a-d}"),
+        lambda a,d,o: (f"大盒有{a}個{rng.choice(FOOD)}，小盒比大盒少{d}個，小盒有幾個？", a-d, f"{a}-{d}={a-d}"),
+    ]
+    for _ in range(9):
+        d=rsmall(1,4); a=rsmall(d+2,9)
+        o=robj(); q_fn=rng.choice(E_tmpl); q,ans,exp=q_fn(a,d,o)
+        add("應用題",q,q,ans,make_opts(ans,1,15,4,rng),exp)
+
+    # ── F. 求原來（知道剩下或結果，求原來）────────────────────
+    F_tmpl = [
+        lambda r,b,o: (f"箱子裡有一些{rng.choice(FOOD)}，拿出{b}個後還剩{r}個，原來有幾個？", r+b, f"{r}+{b}={r+b}"),
+        lambda r,b,o: (f"小明有一些{rng.choice(STATY)}，用掉{b}個後還剩{r}個，他原來有幾個？", r+b, f"{r}+{b}={r+b}"),
+        lambda r,b,o: (f"樹上有一些{rng.choice(ANIMAL)}，飛走{b}隻後剩下{r}隻，樹上原來有幾隻？", r+b, f"{r}+{b}={r+b}"),
+    ]
+    for _ in range(9):
+        r=rsmall(2,8); b=rsmall(1,6)
+        o=robj(); q_fn=rng.choice(F_tmpl); q,ans,exp=q_fn(r,b,o)
+        add("應用題",q,q,ans,make_opts(ans,4,18,4,rng),exp)
+
+    # ── G. 相差型（兩個比較，問相差幾個）─────────────────────
+    G_tmpl = [
+        lambda a,b,o: (f"小明有{a}顆{rng.choice(FOOD)}，小花有{b}顆，小明比小花多幾顆？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"哥哥有{a}張貼紙，弟弟有{b}張，哥哥比弟弟多幾張貼紙？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"左邊有{a}個{rng.choice(FOOD)}，右邊有{b}個，左邊比右邊多幾個？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"甲班有{a}人，乙班有{b}人，甲班比乙班多幾人？", a-b, f"{a}-{b}={a-b}"),
+    ]
+    for _ in range(10):
+        b=rsmall(2,7); a=rsmall(b+1,b+7)
+        o=robj(); q_fn=rng.choice(G_tmpl); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,1,10,4,rng),exp)
+
+    # ── H. 二位數應用題（大數字情境）────────────────────────
+    H_tmpl = [
+        lambda a,b,o: (f"停車場有{a}輛車，又來了{b}輛，現在共有幾輛？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"學校有{a}位學生，轉來{b}位新生，現在共有幾位學生？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"圖書館有{a}本書，又買了{b}本，共有幾本書？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"工廠有{a}件商品，賣出{b}件，還剩幾件？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"遊樂場有{a}人，離開{b}人，還剩幾人？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"農場有{a}隻動物，賣掉{b}隻，還剩幾隻？", a-b, f"{a}-{b}={a-b}"),
+    ]
+    for _ in range(8):
+        q_fn=rng.choice(H_tmpl[:3])  # 加法
+        a=rng.randint(20,60); b=rng.randint(5,30)
+        o=robj(); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,max(5,ans-15),min(99,ans+15),4,rng),exp)
+    for _ in range(0):
+        pass  # 減法留給下面
+
     total_q = len(qs)
     print(f"✓ 題庫共 {total_q} 題")
     for cat in CAT_NAMES:
@@ -524,11 +644,11 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 <script>
 const ALL_DATA=__ALL_DATA_JSON__;
 const ALL_DATES=Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
-const CAT_NAMES=["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長"];
+const CAT_NAMES=["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題"];
 const CAT_CLS={
   "50以內的數":"c0","18內加法":"c1","18內減法":"c2","圖形":"c3",
   "100以內的數":"c4","錢幣":"c5","二位數加減":"c6","日曆":"c7",
-  "時鐘":"c8","有多長":"c9"};
+  "時鐘":"c8","有多長":"c9","應用題":"c1"};
 let curDate="全部",selections={},answered={},submitted=false;
 
 function fmtDate(iso){
