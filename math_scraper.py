@@ -305,6 +305,11 @@ def gen_pool():
     # ── 10. 有多長（50題）──────────────────────────────────────
     objs = ["鉛筆","橡皮擦","剪刀","書本","文具盒","繩子","緞帶","毛線","尺","布條"]
     units = ["個迴紋針","個積木","格","個方塊"]
+    def add_len(q, q_zh, ans, opts, exp, a, b, la, lb, unit):
+        nonlocal qid; qid+=1
+        qs.append({"id":qid,"cat":"有多長","q":q,"q_zh":q_zh,
+                   "q_a":a,"q_b":b,"q_la":la,"q_lb":lb,"q_unit":unit,
+                   "ans":str(ans),"opts":[str(o) for o in opts],"exp":exp})
     # 比較長短 25 題
     for _ in range(25):
         a,b = rng.sample(objs,2)
@@ -313,27 +318,32 @@ def gen_pool():
         unit = rng.choice(units)
         q_type = rng.choice(["長","短"])
         ans = (a if la>lb else b) if q_type=="長" else (b if la>lb else a)
-        q = f"{a}有{la}{unit}，{b}有{lb}{unit}，哪個比較{q_type}？"
+        # 題目不寫數字，讓小孩自己數圖案
+        q = f"數一數，{a}和{b}，哪個比較{q_type}？"
+        q_zh = q
         opts = [a, b, "一樣長", "無法比較"]; rng.shuffle(opts)
         if ans not in opts: opts[0]=ans
-        add("有多長",q,q,ans,opts[:4],
-            f"{'>' if la>lb else '<'}代表{'左邊' if la>lb else '右邊'}比較長，答案是{ans}")
+        add_len(q,q_zh,ans,opts[:4],
+            f"{a}有{la}個，{b}有{lb}個，{'>' if la>lb else '<'}，所以{ans}比較長",
+            a,b,la,lb,unit)
     # 相差幾格 15 題
     for _ in range(15):
         a,b = rng.sample(objs,2)
         la = rng.randint(4,12); lb = rng.randint(2,la-1)
         unit = rng.choice(units)
         diff = la-lb
-        q = f"{a}有{la}{unit}，{b}有{lb}{unit}，{a}比{b}長幾{unit}？"
-        add("有多長",q,q,diff,make_opts(diff,1,10,4,rng),f"{la}-{lb}={diff}")
+        q = f"數一數，{a}比{b}多幾個{unit}？"
+        add_len(q,q,diff,make_opts(diff,1,10,4,rng),
+            f"{a}有{la}個，{b}有{lb}個，{la}-{lb}={diff}",a,b,la,lb,unit)
     # 加在一起 10 題
     for _ in range(10):
         a,b = rng.sample(objs,2)
         la = rng.randint(3,8); lb = rng.randint(3,8)
         unit = rng.choice(units)
         total = la+lb
-        q = f"{a}有{la}{unit}，{b}有{lb}{unit}，加在一起共有幾{unit}？"
-        add("有多長",q,q,total,make_opts(total,4,20,4,rng),f"{la}+{lb}={total}")
+        q = f"數一數，{a}和{b}加在一起共有幾個{unit}？"
+        add_len(q,q,total,make_opts(total,4,20,4,rng),
+            f"{a}有{la}個，{b}有{lb}個，{la}+{lb}={total}",a,b,la,lb,unit)
 
     total_q = len(qs)
     print(f"✓ 題庫共 {total_q} 題")
@@ -587,6 +597,32 @@ function sayQ(text){
   if(v)u.voice=v;
   speechSynthesis.speak(u);
 }
+function lengthSVG(a, la, b, lb, unit){
+  const EMOJI={
+    "鉛筆":"✏️","橡皮擦":"🧽","剪刀":"✂️","書本":"📚",
+    "文具盒":"🗃️","繩子":"🪢","緞帶":"🎀","毛線":"🧶",
+    "尺":"📏","布條":"🎗️"
+  };
+  const ea=EMOJI[a]||"📦", eb=EMOJI[b]||"📦";
+  const sz=26;
+  const lw=62;
+  const maxN=Math.max(la,lb);
+  const sw=lw+maxN*sz+10;
+  const rowH=32; const gap=10;
+  const sh=rowH*2+gap+28;
+  const em=(x,y,e,n)=>Array.from({length:n},(_,i)=>
+    `<text x="${(x+i*sz+sz/2).toFixed(1)}" y="${y}"
+      font-size="20" text-anchor="middle">${e}</text>`).join('');
+  const ya=28, yb=ya+rowH+gap;
+  return `<svg width="${sw}" height="${sh}" viewBox="0 0 ${sw} ${sh}" style="max-width:100%;display:block;margin:0 auto">
+    <text x="0" y="${ya}" font-size="13" font-weight="700" fill="#374151" font-family="Noto Sans TC,sans-serif">${a}</text>
+    ${em(lw,ya,ea,la)}
+    <text x="0" y="${yb}" font-size="13" font-weight="700" fill="#374151" font-family="Noto Sans TC,sans-serif">${b}</text>
+    ${em(lw,yb,eb,lb)}
+    <text x="${lw}" y="${sh-4}" font-size="11" fill="#9CA3AF" font-family="Noto Sans TC,sans-serif">（單位：${unit}）</text>
+  </svg>`;
+}
+
 function sayResult(text){
   if(!window.speechSynthesis)return;
   setTimeout(()=>{
@@ -616,9 +652,13 @@ function buildFeed(){
     const sayText=isClock
       ? "時鐘顯示的是幾點幾分？"
       : q.q_zh||q.q;
+    const isLen=q.cat==="有多長"&&q.q_a!=null;
     const qDisplay = isClock
       ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute)}</div>
-         <div style="text-align:center;font-size:13px;color:var(--soft);margin-bottom:8px">時鐘顯示的是幾點？</div>`
+         <div style="text-align:center;font-size:13px;color:var(--soft);margin-bottom:8px">時鐘顯示的是幾點幾分？</div>`
+      : isLen
+      ? `<div style="margin:8px 0 4px;overflow-x:auto;text-align:center">${lengthSVG(q.q_a,q.q_la,q.q_b,q.q_lb,q.q_unit)}</div>
+         <div class="qtext word" style="margin-top:6px">${q.q}</div>`
       : `<div class="${qClass}">${q.q}</div>`;
     const opts=q.opts.map((o,j)=>`<button class="${optClass}" id="opt-${q.id}-${j}" onclick="selectOpt(${q.id},${j})">${o}</button>`).join("");
     html+=`
