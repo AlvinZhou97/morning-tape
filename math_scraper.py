@@ -556,13 +556,37 @@ def gen_pool():
                    "ans":str(ans),"opts":[str(o) for o in make_opts(ans,max(8,ans-3),min(18,ans+3),4,rng)],
                    "exp":f"{n1}+{n2}={ans}（進位）"}); qid+=1
 
-    # C. 減法飛走型（10~18範圍，含借位概念）12題
+    # C. 減法（10~18範圍）12題 — 依emoji選合適動詞
+    EMOJI_VERB = {
+        # 飛走的
+        "🦋":"飛走","🎈":"飛走","🐥":"飛走","🎵":"飄走","🌸":"飄走",
+        "⭐":"消失","🌻":"飄走","🌈":"消失","🦉":"飛走",
+        # 跑走的
+        "🐱":"跑走","🐶":"跑走","🦊":"跑走","🐸":"跳走","🐨":"走掉",
+        "🐻":"走掉","🦄":"跑走","🐢":"爬走","🚗":"開走",
+        # 游走的
+        "🐠":"游走",
+        # 被吃掉的
+        "🍎":"被吃掉","🍓":"被吃掉","🍭":"被吃掉","🍩":"被吃掉",
+        "🍦":"被吃掉","🍇":"被吃掉","🎪":"消失",
+        # 其他
+        "💎":"消失","🏀":"滾走","🎯":"消失","🌺":"飄走","🐠":"游走",
+    }
+    SUB_EMOJI = list(EMOJI_VERB.keys())
     for _ in range(12):
         n1=rng.randint(10,18); n2=rng.randint(3,n1-3)
-        e=rng.choice(AE); ans=n1-n2
+        e=rng.choice(SUB_EMOJI)
+        verb=EMOJI_VERB.get(e,"不見")
+        ans=n1-n2
+        # 隨機決定哪些位置是「消失」的（交錯排列）
+        positions=list(range(n1)); rng.shuffle(positions)
+        gone_pos=sorted(positions[:n2])
+        q=f"灰色的{verb}了，還剩幾個？"
+        q_zh=f"原本{num_zh(n1)}個，有{num_zh(n2)}個{verb}了，還剩幾個？"
         qs.append({"id":qid,"cat":"動畫","anim":"sub",
                    "anim_emoji":e,"anim_n1":n1,"anim_n2":n2,
-                   "q":"灰色的飛走了，還剩幾個？","q_zh":f"原本{num_zh(n1)}個，飛走{num_zh(n2)}個，還剩幾個？",
+                   "anim_gone_pos":gone_pos,
+                   "q":q,"q_zh":q_zh,
                    "ans":str(ans),"opts":[str(o) for o in make_opts(ans,max(1,ans-4),min(15,ans+4),4,rng)],
                    "exp":f"{n1}-{n2}={ans}"}); qid+=1
 
@@ -887,11 +911,13 @@ function animWidget(q){
   }
   // C. 減法飛走型
   if(q.anim==='sub'){
-    const remain=n1-n2;
-    const items=Array.from({length:n1},(_,i)=>item(i,i>=remain?'gone':'')).join('');
+    const goneSet=new Set(q.anim_gone_pos||[]);
+    const items=Array.from({length:n1},(_,i)=>
+      item(i, goneSet.has(i)?'gone':'')).join('');
+    const hint=q.q||'灰色的不見了';
     return `<div class="anim-box" id="anim-${q.id}">
       <div class="anim-row">${items}</div>
-      <div class="anim-hint">（灰色的飛走了）</div>
+      <div class="anim-hint">（灰色的${hint.includes('飛')||hint.includes('飄')?'飛走':'不見'}了）</div>
     </div>`;
   }
   // D. 數序型
