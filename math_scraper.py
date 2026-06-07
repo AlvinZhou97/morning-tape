@@ -246,16 +246,23 @@ def daily_questions():
     seed = int(hashlib.md5(today.encode()).hexdigest(), 16) % (2**32)
     rng = random.Random(seed)
 
-    # 分成兩組：一般題 & 應用題
-    general = [q for q in POOL if q["cat"] != "應用題"]
-    word    = [q for q in POOL if q["cat"] == "應用題"]
+    # 每個類別各抽固定題數，確保均勻分佈
+    categories = {
+        "加法":   4,
+        "減法":   4,
+        "比大小": 4,
+        "數序":   4,
+        "時間":   4,
+        "應用題": 10,
+    }
 
-    # 從一般題取 20 題
-    g = general.copy(); rng.shuffle(g); picked = g[:20]
-    # 從應用題取 10 題
-    w = word.copy(); rng.shuffle(w); picked += w[:10]
+    picked = []
+    for cat, count in categories.items():
+        pool = [q for q in POOL if q["cat"] == cat]
+        rng.shuffle(pool)
+        picked.extend(pool[:count])
 
-    # 整體再依 id 排序（讓題目順序固定，不是應用題全堆在最後）
+    # 依題號排序，混合顯示
     picked.sort(key=lambda q: q["id"])
     return picked
 
