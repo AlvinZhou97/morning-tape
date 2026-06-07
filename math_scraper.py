@@ -406,6 +406,9 @@ def gen_pool():
     # 場景物件池
     FOOD   = ["糖果","餅乾","蘋果","香蕉","橘子","草莓","葡萄","包子","饅頭","湯圓"]
     ANIMAL = ["小雞","小鴨","兔子","小魚","小鳥","蝴蝶","螢火蟲","青蛙","烏龜","蝸牛"]
+    # 分類：飛行動物 vs 非飛行動物
+    FLY_ANIMAL  = ["小鴨","小鳥","蝴蝶","螢火蟲"]   # 只有這些會飛
+    WALK_ANIMAL = ["兔子","青蛙","小狗","小貓","松鼠"] # 在地面跑跳
     STATY  = ["鉛筆","橡皮擦","貼紙","彩色筆","本子","書本","剪刀","蠟筆","迴紋針","磁鐵"]
     PERSON = ["同學","小朋友","男生","女生","小孩","姊姊","弟弟","同班同學","隊員","朋友"]
     NATURE = ["花朵","葉子","石頭","貝殼","松果","氣球","星星","雲朵","水滴","落葉"]
@@ -434,7 +437,7 @@ def gen_pool():
 
     # ── B. 添加型（原來+再來）──────────────────────────────────
     B_tmpl = [
-        lambda a,b,o: (f"樹上有{a}隻{rng.choice(ANIMAL)}，又飛來{b}隻，現在樹上有幾隻？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"樹上有{a}隻{rng.choice(FLY_ANIMAL)}，又飛來{b}隻，現在樹上有幾隻？", a+b, f"{a}+{b}={a+b}"),
         lambda a,b,o: (f"停車場有{a}輛車，又開進來{b}輛，現在共有幾輛車？", a+b, f"{a}+{b}={a+b}"),
         lambda a,b,o: (f"小明有{a}顆{rng.choice(FOOD)}，媽媽又給了他{b}顆，他現在有幾顆？", a+b, f"{a}+{b}={a+b}"),
         lambda a,b,o: (f"書架上有{a}本書，老師再放上{b}本，現在共有幾本書？", a+b, f"{a}+{b}={a+b}"),
@@ -450,7 +453,7 @@ def gen_pool():
         lambda a,b,o: (f"盤子裡有{a}顆{rng.choice(FOOD)}，吃掉{b}顆，還剩幾顆？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"停車場有{a}輛車，開走{b}輛，剩下幾輛？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"班上有{a}位同學，有{b}位請假，今天來了幾位？", a-b, f"{a}-{b}={a-b}"),
-        lambda a,b,o: (f"樹上有{a}隻{rng.choice(ANIMAL)}，飛走{b}隻，還剩幾隻？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"樹上有{a}隻{rng.choice(FLY_ANIMAL)}，飛走{b}隻，還剩幾隻？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"小花有{a}張{rng.choice(STATY)}，送給朋友{b}張，還剩幾張？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"架子上有{a}本書，借走{b}本，還剩幾本？", a-b, f"{a}-{b}={a-b}"),
     ]
@@ -486,7 +489,7 @@ def gen_pool():
     F_tmpl = [
         lambda r,b,o: (f"箱子裡有一些{rng.choice(FOOD)}，拿出{b}個後還剩{r}個，原來有幾個？", r+b, f"{r}+{b}={r+b}"),
         lambda r,b,o: (f"小明有一些{rng.choice(STATY)}，用掉{b}個後還剩{r}個，他原來有幾個？", r+b, f"{r}+{b}={r+b}"),
-        lambda r,b,o: (f"樹上有一些{rng.choice(ANIMAL)}，飛走{b}隻後剩下{r}隻，樹上原來有幾隻？", r+b, f"{r}+{b}={r+b}"),
+        lambda r,b,o: (f"草地上有一些{rng.choice(WALK_ANIMAL)}，跑走{b}隻後剩下{r}隻，草地上原來有幾隻？", r+b, f"{r}+{b}={r+b}"),
     ]
     for _ in range(9):
         r=rsmall(2,8); b=rsmall(1,6)
