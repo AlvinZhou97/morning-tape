@@ -41,7 +41,7 @@ def make_opts(ans, lo=0, hi=99, n=4, rng=None):
 # ═══════════════════════════════════════════════════════════════
 #  題庫（固定種子，500 題）
 # ═══════════════════════════════════════════════════════════════
-CAT_NAMES = ["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題"]
+CAT_NAMES = ["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題","動畫"]
 
 def gen_pool():
     rng = random.Random(20240901)
@@ -522,6 +522,99 @@ def gen_pool():
     for _ in range(0):
         pass  # 減法留給下面
 
+    # ── 12. 動畫題（5種題型，60題，每天6題）──────────────────
+    AE = ["🍎","🌸","⭐","🐱","🐶","🦋","🎈","🐥","🍓","🎵",
+          "🐢","🌈","🍭","🦊","🌻","🍩","🐸","💎","🏀","🚗",
+          "🐠","🦄","🍦","🎯","🌺","🐨","🍇","🎪","🐻","🦉"]
+    AE2= ["🌙","🔴","🌿","🎀","🧡","🔵","🌞","🎵","🍋","🧸"]
+
+    # ── 12. 動畫題（5種題型，難度提升，60題，每天6題）──────────
+    AE = ["🍎","🌸","⭐","🐱","🐶","🦋","🎈","🐥","🍓","🎵",
+          "🐢","🌈","🍭","🦊","🌻","🍩","🐸","💎","🏀","🚗",
+          "🐠","🦄","🍦","🎯","🌺","🐨","🍇","🎪","🐻","🦉"]
+    AE2= ["🌙","🔴","🌿","🎀","🧡","🔵","🌞","🎵","🍋","🧸"]
+
+    # A. 計數型（8~18個，超過10需進位思考）15題
+    for _ in range(15):
+        n=rng.randint(8,18); e=rng.choice(AE)
+        qs.append({"id":qid,"cat":"動畫","anim":"count",
+                   "anim_emoji":e,"anim_n1":n,"anim_n2":0,
+                   "q":"數一數，共有幾個？","q_zh":"數一數，共有幾個？",
+                   "ans":str(n),"opts":[str(o) for o in make_opts(n,max(5,n-4),min(20,n+4),4,rng)],
+                   "exp":f"一個一個數，共有{n}個"}); qid+=1
+
+    # B. 加法合併型（進位加法，和 10~18）12題
+    for _ in range(12):
+        while True:
+            n1=rng.randint(4,9); n2=rng.randint(4,9)
+            if 10<=n1+n2<=18: break
+        e=rng.choice(AE); ans=n1+n2
+        qs.append({"id":qid,"cat":"動畫","anim":"add",
+                   "anim_emoji":e,"anim_n1":n1,"anim_n2":n2,
+                   "q":f"左邊和右邊合起來共有幾個？（超過10要進位喔！）",
+                   "q_zh":f"左邊{num_zh(n1)}個加右邊{num_zh(n2)}個，合起來共有幾個？",
+                   "ans":str(ans),"opts":[str(o) for o in make_opts(ans,max(8,ans-3),min(18,ans+3),4,rng)],
+                   "exp":f"{n1}+{n2}={ans}（進位）"}); qid+=1
+
+    # C. 減法飛走型（10~18範圍，含借位概念）12題
+    for _ in range(12):
+        n1=rng.randint(10,18); n2=rng.randint(3,n1-3)
+        e=rng.choice(AE); ans=n1-n2
+        qs.append({"id":qid,"cat":"動畫","anim":"sub",
+                   "anim_emoji":e,"anim_n1":n1,"anim_n2":n2,
+                   "q":"灰色的飛走了，還剩幾個？","q_zh":f"原本{num_zh(n1)}個，飛走{num_zh(n2)}個，還剩幾個？",
+                   "ans":str(ans),"opts":[str(o) for o in make_opts(ans,max(1,ans-4),min(15,ans+4),4,rng)],
+                   "exp":f"{n1}-{n2}={ans}"}); qid+=1
+
+    # D. 數序型（100以內，步距2/5/10，有回推）11題
+    for _ in range(11):
+        step=rng.choice([2,5,10,10,2])      # 10較常見（百以內）
+        start=rng.randint(5,80)
+        seq=[start+step*i for i in range(5)]
+        while any(n>100 for n in seq):
+            start=max(1,start-step*3)
+            seq=[start+step*i for i in range(5)]
+        # 挖掉1或2個空格
+        n_holes=rng.choice([1,1,2])
+        poses=rng.sample(range(5),n_holes)
+        ans_val=seq[poses[0]]
+        seq_disp=[str(n) if i not in poses else "?" for i,n in enumerate(seq)]
+        q_zh="、".join([num_zh(n) if i not in poses else "空格" for i,n in enumerate(seq)])+"，第一個空格填幾？"
+        qs.append({"id":qid,"cat":"動畫","anim":"seq",
+                   "anim_seq":seq_disp,
+                   "q":"空格填哪個數？","q_zh":q_zh,
+                   "ans":str(ans_val),"opts":[str(o) for o in make_opts(ans_val,max(1,ans_val-step*2),min(100,ans_val+step*2),4,rng)],
+                   "exp":f"每次加{step}，空格是{ans_val}"}); qid+=1
+
+    # E. 比多少型（問相差幾個，而非只問哪個多）10題
+    for _ in range(10):
+        n1=rng.randint(5,15); n2=rng.randint(4,14)
+        while n1==n2: n2=rng.randint(4,14)
+        e1=rng.choice(AE); e2=rng.choice(AE2)
+        diff=abs(n1-n2)
+        bigger="第一排" if n1>n2 else "第二排"
+        q_type=rng.choice(["哪排多","哪排少","相差多少"])
+        if q_type=="哪排多":
+            ans=bigger
+            opts=["第一排","第二排","一樣多"]; rng.shuffle(opts)
+            if ans not in opts: opts[0]=ans
+            exp=f"第一排{n1}個，第二排{n2}個，{bigger}比較多"
+        elif q_type=="哪排少":
+            ans="第二排" if bigger=="第一排" else "第一排"
+            opts=["第一排","第二排","一樣少"]; rng.shuffle(opts)
+            if ans not in opts: opts[0]=ans
+            exp=f"第一排{n1}個，第二排{n2}個，{ans}比較少"
+        else:  # 相差多少
+            ans=str(diff)
+            opts=[str(o) for o in make_opts(diff,max(1,diff-3),min(12,diff+3),4,rng)]
+            exp=f"|{n1}-{n2}|={diff}個"
+            q_type="相差幾個"
+        qs.append({"id":qid,"cat":"動畫","anim":"cmp",
+                   "anim_emoji":e1,"anim_emoji2":e2,"anim_n1":n1,"anim_n2":n2,
+                   "q":f"{q_type}？","q_zh":f"數一數，{q_type}？",
+                   "ans":ans,"opts":opts[:4] if len(opts)>=4 else opts+["無法比較"],
+                   "exp":exp}); qid+=1
+
     total_q = len(qs)
     print(f"✓ 題庫共 {total_q} 題")
     for cat in CAT_NAMES:
@@ -542,7 +635,23 @@ def daily_questions():
     for cat in CAT_NAMES:
         pool=[q for q in POOL if q['cat']==cat]
         rng.shuffle(pool)
-        picked.extend(pool[:4])          # 每類 4 題 × 10 類 = 40 題
+        if cat=='動畫':
+            # 確保5種類型各出現1題，再補1題湊6題
+            ANIM_TYPES=['count','add','sub','seq','cmp']
+            anim_picked=[]
+            for atype in ANIM_TYPES:
+                t_pool=[q for q in pool if q.get('anim')==atype]
+                rng.shuffle(t_pool)
+                if t_pool: anim_picked.append(t_pool[0])
+            # 從剩餘未選的補1題（任意類型）
+            used_ids={q['id'] for q in anim_picked}
+            extras=[q for q in pool if q['id'] not in used_ids]
+            rng.shuffle(extras)
+            if extras: anim_picked.append(extras[0])
+            rng.shuffle(anim_picked)
+            picked.extend(anim_picked)
+        else:
+            picked.extend(pool[:4])  # 其餘各4題
     picked.sort(key=lambda q:q['id'])
     return picked
 
@@ -641,8 +750,41 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .feedback.ok{background:#DCFCE7;color:#166534}
 .feedback.ng{background:#FEE2E2;color:#991B1B}
 
-/* 送出列 */
-.submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
+/* 動畫題 */
+.anim-box{background:#FFFBEB;border:2px solid #FDE68A;border-radius:16px;
+  padding:14px 10px 10px;margin:4px 0 10px;text-align:center;min-height:80px}
+.anim-row{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center}
+.anim-group{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+/* 預設隱藏，按按鈕才播放 */
+.anim-item{display:inline-block;font-size:30px;opacity:0}
+.anim-num{display:inline-block;font-size:24px;font-weight:900;
+  background:#fff;border:2px solid #E5E7EB;border-radius:10px;
+  padding:4px 10px;margin:2px;opacity:0}
+.anim-num.blank{background:#FEF3C7;border-color:#F59E0B;color:#B45309}
+.anim-op{font-size:26px;font-weight:900;color:#3B82F6;opacity:0}
+.anim-hint{font-size:11.5px;color:var(--soft);margin-top:7px}
+/* 播放中 */
+.anim-box.playing .anim-item{animation:popIn 0.4s ease-out both}
+.anim-box.playing .anim-item.gone{animation:popIn 0.4s ease-out both;
+  filter:grayscale(1);opacity:.28!important}
+.anim-box.playing .anim-num{animation:bounceNum 0.4s ease-out both}
+.anim-box.playing .anim-op{animation:bounceNum 0.35s ease-out both}
+@keyframes popIn{
+  from{opacity:0;transform:scale(0) rotate(-15deg)}
+  65%{transform:scale(1.25) rotate(5deg)}
+  to{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes bounceNum{
+  from{opacity:0;transform:translateY(12px) scale(.7)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.play-btn{background:var(--add);color:#fff;border:none;border-radius:20px;
+  padding:7px 20px;font-family:"Nunito";font-size:14px;font-weight:800;
+  cursor:pointer;display:flex;align-items:center;gap:6px;margin:0 auto 10px;transition:opacity .15s}
+.play-btn:hover{opacity:.85}
+.cat-badge.c10{background:#F3E8FF;color:#6D28D9}
+.cat-badge.c11{background:#ECFDF5;color:#065F46}
+.cat-badge.c_anim{background:#FEF3C7;color:#B45309}position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
   backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:11px 16px;z-index:30}
 .submit-btn{display:block;width:100%;max-width:600px;margin:0 auto;
   background:var(--app);color:#fff;border:none;border-radius:20px;padding:13px;
@@ -701,11 +843,83 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 <script>
 const ALL_DATA=__ALL_DATA_JSON__;
 const ALL_DATES=Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
-const CAT_NAMES=["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題"];
+const CAT_NAMES=["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長","應用題","動畫"];
 const CAT_CLS={
   "50以內的數":"c0","18內加法":"c1","18內減法":"c2","圖形":"c3",
   "100以內的數":"c4","錢幣":"c5","二位數加減":"c6","日曆":"c7",
-  "時鐘":"c8","有多長":"c9","應用題":"c1"};
+  "時鐘":"c8","有多長":"c9","應用題":"c1","動畫":"c_anim"};
+
+function playAnim(qid){
+  const box=document.getElementById('anim-'+qid);
+  if(!box) return;
+  box.classList.remove('playing');
+  void box.offsetWidth; // force reflow
+  box.classList.add('playing');
+}
+
+function animWidget(q){
+  if(!q.anim) return '';
+  const e=q.anim_emoji||'⭐';
+  const e2=q.anim_emoji2||'🌸';
+  const n1=q.anim_n1||5, n2=q.anim_n2||0;
+  const item=(i,cls='')=>
+    `<span class="anim-item ${cls}" style="animation-delay:${(i*0.28).toFixed(2)}s">${e}</span>`;
+
+  // A. 計數型
+  if(q.anim==='count'){
+    return `<div class="anim-box" id="anim-${q.id}">
+      <div class="anim-row">${Array.from({length:n1},(_,i)=>item(i)).join('')}</div>
+    </div>`;
+  }
+  // B. 加法合併型
+  if(q.anim==='add'){
+    const d2=n1*0.28+0.4;
+    const opD=(n1*0.28+0.05).toFixed(2);
+    const item2=(i)=>
+      `<span class="anim-item" style="animation-delay:${(d2+i*0.28).toFixed(2)}s">${e}</span>`;
+    return `<div class="anim-box" id="anim-${q.id}">
+      <div class="anim-row">
+        <span class="anim-group">${Array.from({length:n1},(_,i)=>item(i)).join('')}</span>
+        <span class="anim-op" style="animation-delay:${opD}s">＋</span>
+        <span class="anim-group">${Array.from({length:n2},(_,i)=>item2(i)).join('')}</span>
+      </div>
+    </div>`;
+  }
+  // C. 減法飛走型
+  if(q.anim==='sub'){
+    const remain=n1-n2;
+    const items=Array.from({length:n1},(_,i)=>item(i,i>=remain?'gone':'')).join('');
+    return `<div class="anim-box" id="anim-${q.id}">
+      <div class="anim-row">${items}</div>
+      <div class="anim-hint">（灰色的飛走了）</div>
+    </div>`;
+  }
+  // D. 數序型
+  if(q.anim==='seq'&&q.anim_seq){
+    const nums=q.anim_seq;
+    const seqHTML=nums.map((n,i)=>
+      `<span class="anim-num ${n==='?'?'blank':''}" style="animation-delay:${(i*0.35).toFixed(2)}s">${n==='?'?'？':n}</span>`
+    ).join('');
+    return `<div class="anim-box" id="anim-${q.id}">
+      <div class="anim-row" style="gap:6px">${seqHTML}</div>
+    </div>`;
+  }
+  // E. 比多少型（兩排）
+  if(q.anim==='cmp'){
+    const d2=n1*0.22+0.35;
+    const row1=Array.from({length:n1},(_,i)=>
+      `<span class="anim-item" style="animation-delay:${(i*0.22).toFixed(2)}s">${e}</span>`).join('');
+    const row2=Array.from({length:n2},(_,i)=>
+      `<span class="anim-item" style="animation-delay:${(d2+i*0.22).toFixed(2)}s">${e2}</span>`).join('');
+    return `<div class="anim-box" id="anim-${q.id}">
+      <div style="display:flex;flex-direction:column;gap:8px;width:100%">
+        <div class="anim-row"><span style="font-size:12px;font-weight:700;color:#6B7280;width:46px;text-align:left;flex-shrink:0">第一排</span>${row1}</div>
+        <div class="anim-row"><span style="font-size:12px;font-weight:700;color:#6B7280;width:46px;text-align:left;flex-shrink:0">第二排</span>${row2}</div>
+      </div>
+    </div>`;
+  }
+  return '';
+}
 let curDate="全部",selections={},answered={},submitted=false;
 
 function fmtDate(iso){
@@ -742,11 +956,15 @@ function updateProgress(){
   document.getElementById("scoreBadge").textContent=
     submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
 }
-function clockSVG(hour,minute){
+function clockSVG(hour, minute, qid){
+  // 使用 rotate(deg, cx, cy) 支援動畫：12點方向=0°，順時針增加
+  const hDeg=(hour%12)*30+minute*0.5;  // 0=12點，順時針
+  const mDeg=minute*6;
+  const animated=qid!=null;
+  const hRot=animated?0:hDeg, mRot=animated?0:mDeg;
+  const hId=qid?`id="h-hand-${qid}"`:'';
+  const mId=qid?`id="m-hand-${qid}"`:'';
   const cx=100,cy=100,rad=a=>a*Math.PI/180;
-  const hDeg=(hour%12)*30+minute*0.5-90,mDeg=minute*6-90;
-  const hx=cx+48*Math.cos(rad(hDeg)),hy=cy+48*Math.sin(rad(hDeg));
-  const mx=cx+68*Math.cos(rad(mDeg)),my=cy+68*Math.sin(rad(mDeg));
   const ticks=Array.from({length:60},(_,i)=>{
     const a=rad(i*6-90),r1=i%5===0?76:82,r2=88;
     return `<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}"
@@ -761,9 +979,33 @@ function clockSVG(hour,minute){
   return `<svg width="180" height="180" viewBox="0 0 200 200" style="filter:drop-shadow(0 3px 8px rgba(0,0,0,.1))">
     <circle cx="100" cy="100" r="95" fill="#FFF9F0" stroke="#E5E7EB" stroke-width="3"/>
     ${ticks}${nums}
-    <line x1="100" y1="100" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
-    <line x1="100" y1="100" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
+    <g ${hId} transform="rotate(${hRot},100,100)">
+      <line x1="100" y1="100" x2="100" y2="55" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <g ${mId} transform="rotate(${mRot},100,100)">
+      <line x1="100" y1="100" x2="100" y2="34" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
     <circle cx="100" cy="100" r="5" fill="#1F2937"/></svg>`;
+}
+
+function animateClock(qid, hDeg, mDeg){
+  const hEl=document.getElementById('h-hand-'+qid);
+  const mEl=document.getElementById('m-hand-'+qid);
+  if(!hEl||!mEl) return;
+  // 先歸零到12點
+  hEl.setAttribute('transform','rotate(0,100,100)');
+  mEl.setAttribute('transform','rotate(0,100,100)');
+  const duration=1800;
+  const ease=t=>1-Math.pow(1-t,3);
+  const start=performance.now();
+  function tick(now){
+    const t=Math.min((now-start)/duration,1);
+    const e=ease(t);
+    hEl.setAttribute('transform',`rotate(${(hDeg*e).toFixed(2)},100,100)`);
+    mEl.setAttribute('transform',`rotate(${(mDeg*e).toFixed(2)},100,100)`);
+    if(t<1) requestAnimationFrame(tick);
+  }
+  setTimeout(()=>requestAnimationFrame(tick),150);
 }
 function sayQ(text){
   if(!window.speechSynthesis)return;
@@ -821,17 +1063,20 @@ function buildFeed(){
       html+=`<div class="date-hdr">${fmtDate(q._date)} · ${(ALL_DATA[q._date]||[]).length} 題</div>`;
     }
     const isClock=q.cat==="時鐘"&&q.q_hour!=null;
-    const isWide=q.cat==="圖形"||q.cat==="日曆"||q.cat==="錢幣"||q.cat==="有多長";
+    const isLen=q.cat==="有多長"&&q.q_a!=null;
+    const isAnim=q.cat==="動畫"&&q.anim!=null;
+    const isWide=q.cat==="圖形"||q.cat==="日曆"||q.cat==="錢幣"||q.cat==="應用題";
     const isCmp=(q.cat==="50以內的數"||q.cat==="100以內的數")&&q.q.includes("○");
     const qClass=isWide?"qtext word":"qtext";
-    const optsClass=isCmp?"opts cmp":isWide?"opts wide":"opts";
-    const optClass=isWide?"opt wide-opt":"opt";
-    const sayText=isClock
-      ? "時鐘顯示的是幾點幾分？"
-      : q.q_zh||q.q;
-    const isLen=q.cat==="有多長"&&q.q_a!=null;
-    const qDisplay = isClock
-      ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute)}</div>
+    const optsClass=isCmp?"opts cmp":"opts";
+    const optClass="opt";
+    const sayText=isClock?"時鐘顯示的是幾點幾分？":q.q_zh||q.q;
+    const hDeg_=q.q_hour!=null?(q.q_hour%12)*30+q.q_minute*0.5:0;
+    const mDeg_=q.q_minute!=null?q.q_minute*6:0;
+    const qDisplay = isAnim
+      ? `${animWidget(q)}<div class="qtext" style="text-align:center;margin-top:4px">${q.q}</div>`
+      : isClock
+      ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute,q.id)}</div>
          <div style="text-align:center;font-size:13px;color:var(--soft);margin-bottom:8px">時鐘顯示的是幾點幾分？</div>`
       : isLen
       ? `<div style="margin:8px 0 4px;overflow-x:auto;text-align:center">${lengthSVG(q.q_a,q.q_la,q.q_b,q.q_lb,q.q_unit)}</div>
@@ -845,7 +1090,12 @@ function buildFeed(){
         <span class="cat-badge ${CAT_CLS[q.cat]||'c0'}">${q.cat}</span>
       </div>
       ${qDisplay}
-      <button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>
+      ${isAnim
+        ? `<button class="play-btn" onclick="playAnim(${q.id});sayQ('${sayText.replace(/'/g,"\\'")}')">▶ 開始動畫 / 聽題目</button>`
+        : isClock
+        ? `<button class="play-btn" onclick="animateClock(${q.id},${hDeg_.toFixed(1)},${mDeg_.toFixed(1)});sayQ('時鐘顯示的是幾點幾分？')">▶ 開始動畫 / 聽題目</button>`
+        : `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
+      }
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
       <div class="feedback" id="fb-${q.id}"></div>
     </div>`;
