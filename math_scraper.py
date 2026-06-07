@@ -143,16 +143,27 @@ def gen_pool():
     # ── 9. 比大小（50）──────────────────────────────────────
     for _ in range(50):
         a = rng.randint(10,99); b = rng.randint(10,99)
-        if a>b: ans="＞"
-        elif a<b: ans="＜"
-        else: ans="＝"
-        # 四個選項：＞ ＜ ＝ ≠（≠ 作為干擾選項）
-        opts = ["＞","＜","＝","≠"]; rng.shuffle(opts)
+        # 正確說法
+        if a > b:   correct = f"{a} ＞ {b}"
+        elif a < b: correct = f"{a} ＜ {b}"
+        else:       correct = f"{a} ＝ {b}"
+        # 3 個錯誤說法：反向、等號、反向等號
+        wrongs = list({
+            f"{b} ＞ {a}" if a<b else f"{a} ＞ {b}" if a==b else f"{b} ＞ {a}",
+            f"{a} ＝ {b}" if a!=b else f"{a} ＞ {b}",
+            f"{b} ＜ {a}" if a>b else f"{a} ＜ {b}" if a==b else f"{b} ＜ {a}",
+        } - {correct})
+        # 補到 3 個
+        extras = [f"{a} ＝ {b+1}", f"{a+1} ＜ {b}", f"{b} ＝ {a+2}"]
+        for e in extras:
+            if len(wrongs) >= 3: break
+            if e != correct: wrongs.append(e)
+        opts = [correct] + list(wrongs)[:3]; rng.shuffle(opts)
         add("比大小","比較",
-            f"{a}  ○  {b}",
-            f"{num_zh(a)} 和 {num_zh(b)} 比較，中間填哪個符號？",
-            ans, opts,
-            f"{a} {'大於' if a>b else ('小於' if a<b else '等於')} {b}")
+            f"{a}  和  {b}，哪個說法正確？",
+            f"{num_zh(a)} 和 {num_zh(b)} 比較，哪個說法正確？",
+            correct, opts,
+            f"正確答案是 {correct}")
 
     # ── 10. 數序填空（50）──────────────────────────────────
     for _ in range(25):
@@ -371,8 +382,8 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .opt.wrong{border-color:var(--wrong)!important;background:#FFF5F5!important;color:var(--wrong)!important}
 .opt:disabled{cursor:default;opacity:.8}
 
-/* 比大小選項字體大一點 */
-.opts.cmp .opt{font-size:26px;padding:14px 8px}
+/* 比大小選項字體調整（選項是完整算式） */
+.opts.cmp .opt{font-size:18px;padding:14px 8px;font-weight:800}
 
 /* ── 結果回饋 ── */
 .feedback{margin-top:12px;padding:10px 14px;border-radius:12px;
