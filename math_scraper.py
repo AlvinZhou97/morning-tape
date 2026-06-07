@@ -628,8 +628,11 @@ function selectOpt(qid, chosen){
     const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
     if(!btn) return;
     btn.disabled=true;
-    if(String(o)===String(q.ans)) btn.classList.add("correct");
-    else if(String(o)===String(chosen)&&!isCorrect) btn.classList.add("wrong");
+    if(isCorrect && String(o)===String(q.ans)){
+      btn.classList.add("correct"); // 答對：正確選項變綠
+    } else if(!isCorrect && String(o)===String(chosen)){
+      btn.classList.add("wrong");   // 答錯：只把選錯的變紅，不顯示正確答案
+    }
   });
 
   // 立即顯示回饋訊息
@@ -638,9 +641,11 @@ function selectOpt(qid, chosen){
   if(isCorrect){
     if(fb){fb.className="feedback ok show"; fb.textContent="✅ 答對了！真棒！";}
     if(card) card.className="qcard answered-correct";
+    sayResult("答對了！");
   } else {
-    if(fb){fb.className="feedback ng show"; fb.textContent=`❌ 答錯了。正確答案是 ${q.ans}`;}
+    if(fb){fb.className="feedback ng show"; fb.textContent="❌ 答錯了！";}
     if(card) card.className="qcard answered-wrong";
+    sayResult("答錯了！");
   }
   updateProgress();
 }
@@ -748,7 +753,19 @@ function makeTeaching(q){
   return `💡 正確答案是 <b>${q.ans}</b>`;
 }
 
-function answer(){} // 保留舊函式名避免錯誤
+function sayResult(text){
+  if(!window.speechSynthesis) return;
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="zh-TW"; u.rate=1;
+    const vs=speechSynthesis.getVoices();
+    const v=vs.find(v=>/zh-TW|zh_TW/i.test(v.lang))||vs.find(v=>/zh/i.test(v.lang));
+    if(v) u.voice=v;
+    speechSynthesis.speak(u);
+  }, 200);
+}
+
+function answer(){} // 保留舊函式名
 
 function restoreAnswer(qid, correctAns, correct){
   const optsDiv=document.getElementById("opts-"+qid);
