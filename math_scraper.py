@@ -231,14 +231,14 @@ def gen_pool():
         m = rng.choice([0,30])
         suffix = "整" if m==0 else "30分"
         ans_text = f"{h}點{suffix}"
-        # 產生 3 個不同時段的干擾選項
         other_hours = [hh for hh in range(1,13) if hh != h]
         rng.shuffle(other_hours)
         wrong_opts = [f"{hh}點{suffix}" for hh in other_hours[:3]]
         opts = [ans_text] + wrong_opts
         rng.shuffle(opts)
         qs.append({"id":qid,"cat":"時間","lv":"時間",
-                   "q":f"時鐘顯示 {h} 點{'整' if m==0 else ' 30 分'}，是幾點？",
+                   "q_hour":h,"q_minute":m,   # 讓 JS 畫時鐘用
+                   "q":"時鐘顯示的是幾點？",
                    "q_zh":f"時鐘顯示 {num_zh(h)} 點{'整' if m==0 else '三十分'}，是幾點？",
                    "ans":ans_text,"opts":opts[:4],
                    "exp":f"答案是 {ans_text}"})
@@ -392,16 +392,28 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .feedback.ok{background:#DCFCE7;color:#166534}
 .feedback.ng{background:#FEE2E2;color:#991B1B}
 
-/* ── 完成畫面 ── */
-.finish-card{background:var(--card);border-radius:20px;padding:32px 20px;
-  text-align:center;border:2px solid var(--border);margin:16px}
-.finish-emoji{font-size:56px;margin-bottom:12px}
-.finish-score{font-family:"Nunito";font-size:48px;font-weight:900;color:var(--add)}
-.finish-msg{font-size:16px;font-weight:700;color:var(--soft);margin-top:8px}
-.retry-btn{background:var(--add);color:#fff;border:none;border-radius:20px;
-  padding:12px 28px;font-family:"Nunito";font-size:16px;font-weight:800;
-  cursor:pointer;margin-top:20px;transition:opacity .15s}
-.retry-btn:hover{opacity:.85}
+
+/* ── 時鐘 SVG ── */
+.clock-wrap{text-align:center;margin:4px 0 10px}
+/* 選擇後（送出前）的狀態 */
+.opt.selected{border-color:var(--add)!important;background:#EFF6FF!important;color:var(--add)!important}
+/* 送出按鈕列 */
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
+  backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:12px 16px;z-index:30}
+.submit-btn{display:block;width:100%;max-width:600px;margin:0 auto;
+  background:var(--app);color:#fff;border:none;border-radius:20px;
+  padding:14px;font-family:"Nunito";font-size:18px;font-weight:900;
+  cursor:pointer;transition:opacity .15s}
+.submit-btn:hover{opacity:.85}
+.submit-btn:disabled{background:#9CA3AF;cursor:default}
+/* 分數結果橫幅 */
+.result-banner{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);
+  border-radius:20px;padding:24px 16px;text-align:center;margin-bottom:16px;
+  border:2px solid #6EE7B7;display:none}
+.result-banner.show{display:block}
+.result-emoji{font-size:40px;margin-bottom:6px}
+.result-score{font-family:"Nunito";font-size:56px;font-weight:900;color:#065F46}
+.result-label{font-size:15px;font-weight:700;color:#065F46;margin-top:4px}
 </style>
 </head>
 <body>
@@ -430,12 +442,47 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 
 <div class="feed" id="feed"></div>
 
+<!-- 送出按鈕 -->
+<div class="submit-bar" id="submitBar">
+  <button class="submit-btn" id="submitBtn" onclick="submitAnswers()">📝 送出答案</button>
+</div>
+
 <script>
 const ALL_DATA = __ALL_DATA_JSON__;
 const ALL_DATES = Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
 let curDate = "全部";
-let answered = {};   // {qid: true/false}
-let scores   = {};   // {date: {total, correct}}
+let selections = {};  // {qid: 選擇的選項}
+let submitted  = false;
+let answered   = {};  // {qid: true/false} — 送出後才填
+
+// ── 時鐘 SVG ──────────────────────────────────────────────
+function clockSVG(hour, minute){
+  const cx=100,cy=100;
+  const rad=a=>a*Math.PI/180;
+  // 時針角度（12點=0°，順時針）
+  const hDeg=(hour%12)*30 + minute*0.5 - 90;
+  const mDeg=minute*6 - 90;
+  const hx=cx+48*Math.cos(rad(hDeg)), hy=cy+48*Math.sin(rad(hDeg));
+  const mx=cx+68*Math.cos(rad(mDeg)), my=cy+68*Math.sin(rad(mDeg));
+  // 刻度
+  const ticks=Array.from({length:60},(_,i)=>{
+    const a=rad(i*6-90), r1=i%5===0?76:82, r2=88;
+    return `<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}" x2="${(cx+r2*Math.cos(a)).toFixed(1)}" y2="${(cy+r2*Math.sin(a)).toFixed(1)}" stroke="${i%5===0?'#9CA3AF':'#E5E7EB'}" stroke-width="${i%5===0?2:1}"/>`;
+  }).join('');
+  // 數字
+  const nums=Array.from({length:12},(_,i)=>{
+    const a=rad((i+1)*30-90), x=cx+74*Math.cos(a), y=cy+74*Math.sin(a);
+    return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151" font-family="Nunito">${i+1}</text>`;
+  }).join('');
+  return `<svg width="200" height="200" viewBox="0 0 200 200" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,.12))">
+    <circle cx="100" cy="100" r="95" fill="#FFF9F0" stroke="#E5E7EB" stroke-width="3"/>
+    <circle cx="100" cy="100" r="88" fill="none" stroke="#F3F4F6" stroke-width="1"/>
+    ${ticks}${nums}
+    <line x1="100" y1="100" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="5" fill="#1F2937"/>
+  </svg>`;
+}
 
 function fmtDate(iso){
   const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||"");
@@ -453,7 +500,12 @@ function buildDateBar(){
   ).join("");
 }
 function setDate(d){
-  curDate=d; answered={}; buildDateBar(); buildFeed(); updateProgress();
+  curDate=d; selections={}; answered={}; submitted=false;
+  const bar=document.getElementById("submitBar");
+  if(bar) bar.style.display="";
+  const banner=document.getElementById("resultBanner");
+  if(banner) banner.classList.remove("show");
+  buildDateBar(); buildFeed(); updateProgress();
 }
 
 // ── 篩選後的題目 ─────────────────────────────────────────
@@ -470,12 +522,12 @@ function filteredQs(){
 function updateProgress(){
   const qs=filteredQs();
   const total=qs.length;
-  const done=Object.keys(answered).length;
+  const done=Object.keys(selections).length;
   const correct=Object.values(answered).filter(Boolean).length;
   const pct=total?Math.round((done/total)*100):0;
   document.getElementById("progBar").style.width=pct+"%";
   document.getElementById("progLabel").textContent=`${done} / ${total}`;
-  document.getElementById("scoreBadge").textContent=`⭐ ${correct} 分`;
+  document.getElementById("scoreBadge").textContent=submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
 }
 
 // ── TTS ──────────────────────────────────────────────────
@@ -503,20 +555,32 @@ function buildFeed(){
       const cnt=(ALL_DATA[q._date]||[]).length;
       html+=`<div class="date-hdr">${fmtDate(q._date)} · ${cnt} 題</div>`;
     }
-    const isWP=q.cat==="應用題"||q.cat==="時間";
+    const isWP=q.cat==="應用題";
     const isCmp=q.cat==="比大小";
+    const isClock=q.cat==="時間" && q.q_hour!=null;
     const optsClass=isCmp?"opts cmp":"opts";
     const qtextClass=isWP?"qtext word-problem":"qtext";
-    const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${o}"
-      onclick="answer(${q.id},'${q.ans}','${o}',${q.id})">${o}</button>`).join("");
+    // 時間題：顯示 SVG 時鐘；其他：顯示文字
+    const qDisplay = isClock
+      ? `<div class="clock-wrap">${clockSVG(q.q_hour, q.q_minute)}</div>
+         <div style="text-align:center;font-size:14px;color:var(--soft);margin-bottom:10px">時鐘顯示的是幾點？</div>`
+      : `<div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>`;
+    const sayText = isClock ? q.q_zh : q.q_zh||q.q;
+    const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
+      onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
+    // 只有應用題和時間題才顯示聽題目按鈕
+    const showSay = q.cat==="應用題" || q.cat==="時間";
+    const sayBtnHtml = showSay
+      ? `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
+      : '';
     html+=`
     <div class="qcard" id="qcard-${q.id}">
       <div class="qtop">
         <span class="qnum">第 ${i+1} 題</span>
         <span class="cat-badge ${q.cat}">${q.cat}</span>
       </div>
-      <div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>
-      <button class="say-btn" onclick="sayQ('${q.q_zh.replace(/'/g,"\\'")}')">🔊 聽題目</button>
+      ${qDisplay}
+      ${sayBtnHtml}
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
       <div class="feedback" id="fb-${q.id}"></div>
     </div>`;
@@ -530,34 +594,81 @@ function buildFeed(){
   });
 }
 
-function answer(qid, correctAns, chosen, cardId){
-  if(answered[qid]!==undefined) return; // 已作答
-  const correct = String(chosen) === String(correctAns);
-  answered[qid] = correct;
-
-  // 標記選項顏色
-  const optsDiv = document.getElementById("opts-"+qid);
-  optsDiv.querySelectorAll(".opt").forEach(btn=>{
-    btn.disabled=true;
-    const val=btn.id.replace("opt-"+qid+"-","");
-    if(val===String(correctAns)) btn.classList.add("correct");
-    else if(val===String(chosen)&&!correct) btn.classList.add("wrong");
+// ── 選擇選項（送出前只標記，不顯示對錯） ──────────────────
+function selectOpt(qid, chosen){
+  if(submitted) return;
+  if(selections[qid] !== undefined) return; // 已選過，不能更改
+  selections[qid] = String(chosen);
+  // 清除同題其他選項的 selected
+  const qs=filteredQs();
+  const q=qs.find(x=>x.id===qid); if(!q) return;
+  q.opts.forEach(o=>{
+    const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
+    if(btn) btn.classList.remove("selected");
   });
-
-  // 回饋訊息
-  const fb=document.getElementById("fb-"+qid);
-  const card=document.getElementById("qcard-"+qid);
-  if(correct){
-    fb.className="feedback ok show"; fb.textContent="✅ 答對了！真棒！";
-    card.className="qcard answered-correct";
-    sayResult("答對了！");
-  } else {
-    fb.className="feedback ng show"; fb.textContent=`❌ 答錯了。正確答案是 ${correctAns}`;
-    card.className="qcard answered-wrong";
-    sayResult("答錯了。");
-  }
+  const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(chosen)));
+  if(btn) btn.classList.add("selected");
   updateProgress();
 }
+
+// ── 送出答案，顯示全部對錯 + 總分 ────────────────────────
+function submitAnswers(){
+  if(submitted) return;
+  submitted=true;
+  const qs=filteredQs();
+  let correct=0;
+
+  qs.forEach(q=>{
+    const chosen=selections[q.id];
+    const isCorrect = chosen!==undefined && String(chosen)===String(q.ans);
+    answered[q.id]=isCorrect;
+    if(isCorrect) correct++;
+
+    // 標記選項顏色
+    q.opts.forEach(o=>{
+      const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));
+      if(!btn) return;
+      btn.disabled=true; btn.classList.remove("selected");
+      if(String(o)===String(q.ans)) btn.classList.add("correct");
+      else if(String(o)===String(chosen)&&!isCorrect) btn.classList.add("wrong");
+    });
+
+    // 回饋訊息
+    const fb=document.getElementById("fb-"+q.id);
+    const card=document.getElementById("qcard-"+q.id);
+    if(isCorrect){
+      if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}
+      if(card) card.className="qcard answered-correct";
+    } else if(chosen!==undefined) {
+      if(fb){fb.className="feedback ng show";fb.textContent=`❌ 答錯了。正確答案是 ${q.ans}`;}
+      if(card) card.className="qcard answered-wrong";
+    } else {
+      if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}
+      if(card) card.className="qcard answered-wrong";
+    }
+  });
+
+  // 顯示分數橫幅
+  const total=qs.length;
+  const pct=Math.round(correct/total*100);
+  const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
+  const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
+  const banner=document.getElementById("resultBanner");
+  if(banner){
+    banner.innerHTML=`<div class="result-emoji">${emoji}</div>
+      <div class="result-score">${correct} / ${total}</div>
+      <div class="result-label">${msg}（答對率 ${pct}%）</div>`;
+    banner.classList.add("show");
+    banner.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  // 隱藏送出按鈕
+  const bar=document.getElementById("submitBar");
+  if(bar) bar.style.display="none";
+  updateProgress();
+}
+
+function answer(){} // 保留舊函式名避免錯誤
 
 function restoreAnswer(qid, correctAns, correct){
   const optsDiv=document.getElementById("opts-"+qid);
@@ -586,6 +697,9 @@ function sayResult(t){
 
 // ── 初始化 ───────────────────────────────────────────────
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
+// 在 feed 前插入分數橫幅
+document.getElementById("feed").insertAdjacentHTML("beforebegin",
+  '<div class="result-banner" id="resultBanner"></div>');
 buildDateBar();
 buildFeed();
 updateProgress();

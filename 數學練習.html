@@ -110,16 +110,28 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .feedback.ok{background:#DCFCE7;color:#166534}
 .feedback.ng{background:#FEE2E2;color:#991B1B}
 
-/* ── 完成畫面 ── */
-.finish-card{background:var(--card);border-radius:20px;padding:32px 20px;
-  text-align:center;border:2px solid var(--border);margin:16px}
-.finish-emoji{font-size:56px;margin-bottom:12px}
-.finish-score{font-family:"Nunito";font-size:48px;font-weight:900;color:var(--add)}
-.finish-msg{font-size:16px;font-weight:700;color:var(--soft);margin-top:8px}
-.retry-btn{background:var(--add);color:#fff;border:none;border-radius:20px;
-  padding:12px 28px;font-family:"Nunito";font-size:16px;font-weight:800;
-  cursor:pointer;margin-top:20px;transition:opacity .15s}
-.retry-btn:hover{opacity:.85}
+
+/* ── 時鐘 SVG ── */
+.clock-wrap{text-align:center;margin:4px 0 10px}
+/* 選擇後（送出前）的狀態 */
+.opt.selected{border-color:var(--add)!important;background:#EFF6FF!important;color:var(--add)!important}
+/* 送出按鈕列 */
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
+  backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:12px 16px;z-index:30}
+.submit-btn{display:block;width:100%;max-width:600px;margin:0 auto;
+  background:var(--app);color:#fff;border:none;border-radius:20px;
+  padding:14px;font-family:"Nunito";font-size:18px;font-weight:900;
+  cursor:pointer;transition:opacity .15s}
+.submit-btn:hover{opacity:.85}
+.submit-btn:disabled{background:#9CA3AF;cursor:default}
+/* 分數結果橫幅 */
+.result-banner{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);
+  border-radius:20px;padding:24px 16px;text-align:center;margin-bottom:16px;
+  border:2px solid #6EE7B7;display:none}
+.result-banner.show{display:block}
+.result-emoji{font-size:40px;margin-bottom:6px}
+.result-score{font-family:"Nunito";font-size:56px;font-weight:900;color:#065F46}
+.result-label{font-size:15px;font-weight:700;color:#065F46;margin-top:4px}
 </style>
 </head>
 <body>
@@ -148,12 +160,47 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 
 <div class="feed" id="feed"></div>
 
+<!-- 送出按鈕 -->
+<div class="submit-bar" id="submitBar">
+  <button class="submit-btn" id="submitBtn" onclick="submitAnswers()">📝 送出答案</button>
+</div>
+
 <script>
-const ALL_DATA = {"2026-06-07": [{"id": 1, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [16, 19, 17, 18], "exp": ""}, {"id": 40, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [19, 16, 17, 18], "exp": ""}, {"id": 45, "cat": "減法", "lv": "基礎", "q": "2 - 2 = ?", "q_zh": "二 減 二 等於多少？", "ans": 0, "opts": [0, 2, 1, 3], "exp": ""}, {"id": 52, "cat": "減法", "lv": "基礎", "q": "4 - 1 = ?", "q_zh": "四 減 一 等於多少？", "ans": 3, "opts": [3, 5, 4, 2], "exp": ""}, {"id": 149, "cat": "加法", "lv": "兩位數", "q": "67 + 2 = ?", "q_zh": "六十七 加 二 等於多少？", "ans": 69, "opts": [71, 69, 68, 70], "exp": ""}, {"id": 204, "cat": "減法", "lv": "兩位數", "q": "66 - 5 = ?", "q_zh": "六十六 減 五 等於多少？", "ans": 61, "opts": [63, 62, 60, 61], "exp": ""}, {"id": 212, "cat": "減法", "lv": "兩位數", "q": "84 - 3 = ?", "q_zh": "八十四 減 三 等於多少？", "ans": 81, "opts": [81, 83, 82, 80], "exp": ""}, {"id": 279, "cat": "加法", "lv": "進階", "q": "35 + 18 = ?", "q_zh": "三十五 加 十八 等於多少？", "ans": 53, "opts": [53, 55, 54, 52], "exp": ""}, {"id": 332, "cat": "比大小", "lv": "比較", "q": "47  和  62，哪個說法正確？", "q_zh": "四十七 和 六十二 比較，哪個說法正確？", "ans": "47 ＜ 62", "opts": ["47 ＜ 62", "62 ＜ 47", "47 ＝ 62", "62 ＞ 47"], "exp": "正確答案是 47 ＜ 62"}, {"id": 341, "cat": "比大小", "lv": "比較", "q": "79  和  16，哪個說法正確？", "q_zh": "七十九 和 十六 比較，哪個說法正確？", "ans": "79 ＞ 16", "opts": ["79 ＞ 16", "16 ＞ 79", "79 ＝ 16", "16 ＜ 79"], "exp": "正確答案是 79 ＞ 16"}, {"id": 344, "cat": "比大小", "lv": "比較", "q": "55  和  99，哪個說法正確？", "q_zh": "五十五 和 九十九 比較，哪個說法正確？", "ans": "55 ＜ 99", "opts": ["99 ＜ 55", "55 ＜ 99", "99 ＞ 55", "55 ＝ 99"], "exp": "正確答案是 55 ＜ 99"}, {"id": 374, "cat": "比大小", "lv": "比較", "q": "90  和  22，哪個說法正確？", "q_zh": "九十 和 二十二 比較，哪個說法正確？", "ans": "90 ＞ 22", "opts": ["22 ＜ 90", "90 ＞ 22", "22 ＞ 90", "90 ＝ 22"], "exp": "正確答案是 90 ＞ 22"}, {"id": 384, "cat": "數序", "lv": "數序", "q": "29 , 39 , 49 , __ , 69", "q_zh": "二十九、三十九、四十九、空格、六十九，空格填什麼？", "ans": 59, "opts": [61, 58, 59, 60], "exp": ""}, {"id": 389, "cat": "數序", "lv": "數序", "q": "68 , __ , 78 , 83 , 88", "q_zh": "六十八、空格、七十八、八十三、八十八，空格填什麼？", "ans": 73, "opts": [74, 75, 73, 72], "exp": ""}, {"id": 423, "cat": "數序", "lv": "數序", "q": "39 , 40 , 41 , 42 , __", "q_zh": "三十九、四十、四十一、四十二、空格，空格填什麼？", "ans": 43, "opts": [42, 43, 44, 45], "exp": ""}, {"id": 424, "cat": "數序", "lv": "數序", "q": "47 , 49 , 51 , 53 , __", "q_zh": "四十七、四十九、五十一、五十三、空格，空格填什麼？", "ans": 55, "opts": [55, 56, 57, 54], "exp": ""}, {"id": 433, "cat": "應用題", "lv": "加法", "q": "書架上有 18 本書，又加上 6 本，一共有幾本？", "q_zh": "書架上有 十八 本書，又加上 六 本，一共有幾本？", "ans": 24, "opts": [24, 23, 26, 25], "exp": ""}, {"id": 434, "cat": "應用題", "lv": "加法", "q": "花園裡有 14 朵紅花和 3 朵黃花，共有幾朵花？", "q_zh": "花園裡有 十四 朵紅花和 三 朵黃花，共有幾朵花？", "ans": 17, "opts": [17, 16, 19, 18], "exp": ""}, {"id": 442, "cat": "應用題", "lv": "加法", "q": "書架上有 18 本書，又加上 7 本，一共有幾本？", "q_zh": "書架上有 十八 本書，又加上 七 本，一共有幾本？", "ans": 25, "opts": [27, 24, 26, 25], "exp": ""}, {"id": 459, "cat": "應用題", "lv": "減法", "q": "樹上有 48 隻鳥，飛走了 34 隻，剩幾隻？", "q_zh": "樹上有 四十八 隻鳥，飛走了 三十四 隻，剩幾隻？", "ans": 14, "opts": [16, 13, 15, 14], "exp": ""}, {"id": 466, "cat": "應用題", "lv": "減法", "q": "盒子裡有 27 顆糖，吃了 14 顆，還剩幾顆？", "q_zh": "盒子裡有 二十七 顆糖，吃了 十四 顆，還剩幾顆？", "ans": 13, "opts": [15, 14, 12, 13], "exp": ""}, {"id": 467, "cat": "應用題", "lv": "減法", "q": "班上有 23 位同學，有 17 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十三 位同學，有 十七 位請假，今天有幾位同學上課？", "ans": 6, "opts": [5, 7, 6, 8], "exp": ""}, {"id": 469, "cat": "應用題", "lv": "減法", "q": "冰箱裡有 43 顆雞蛋，用掉 30 顆，還剩幾顆？", "q_zh": "冰箱裡有 四十三 顆雞蛋，用掉 三十 顆，還剩幾顆？", "ans": 13, "opts": [14, 15, 13, 12], "exp": ""}, {"id": 470, "cat": "應用題", "lv": "減法", "q": "小花有 32 元，買了 5 元的糖果，還剩幾元？", "q_zh": "小花有 三十二 元，買了 五 元的糖果，還剩幾元？", "ans": 27, "opts": [29, 28, 26, 27], "exp": ""}, {"id": 478, "cat": "應用題", "lv": "減法", "q": "班上有 25 位同學，有 12 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十五 位同學，有 十二 位請假，今天有幾位同學上課？", "ans": 13, "opts": [13, 15, 12, 14], "exp": ""}, {"id": 480, "cat": "應用題", "lv": "減法", "q": "盒子裡有 28 顆糖，吃了 6 顆，還剩幾顆？", "q_zh": "盒子裡有 二十八 顆糖，吃了 六 顆，還剩幾顆？", "ans": 22, "opts": [22, 24, 23, 21], "exp": ""}, {"id": 483, "cat": "時間", "lv": "時間", "q": "時鐘顯示 4 點整，是幾點？", "q_zh": "時鐘顯示 四 點整，是幾點？", "ans": "4點整", "opts": ["12點整", "2點整", "1點整", "4點整"], "exp": "答案是 4點整"}, {"id": 486, "cat": "時間", "lv": "時間", "q": "時鐘顯示 5 點 30 分，是幾點？", "q_zh": "時鐘顯示 五 點三十分，是幾點？", "ans": "5點30分", "opts": ["2點30分", "5點30分", "8點30分", "4點30分"], "exp": "答案是 5點30分"}, {"id": 492, "cat": "時間", "lv": "時間", "q": "時鐘顯示 12 點 30 分，是幾點？", "q_zh": "時鐘顯示 十二 點三十分，是幾點？", "ans": "12點30分", "opts": ["3點30分", "12點30分", "2點30分", "9點30分"], "exp": "答案是 12點30分"}, {"id": 498, "cat": "時間", "lv": "時間", "q": "時鐘顯示 10 點 30 分，是幾點？", "q_zh": "時鐘顯示 十 點三十分，是幾點？", "ans": "10點30分", "opts": ["10點30分", "11點30分", "7點30分", "8點30分"], "exp": "答案是 10點30分"}]};
+const ALL_DATA = {"2026-06-07": [{"id": 1, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [16, 19, 17, 18], "exp": ""}, {"id": 40, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [19, 16, 17, 18], "exp": ""}, {"id": 45, "cat": "減法", "lv": "基礎", "q": "2 - 2 = ?", "q_zh": "二 減 二 等於多少？", "ans": 0, "opts": [0, 2, 1, 3], "exp": ""}, {"id": 52, "cat": "減法", "lv": "基礎", "q": "4 - 1 = ?", "q_zh": "四 減 一 等於多少？", "ans": 3, "opts": [3, 5, 4, 2], "exp": ""}, {"id": 149, "cat": "加法", "lv": "兩位數", "q": "67 + 2 = ?", "q_zh": "六十七 加 二 等於多少？", "ans": 69, "opts": [71, 69, 68, 70], "exp": ""}, {"id": 204, "cat": "減法", "lv": "兩位數", "q": "66 - 5 = ?", "q_zh": "六十六 減 五 等於多少？", "ans": 61, "opts": [63, 62, 60, 61], "exp": ""}, {"id": 212, "cat": "減法", "lv": "兩位數", "q": "84 - 3 = ?", "q_zh": "八十四 減 三 等於多少？", "ans": 81, "opts": [81, 83, 82, 80], "exp": ""}, {"id": 279, "cat": "加法", "lv": "進階", "q": "35 + 18 = ?", "q_zh": "三十五 加 十八 等於多少？", "ans": 53, "opts": [53, 55, 54, 52], "exp": ""}, {"id": 332, "cat": "比大小", "lv": "比較", "q": "47  和  62，哪個說法正確？", "q_zh": "四十七 和 六十二 比較，哪個說法正確？", "ans": "47 ＜ 62", "opts": ["47 ＜ 62", "47 ＝ 62", "62 ＜ 47", "62 ＞ 47"], "exp": "正確答案是 47 ＜ 62"}, {"id": 341, "cat": "比大小", "lv": "比較", "q": "79  和  16，哪個說法正確？", "q_zh": "七十九 和 十六 比較，哪個說法正確？", "ans": "79 ＞ 16", "opts": ["79 ＞ 16", "79 ＝ 16", "16 ＞ 79", "16 ＜ 79"], "exp": "正確答案是 79 ＞ 16"}, {"id": 344, "cat": "比大小", "lv": "比較", "q": "55  和  99，哪個說法正確？", "q_zh": "五十五 和 九十九 比較，哪個說法正確？", "ans": "55 ＜ 99", "opts": ["55 ＝ 99", "55 ＜ 99", "99 ＞ 55", "99 ＜ 55"], "exp": "正確答案是 55 ＜ 99"}, {"id": 374, "cat": "比大小", "lv": "比較", "q": "90  和  22，哪個說法正確？", "q_zh": "九十 和 二十二 比較，哪個說法正確？", "ans": "90 ＞ 22", "opts": ["22 ＜ 90", "90 ＞ 22", "90 ＝ 22", "22 ＞ 90"], "exp": "正確答案是 90 ＞ 22"}, {"id": 384, "cat": "數序", "lv": "數序", "q": "29 , 39 , 49 , __ , 69", "q_zh": "二十九、三十九、四十九、空格、六十九，空格填什麼？", "ans": 59, "opts": [61, 58, 59, 60], "exp": ""}, {"id": 389, "cat": "數序", "lv": "數序", "q": "68 , __ , 78 , 83 , 88", "q_zh": "六十八、空格、七十八、八十三、八十八，空格填什麼？", "ans": 73, "opts": [74, 75, 73, 72], "exp": ""}, {"id": 423, "cat": "數序", "lv": "數序", "q": "39 , 40 , 41 , 42 , __", "q_zh": "三十九、四十、四十一、四十二、空格，空格填什麼？", "ans": 43, "opts": [42, 43, 44, 45], "exp": ""}, {"id": 424, "cat": "數序", "lv": "數序", "q": "47 , 49 , 51 , 53 , __", "q_zh": "四十七、四十九、五十一、五十三、空格，空格填什麼？", "ans": 55, "opts": [55, 56, 57, 54], "exp": ""}, {"id": 433, "cat": "應用題", "lv": "加法", "q": "書架上有 18 本書，又加上 6 本，一共有幾本？", "q_zh": "書架上有 十八 本書，又加上 六 本，一共有幾本？", "ans": 24, "opts": [24, 23, 26, 25], "exp": ""}, {"id": 434, "cat": "應用題", "lv": "加法", "q": "花園裡有 14 朵紅花和 3 朵黃花，共有幾朵花？", "q_zh": "花園裡有 十四 朵紅花和 三 朵黃花，共有幾朵花？", "ans": 17, "opts": [17, 16, 19, 18], "exp": ""}, {"id": 442, "cat": "應用題", "lv": "加法", "q": "書架上有 18 本書，又加上 7 本，一共有幾本？", "q_zh": "書架上有 十八 本書，又加上 七 本，一共有幾本？", "ans": 25, "opts": [27, 24, 26, 25], "exp": ""}, {"id": 459, "cat": "應用題", "lv": "減法", "q": "樹上有 48 隻鳥，飛走了 34 隻，剩幾隻？", "q_zh": "樹上有 四十八 隻鳥，飛走了 三十四 隻，剩幾隻？", "ans": 14, "opts": [16, 13, 15, 14], "exp": ""}, {"id": 466, "cat": "應用題", "lv": "減法", "q": "盒子裡有 27 顆糖，吃了 14 顆，還剩幾顆？", "q_zh": "盒子裡有 二十七 顆糖，吃了 十四 顆，還剩幾顆？", "ans": 13, "opts": [15, 14, 12, 13], "exp": ""}, {"id": 467, "cat": "應用題", "lv": "減法", "q": "班上有 23 位同學，有 17 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十三 位同學，有 十七 位請假，今天有幾位同學上課？", "ans": 6, "opts": [5, 7, 6, 8], "exp": ""}, {"id": 469, "cat": "應用題", "lv": "減法", "q": "冰箱裡有 43 顆雞蛋，用掉 30 顆，還剩幾顆？", "q_zh": "冰箱裡有 四十三 顆雞蛋，用掉 三十 顆，還剩幾顆？", "ans": 13, "opts": [14, 15, 13, 12], "exp": ""}, {"id": 470, "cat": "應用題", "lv": "減法", "q": "小花有 32 元，買了 5 元的糖果，還剩幾元？", "q_zh": "小花有 三十二 元，買了 五 元的糖果，還剩幾元？", "ans": 27, "opts": [29, 28, 26, 27], "exp": ""}, {"id": 478, "cat": "應用題", "lv": "減法", "q": "班上有 25 位同學，有 12 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十五 位同學，有 十二 位請假，今天有幾位同學上課？", "ans": 13, "opts": [13, 15, 12, 14], "exp": ""}, {"id": 480, "cat": "應用題", "lv": "減法", "q": "盒子裡有 28 顆糖，吃了 6 顆，還剩幾顆？", "q_zh": "盒子裡有 二十八 顆糖，吃了 六 顆，還剩幾顆？", "ans": 22, "opts": [22, 24, 23, 21], "exp": ""}, {"id": 483, "cat": "時間", "lv": "時間", "q_hour": 4, "q_minute": 0, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 四 點整，是幾點？", "ans": "4點整", "opts": ["12點整", "2點整", "1點整", "4點整"], "exp": "答案是 4點整"}, {"id": 486, "cat": "時間", "lv": "時間", "q_hour": 5, "q_minute": 30, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 五 點三十分，是幾點？", "ans": "5點30分", "opts": ["2點30分", "5點30分", "8點30分", "4點30分"], "exp": "答案是 5點30分"}, {"id": 492, "cat": "時間", "lv": "時間", "q_hour": 12, "q_minute": 30, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 十二 點三十分，是幾點？", "ans": "12點30分", "opts": ["3點30分", "12點30分", "2點30分", "9點30分"], "exp": "答案是 12點30分"}, {"id": 498, "cat": "時間", "lv": "時間", "q_hour": 10, "q_minute": 30, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 十 點三十分，是幾點？", "ans": "10點30分", "opts": ["10點30分", "11點30分", "7點30分", "8點30分"], "exp": "答案是 10點30分"}]};
 const ALL_DATES = Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
 let curDate = "全部";
-let answered = {};   // {qid: true/false}
-let scores   = {};   // {date: {total, correct}}
+let selections = {};  // {qid: 選擇的選項}
+let submitted  = false;
+let answered   = {};  // {qid: true/false} — 送出後才填
+
+// ── 時鐘 SVG ──────────────────────────────────────────────
+function clockSVG(hour, minute){
+  const cx=100,cy=100;
+  const rad=a=>a*Math.PI/180;
+  // 時針角度（12點=0°，順時針）
+  const hDeg=(hour%12)*30 + minute*0.5 - 90;
+  const mDeg=minute*6 - 90;
+  const hx=cx+48*Math.cos(rad(hDeg)), hy=cy+48*Math.sin(rad(hDeg));
+  const mx=cx+68*Math.cos(rad(mDeg)), my=cy+68*Math.sin(rad(mDeg));
+  // 刻度
+  const ticks=Array.from({length:60},(_,i)=>{
+    const a=rad(i*6-90), r1=i%5===0?76:82, r2=88;
+    return `<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}" x2="${(cx+r2*Math.cos(a)).toFixed(1)}" y2="${(cy+r2*Math.sin(a)).toFixed(1)}" stroke="${i%5===0?'#9CA3AF':'#E5E7EB'}" stroke-width="${i%5===0?2:1}"/>`;
+  }).join('');
+  // 數字
+  const nums=Array.from({length:12},(_,i)=>{
+    const a=rad((i+1)*30-90), x=cx+74*Math.cos(a), y=cy+74*Math.sin(a);
+    return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151" font-family="Nunito">${i+1}</text>`;
+  }).join('');
+  return `<svg width="200" height="200" viewBox="0 0 200 200" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,.12))">
+    <circle cx="100" cy="100" r="95" fill="#FFF9F0" stroke="#E5E7EB" stroke-width="3"/>
+    <circle cx="100" cy="100" r="88" fill="none" stroke="#F3F4F6" stroke-width="1"/>
+    ${ticks}${nums}
+    <line x1="100" y1="100" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="5" fill="#1F2937"/>
+  </svg>`;
+}
 
 function fmtDate(iso){
   const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||"");
@@ -171,7 +218,12 @@ function buildDateBar(){
   ).join("");
 }
 function setDate(d){
-  curDate=d; answered={}; buildDateBar(); buildFeed(); updateProgress();
+  curDate=d; selections={}; answered={}; submitted=false;
+  const bar=document.getElementById("submitBar");
+  if(bar) bar.style.display="";
+  const banner=document.getElementById("resultBanner");
+  if(banner) banner.classList.remove("show");
+  buildDateBar(); buildFeed(); updateProgress();
 }
 
 // ── 篩選後的題目 ─────────────────────────────────────────
@@ -188,12 +240,12 @@ function filteredQs(){
 function updateProgress(){
   const qs=filteredQs();
   const total=qs.length;
-  const done=Object.keys(answered).length;
+  const done=Object.keys(selections).length;
   const correct=Object.values(answered).filter(Boolean).length;
   const pct=total?Math.round((done/total)*100):0;
   document.getElementById("progBar").style.width=pct+"%";
   document.getElementById("progLabel").textContent=`${done} / ${total}`;
-  document.getElementById("scoreBadge").textContent=`⭐ ${correct} 分`;
+  document.getElementById("scoreBadge").textContent=submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
 }
 
 // ── TTS ──────────────────────────────────────────────────
@@ -221,20 +273,32 @@ function buildFeed(){
       const cnt=(ALL_DATA[q._date]||[]).length;
       html+=`<div class="date-hdr">${fmtDate(q._date)} · ${cnt} 題</div>`;
     }
-    const isWP=q.cat==="應用題"||q.cat==="時間";
+    const isWP=q.cat==="應用題";
     const isCmp=q.cat==="比大小";
+    const isClock=q.cat==="時間" && q.q_hour!=null;
     const optsClass=isCmp?"opts cmp":"opts";
     const qtextClass=isWP?"qtext word-problem":"qtext";
-    const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${o}"
-      onclick="answer(${q.id},'${q.ans}','${o}',${q.id})">${o}</button>`).join("");
+    // 時間題：顯示 SVG 時鐘；其他：顯示文字
+    const qDisplay = isClock
+      ? `<div class="clock-wrap">${clockSVG(q.q_hour, q.q_minute)}</div>
+         <div style="text-align:center;font-size:14px;color:var(--soft);margin-bottom:10px">時鐘顯示的是幾點？</div>`
+      : `<div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>`;
+    const sayText = isClock ? q.q_zh : q.q_zh||q.q;
+    const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
+      onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
+    // 只有應用題和時間題才顯示聽題目按鈕
+    const showSay = q.cat==="應用題" || q.cat==="時間";
+    const sayBtnHtml = showSay
+      ? `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
+      : '';
     html+=`
     <div class="qcard" id="qcard-${q.id}">
       <div class="qtop">
         <span class="qnum">第 ${i+1} 題</span>
         <span class="cat-badge ${q.cat}">${q.cat}</span>
       </div>
-      <div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>
-      <button class="say-btn" onclick="sayQ('${q.q_zh.replace(/'/g,"\\'")}')">🔊 聽題目</button>
+      ${qDisplay}
+      ${sayBtnHtml}
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
       <div class="feedback" id="fb-${q.id}"></div>
     </div>`;
@@ -248,34 +312,81 @@ function buildFeed(){
   });
 }
 
-function answer(qid, correctAns, chosen, cardId){
-  if(answered[qid]!==undefined) return; // 已作答
-  const correct = String(chosen) === String(correctAns);
-  answered[qid] = correct;
-
-  // 標記選項顏色
-  const optsDiv = document.getElementById("opts-"+qid);
-  optsDiv.querySelectorAll(".opt").forEach(btn=>{
-    btn.disabled=true;
-    const val=btn.id.replace("opt-"+qid+"-","");
-    if(val===String(correctAns)) btn.classList.add("correct");
-    else if(val===String(chosen)&&!correct) btn.classList.add("wrong");
+// ── 選擇選項（送出前只標記，不顯示對錯） ──────────────────
+function selectOpt(qid, chosen){
+  if(submitted) return;
+  if(selections[qid] !== undefined) return; // 已選過，不能更改
+  selections[qid] = String(chosen);
+  // 清除同題其他選項的 selected
+  const qs=filteredQs();
+  const q=qs.find(x=>x.id===qid); if(!q) return;
+  q.opts.forEach(o=>{
+    const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
+    if(btn) btn.classList.remove("selected");
   });
-
-  // 回饋訊息
-  const fb=document.getElementById("fb-"+qid);
-  const card=document.getElementById("qcard-"+qid);
-  if(correct){
-    fb.className="feedback ok show"; fb.textContent="✅ 答對了！真棒！";
-    card.className="qcard answered-correct";
-    sayResult("答對了！");
-  } else {
-    fb.className="feedback ng show"; fb.textContent=`❌ 答錯了。正確答案是 ${correctAns}`;
-    card.className="qcard answered-wrong";
-    sayResult("答錯了。");
-  }
+  const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(chosen)));
+  if(btn) btn.classList.add("selected");
   updateProgress();
 }
+
+// ── 送出答案，顯示全部對錯 + 總分 ────────────────────────
+function submitAnswers(){
+  if(submitted) return;
+  submitted=true;
+  const qs=filteredQs();
+  let correct=0;
+
+  qs.forEach(q=>{
+    const chosen=selections[q.id];
+    const isCorrect = chosen!==undefined && String(chosen)===String(q.ans);
+    answered[q.id]=isCorrect;
+    if(isCorrect) correct++;
+
+    // 標記選項顏色
+    q.opts.forEach(o=>{
+      const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));
+      if(!btn) return;
+      btn.disabled=true; btn.classList.remove("selected");
+      if(String(o)===String(q.ans)) btn.classList.add("correct");
+      else if(String(o)===String(chosen)&&!isCorrect) btn.classList.add("wrong");
+    });
+
+    // 回饋訊息
+    const fb=document.getElementById("fb-"+q.id);
+    const card=document.getElementById("qcard-"+q.id);
+    if(isCorrect){
+      if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}
+      if(card) card.className="qcard answered-correct";
+    } else if(chosen!==undefined) {
+      if(fb){fb.className="feedback ng show";fb.textContent=`❌ 答錯了。正確答案是 ${q.ans}`;}
+      if(card) card.className="qcard answered-wrong";
+    } else {
+      if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}
+      if(card) card.className="qcard answered-wrong";
+    }
+  });
+
+  // 顯示分數橫幅
+  const total=qs.length;
+  const pct=Math.round(correct/total*100);
+  const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
+  const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
+  const banner=document.getElementById("resultBanner");
+  if(banner){
+    banner.innerHTML=`<div class="result-emoji">${emoji}</div>
+      <div class="result-score">${correct} / ${total}</div>
+      <div class="result-label">${msg}（答對率 ${pct}%）</div>`;
+    banner.classList.add("show");
+    banner.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  // 隱藏送出按鈕
+  const bar=document.getElementById("submitBar");
+  if(bar) bar.style.display="none";
+  updateProgress();
+}
+
+function answer(){} // 保留舊函式名避免錯誤
 
 function restoreAnswer(qid, correctAns, correct){
   const optsDiv=document.getElementById("opts-"+qid);
@@ -304,6 +415,9 @@ function sayResult(t){
 
 // ── 初始化 ───────────────────────────────────────────────
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
+// 在 feed 前插入分數橫幅
+document.getElementById("feed").insertAdjacentHTML("beforebegin",
+  '<div class="result-banner" id="resultBanner"></div>');
 buildDateBar();
 buildFeed();
 updateProgress();
