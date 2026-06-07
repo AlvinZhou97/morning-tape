@@ -614,7 +614,7 @@ function buildFeed(){
     const optsClass=isCmp?"opts cmp":isWide?"opts wide":"opts";
     const optClass=isWide?"opt wide-opt":"opt";
     const sayText=isClock
-      ? `時鐘顯示${q.q_hour}點${q.q_minute===0?'整':q.q_minute+'分'}`
+      ? "時鐘顯示的是幾點幾分？"
       : q.q_zh||q.q;
     const qDisplay = isClock
       ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute)}</div>
