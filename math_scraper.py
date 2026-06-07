@@ -584,7 +584,7 @@ function buildFeed(){
       ? `<div class="clock-wrap">${clockSVG(q.q_hour, q.q_minute)}</div>
          <div style="text-align:center;font-size:14px;color:var(--soft);margin-bottom:10px">時鐘顯示的是幾點？</div>`
       : `<div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>`;
-    const sayText = isClock ? q.q_zh : q.q_zh||q.q;
+    const sayText = isClock ? "時鐘顯示的是幾點？" : q.q_zh||q.q;
     const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
       onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
     // 所有題目都顯示聽題目按鈕
