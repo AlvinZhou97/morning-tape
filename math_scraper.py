@@ -620,7 +620,7 @@ function buildFeed(){
       ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute)}</div>
          <div style="text-align:center;font-size:13px;color:var(--soft);margin-bottom:8px">時鐘顯示的是幾點？</div>`
       : `<div class="${qClass}">${q.q}</div>`;
-      onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')"> ${o} </button>`).join("");
+    const opts=q.opts.map((o,j)=>`<button class="${optClass}" id="opt-${q.id}-${j}" onclick="selectOpt(${q.id},${j})">${o}</button>`).join("");
     html+=`
     <div class="qcard" id="qcard-${q.id}">
       <div class="qtop">
@@ -638,8 +638,8 @@ function buildFeed(){
     const qid=parseInt(qidStr);
     const q=qs.find(x=>x.id===qid); if(!q)return;
     const isCorrect=answered[qid];
-    q.opts.forEach(o=>{
-      const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
+    q.opts.forEach((o,j)=>{
+      const btn=document.getElementById("opt-"+qid+"-"+j);
       if(!btn)return; btn.disabled=true;
       if(isCorrect&&String(o)===String(q.ans))btn.classList.add("correct");
       else if(!isCorrect&&String(o)===String(chosen))btn.classList.add("wrong");
@@ -650,16 +650,17 @@ function buildFeed(){
     else{if(fb)fb.className="feedback ng show",fb.textContent="❌ 答錯了！";if(card)card.className="qcard answered-wrong";}
   });
 }
-function selectOpt(qid,chosen){
+function selectOpt(qid, optIdx){
   if(submitted)return;
   if(selections[qid]!==undefined)return;
-  selections[qid]=String(chosen);
   const qs=filteredQs();
   const q=qs.find(x=>x.id===qid); if(!q)return;
+  const chosen=String(q.opts[optIdx]);
+  selections[qid]=chosen;
   const isCorrect=String(chosen)===String(q.ans);
   answered[qid]=isCorrect;
-  q.opts.forEach(o=>{
-    const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
+  q.opts.forEach((o,j)=>{
+    const btn=document.getElementById("opt-"+qid+"-"+j);
     if(!btn)return; btn.disabled=true;
     if(isCorrect&&String(o)===String(q.ans))btn.classList.add("correct");
     else if(!isCorrect&&String(o)===String(chosen))btn.classList.add("wrong");
@@ -688,7 +689,7 @@ function submitAnswers(){
   qs.forEach(q=>{
     if(selections[q.id]===undefined){
       answered[q.id]=false;
-      q.opts.forEach(o=>{const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));if(!btn)return;btn.disabled=true;if(String(o)===String(q.ans))btn.classList.add("correct");});
+      q.opts.forEach((o,j)=>{const btn=document.getElementById("opt-"+q.id+"-"+j);if(!btn)return;btn.disabled=true;if(String(o)===String(q.ans))btn.classList.add("correct");});
       const fb=document.getElementById("fb-"+q.id);const card=document.getElementById("qcard-"+q.id);
       if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}if(card)card.className="qcard answered-wrong";
     }
