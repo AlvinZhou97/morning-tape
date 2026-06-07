@@ -76,31 +76,53 @@ def gen_pool():
         add("50以內的數",q,q_zh,ans,make_opts(ans,max(1,ans-10),min(50,ans+10),4,rng),
             f"每次增加{step}，空格是{ans}")
 
-    # ── 2. 18以內加法（65題，70%為進位題 和>10）──────────────
-    # 進位題：至少一個加數>=2，且和>10
-    for _ in range(45):  # 進位題 45題
+    # ── 2. 18以內加法（65題：進位35＋填空20＋基礎10）──────────
+    # A. 進位題 35題（和>10）
+    for _ in range(35):
         while True:
             a=rng.randint(2,9); b=rng.randint(2,9)
             if a+b>10 and a+b<=18: break
         ans=a+b
         add("18內加法",f"{a} + {b} = ?",
             f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,8,18,4,rng), f"{a}+{b}={ans}（進位加法）")
-    # 不進位題：和≤10
-    for _ in range(20):  # 基礎題 20題
+            ans, make_opts(ans,max(8,ans-3),18,4,rng), f"{a}+{b}={ans}")
+    # B. 填空題 20題（□ + b = sum，逆向思考）
+    for _ in range(20):
+        while True:
+            a=rng.randint(2,9); b=rng.randint(2,9)
+            if a+b>=10 and a+b<=18: break
+        ans_val=a; total=a+b
+        add("18內加法",f"□ + {b} = {total}",
+            f"空格加{num_zh(b)}等於{num_zh(total)}，空格是幾？",
+            ans_val, make_opts(ans_val,1,9,4,rng), f"{total}-{b}={ans_val}")
+    # C. 基礎題 10題（和≤10）
+    for _ in range(10):
         a=rng.randint(1,9); b=rng.randint(1,10-a)
         ans=a+b
         add("18內加法",f"{a} + {b} = ?",
             f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
             ans, make_opts(ans,1,10,4,rng), f"{a}+{b}={ans}")
 
-    # ── 3. 18以內減法（65題）──────────────────────────────────
-    for _ in range(65):
-        a=rng.randint(2,18); b=rng.randint(1,min(a-1,9))
-        ans=a-b
+    # ── 3. 18以內減法（65題：基礎25＋大數20＋填空20）────────
+    # A. 基礎（b最多9，a=10~18，含借位）25題
+    for _ in range(25):
+        a=rng.randint(10,18); b=rng.randint(3,min(a-1,9)); ans=a-b
         add("18內減法",f"{a} - {b} = ?",
             f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
-            ans, make_opts(ans,0,17,4,rng), f"{a}-{b}={ans}")
+            ans, make_opts(ans,1,15,4,rng), f"{a}-{b}={ans}")
+    # B. 大數減法（a=11~18，結果也較大）20題
+    for _ in range(20):
+        b=rng.randint(2,8); ans=rng.randint(4,10); a=ans+b
+        if a>18: a,ans=18,18-b
+        add("18內減法",f"{a} - {b} = ?",
+            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans, make_opts(ans,max(1,ans-3),min(15,ans+3),4,rng), f"{a}-{b}={ans}")
+    # C. 填空題（a - □ = remain）20題
+    for _ in range(20):
+        a=rng.randint(10,18); ans_val=rng.randint(3,a-3); b=a-ans_val
+        add("18內減法",f"{a} - □ = {ans_val}",
+            f"{num_zh(a)}減空格等於{num_zh(ans_val)}，空格是幾？",
+            b, make_opts(b,1,9,4,rng), f"{a}-{ans_val}={b}")
 
     # ── 4. 圖形與分類（60題）──────────────────────────────────
     shape_pool = [
@@ -254,38 +276,55 @@ def gen_pool():
     for q,q_zh,ans,opts,exp in coins_q[:60]:
         add("錢幣",q,q_zh,ans,opts,exp)
 
-    # ── 7. 二位數的加減（65題）────────────────────────────────
-    # 二位數+一位數（不進位）20題
-    for _ in range(20):
-        t=rng.randint(1,9)*10; o=rng.randint(0,8)
-        b=rng.randint(1,9-o)
-        a=t+o; ans=a+b
+    # ── 7. 二位數的加減（65題，加入兩位數±兩位數）────────────
+    # A. 二位數+一位數（不進位）12題
+    for _ in range(12):
+        t=rng.randint(1,8)*10; o=rng.randint(0,7)
+        b=rng.randint(1,9-o); a=t+o; ans=a+b
         add("二位數加減",f"{a} + {b} = ?",
             f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
-            ans,make_opts(ans,max(0,ans-8),min(99,ans+8),4,rng),f"{a}+{b}={ans}")
-    # 二位數+整十數 15題
-    for _ in range(15):
-        a=rng.randint(11,60); b=rng.choice([10,20,30])
+            ans,make_opts(ans,max(10,ans-8),min(99,ans+8),4,rng),f"{a}+{b}={ans}")
+    # B. 二位數-一位數（不借位）12題
+    for _ in range(12):
+        t=rng.randint(1,9)*10; o=rng.randint(2,9); b=rng.randint(1,o)
+        a=t+o; ans=a-b
+        add("二位數加減",f"{a} - {b} = ?",
+            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(10,ans-8),min(99,ans+8),4,rng),f"{a}-{b}={ans}")
+    # C. 二位數+整十數 10題
+    for _ in range(10):
+        a=rng.randint(11,55); b=rng.choice([10,20,30,40])
         ans=a+b
         if ans>99: continue
         add("二位數加減",f"{a} + {b} = ?",
             f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
-            ans,make_opts(ans,max(0,ans-15),min(99,ans+15),4,rng),f"{a}+{b}={ans}")
-    # 二位數-一位數（不借位）20題
-    for _ in range(20):
-        t=rng.randint(1,9)*10; o=rng.randint(1,9); b=rng.randint(1,o)
-        a=t+o; ans=a-b
-        add("二位數加減",f"{a} - {b} = ?",
-            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
-            ans,make_opts(ans,max(0,ans-8),min(99,ans+8),4,rng),f"{a}-{b}={ans}")
-    # 二位數-整十數 10題
+            ans,make_opts(ans,max(10,ans-12),min(99,ans+12),4,rng),f"{a}+{b}={ans}")
+    # D. 二位數-整十數 10題
     for _ in range(10):
-        a=rng.randint(30,90); b=rng.choice([10,20,30])
+        a=rng.randint(40,90); b=rng.choice([10,20,30,40])
         ans=a-b
         if ans<0: continue
         add("二位數加減",f"{a} - {b} = ?",
             f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
-            ans,make_opts(ans,max(0,ans-15),min(99,ans+15),4,rng),f"{a}-{b}={ans}")
+            ans,make_opts(ans,max(0,ans-12),min(89,ans+12),4,rng),f"{a}-{b}={ans}")
+    # E. ★新增★ 二位數+二位數（不進位）11題
+    for _ in range(11):
+        t1=rng.randint(1,6)*10; o1=rng.randint(1,8)
+        t2=rng.randint(1,3)*10; o2=rng.randint(0,9-o1)
+        a=t1+o1; b=t2+o2; ans=a+b
+        if ans>99: continue
+        add("二位數加減",f"{a} + {b} = ?",
+            f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(10,ans-12),min(99,ans+12),4,rng),f"{a}+{b}={ans}（兩位數加兩位數）")
+    # F. ★新增★ 二位數-二位數（不借位）10題
+    for _ in range(10):
+        t1=rng.randint(3,9)*10; o1=rng.randint(3,9)
+        t2=rng.randint(1,t1//10-1)*10; o2=rng.randint(0,o1)
+        a=t1+o1; b=t2+o2; ans=a-b
+        if ans<=0: continue
+        add("二位數加減",f"{a} - {b} = ?",
+            f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
+            ans,make_opts(ans,max(1,ans-12),min(89,ans+12),4,rng),f"{a}-{b}={ans}（兩位數減兩位數）")
 
     # ── 8. 幾月幾日星期幾（60題）────────────────────────────────
     month_days = {1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
@@ -508,22 +547,28 @@ def gen_pool():
         o=robj(); q_fn=rng.choice(G_tmpl); q,ans,exp=q_fn(a,b,o)
         add("應用題",q,q,ans,make_opts(ans,1,10,4,rng),exp)
 
-    # ── H. 二位數應用題（大數字情境）────────────────────────
+    # ── H. 二位數應用題（大數字，數字範圍提升）────────────────
     H_tmpl = [
         lambda a,b,o: (f"停車場有{a}輛車，又來了{b}輛，現在共有幾輛？", a+b, f"{a}+{b}={a+b}"),
-        lambda a,b,o: (f"學校有{a}位學生，轉來{b}位新生，現在共有幾位學生？", a+b, f"{a}+{b}={a+b}"),
-        lambda a,b,o: (f"圖書館有{a}本書，又買了{b}本，共有幾本書？", a+b, f"{a}+{b}={a+b}"),
-        lambda a,b,o: (f"工廠有{a}件商品，賣出{b}件，還剩幾件？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"學校有{a}位學生，轉來{b}位新生，現在共有幾位？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"圖書館有{a}本書，又買了{b}本，共有幾本？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"操場有{a}人，又跑來{b}人，現在有幾人？", a+b, f"{a}+{b}={a+b}"),
+        lambda a,b,o: (f"工廠生產{a}件商品，賣掉{b}件，還剩幾件？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"遊樂場有{a}人，離開{b}人，還剩幾人？", a-b, f"{a}-{b}={a-b}"),
         lambda a,b,o: (f"農場有{a}隻動物，賣掉{b}隻，還剩幾隻？", a-b, f"{a}-{b}={a-b}"),
+        lambda a,b,o: (f"倉庫有{a}箱貨物，搬走{b}箱，還剩幾箱？", a-b, f"{a}-{b}={a-b}"),
     ]
-    for _ in range(8):
-        q_fn=rng.choice(H_tmpl[:3])  # 加法
-        a=rng.randint(20,60); b=rng.randint(5,30)
+    for _ in range(5):  # 大數加法
+        q_fn=rng.choice(H_tmpl[:4])
+        a=rng.randint(30,70); b=rng.randint(10,30)
+        while a+b>99: b=rng.randint(5,20)
         o=robj(); q,ans,exp=q_fn(a,b,o)
-        add("應用題",q,q,ans,make_opts(ans,max(5,ans-15),min(99,ans+15),4,rng),exp)
-    for _ in range(0):
-        pass  # 減法留給下面
+        add("應用題",q,q,ans,make_opts(ans,max(10,ans-15),min(99,ans+15),4,rng),exp)
+    for _ in range(5):  # 大數減法
+        q_fn=rng.choice(H_tmpl[4:])
+        a=rng.randint(40,90); b=rng.randint(10,a-10)
+        o=robj(); q,ans,exp=q_fn(a,b,o)
+        add("應用題",q,q,ans,make_opts(ans,max(5,ans-15),min(85,ans+15),4,rng),exp)
 
     # ── 12. 動畫題（5種題型，60題，每天6題）──────────────────
     AE = ["🍎","🌸","⭐","🐱","🐶","🦋","🎈","🐥","🍓","🎵",
