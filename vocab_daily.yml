@@ -2,7 +2,7 @@ name: 英文單字日報自動生成
 
 on:
   schedule:
-    - cron: '0 23 * * *'   # 台灣時間早上 07:00
+    - cron: '0 22 * * *'   # 台灣時間早上 06:00
   workflow_dispatch:
 
 env:
@@ -16,23 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
       - name: 安裝依賴
-        run: |
-          pip install --upgrade pip
-          pip install deep-translator
-          python -c "import deep_translator; print('✓ 依賴確認正常')"
-
-      - name: 執行爬蟲
+        run: pip install deep-translator requests
+      - name: 執行單字生成
         run: python vocab_scraper.py
-
       - name: 推送更新
         run: |
-          git config user.name "單字機器人"
+          git config user.name "英文學習機器人"
           git config user.email "bot@bot.local"
           git add 英文單字.html vocab_history.json
           git diff --staged --quiet || git commit -m "📚 $(date '+%Y/%m/%d') 單字更新"
