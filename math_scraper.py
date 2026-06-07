@@ -882,12 +882,37 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .play-btn:hover{opacity:.85}
 .cat-badge.c10{background:#F3E8FF;color:#6D28D9}
 .cat-badge.c11{background:#ECFDF5;color:#065F46}
-.cat-badge.c_anim{background:#FEF3C7;color:#B45309}position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
-  backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:11px 16px;z-index:30}
-.submit-btn{display:block;width:100%;max-width:600px;margin:0 auto;
-  background:var(--app);color:#fff;border:none;border-radius:20px;padding:13px;
-  font-family:"Nunito";font-size:17px;font-weight:900;cursor:pointer;transition:opacity .15s}
-.submit-btn:hover{opacity:.85}
+.cat-badge.c_anim{background:#FEF3C7;color:#B45309}
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.96);
+  backdrop-filter:blur(12px);border-top:2px solid var(--border);padding:12px 16px 16px;z-index:30}
+.submit-btn{display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:560px;margin:0 auto;
+  background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;
+  border-radius:28px;padding:17px 24px;font-family:"Nunito";font-size:20px;
+  font-weight:900;letter-spacing:.03em;cursor:pointer;
+  box-shadow:0 6px 24px rgba(16,185,129,.45);transition:transform .15s,box-shadow .15s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(16,185,129,.5)}
+.submit-btn:active{transform:translateY(1px);box-shadow:0 3px 12px rgba(16,185,129,.35)}
+.sub-count{font-size:13px;font-weight:700;opacity:.85;
+  background:rgba(255,255,255,.2);border-radius:20px;padding:2px 10px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-card{background:#fff;border-radius:24px;padding:28px 22px;max-width:320px;
+  width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);
+  animation:modalIn .25s ease-out}
+@keyframes modalIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
+.modal-emoji{font-size:48px;margin-bottom:10px}
+.modal-title{font-family:"Nunito";font-size:20px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.modal-body{font-size:14px;color:var(--soft);line-height:1.65;margin-bottom:22px}
+.modal-date{font-weight:800;color:var(--add)}
+.modal-btns{display:flex;gap:10px}
+.modal-btn{flex:1;padding:14px 8px;border-radius:16px;border:none;
+  font-family:"Nunito";font-size:15px;font-weight:800;cursor:pointer;transition:.15s}
+.modal-btn.no{background:#F3F4F6;color:var(--soft)}
+.modal-btn.no:hover{background:#E5E7EB}
+.modal-btn.yes{background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;
+  box-shadow:0 4px 16px rgba(59,130,246,.4)}
 
 /* 結果橫幅 */
 .result-banner{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-radius:20px;
@@ -935,8 +960,26 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
   </div>
 </div>
 <div class="feed" id="feed"></div>
+
+<!-- 更新提示 Modal -->
+<div class="modal-overlay" id="updateModal">
+  <div class="modal-card">
+    <div class="modal-emoji">🆕</div>
+    <div class="modal-title">有新題目！</div>
+    <div class="modal-body">今天（<span class="modal-date" id="newDateLabel"></span>）的題目已更新，要切換到最新題目嗎？</div>
+    <div class="modal-btns">
+      <button class="modal-btn no" id="btnNo">先不要</button>
+      <button class="modal-btn yes" id="btnYes">✅ 好，換新題！</button>
+    </div>
+  </div>
+</div>
+
+<!-- 送出按鈕 -->
 <div class="submit-bar" id="submitBar">
-  <button class="submit-btn" onclick="submitAnswers()">📝 送出答案</button>
+  <button class="submit-btn" onclick="submitAnswers()">
+    📝 送出答案
+    <span class="sub-count" id="subCount"></span>
+  </button>
 </div>
 <script>
 const ALL_DATA=__ALL_DATA_JSON__;
@@ -1055,6 +1098,8 @@ function updateProgress(){
   document.getElementById("progLabel").textContent=`${done} / ${total}`;
   document.getElementById("scoreBadge").textContent=
     submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
+  const sc=document.getElementById("subCount");
+  if(sc) sc.textContent=submitted?'':`${done}/${total}`;
 }
 function clockSVG(hour, minute, qid){
   // 使用 rotate(deg, cx, cy) 支援動畫：12點方向=0°，順時針增加
@@ -1291,6 +1336,25 @@ function submitAnswers(){
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
 document.getElementById("feed").insertAdjacentHTML("beforebegin",'<div class="result-banner" id="resultBanner"></div>');
 buildDateBar();buildFeed();updateProgress();
+function checkNewContent(){
+  try{
+    const KEY='math_seen_v3';
+    const seen=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
+    const isFirst=seen.size===0;
+    const newDates=ALL_DATES.filter(d=>!seen.has(d));
+    ALL_DATES.forEach(d=>seen.add(d));
+    localStorage.setItem(KEY,JSON.stringify([...seen]));
+    if(!isFirst&&newDates.length>0){
+      const newest=newDates.sort((a,b)=>b.localeCompare(a))[0];
+      document.getElementById('newDateLabel').textContent=fmtDate(newest);
+      const modal=document.getElementById('updateModal');
+      modal.classList.add('show');
+      document.getElementById('btnYes').onclick=()=>{modal.classList.remove('show');setDate(newest);};
+      document.getElementById('btnNo').onclick=()=>modal.classList.remove('show');
+    }
+  }catch(e){}
+}
+setTimeout(checkNewContent,600);
 </script>
 </body>
 </html>"""
