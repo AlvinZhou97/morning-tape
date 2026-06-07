@@ -2,251 +2,177 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>數學練習 🔢</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#FFF9F0; --card:#fff; --ink:#1a1a2e;
-  --soft:#6b7280; --border:#e5e7eb;
-  --add:#3B82F6; --sub:#EF4444; --cmp:#F59E0B;
-  --seq:#8B5CF6; --app:#10B981; --time:#EC4899;
-  --correct:#16A34A; --wrong:#DC2626;
-}
+:root{--bg:#FFF9F0;--card:#fff;--ink:#1a1a2e;--soft:#6b7280;--border:#e5e7eb;
+  --correct:#16A34A;--wrong:#DC2626;--add:#3B82F6;--app:#10B981}
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
-  min-height:100vh;padding-bottom:100px}
+  min-height:100vh;padding-bottom:80px}
 
-/* ── 頁首 ── */
 .header{background:#fff;border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:20;padding:0 16px}
-.hinner{max-width:600px;margin:0 auto;height:54px;
-  display:flex;align-items:center;gap:10px}
+.hinner{max-width:600px;margin:0 auto;height:52px;display:flex;align-items:center;gap:10px}
 .logo{font-family:"Nunito";font-weight:900;font-size:20px;color:var(--ink)}
 .logo span{color:var(--add)}
 .hdate{margin-left:auto;font-size:12px;font-weight:700;color:var(--soft)}
 
-/* ── 進度 ── */
-.progress-wrap{background:#fff;border-bottom:1px solid var(--border);padding:8px 16px}
+.progress-wrap{background:#fff;border-bottom:1px solid var(--border);padding:7px 16px}
 .progress-inner{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:10px}
 .prog-bar-bg{flex:1;height:10px;background:#E5E7EB;border-radius:8px;overflow:hidden}
-.prog-bar{height:100%;background:linear-gradient(90deg,#3B82F6,#8B5CF6);
-  border-radius:8px;transition:width .4s}
-.prog-label{font-family:"Nunito";font-size:13px;font-weight:800;color:var(--soft);white-space:nowrap}
-.score-badge{font-family:"Nunito";font-size:13px;font-weight:800;
+.prog-bar{height:100%;background:linear-gradient(90deg,#3B82F6,#8B5CF6);border-radius:8px;transition:width .4s}
+.prog-label{font-family:"Nunito";font-size:12px;font-weight:800;color:var(--soft);white-space:nowrap}
+.score-badge{font-family:"Nunito";font-size:12px;font-weight:800;
   background:#FEF3C7;color:#92400E;border-radius:16px;padding:2px 10px;white-space:nowrap}
 
-/* ── 篩選 ── */
-.filters{background:#fff;border-bottom:1px solid var(--border);padding:8px 16px}
-.filter-row{max-width:600px;margin:0 auto;width:100%;
-  display:flex;align-items:center;gap:8px}
-.filter-label{font-size:11px;font-weight:800;color:var(--soft);
-  letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;min-width:28px}
+.filters{background:#fff;border-bottom:1px solid var(--border);padding:7px 16px}
+.filter-row{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.filter-label{font-size:11px;font-weight:800;color:var(--soft);letter-spacing:.06em;white-space:nowrap}
 .chips{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;flex:1}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;font-size:12px;font-weight:700;
-  padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);
-  background:#fff;color:var(--soft);cursor:pointer;transition:.15s;white-space:nowrap}
-.chip:hover{border-color:var(--add);color:var(--add)}
+.chip{flex:0 0 auto;font-size:12px;font-weight:700;padding:4px 11px;border-radius:20px;
+  border:1.5px solid var(--border);background:#fff;color:var(--soft);cursor:pointer;transition:.15s}
 .chip.on{background:var(--add);color:#fff;border-color:var(--add)}
 
-/* ── 題目卡 ── */
-.feed{max-width:600px;margin:0 auto;padding:16px}
-.date-hdr{font-size:12px;font-weight:800;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--soft);
-  padding:16px 4px 8px;border-bottom:2px solid var(--border);margin-bottom:4px}
+.feed{max-width:600px;margin:0 auto;padding:14px}
+.date-hdr{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--soft);
+  padding:14px 4px 7px;border-bottom:2px solid var(--border);margin-bottom:4px}
 
-.qcard{background:var(--card);border-radius:20px;padding:20px;
-  margin-bottom:12px;border:2px solid var(--border);
-  transition:border-color .2s,box-shadow .2s;scroll-margin-top:130px}
+/* 類型徽章顏色 */
+.cat-badge{font-size:10px;font-weight:800;border-radius:8px;padding:2px 8px;letter-spacing:.04em}
+.cat-badge.c0{background:#DBEAFE;color:#1D4ED8}
+.cat-badge.c1{background:#D1FAE5;color:#065F46}
+.cat-badge.c2{background:#FEE2E2;color:#B91C1C}
+.cat-badge.c3{background:#EDE9FE;color:#6D28D9}
+.cat-badge.c4{background:#FEF3C7;color:#92400E}
+.cat-badge.c5{background:#FCE7F3;color:#9D174D}
+.cat-badge.c6{background:#CCFBF1;color:#065F46}
+.cat-badge.c7{background:#F1F5F9;color:#475569}
+.cat-badge.c8{background:#FFF7ED;color:#C2410C}
+.cat-badge.c9{background:#ECFDF5;color:#047857}
+
+.qcard{background:var(--card);border-radius:20px;padding:18px;margin-bottom:11px;
+  border:2px solid var(--border);transition:border-color .2s;scroll-margin-top:120px}
 .qcard.answered-correct{border-color:var(--correct);background:#F0FDF4}
 .qcard.answered-wrong{border-color:var(--wrong);background:#FFF5F5}
 
-.qtop{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.qnum{font-family:"Nunito";font-size:12px;font-weight:800;color:var(--soft)}
-.cat-badge{font-size:10px;font-weight:800;letter-spacing:.06em;
-  text-transform:uppercase;border-radius:8px;padding:2px 8px}
-.cat-badge.加法{background:#DBEAFE;color:#1D4ED8}
-.cat-badge.減法{background:#FEE2E2;color:#B91C1C}
-.cat-badge.比大小{background:#FEF3C7;color:#92400E}
-.cat-badge.數序{background:#EDE9FE;color:#6D28D9}
-.cat-badge.應用題{background:#D1FAE5;color:#065F46}
-.cat-badge.時間{background:#FCE7F3;color:#9D174D}
+.qtop{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.qnum{font-family:"Nunito";font-size:11px;font-weight:800;color:var(--soft)}
 
-.qtext{font-family:"Nunito";font-weight:900;font-size:32px;
-  text-align:center;margin:16px 0;color:var(--ink);line-height:1.3;
-  word-break:break-all}
-.qtext.word-problem{font-family:"Noto Sans TC";font-size:17px;font-weight:700;
-  text-align:left;line-height:1.7;color:#1e293b}
+.qtext{font-family:"Nunito";font-weight:900;font-size:30px;text-align:center;
+  margin:12px 0;color:var(--ink);line-height:1.3}
+.qtext.word{font-family:"Noto Sans TC";font-size:16px;font-weight:700;
+  text-align:left;line-height:1.8}
+.clock-wrap{text-align:center;margin:4px 0 10px}
 
 .say-btn{background:none;border:1.5px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;font-weight:700;cursor:pointer;
-  color:var(--soft);transition:.15s;display:flex;align-items:center;gap:5px;margin:0 auto 14px}
+  padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;color:var(--soft);
+  transition:.15s;display:flex;align-items:center;gap:5px;margin:0 auto 12px}
 .say-btn:hover{border-color:var(--add);color:var(--add)}
-.say-btn:active{opacity:.7}
 
-/* ── 選項 ── */
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.opt{border:2.5px solid var(--border);border-radius:16px;
-  padding:14px 10px;font-family:"Nunito";font-size:22px;font-weight:900;
-  text-align:center;cursor:pointer;background:#fff;
-  transition:all .2s;color:var(--ink)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opts.cmp{grid-template-columns:1fr 1fr 1fr}
+.opts.wide{grid-template-columns:1fr}
+.opt{border:2.5px solid var(--border);border-radius:14px;padding:14px 8px;
+  font-family:"Nunito";font-size:20px;font-weight:900;text-align:center;
+  cursor:pointer;background:#fff;transition:all .2s;color:var(--ink)}
+.opt.wide-opt{font-size:15px;text-align:left;padding:12px 14px}
 .opt:hover:not(:disabled){border-color:var(--add);background:#EFF6FF;transform:scale(1.02)}
-.opt:active:not(:disabled){transform:scale(.97)}
 .opt.correct{border-color:var(--correct)!important;background:#F0FDF4!important;color:var(--correct)!important}
 .opt.wrong{border-color:var(--wrong)!important;background:#FFF5F5!important;color:var(--wrong)!important}
-.opt:disabled{cursor:default;opacity:.8}
+.opt:disabled{cursor:default;opacity:.85}
+.opts.cmp .opt{font-size:15px;padding:14px 4px;font-weight:900}
 
-/* 比大小：三個選項一排 */
-.opts.cmp{grid-template-columns:1fr 1fr 1fr}
-.opts.cmp .opt{font-size:16px;font-weight:900;padding:16px 6px}
-
-/* ── 結果回饋 ── */
-.feedback{margin-top:12px;padding:10px 14px;border-radius:12px;
-  font-size:14px;font-weight:700;display:none}
+.feedback{margin-top:10px;padding:9px 13px;border-radius:11px;font-size:13.5px;font-weight:700;display:none}
 .feedback.show{display:block}
 .feedback.ok{background:#DCFCE7;color:#166534}
 .feedback.ng{background:#FEE2E2;color:#991B1B}
 
-
-/* ── 時鐘 SVG ── */
-.clock-wrap{text-align:center;margin:4px 0 10px}
-/* 選擇後（送出前）的狀態 */
-.opt.selected{border-color:var(--add)!important;background:#EFF6FF!important;color:var(--add)!important}
-/* 送出按鈕列 */
+/* 送出列 */
 .submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.95);
-  backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:12px 16px;z-index:30}
+  backdrop-filter:blur(10px);border-top:2px solid var(--border);padding:11px 16px;z-index:30}
 .submit-btn{display:block;width:100%;max-width:600px;margin:0 auto;
-  background:var(--app);color:#fff;border:none;border-radius:20px;
-  padding:14px;font-family:"Nunito";font-size:18px;font-weight:900;
-  cursor:pointer;transition:opacity .15s}
+  background:var(--app);color:#fff;border:none;border-radius:20px;padding:13px;
+  font-family:"Nunito";font-size:17px;font-weight:900;cursor:pointer;transition:opacity .15s}
 .submit-btn:hover{opacity:.85}
-.submit-btn:disabled{background:#9CA3AF;cursor:default}
-/* 分數結果橫幅 */
-.result-banner{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);
-  border-radius:20px;padding:24px 16px;text-align:center;margin-bottom:16px;
-  border:2px solid #6EE7B7;display:none}
+
+/* 結果橫幅 */
+.result-banner{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-radius:20px;
+  padding:22px 16px;text-align:center;margin-bottom:14px;border:2px solid #6EE7B7;display:none}
 .result-banner.show{display:block}
-.result-emoji{font-size:40px;margin-bottom:6px}
-.result-score{font-family:"Nunito";font-size:56px;font-weight:900;color:#065F46}
-.result-label{font-size:15px;font-weight:700;color:#065F46;margin-top:4px;margin-bottom:4px}
+.result-emoji{font-size:38px;margin-bottom:5px}
+.result-score{font-family:"Nunito";font-size:52px;font-weight:900;color:#065F46}
+.result-label{font-size:14px;font-weight:700;color:#065F46;margin-top:3px;margin-bottom:2px}
+
 /* 錯題複習 */
-.review-section{margin-top:16px;text-align:left}
-.review-title{font-family:"Nunito";font-size:15px;font-weight:900;
-  color:#7C2D12;background:#FEF3C7;border-radius:12px;
-  padding:10px 14px;margin-bottom:10px;border:1.5px solid #FDE68A}
-.review-card{background:#fff;border-radius:16px;padding:14px;margin-bottom:8px;
-  border:2px solid #FCA5A5}
-.review-num{font-family:"Nunito";font-size:11px;font-weight:800;
-  color:var(--soft);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
-.review-q-text{font-family:"Nunito";font-size:22px;font-weight:900;
-  color:var(--ink);text-align:center;margin:6px 0 10px;padding:8px;
-  background:#F9FAFB;border-radius:10px}
-.review-wrong-row{font-size:13.5px;color:#B91C1C;font-weight:700;margin-bottom:5px}
-.review-wrong-val{background:#FEE2E2;border-radius:6px;padding:1px 8px}
-.review-correct-row{font-size:13.5px;color:#065F46;font-weight:700;margin-bottom:8px}
-.review-correct-val{background:#D1FAE5;border-radius:6px;padding:1px 8px;font-size:15px}
-.review-teach{font-size:13px;color:#374151;line-height:1.65;
-  background:#FFFBEB;border-radius:10px;padding:9px 12px;
-  border-left:3px solid #F59E0B}
+.review-section{margin-top:14px;text-align:left}
+.review-title{font-family:"Nunito";font-size:14px;font-weight:900;color:#7C2D12;
+  background:#FEF3C7;border-radius:11px;padding:9px 13px;margin-bottom:9px;border:1.5px solid #FDE68A}
+.review-card{background:#fff;border-radius:14px;padding:13px;margin-bottom:8px;border:2px solid #FCA5A5}
+.review-num{font-size:11px;font-weight:800;color:var(--soft);margin-bottom:6px;letter-spacing:.05em}
+.review-q-text{font-family:"Nunito";font-size:20px;font-weight:900;color:var(--ink);
+  text-align:center;margin:6px 0 9px;padding:8px;background:#F9FAFB;border-radius:9px}
+.review-q-text.word{font-size:14px;text-align:left;line-height:1.7}
+.review-wrong-row{font-size:13px;color:#B91C1C;font-weight:700;margin-bottom:4px}
+.review-wrong-val{background:#FEE2E2;border-radius:5px;padding:1px 7px}
+.review-correct-row{font-size:13px;color:#065F46;font-weight:700;margin-bottom:7px}
+.review-correct-val{background:#D1FAE5;border-radius:5px;padding:1px 7px;font-size:14px}
+.review-teach{font-size:12.5px;color:#374151;line-height:1.65;
+  background:#FFFBEB;border-radius:9px;padding:8px 11px;border-left:3px solid #F59E0B}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="hinner">
     <div class="logo">🔢 <span>數學</span>練習</div>
     <div class="hdate">2026/06/07</div>
   </div>
 </div>
-
 <div class="progress-wrap">
   <div class="progress-inner">
     <div class="prog-bar-bg"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
-    <div class="prog-label" id="progLabel">0 / 30</div>
-    <div class="score-badge" id="scoreBadge">⭐ 0 分</div>
+    <div class="prog-label" id="progLabel">0 / 40</div>
+    <div class="score-badge" id="scoreBadge">📝 已答 0 題</div>
   </div>
 </div>
-
 <div class="filters">
   <div class="filter-row">
     <span class="filter-label">日期</span>
     <div class="chips" id="dateBar"></div>
   </div>
 </div>
-
 <div class="feed" id="feed"></div>
-
-<!-- 送出按鈕 -->
 <div class="submit-bar" id="submitBar">
-  <button class="submit-btn" id="submitBtn" onclick="submitAnswers()">📝 送出答案</button>
+  <button class="submit-btn" onclick="submitAnswers()">📝 送出答案</button>
 </div>
-
 <script>
-const ALL_DATA = {"2026-06-07": [{"id": 1, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [16, 19, 17, 18], "exp": ""}, {"id": 40, "cat": "加法", "lv": "基礎", "q": "9 + 8 = ?", "q_zh": "九 加 八 等於多少？", "ans": 17, "opts": [19, 16, 17, 18], "exp": ""}, {"id": 45, "cat": "減法", "lv": "基礎", "q": "2 - 2 = ?", "q_zh": "二 減 二 等於多少？", "ans": 0, "opts": [0, 2, 1, 3], "exp": ""}, {"id": 52, "cat": "減法", "lv": "基礎", "q": "4 - 1 = ?", "q_zh": "四 減 一 等於多少？", "ans": 3, "opts": [3, 5, 4, 2], "exp": ""}, {"id": 149, "cat": "加法", "lv": "兩位數", "q": "67 + 2 = ?", "q_zh": "六十七 加 二 等於多少？", "ans": 69, "opts": [71, 69, 68, 70], "exp": ""}, {"id": 204, "cat": "減法", "lv": "兩位數", "q": "66 - 5 = ?", "q_zh": "六十六 減 五 等於多少？", "ans": 61, "opts": [63, 62, 60, 61], "exp": ""}, {"id": 212, "cat": "減法", "lv": "兩位數", "q": "84 - 3 = ?", "q_zh": "八十四 減 三 等於多少？", "ans": 81, "opts": [81, 83, 82, 80], "exp": ""}, {"id": 279, "cat": "加法", "lv": "進階", "q": "35 + 18 = ?", "q_zh": "三十五 加 十八 等於多少？", "ans": 53, "opts": [53, 55, 54, 52], "exp": ""}, {"id": 332, "cat": "比大小", "lv": "比較", "q": "11  ○  97", "q_zh": "十一 和 九十七 比較，中間填什麼？", "ans": "小於", "opts": ["大於", "小於", "等於"], "exp": "11 小於 97"}, {"id": 341, "cat": "比大小", "lv": "比較", "q": "18  ○  26", "q_zh": "十八 和 二十六 比較，中間填什麼？", "ans": "小於", "opts": ["大於", "小於", "等於"], "exp": "18 小於 26"}, {"id": 344, "cat": "比大小", "lv": "比較", "q": "50  ○  71", "q_zh": "五十 和 七十一 比較，中間填什麼？", "ans": "小於", "opts": ["大於", "小於", "等於"], "exp": "50 小於 71"}, {"id": 374, "cat": "比大小", "lv": "比較", "q": "12  ○  45", "q_zh": "十二 和 四十五 比較，中間填什麼？", "ans": "小於", "opts": ["大於", "小於", "等於"], "exp": "12 小於 45"}, {"id": 384, "cat": "數序", "lv": "數序", "q": "63 , 64 , __ , 66 , 67", "q_zh": "六十三、六十四、空格、六十六、六十七，空格填什麼？", "ans": 65, "opts": [64, 66, 65, 67], "exp": ""}, {"id": 389, "cat": "數序", "lv": "數序", "q": "79 , __ , 83 , 85 , 87", "q_zh": "七十九、空格、八十三、八十五、八十七，空格填什麼？", "ans": 81, "opts": [83, 80, 82, 81], "exp": ""}, {"id": 423, "cat": "數序", "lv": "數序", "q": "61 , 66 , 71 , 76 , __", "q_zh": "六十一、六十六、七十一、七十六、空格，空格填什麼？", "ans": 81, "opts": [80, 82, 81, 83], "exp": ""}, {"id": 424, "cat": "數序", "lv": "數序", "q": "11 , 21 , __ , 41 , 51", "q_zh": "十一、二十一、空格、四十一、五十一，空格填什麼？", "ans": 31, "opts": [33, 31, 30, 32], "exp": ""}, {"id": 433, "cat": "應用題", "lv": "加法", "q": "花園裡有 25 朵紅花和 4 朵黃花，共有幾朵花？", "q_zh": "花園裡有 二十五 朵紅花和 四 朵黃花，共有幾朵花？", "ans": 29, "opts": [31, 29, 30, 28], "exp": ""}, {"id": 434, "cat": "應用題", "lv": "加法", "q": "小明有 25 元，媽媽又給他 17 元，他現在有幾元？", "q_zh": "小明有 二十五 元，媽媽又給他 十七 元，他現在有幾元？", "ans": 42, "opts": [43, 42, 41, 44], "exp": ""}, {"id": 442, "cat": "應用題", "lv": "加法", "q": "書架上有 33 本書，又加上 8 本，一共有幾本？", "q_zh": "書架上有 三十三 本書，又加上 八 本，一共有幾本？", "ans": 41, "opts": [40, 43, 42, 41], "exp": ""}, {"id": 459, "cat": "應用題", "lv": "減法", "q": "小花有 29 元，買了 19 元的糖果，還剩幾元？", "q_zh": "小花有 二十九 元，買了 十九 元的糖果，還剩幾元？", "ans": 10, "opts": [11, 10, 9, 12], "exp": ""}, {"id": 466, "cat": "應用題", "lv": "減法", "q": "班上有 21 位同學，有 15 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十一 位同學，有 十五 位請假，今天有幾位同學上課？", "ans": 6, "opts": [8, 5, 7, 6], "exp": ""}, {"id": 467, "cat": "應用題", "lv": "減法", "q": "小花有 58 元，買了 16 元的糖果，還剩幾元？", "q_zh": "小花有 五十八 元，買了 十六 元的糖果，還剩幾元？", "ans": 42, "opts": [41, 44, 43, 42], "exp": ""}, {"id": 469, "cat": "應用題", "lv": "減法", "q": "樹上有 30 隻鳥，飛走了 6 隻，剩幾隻？", "q_zh": "樹上有 三十 隻鳥，飛走了 六 隻，剩幾隻？", "ans": 24, "opts": [24, 26, 25, 23], "exp": ""}, {"id": 470, "cat": "應用題", "lv": "減法", "q": "班上有 23 位同學，有 16 位請假，今天有幾位同學上課？", "q_zh": "班上有 二十三 位同學，有 十六 位請假，今天有幾位同學上課？", "ans": 7, "opts": [7, 8, 6, 9], "exp": ""}, {"id": 478, "cat": "應用題", "lv": "減法", "q": "班上有 50 位同學，有 34 位請假，今天有幾位同學上課？", "q_zh": "班上有 五十 位同學，有 三十四 位請假，今天有幾位同學上課？", "ans": 16, "opts": [17, 15, 16, 18], "exp": ""}, {"id": 480, "cat": "應用題", "lv": "減法", "q": "冰箱裡有 33 顆雞蛋，用掉 26 顆，還剩幾顆？", "q_zh": "冰箱裡有 三十三 顆雞蛋，用掉 二十六 顆，還剩幾顆？", "ans": 7, "opts": [7, 8, 9, 6], "exp": ""}, {"id": 483, "cat": "時間", "lv": "時間", "q_hour": 8, "q_minute": 0, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 八 點整，是幾點？", "ans": "8點整", "opts": ["8點整", "1點整", "11點整", "3點整"], "exp": "答案是 8點整"}, {"id": 486, "cat": "時間", "lv": "時間", "q_hour": 9, "q_minute": 0, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 九 點整，是幾點？", "ans": "9點整", "opts": ["10點整", "3點整", "9點整", "6點整"], "exp": "答案是 9點整"}, {"id": 492, "cat": "時間", "lv": "時間", "q_hour": 10, "q_minute": 30, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 十 點三十分，是幾點？", "ans": "10點30分", "opts": ["3點30分", "10點30分", "9點30分", "6點30分"], "exp": "答案是 10點30分"}, {"id": 498, "cat": "時間", "lv": "時間", "q_hour": 5, "q_minute": 30, "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示 五 點三十分，是幾點？", "ans": "5點30分", "opts": ["1點30分", "9點30分", "5點30分", "2點30分"], "exp": "答案是 5點30分"}]};
-const ALL_DATES = Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
-let curDate = "全部";
-let selections = {};  // {qid: 選擇的選項}
-let submitted  = false;
-let answered   = {};  // {qid: true/false} — 送出後才填
-
-// ── 時鐘 SVG ──────────────────────────────────────────────
-function clockSVG(hour, minute){
-  const cx=100,cy=100;
-  const rad=a=>a*Math.PI/180;
-  // 時針角度（12點=0°，順時針）
-  const hDeg=(hour%12)*30 + minute*0.5 - 90;
-  const mDeg=minute*6 - 90;
-  const hx=cx+48*Math.cos(rad(hDeg)), hy=cy+48*Math.sin(rad(hDeg));
-  const mx=cx+68*Math.cos(rad(mDeg)), my=cy+68*Math.sin(rad(mDeg));
-  // 刻度
-  const ticks=Array.from({length:60},(_,i)=>{
-    const a=rad(i*6-90), r1=i%5===0?76:82, r2=88;
-    return `<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}" x2="${(cx+r2*Math.cos(a)).toFixed(1)}" y2="${(cy+r2*Math.sin(a)).toFixed(1)}" stroke="${i%5===0?'#9CA3AF':'#E5E7EB'}" stroke-width="${i%5===0?2:1}"/>`;
-  }).join('');
-  // 數字
-  const nums=Array.from({length:12},(_,i)=>{
-    const a=rad((i+1)*30-90), x=cx+74*Math.cos(a), y=cy+74*Math.sin(a);
-    return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151" font-family="Nunito">${i+1}</text>`;
-  }).join('');
-  return `<svg width="200" height="200" viewBox="0 0 200 200" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,.12))">
-    <circle cx="100" cy="100" r="95" fill="#FFF9F0" stroke="#E5E7EB" stroke-width="3"/>
-    <circle cx="100" cy="100" r="88" fill="none" stroke="#F3F4F6" stroke-width="1"/>
-    ${ticks}${nums}
-    <line x1="100" y1="100" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
-    <line x1="100" y1="100" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
-    <circle cx="100" cy="100" r="5" fill="#1F2937"/>
-  </svg>`;
-}
+const ALL_DATA={"2026-06-07": [{"id": 14, "cat": "50以內的數", "q": "18  ○  11", "q_zh": "十八 和 十一，中間填什麼？", "ans": "大於", "opts": ["大於", "小於", "等於"], "exp": "18>11，所以填大於"}, {"id": 27, "cat": "50以內的數", "q": "21  ○  10", "q_zh": "二十一 和 十，中間填什麼？", "ans": "大於", "opts": ["大於", "小於", "等於"], "exp": "21>10，所以填大於"}, {"id": 42, "cat": "50以內的數", "q": "5, 10, __, 20, 25", "q_zh": "五、十、空格、二十、二十五，空格是幾？", "ans": "15", "opts": ["17", "14", "15", "16"], "exp": "每次增加5，空格是15"}, {"id": 57, "cat": "50以內的數", "q": "__, 14, 19, 24, 29", "q_zh": "空格、十四、十九、二十四、二十九，空格是幾？", "ans": "9", "opts": ["11", "9", "10", "8"], "exp": "每次增加5，空格是9"}, {"id": 112, "cat": "18內加法", "q": "2 + 8 = ?", "q_zh": "二 加 八 等於多少？", "ans": "10", "opts": ["9", "10", "12", "11"], "exp": "2+8=10"}, {"id": 114, "cat": "18內加法", "q": "4 + 3 = ?", "q_zh": "四 加 三 等於多少？", "ans": "7", "opts": ["7", "8", "6", "9"], "exp": "4+3=7"}, {"id": 118, "cat": "18內加法", "q": "1 + 6 = ?", "q_zh": "一 加 六 等於多少？", "ans": "7", "opts": ["6", "7", "9", "8"], "exp": "1+6=7"}, {"id": 121, "cat": "18內加法", "q": "7 + 6 = ?", "q_zh": "七 加 六 等於多少？", "ans": "13", "opts": ["12", "14", "13", "15"], "exp": "7+6=13"}, {"id": 139, "cat": "18內減法", "q": "14 - 9 = ?", "q_zh": "十四 減 九 等於多少？", "ans": "5", "opts": ["7", "5", "6", "4"], "exp": "14-9=5"}, {"id": 142, "cat": "18內減法", "q": "5 - 3 = ?", "q_zh": "五 減 三 等於多少？", "ans": "2", "opts": ["2", "4", "1", "3"], "exp": "5-3=2"}, {"id": 150, "cat": "18內減法", "q": "10 - 3 = ?", "q_zh": "十 減 三 等於多少？", "ans": "7", "opts": ["7", "9", "6", "8"], "exp": "10-3=7"}, {"id": 191, "cat": "18內減法", "q": "14 - 6 = ?", "q_zh": "十四 減 六 等於多少？", "ans": "8", "opts": ["8", "10", "7", "9"], "exp": "14-6=8"}, {"id": 199, "cat": "圖形", "q": "有4條邊的圖形有哪些？", "q_zh": "有4條邊的圖形有哪些？", "ans": "正方形和長方形", "opts": ["只有長方形", "三角形和圓形", "只有正方形", "正方形和長方形"], "exp": "正方形和長方形都有4條邊"}, {"id": 201, "cat": "圖形", "q": "兩個三角形加起來共有幾條邊？", "q_zh": "兩個三角形加起來共有幾條邊？", "ans": "6", "opts": ["5", "6", "8", "4"], "exp": "3+3=6條邊"}, {"id": 240, "cat": "圖形", "q": "沒有角的圖形是哪一種？", "q_zh": "沒有角的圖形是哪一種？", "ans": "圓形", "opts": ["正方形", "長方形", "圓形", "三角形"], "exp": "圓形沒有角"}, {"id": 246, "cat": "圖形", "q": "門的形狀最像哪種圖形？", "q_zh": "門的形狀最像哪種圖形？", "ans": "長方形", "opts": ["長方形", "三角形", "圓形", "正方形"], "exp": "門通常是長方形"}, {"id": 258, "cat": "100以內的數", "q": "8個十和8個一是多少？", "q_zh": "八 個十和 八 個一是多少？", "ans": "88", "opts": ["87", "88", "89", "90"], "exp": "8個十=80，加8個一=88"}, {"id": 262, "cat": "100以內的數", "q": "3個十和3個一是多少？", "q_zh": "三 個十和 三 個一是多少？", "ans": "33", "opts": ["34", "32", "35", "33"], "exp": "3個十=30，加3個一=33"}, {"id": 270, "cat": "100以內的數", "q": "3個十是多少？", "q_zh": "三 個十是多少？", "ans": "30", "opts": ["29", "30", "32", "31"], "exp": "3個十=30，加0個一=30"}, {"id": 276, "cat": "100以內的數", "q": "2個十和4個一是多少？", "q_zh": "二 個十和 四 個一是多少？", "ans": "24", "opts": ["24", "25", "26", "23"], "exp": "2個十=20，加4個一=24"}, {"id": 327, "cat": "錢幣", "q": "買了45元的東西，付了50元，找回幾元？", "q_zh": "買了45元的東西，付了50元，找回幾元？", "ans": "5", "opts": ["5", "6", "4", "7"], "exp": "50-45=5元"}, {"id": 330, "cat": "錢幣", "q": "2個10元和3個5元，共幾元？", "q_zh": "2個10元和3個5元，共幾元？", "ans": "35", "opts": ["37", "35", "36", "34"], "exp": "2×10+3×5=35元"}, {"id": 364, "cat": "錢幣", "q": "買了12元的東西，付了30元，找回幾元？", "q_zh": "買了12元的東西，付了30元，找回幾元？", "ans": "18", "opts": ["18", "17", "19", "20"], "exp": "30-12=18元"}, {"id": 366, "cat": "錢幣", "q": "1個10元和3個1元，共幾元？", "q_zh": "1個10元和3個1元，共幾元？", "ans": "13", "opts": ["15", "13", "12", "14"], "exp": "1×10=10，加3個1元=13元"}, {"id": 387, "cat": "二位數加減", "q": "56 + 2 = ?", "q_zh": "五十六 加 二 等於多少？", "ans": "58", "opts": ["57", "60", "58", "59"], "exp": "56+2=58"}, {"id": 398, "cat": "二位數加減", "q": "34 + 5 = ?", "q_zh": "三十四 加 五 等於多少？", "ans": "39", "opts": ["41", "38", "39", "40"], "exp": "34+5=39"}, {"id": 441, "cat": "二位數加減", "q": "57 - 10 = ?", "q_zh": "五十七 減 十 等於多少？", "ans": "47", "opts": ["48", "49", "47", "46"], "exp": "57-10=47"}, {"id": 444, "cat": "二位數加減", "q": "61 - 30 = ?", "q_zh": "六十一 減 三十 等於多少？", "ans": "31", "opts": ["32", "30", "33", "31"], "exp": "61-30=31"}, {"id": 457, "cat": "日曆", "q": "1月有幾天？", "q_zh": "一月有幾天？", "ans": "31", "opts": ["30", "28", "32", "31"], "exp": "1月有31天"}, {"id": 462, "cat": "日曆", "q": "9月的下一個月是幾月？", "q_zh": "九月的下一個月？", "ans": "10月", "opts": ["12月", "1月", "10月", "8月"], "exp": "9月後是10月"}, {"id": 474, "cat": "日曆", "q": "星期日的隔天是？", "q_zh": "星期日的後一天是？", "ans": "星期一", "opts": ["星期一", "星期六", "星期二", "星期三"], "exp": "星期日後一天是星期一"}, {"id": 488, "cat": "日曆", "q": "星期一的隔天是？", "q_zh": "星期一的後一天是？", "ans": "星期二", "opts": ["星期三", "星期日", "星期二", "星期四"], "exp": "星期一後一天是星期二"}, {"id": 509, "cat": "時鐘", "q": "時鐘顯示的是幾點？", "q_zh": "時鐘顯示八點整，是幾點？", "q_hour": 8, "q_minute": 0, "ans": "8點整", "opts": ["8點整", "3點整", "4點整", "2點整"], "exp": "短針（時針）指向8，長針（分針）指向12，是8點整"}, {"id": 516, "cat": "時鐘", "q": "時鐘顯示的是幾點幾分？", "q_zh": "時鐘顯示七點三十分，是幾點幾分？", "q_hour": 7, "q_minute": 30, "ans": "7點30分", "opts": ["11點30分", "7點30分", "2點30分", "8點30分"], "exp": "短針在7和8之間，長針指向6，是7點30分"}, {"id": 527, "cat": "時鐘", "q": "時鐘顯示的是幾點幾分？", "q_zh": "時鐘顯示六點三十分，是幾點幾分？", "q_hour": 6, "q_minute": 30, "ans": "6點30分", "opts": ["11點30分", "2點30分", "6點30分", "9點30分"], "exp": "短針在6和7之間，長針指向6，是6點30分"}, {"id": 528, "cat": "時鐘", "q": "時鐘顯示的是幾點幾分？", "q_zh": "時鐘顯示一點三十分，是幾點幾分？", "q_hour": 1, "q_minute": 30, "ans": "1點30分", "opts": ["1點30分", "11點30分", "9點30分", "10點30分"], "exp": "短針在1和2之間，長針指向6，是1點30分"}, {"id": 562, "cat": "有多長", "q": "書本有10格，布條有12格，哪個比較長？", "q_zh": "書本有10格，布條有12格，哪個比較長？", "ans": "布條", "opts": ["布條", "書本", "無法比較", "一樣長"], "exp": "<代表右邊比較長，答案是布條"}, {"id": 564, "cat": "有多長", "q": "緞帶有11格，尺有12格，哪個比較長？", "q_zh": "緞帶有11格，尺有12格，哪個比較長？", "ans": "尺", "opts": ["尺", "無法比較", "緞帶", "一樣長"], "exp": "<代表右邊比較長，答案是尺"}, {"id": 585, "cat": "有多長", "q": "書本有7格，布條有8格，加在一起共有幾格？", "q_zh": "書本有7格，布條有8格，加在一起共有幾格？", "ans": "15", "opts": ["14", "15", "17", "16"], "exp": "7+8=15"}, {"id": 589, "cat": "有多長", "q": "文具盒有5格，繩子有4格，加在一起共有幾格？", "q_zh": "文具盒有5格，繩子有4格，加在一起共有幾格？", "ans": "9", "opts": ["10", "8", "9", "11"], "exp": "5+4=9"}]};
+const ALL_DATES=Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
+const CAT_NAMES=["50以內的數","18內加法","18內減法","圖形","100以內的數","錢幣","二位數加減","日曆","時鐘","有多長"];
+const CAT_CLS={
+  "50以內的數":"c0","18內加法":"c1","18內減法":"c2","圖形":"c3",
+  "100以內的數":"c4","錢幣":"c5","二位數加減":"c6","日曆":"c7",
+  "時鐘":"c8","有多長":"c9"};
+let curDate="全部",selections={},answered={},submitted=false;
 
 function fmtDate(iso){
-  const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||"");
-  if(!m)return iso;
+  const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||""); if(!m)return iso;
   const d=new Date(+m[1],+m[2]-1,+m[3]),w=["日","一","二","三","四","五","六"];
   return `${m[2]}/${m[3]} 週${w[d.getDay()]}`;
 }
-
-// ── 日期篩選 ──────────────────────────────────────────────
 function buildDateBar(){
-  const btns=[{k:"全部",l:`全部（${ALL_DATES.length}天）`},
-              ...ALL_DATES.map(d=>({k:d,l:fmtDate(d)}))];
+  const btns=[{k:"全部",l:`全部（${ALL_DATES.length}天）`},...ALL_DATES.map(d=>({k:d,l:fmtDate(d)}))];
   document.getElementById("dateBar").innerHTML=btns.map(b=>
-    `<button class="chip${b.k===curDate?" on":""}" onclick="setDate('${b.k}')">${b.l}</button>`
-  ).join("");
+    `<button class="chip${b.k===curDate?" on":""}" onclick="setDate('${b.k}')">${b.l}</button>`).join("");
 }
 function setDate(d){
-  curDate=d; selections={}; answered={}; submitted=false;
-  const bar=document.getElementById("submitBar");
-  if(bar) bar.style.display="";
-  const banner=document.getElementById("resultBanner");
-  if(banner) banner.classList.remove("show");
-  buildDateBar(); buildFeed(); updateProgress();
+  curDate=d;selections={};answered={};submitted=false;
+  document.getElementById("submitBar").style.display="";
+  document.getElementById("resultBanner")?.classList.remove("show");
+  buildDateBar();buildFeed();updateProgress();
 }
-
-// ── 篩選後的題目 ─────────────────────────────────────────
 function filteredQs(){
   if(curDate==="全部"){
     const all=[];
@@ -255,263 +181,185 @@ function filteredQs(){
   }
   return (ALL_DATA[curDate]||[]).map(q=>({...q,_date:curDate}));
 }
-
-// ── 進度更新 ─────────────────────────────────────────────
 function updateProgress(){
-  const qs=filteredQs();
-  const total=qs.length;
+  const qs=filteredQs(),total=qs.length;
   const done=Object.keys(selections).length;
   const correct=Object.values(answered).filter(Boolean).length;
-  const pct=total?Math.round((done/total)*100):0;
+  const pct=total?Math.round(done/total*100):0;
   document.getElementById("progBar").style.width=pct+"%";
   document.getElementById("progLabel").textContent=`${done} / ${total}`;
-  document.getElementById("scoreBadge").textContent=submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
+  document.getElementById("scoreBadge").textContent=
+    submitted?`⭐ ${correct} 分`:`📝 已答 ${done} 題`;
 }
-
-// ── TTS ──────────────────────────────────────────────────
+function clockSVG(hour,minute){
+  const cx=100,cy=100,rad=a=>a*Math.PI/180;
+  const hDeg=(hour%12)*30+minute*0.5-90,mDeg=minute*6-90;
+  const hx=cx+48*Math.cos(rad(hDeg)),hy=cy+48*Math.sin(rad(hDeg));
+  const mx=cx+68*Math.cos(rad(mDeg)),my=cy+68*Math.sin(rad(mDeg));
+  const ticks=Array.from({length:60},(_,i)=>{
+    const a=rad(i*6-90),r1=i%5===0?76:82,r2=88;
+    return `<line x1="${(cx+r1*Math.cos(a)).toFixed(1)}" y1="${(cy+r1*Math.sin(a)).toFixed(1)}"
+      x2="${(cx+r2*Math.cos(a)).toFixed(1)}" y2="${(cy+r2*Math.sin(a)).toFixed(1)}"
+      stroke="${i%5===0?'#9CA3AF':'#E5E7EB'}" stroke-width="${i%5===0?2:1}"/>`;
+  }).join('');
+  const nums=Array.from({length:12},(_,i)=>{
+    const a=rad((i+1)*30-90),x=cx+74*Math.cos(a),y=cy+74*Math.sin(a);
+    return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}"
+      text-anchor="middle" font-size="13" font-weight="bold" fill="#374151" font-family="Nunito">${i+1}</text>`;
+  }).join('');
+  return `<svg width="180" height="180" viewBox="0 0 200 200" style="filter:drop-shadow(0 3px 8px rgba(0,0,0,.1))">
+    <circle cx="100" cy="100" r="95" fill="#FFF9F0" stroke="#E5E7EB" stroke-width="3"/>
+    ${ticks}${nums}
+    <line x1="100" y1="100" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="5" fill="#1F2937"/></svg>`;
+}
 function sayQ(text){
   if(!window.speechSynthesis)return;
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang="zh-TW"; u.rate=0.85;
-  const vs=speechSynthesis.getVoices();
-  const v=vs.find(v=>/zh-TW|zh_TW/i.test(v.lang))||vs.find(v=>/zh/i.test(v.lang));
+  u.lang="zh-TW";u.rate=0.85;
+  const v=speechSynthesis.getVoices().find(v=>/zh-TW|zh_TW/i.test(v.lang));
   if(v)u.voice=v;
   speechSynthesis.speak(u);
 }
-
-// ── 建立題目卡 ────────────────────────────────────────────
+function sayResult(text){
+  if(!window.speechSynthesis)return;
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="zh-TW";u.rate=1;
+    const v=speechSynthesis.getVoices().find(v=>/zh-TW|zh_TW/i.test(v.lang));
+    if(v)u.voice=v;
+    speechSynthesis.speak(u);
+  },200);
+}
 function buildFeed(){
   const qs=filteredQs();
   const feed=document.getElementById("feed");
   if(!qs.length){feed.innerHTML=`<div style="text-align:center;padding:40px;color:var(--soft)">此日期無題目</div>`;return;}
-
   let html="",lastDate="";
   qs.forEach((q,i)=>{
     if(curDate==="全部"&&q._date!==lastDate){
       lastDate=q._date;
-      const cnt=(ALL_DATA[q._date]||[]).length;
-      html+=`<div class="date-hdr">${fmtDate(q._date)} · ${cnt} 題</div>`;
+      html+=`<div class="date-hdr">${fmtDate(q._date)} · ${(ALL_DATA[q._date]||[]).length} 題</div>`;
     }
-    const isWP=q.cat==="應用題";
-    const isCmp=q.cat==="比大小";
-    const isClock=q.cat==="時間" && q.q_hour!=null;
-    const optsClass=isCmp?"opts cmp":"opts";
-    const qtextClass=isWP?"qtext word-problem":"qtext";
-    // 時間題：顯示 SVG 時鐘；其他：顯示文字
-    const qDisplay = isClock
-      ? `<div class="clock-wrap">${clockSVG(q.q_hour, q.q_minute)}</div>
-         <div style="text-align:center;font-size:14px;color:var(--soft);margin-bottom:10px">時鐘顯示的是幾點？</div>`
-      : `<div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>`;
-    const sayText = isClock
+    const isClock=q.cat==="時鐘"&&q.q_hour!=null;
+    const isWide=q.cat==="圖形"||q.cat==="日曆"||q.cat==="錢幣"||q.cat==="有多長";
+    const isCmp=(q.cat==="50以內的數"||q.cat==="100以內的數")&&q.q.includes("○");
+    const qClass=isWide?"qtext word":"qtext";
+    const optsClass=isCmp?"opts cmp":isWide?"opts wide":"opts";
+    const optClass=isWide?"opt wide-opt":"opt";
+    const sayText=isClock
       ? `時鐘顯示${q.q_hour}點${q.q_minute===0?'整':q.q_minute+'分'}`
       : q.q_zh||q.q;
-    const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
-      onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
-    // 所有題目都顯示聽題目按鈕
-    const sayBtnHtml = `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`;
+    const qDisplay = isClock
+      ? `<div class="clock-wrap">${clockSVG(q.q_hour,q.q_minute)}</div>
+         <div style="text-align:center;font-size:13px;color:var(--soft);margin-bottom:8px">時鐘顯示的是幾點？</div>`
+      : `<div class="${qClass}">${q.q}</div>`;
+      onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')"> ${o} </button>`).join("");
     html+=`
     <div class="qcard" id="qcard-${q.id}">
       <div class="qtop">
         <span class="qnum">第 ${i+1} 題</span>
-        <span class="cat-badge ${q.cat}">${q.cat}</span>
+        <span class="cat-badge ${CAT_CLS[q.cat]||'c0'}">${q.cat}</span>
       </div>
       ${qDisplay}
-      ${sayBtnHtml}
+      <button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
       <div class="feedback" id="fb-${q.id}"></div>
     </div>`;
   });
   feed.innerHTML=html;
-  // 還原已作答狀態（日期切換時）
   Object.entries(selections).forEach(([qidStr,chosen])=>{
     const qid=parseInt(qidStr);
-    const q=qs.find(x=>x.id===qid); if(!q) return;
+    const q=qs.find(x=>x.id===qid); if(!q)return;
     const isCorrect=answered[qid];
     q.opts.forEach(o=>{
       const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
-      if(!btn) return;
-      btn.disabled=true;
-      if(isCorrect && String(o)===String(q.ans)) btn.classList.add("correct");
-      else if(!isCorrect && String(o)===String(chosen)) btn.classList.add("wrong");
+      if(!btn)return; btn.disabled=true;
+      if(isCorrect&&String(o)===String(q.ans))btn.classList.add("correct");
+      else if(!isCorrect&&String(o)===String(chosen))btn.classList.add("wrong");
     });
     const fb=document.getElementById("fb-"+qid);
     const card=document.getElementById("qcard-"+qid);
-    if(isCorrect){
-      if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}
-      if(card) card.className="qcard answered-correct";
-    } else {
-      if(fb){fb.className="feedback ng show";fb.textContent="❌ 答錯了！";}
-      if(card) card.className="qcard answered-wrong";
-    }
+    if(isCorrect){if(fb)fb.className="feedback ok show",fb.textContent="✅ 答對了！真棒！";if(card)card.className="qcard answered-correct";}
+    else{if(fb)fb.className="feedback ng show",fb.textContent="❌ 答錯了！";if(card)card.className="qcard answered-wrong";}
   });
 }
-
-// ── 選擇選項：立即顯示對錯，鎖定不能更改 ──────────────────
-function selectOpt(qid, chosen){
-  if(submitted) return;
-  if(selections[qid] !== undefined) return; // 已選過，鎖定不能更改
-  selections[qid] = String(chosen);
-
+function selectOpt(qid,chosen){
+  if(submitted)return;
+  if(selections[qid]!==undefined)return;
+  selections[qid]=String(chosen);
   const qs=filteredQs();
-  const q=qs.find(x=>x.id===qid); if(!q) return;
-  const isCorrect = String(chosen)===String(q.ans);
-  answered[qid] = isCorrect;
-
-  // 鎖定所有選項，標示對錯顏色
+  const q=qs.find(x=>x.id===qid); if(!q)return;
+  const isCorrect=String(chosen)===String(q.ans);
+  answered[qid]=isCorrect;
   q.opts.forEach(o=>{
     const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
-    if(!btn) return;
-    btn.disabled=true;
-    if(isCorrect && String(o)===String(q.ans)){
-      btn.classList.add("correct"); // 答對：正確選項變綠
-    } else if(!isCorrect && String(o)===String(chosen)){
-      btn.classList.add("wrong");   // 答錯：只把選錯的變紅，不顯示正確答案
-    }
+    if(!btn)return; btn.disabled=true;
+    if(isCorrect&&String(o)===String(q.ans))btn.classList.add("correct");
+    else if(!isCorrect&&String(o)===String(chosen))btn.classList.add("wrong");
   });
-
-  // 立即顯示回饋訊息
   const fb=document.getElementById("fb-"+qid);
   const card=document.getElementById("qcard-"+qid);
-  if(isCorrect){
-    if(fb){fb.className="feedback ok show"; fb.textContent="✅ 答對了！真棒！";}
-    if(card) card.className="qcard answered-correct";
-    sayResult("答對了！");
-  } else {
-    if(fb){fb.className="feedback ng show"; fb.textContent="❌ 答錯了！";}
-    if(card) card.className="qcard answered-wrong";
-    sayResult("答錯了！");
-  }
+  if(isCorrect){if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}if(card)card.className="qcard answered-correct";sayResult("答對了！");}
+  else{if(fb){fb.className="feedback ng show";fb.textContent="❌ 答錯了！";}if(card)card.className="qcard answered-wrong";sayResult("答錯了！");}
   updateProgress();
 }
-
-// ── 送出：顯示總分 + 錯題教學 ────────────────────────────
+function makeTeaching(q){
+  if(q.cat.includes("加法")||q.cat==="18內加法"||q.cat==="二位數加減"){
+    const m=q.q.match(/(\d+)\s*\+\s*(\d+)/);
+    if(m)return `💡 ${m[1]} + ${m[2]} = <b>${parseInt(m[1])+parseInt(m[2])}</b>`;}
+  if(q.cat.includes("減法")||q.cat==="18內減法"){
+    const m=q.q.match(/(\d+)\s*-\s*(\d+)/);
+    if(m)return `💡 ${m[1]} - ${m[2]} = <b>${parseInt(m[1])-parseInt(m[2])}</b>`;}
+  if(q.cat.includes("的數")){
+    if(q.q.includes("○"))return `💡 正確答案是 <b>${q.ans}</b>`;
+    if(q.q.includes("個十"))return `💡 ${q.exp||''}，答案是 <b>${q.ans}</b>`;}
+  return `💡 ${q.exp?q.exp+'，':''}正確答案是 <b>${q.ans}</b>`;
+}
 function submitAnswers(){
-  if(submitted) return;
-  submitted=true;
+  if(submitted)return; submitted=true;
   const qs=filteredQs();
-
-  // 補顯示未作答題目的狀態
   qs.forEach(q=>{
     if(selections[q.id]===undefined){
       answered[q.id]=false;
-      q.opts.forEach(o=>{
-        const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));
-        if(!btn) return;
-        btn.disabled=true;
-        if(String(o)===String(q.ans)) btn.classList.add("correct");
-      });
-      const fb=document.getElementById("fb-"+q.id);
-      const card=document.getElementById("qcard-"+q.id);
-      if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}
-      if(card) card.className="qcard answered-wrong";
+      q.opts.forEach(o=>{const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));if(!btn)return;btn.disabled=true;if(String(o)===String(q.ans))btn.classList.add("correct");});
+      const fb=document.getElementById("fb-"+q.id);const card=document.getElementById("qcard-"+q.id);
+      if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}if(card)card.className="qcard answered-wrong";
     }
   });
-
   const correct=Object.values(answered).filter(Boolean).length;
   const wrong=qs.length-correct;
   const pct=Math.round(correct/qs.length*100);
   const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
   const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
-  const wrongQs=qs.filter(q=>!answered[q.id]).map(q=>({q,chosen:selections[q.id]}));
-
-  let reviewHTML="";
-  if(wrongQs.length>0){
-    reviewHTML=`
+  const wrongQs=qs.filter(q=>!answered[q.id]);
+  let reviewHTML=wrongQs.length?`
     <div class="review-section">
-      <div class="review-title">📚 錯題複習（${wrongQs.length} 題需要加強）</div>
-      ${wrongQs.map(({q,chosen},idx)=>{
-        const qDisp=(q.cat==="時間"&&q.q_hour!=null)
-          ? `<div style="text-align:center;margin:6px 0">${clockSVG(q.q_hour,q.q_minute)}</div>`
-          : `<div class="review-q-text">${q.q}</div>`;
-        return `
-        <div class="review-card">
-          <div class="review-num">${idx+1}. ${q.cat}</div>
-          ${qDisp}
-          <div class="review-wrong-row">❌ 你選了：<span class="review-wrong-val">${chosen||'未作答'}</span></div>
+      <div class="review-title">📚 錯題複習（${wrongQs.length} 題）</div>
+      ${wrongQs.map(({q,chosen,id},idx)=>{
+        const c=selections[id];
+        const isWide=q.cat==="圖形"||q.cat==="日曆"||q.cat==="錢幣";
+        const qd=`<div class="review-q-text ${isWide?'word':''}">${q.q}</div>`;
+        return `<div class="review-card">
+          <div class="review-num">${idx+1}. ${q.cat}</div>${qd}
+          <div class="review-wrong-row">❌ 你選了：<span class="review-wrong-val">${c||'未作答'}</span></div>
           <div class="review-correct-row">✅ 正確答案：<span class="review-correct-val">${q.ans}</span></div>
-          <div class="review-teach">${makeTeaching(q)}</div>
-        </div>`;
-      }).join("")}
-    </div>`;
-  } else {
-    reviewHTML=`<div style="margin-top:12px;font-size:15px">🎊 全部答對！超棒的！</div>`;
-  }
-
+          <div class="review-teach">${makeTeaching(q)}</div></div>`;}).join("")}
+    </div>`:`<div style="margin-top:12px;font-size:15px">🎊 全部答對！超棒的！</div>`;
   const banner=document.getElementById("resultBanner");
   if(banner){
-    banner.innerHTML=`
-      <div class="result-emoji">${emoji}</div>
-      <div class="result-score">${correct} <span style="font-size:28px">/ ${qs.length}</span></div>
-      <div class="result-label">${msg}（答對 ${correct} 題，答錯 ${wrong} 題）</div>
-      ${reviewHTML}`;
-    banner.classList.add("show");
-    banner.scrollIntoView({behavior:"smooth",block:"start"});
-  }
-  const bar=document.getElementById("submitBar");
-  if(bar) bar.style.display="none";
+    banner.innerHTML=`<div class="result-emoji">${emoji}</div>
+      <div class="result-score">${correct}<span style="font-size:26px"> / ${qs.length}</span></div>
+      <div class="result-label">${msg}（答對${correct}題，答錯${wrong}題）</div>${reviewHTML}`;
+    banner.classList.add("show");banner.scrollIntoView({behavior:"smooth",block:"start"});}
+  document.getElementById("submitBar").style.display="none";
   updateProgress();
 }
-
-// ── 教學說明生成 ──────────────────────────────────────────
-function makeTeaching(q){
-  if(q.cat==="加法"){
-    const m=q.q.match(/(\d+)\s*\+\s*(\d+)/);
-    if(m){const a=+m[1],b=+m[2];
-      return `💡 計算方法：${a} + ${b} = ${a+b}<br>
-        ${a}的個位是${a%10}，${b}的個位是${b%10}，個位相加 ${a%10}+${b%10}=${(a%10+b%10)}，
-        十位 ${Math.floor(a/10)}+${Math.floor(b/10)}=${Math.floor(a/10)+Math.floor(b/10)}，
-        合起來是 <b>${a+b}</b>`;}
-  }
-  if(q.cat==="減法"){
-    const m=q.q.match(/(\d+)\s*-\s*(\d+)/);
-    if(m){const a=+m[1],b=+m[2];
-      return `💡 計算方法：${a} - ${b} = ${a-b}<br>
-        從 ${a} 裡面拿掉 ${b}，剩下 <b>${a-b}</b>`;}
-  }
-  if(q.cat==="比大小"){
-    const m=q.q.match(/(\d+)\s*○\s*(\d+)/);
-    if(m){const a=+m[1],b=+m[2];
-      const word=a>b?"大於":a<b?"小於":"等於";
-      const sym=a>b?"＞":a<b?"＜":"＝";
-      return `💡 ${a} ${sym} ${b}，所以 ${a} <b>${word}</b> ${b}`;}
-  }
-  if(q.cat==="數序"){
-    return `💡 先找出規律：相鄰兩個數相差多少，再填入空格。答案是 <b>${q.ans}</b>`;
-  }
-  if(q.cat==="時間"){
-    return `💡 短的指針（時針）指向幾，就是幾點。答案是 <b>${q.ans}</b>`;
-  }
-  if(q.cat==="應用題"){
-    const m=q.q.match(/(\d+)[^\d]+(\d+)/);
-    if(m) return `💡 解題：從題目找數字和運算，正確答案是 <b>${q.ans}</b>`;
-  }
-  return `💡 正確答案是 <b>${q.ans}</b>`;
-}
-
-function sayResult(text){
-  if(!window.speechSynthesis) return;
-  setTimeout(()=>{
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang="zh-TW"; u.rate=1;
-    const vs=speechSynthesis.getVoices();
-    const v=vs.find(v=>/zh-TW|zh_TW/i.test(v.lang))||vs.find(v=>/zh/i.test(v.lang));
-    if(v) u.voice=v;
-    speechSynthesis.speak(u);
-  }, 200);
-}
-
-function answer(){} // 保留舊函式名
-
-
-// ── 初始化 ───────────────────────────────────────────────
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
-// 在 feed 前插入分數橫幅
-document.getElementById("feed").insertAdjacentHTML("beforebegin",
-  '<div class="result-banner" id="resultBanner"></div>');
-buildDateBar();
-buildFeed();
-updateProgress();
+document.getElementById("feed").insertAdjacentHTML("beforebegin",'<div class="result-banner" id="resultBanner"></div>');
+buildDateBar();buildFeed();updateProgress();
 </script>
 </body>
 </html>
