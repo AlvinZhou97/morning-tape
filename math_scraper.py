@@ -143,27 +143,15 @@ def gen_pool():
     # ── 9. 比大小（50）──────────────────────────────────────
     for _ in range(50):
         a = rng.randint(10,99); b = rng.randint(10,99)
-        # 正確說法
-        if a > b:   correct = f"{a} ＞ {b}"
-        elif a < b: correct = f"{a} ＜ {b}"
-        else:       correct = f"{a} ＝ {b}"
-        # 3 個錯誤說法：反向、等號、反向等號
-        wrongs = list({
-            f"{b} ＞ {a}" if a<b else f"{a} ＞ {b}" if a==b else f"{b} ＞ {a}",
-            f"{a} ＝ {b}" if a!=b else f"{a} ＞ {b}",
-            f"{b} ＜ {a}" if a>b else f"{a} ＜ {b}" if a==b else f"{b} ＜ {a}",
-        } - {correct})
-        # 補到 3 個
-        extras = [f"{a} ＝ {b+1}", f"{a+1} ＜ {b}", f"{b} ＝ {a+2}"]
-        for e in extras:
-            if len(wrongs) >= 3: break
-            if e != correct: wrongs.append(e)
-        opts = [correct] + list(wrongs)[:3]; rng.shuffle(opts)
+        if a > b:   ans="大於"
+        elif a < b: ans="小於"
+        else:       ans="等於"
+        opts = ["大於","小於","等於"]   # 固定三個，不打亂（左大中小右等，清楚）
         add("比大小","比較",
-            f"{a}  和  {b}，哪個說法正確？",
-            f"{num_zh(a)} 和 {num_zh(b)} 比較，哪個說法正確？",
-            correct, opts,
-            f"正確答案是 {correct}")
+            f"{a}  ○  {b}",
+            f"{num_zh(a)} 和 {num_zh(b)} 比較，中間填什麼？",
+            ans, opts,
+            f"{a} {ans} {b}")
 
     # ── 10. 數序填空（50）──────────────────────────────────
     for _ in range(25):
@@ -382,8 +370,9 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .opt.wrong{border-color:var(--wrong)!important;background:#FFF5F5!important;color:var(--wrong)!important}
 .opt:disabled{cursor:default;opacity:.8}
 
-/* 比大小選項字體調整（選項是完整算式） */
-.opts.cmp .opt{font-size:18px;padding:14px 8px;font-weight:800}
+/* 比大小：三個選項一排 */
+.opts.cmp{grid-template-columns:1fr 1fr 1fr}
+.opts.cmp .opt{font-size:16px;font-weight:900;padding:16px 6px}
 
 /* ── 結果回饋 ── */
 .feedback{margin-top:12px;padding:10px 14px;border-radius:12px;
@@ -604,11 +593,27 @@ function buildFeed(){
     </div>`;
   });
   feed.innerHTML=html;
-  // 還原已作答狀態
-  Object.entries(answered).forEach(([qidStr,correct])=>{
+  // 還原已作答狀態（日期切換時）
+  Object.entries(selections).forEach(([qidStr,chosen])=>{
     const qid=parseInt(qidStr);
-    const q=qs.find(x=>x.id===qid);
-    if(q) restoreAnswer(qid, q.ans, correct);
+    const q=qs.find(x=>x.id===qid); if(!q) return;
+    const isCorrect=answered[qid];
+    q.opts.forEach(o=>{
+      const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
+      if(!btn) return;
+      btn.disabled=true;
+      if(isCorrect && String(o)===String(q.ans)) btn.classList.add("correct");
+      else if(!isCorrect && String(o)===String(chosen)) btn.classList.add("wrong");
+    });
+    const fb=document.getElementById("fb-"+qid);
+    const card=document.getElementById("qcard-"+qid);
+    if(isCorrect){
+      if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}
+      if(card) card.className="qcard answered-correct";
+    } else {
+      if(fb){fb.className="feedback ng show";fb.textContent="❌ 答錯了！";}
+      if(card) card.className="qcard answered-wrong";
+    }
   });
 }
 
@@ -735,10 +740,11 @@ function makeTeaching(q){
         從 ${a} 裡面拿掉 ${b}，剩下 <b>${a-b}</b>`;}
   }
   if(q.cat==="比大小"){
-    const m=q.ans.match(/(\d+)\s*([＞＜＝])\s*(\d+)/);
-    if(m){const a=+m[1],sym=m[2],b=+m[3];
-      const word=sym==="＞"?"大於":sym==="＜"?"小於":"等於";
-      return `💡 ${a} ${word} ${b}，所以填 <b>${sym}</b>`;}
+    const m=q.q.match(/(\d+)\s*○\s*(\d+)/);
+    if(m){const a=+m[1],b=+m[2];
+      const word=a>b?"大於":a<b?"小於":"等於";
+      const sym=a>b?"＞":a<b?"＜":"＝";
+      return `💡 ${a} ${sym} ${b}，所以 ${a} <b>${word}</b> ${b}`;}
   }
   if(q.cat==="數序"){
     return `💡 先找出規律：相鄰兩個數相差多少，再填入空格。答案是 <b>${q.ans}</b>`;
@@ -767,30 +773,6 @@ function sayResult(text){
 
 function answer(){} // 保留舊函式名
 
-function restoreAnswer(qid, correctAns, correct){
-  const optsDiv=document.getElementById("opts-"+qid);
-  if(!optsDiv)return;
-  optsDiv.querySelectorAll(".opt").forEach(btn=>{
-    btn.disabled=true;
-    const val=btn.id.replace("opt-"+qid+"-","");
-    if(val===String(correctAns)) btn.classList.add("correct");
-  });
-  const fb=document.getElementById("fb-"+qid);
-  const card=document.getElementById("qcard-"+qid);
-  if(fb&&card){
-    if(correct){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";card.className="qcard answered-correct";}
-    else{fb.className="feedback ng show";fb.textContent=`❌ 答錯了。正確答案是 ${correctAns}`;card.className="qcard answered-wrong";}
-  }
-}
-
-function sayResult(t){
-  if(!window.speechSynthesis)return;
-  setTimeout(()=>{
-    const u=new SpeechSynthesisUtterance(t);
-    u.lang="zh-TW";u.rate=1;
-    speechSynthesis.speak(u);
-  },300);
-}
 
 // ── 初始化 ───────────────────────────────────────────────
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
