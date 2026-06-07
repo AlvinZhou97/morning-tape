@@ -413,7 +413,26 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .result-banner.show{display:block}
 .result-emoji{font-size:40px;margin-bottom:6px}
 .result-score{font-family:"Nunito";font-size:56px;font-weight:900;color:#065F46}
-.result-label{font-size:15px;font-weight:700;color:#065F46;margin-top:4px}
+.result-label{font-size:15px;font-weight:700;color:#065F46;margin-top:4px;margin-bottom:4px}
+/* 錯題複習 */
+.review-section{margin-top:16px;text-align:left}
+.review-title{font-family:"Nunito";font-size:15px;font-weight:900;
+  color:#7C2D12;background:#FEF3C7;border-radius:12px;
+  padding:10px 14px;margin-bottom:10px;border:1.5px solid #FDE68A}
+.review-card{background:#fff;border-radius:16px;padding:14px;margin-bottom:8px;
+  border:2px solid #FCA5A5}
+.review-num{font-family:"Nunito";font-size:11px;font-weight:800;
+  color:var(--soft);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.review-q-text{font-family:"Nunito";font-size:22px;font-weight:900;
+  color:var(--ink);text-align:center;margin:6px 0 10px;padding:8px;
+  background:#F9FAFB;border-radius:10px}
+.review-wrong-row{font-size:13.5px;color:#B91C1C;font-weight:700;margin-bottom:5px}
+.review-wrong-val{background:#FEE2E2;border-radius:6px;padding:1px 8px}
+.review-correct-row{font-size:13.5px;color:#065F46;font-weight:700;margin-bottom:8px}
+.review-correct-val{background:#D1FAE5;border-radius:6px;padding:1px 8px;font-size:15px}
+.review-teach{font-size:13px;color:#374151;line-height:1.65;
+  background:#FFFBEB;border-radius:10px;padding:9px 12px;
+  border-left:3px solid #F59E0B}
 </style>
 </head>
 <body>
@@ -568,11 +587,8 @@ function buildFeed(){
     const sayText = isClock ? q.q_zh : q.q_zh||q.q;
     const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
       onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
-    // 只有應用題和時間題才顯示聽題目按鈕
-    const showSay = q.cat==="應用題" || q.cat==="時間";
-    const sayBtnHtml = showSay
-      ? `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
-      : '';
+    // 所有題目都顯示聽題目按鈕
+    const sayBtnHtml = `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`;
     html+=`
     <div class="qcard" id="qcard-${q.id}">
       <div class="qtop">
@@ -611,18 +627,20 @@ function selectOpt(qid, chosen){
   updateProgress();
 }
 
-// ── 送出答案，顯示全部對錯 + 總分 ────────────────────────
+// ── 送出答案，顯示全部對錯 + 總分 + 錯題教學 ────────────────────────
 function submitAnswers(){
   if(submitted) return;
   submitted=true;
   const qs=filteredQs();
   let correct=0;
+  const wrongQs=[];
 
   qs.forEach(q=>{
     const chosen=selections[q.id];
     const isCorrect = chosen!==undefined && String(chosen)===String(q.ans);
     answered[q.id]=isCorrect;
     if(isCorrect) correct++;
+    else wrongQs.push({q, chosen});
 
     // 標記選項顏色
     q.opts.forEach(o=>{
@@ -648,24 +666,94 @@ function submitAnswers(){
     }
   });
 
-  // 顯示分數橫幅
+  // ── 分數橫幅 ──────────────────────────────────────────
   const total=qs.length;
+  const wrong=total-correct;
   const pct=Math.round(correct/total*100);
   const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
   const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
+
+  // ── 錯題教學區 ────────────────────────────────────────
+  let reviewHTML="";
+  if(wrongQs.length>0){
+    reviewHTML=`
+    <div class="review-section">
+      <div class="review-title">📚 錯題複習（${wrongQs.length} 題需要加強）</div>
+      ${wrongQs.map(({q,chosen},idx)=>{
+        // 顯示時鐘圖 or 題目文字
+        const qDisp = (q.cat==="時間"&&q.q_hour!=null)
+          ? `<div style="text-align:center;margin:6px 0">${clockSVG(q.q_hour,q.q_minute)}</div>`
+          : `<div class="review-q-text">${q.q}</div>`;
+        // 教學說明
+        const teaching = makeTeaching(q);
+        return `
+        <div class="review-card">
+          <div class="review-num">${idx+1}. ${q.cat}</div>
+          ${qDisp}
+          <div class="review-wrong-row">
+            ❌ 你選了：<span class="review-wrong-val">${chosen||'未作答'}</span>
+          </div>
+          <div class="review-correct-row">
+            ✅ 正確答案：<span class="review-correct-val">${q.ans}</span>
+          </div>
+          <div class="review-teach">${teaching}</div>
+        </div>`;
+      }).join("")}
+    </div>`;
+  } else {
+    reviewHTML=`<div class="review-section" style="text-align:center;padding:16px">
+      🎊 全部答對！超棒的！</div>`;
+  }
+
   const banner=document.getElementById("resultBanner");
   if(banner){
-    banner.innerHTML=`<div class="result-emoji">${emoji}</div>
-      <div class="result-score">${correct} / ${total}</div>
-      <div class="result-label">${msg}（答對率 ${pct}%）</div>`;
+    banner.innerHTML=`
+      <div class="result-emoji">${emoji}</div>
+      <div class="result-score">${correct} <span style="font-size:28px">/ ${total}</span></div>
+      <div class="result-label">${msg}（答對 ${correct} 題，答錯 ${wrong} 題）</div>
+      ${reviewHTML}`;
     banner.classList.add("show");
     banner.scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  // 隱藏送出按鈕
   const bar=document.getElementById("submitBar");
   if(bar) bar.style.display="none";
   updateProgress();
+}
+
+// ── 教學說明生成 ──────────────────────────────────────────
+function makeTeaching(q){
+  if(q.cat==="加法"){
+    const m=q.q.match(/(\d+)\s*\+\s*(\d+)/);
+    if(m){const a=+m[1],b=+m[2];
+      return `💡 計算方法：${a} + ${b} = ${a+b}<br>
+        ${a}的個位是${a%10}，${b}的個位是${b%10}，個位相加 ${a%10}+${b%10}=${(a%10+b%10)}，
+        十位 ${Math.floor(a/10)}+${Math.floor(b/10)}=${Math.floor(a/10)+Math.floor(b/10)}，
+        合起來是 <b>${a+b}</b>`;}
+  }
+  if(q.cat==="減法"){
+    const m=q.q.match(/(\d+)\s*-\s*(\d+)/);
+    if(m){const a=+m[1],b=+m[2];
+      return `💡 計算方法：${a} - ${b} = ${a-b}<br>
+        從 ${a} 裡面拿掉 ${b}，剩下 <b>${a-b}</b>`;}
+  }
+  if(q.cat==="比大小"){
+    const m=q.ans.match(/(\d+)\s*([＞＜＝])\s*(\d+)/);
+    if(m){const a=+m[1],sym=m[2],b=+m[3];
+      const word=sym==="＞"?"大於":sym==="＜"?"小於":"等於";
+      return `💡 ${a} ${word} ${b}，所以填 <b>${sym}</b>`;}
+  }
+  if(q.cat==="數序"){
+    return `💡 先找出規律：相鄰兩個數相差多少，再填入空格。答案是 <b>${q.ans}</b>`;
+  }
+  if(q.cat==="時間"){
+    return `💡 短的指針（時針）指向幾，就是幾點。答案是 <b>${q.ans}</b>`;
+  }
+  if(q.cat==="應用題"){
+    const m=q.q.match(/(\d+)[^\d]+(\d+)/);
+    if(m) return `💡 解題：從題目找數字和運算，正確答案是 <b>${q.ans}</b>`;
+  }
+  return `💡 正確答案是 <b>${q.ans}</b>`;
 }
 
 function answer(){} // 保留舊函式名避免錯誤
