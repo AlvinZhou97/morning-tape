@@ -584,7 +584,9 @@ function buildFeed(){
       ? `<div class="clock-wrap">${clockSVG(q.q_hour, q.q_minute)}</div>
          <div style="text-align:center;font-size:14px;color:var(--soft);margin-bottom:10px">時鐘顯示的是幾點？</div>`
       : `<div class="${qtextClass}" id="qtext-${q.id}">${q.q}</div>`;
-    const sayText = isClock ? "時鐘顯示的是幾點？" : q.q_zh||q.q;
+    const sayText = isClock
+      ? `時鐘顯示${q.q_hour}點${q.q_minute===0?'整':q.q_minute+'分'}`
+      : q.q_zh||q.q;
     const opts=q.opts.map(o=>`<button class="opt" id="opt-${q.id}-${encodeURIComponent(String(o))}"
       onclick="selectOpt(${q.id},'${String(o).replace(/'/g,"\\'")}')">${o}</button>`).join("");
     // 所有題目都顯示聽題目按鈕
@@ -610,112 +612,102 @@ function buildFeed(){
   });
 }
 
-// ── 選擇選項（送出前只標記，不顯示對錯） ──────────────────
+// ── 選擇選項：立即顯示對錯，鎖定不能更改 ──────────────────
 function selectOpt(qid, chosen){
   if(submitted) return;
-  if(selections[qid] !== undefined) return; // 已選過，不能更改
+  if(selections[qid] !== undefined) return; // 已選過，鎖定不能更改
   selections[qid] = String(chosen);
-  // 清除同題其他選項的 selected
+
   const qs=filteredQs();
   const q=qs.find(x=>x.id===qid); if(!q) return;
+  const isCorrect = String(chosen)===String(q.ans);
+  answered[qid] = isCorrect;
+
+  // 鎖定所有選項，標示對錯顏色
   q.opts.forEach(o=>{
     const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(o)));
-    if(btn) btn.classList.remove("selected");
+    if(!btn) return;
+    btn.disabled=true;
+    if(String(o)===String(q.ans)) btn.classList.add("correct");
+    else if(String(o)===String(chosen)&&!isCorrect) btn.classList.add("wrong");
   });
-  const btn=document.getElementById("opt-"+qid+"-"+encodeURIComponent(String(chosen)));
-  if(btn) btn.classList.add("selected");
+
+  // 立即顯示回饋訊息
+  const fb=document.getElementById("fb-"+qid);
+  const card=document.getElementById("qcard-"+qid);
+  if(isCorrect){
+    if(fb){fb.className="feedback ok show"; fb.textContent="✅ 答對了！真棒！";}
+    if(card) card.className="qcard answered-correct";
+  } else {
+    if(fb){fb.className="feedback ng show"; fb.textContent=`❌ 答錯了。正確答案是 ${q.ans}`;}
+    if(card) card.className="qcard answered-wrong";
+  }
   updateProgress();
 }
 
-// ── 送出答案，顯示全部對錯 + 總分 + 錯題教學 ────────────────────────
+// ── 送出：顯示總分 + 錯題教學 ────────────────────────────
 function submitAnswers(){
   if(submitted) return;
   submitted=true;
   const qs=filteredQs();
-  let correct=0;
-  const wrongQs=[];
 
+  // 補顯示未作答題目的狀態
   qs.forEach(q=>{
-    const chosen=selections[q.id];
-    const isCorrect = chosen!==undefined && String(chosen)===String(q.ans);
-    answered[q.id]=isCorrect;
-    if(isCorrect) correct++;
-    else wrongQs.push({q, chosen});
-
-    // 標記選項顏色
-    q.opts.forEach(o=>{
-      const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));
-      if(!btn) return;
-      btn.disabled=true; btn.classList.remove("selected");
-      if(String(o)===String(q.ans)) btn.classList.add("correct");
-      else if(String(o)===String(chosen)&&!isCorrect) btn.classList.add("wrong");
-    });
-
-    // 回饋訊息
-    const fb=document.getElementById("fb-"+q.id);
-    const card=document.getElementById("qcard-"+q.id);
-    if(isCorrect){
-      if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}
-      if(card) card.className="qcard answered-correct";
-    } else if(chosen!==undefined) {
-      if(fb){fb.className="feedback ng show";fb.textContent=`❌ 答錯了。正確答案是 ${q.ans}`;}
-      if(card) card.className="qcard answered-wrong";
-    } else {
+    if(selections[q.id]===undefined){
+      answered[q.id]=false;
+      q.opts.forEach(o=>{
+        const btn=document.getElementById("opt-"+q.id+"-"+encodeURIComponent(String(o)));
+        if(!btn) return;
+        btn.disabled=true;
+        if(String(o)===String(q.ans)) btn.classList.add("correct");
+      });
+      const fb=document.getElementById("fb-"+q.id);
+      const card=document.getElementById("qcard-"+q.id);
       if(fb){fb.className="feedback ng show";fb.textContent=`⚠️ 未作答。正確答案是 ${q.ans}`;}
       if(card) card.className="qcard answered-wrong";
     }
   });
 
-  // ── 分數橫幅 ──────────────────────────────────────────
-  const total=qs.length;
-  const wrong=total-correct;
-  const pct=Math.round(correct/total*100);
+  const correct=Object.values(answered).filter(Boolean).length;
+  const wrong=qs.length-correct;
+  const pct=Math.round(correct/qs.length*100);
   const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
   const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
+  const wrongQs=qs.filter(q=>!answered[q.id]).map(q=>({q,chosen:selections[q.id]}));
 
-  // ── 錯題教學區 ────────────────────────────────────────
   let reviewHTML="";
   if(wrongQs.length>0){
     reviewHTML=`
     <div class="review-section">
       <div class="review-title">📚 錯題複習（${wrongQs.length} 題需要加強）</div>
       ${wrongQs.map(({q,chosen},idx)=>{
-        // 顯示時鐘圖 or 題目文字
-        const qDisp = (q.cat==="時間"&&q.q_hour!=null)
+        const qDisp=(q.cat==="時間"&&q.q_hour!=null)
           ? `<div style="text-align:center;margin:6px 0">${clockSVG(q.q_hour,q.q_minute)}</div>`
           : `<div class="review-q-text">${q.q}</div>`;
-        // 教學說明
-        const teaching = makeTeaching(q);
         return `
         <div class="review-card">
           <div class="review-num">${idx+1}. ${q.cat}</div>
           ${qDisp}
-          <div class="review-wrong-row">
-            ❌ 你選了：<span class="review-wrong-val">${chosen||'未作答'}</span>
-          </div>
-          <div class="review-correct-row">
-            ✅ 正確答案：<span class="review-correct-val">${q.ans}</span>
-          </div>
-          <div class="review-teach">${teaching}</div>
+          <div class="review-wrong-row">❌ 你選了：<span class="review-wrong-val">${chosen||'未作答'}</span></div>
+          <div class="review-correct-row">✅ 正確答案：<span class="review-correct-val">${q.ans}</span></div>
+          <div class="review-teach">${makeTeaching(q)}</div>
         </div>`;
       }).join("")}
     </div>`;
   } else {
-    reviewHTML=`<div class="review-section" style="text-align:center;padding:16px">
-      🎊 全部答對！超棒的！</div>`;
+    reviewHTML=`<div style="margin-top:12px;font-size:15px">🎊 全部答對！超棒的！</div>`;
   }
 
   const banner=document.getElementById("resultBanner");
   if(banner){
     banner.innerHTML=`
       <div class="result-emoji">${emoji}</div>
-      <div class="result-score">${correct} <span style="font-size:28px">/ ${total}</span></div>
+      <div class="result-score">${correct} <span style="font-size:28px">/ ${qs.length}</span></div>
       <div class="result-label">${msg}（答對 ${correct} 題，答錯 ${wrong} 題）</div>
       ${reviewHTML}`;
     banner.classList.add("show");
     banner.scrollIntoView({behavior:"smooth",block:"start"});
   }
-
   const bar=document.getElementById("submitBar");
   if(bar) bar.style.display="none";
   updateProgress();
