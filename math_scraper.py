@@ -1187,11 +1187,10 @@ function updateProgress(){
   if(sc) sc.textContent=submitted?'':`${done}/${total}`;
 }
 function clockSVG(hour, minute, qid){
-  // 使用 rotate(deg, cx, cy) 支援動畫：12點方向=0°，順時針增加
-  const hDeg=(hour%12)*30+minute*0.5;  // 0=12點，順時針
+  // 一開始就顯示正確時間；qid 仍傳入以便按鈕重播動畫
+  const hDeg=(hour%12)*30+minute*0.5;
   const mDeg=minute*6;
-  const animated=qid!=null;
-  const hRot=animated?0:hDeg, mRot=animated?0:mDeg;
+  const hRot=hDeg, mRot=mDeg;   // 直接顯示正確位置
   const hId=qid?`id="h-hand-${qid}"`:'';
   const mId=qid?`id="m-hand-${qid}"`:'';
   const cx=100,cy=100,rad=a=>a*Math.PI/180;
@@ -1323,7 +1322,7 @@ function buildFeed(){
       ${isAnim
         ? `<button class="play-btn" id="play-${q.id}" onclick="playAnim(${q.id});sayQ('${sayText.replace(/'/g,"\\'")}')">▶ 開始動畫 / 聽題目</button>`
         : isClock
-        ? `<button class="play-btn" id="play-${q.id}" onclick="animateClock(${q.id},${hDeg_.toFixed(1)},${mDeg_.toFixed(1)});sayQ('時鐘顯示的是幾點幾分？')">▶ 開始動畫 / 聽題目</button>`
+        ? `<button class="play-btn" id="play-${q.id}" onclick="animateClock(${q.id},${hDeg_.toFixed(1)},${mDeg_.toFixed(1)});sayQ('時鐘顯示的是幾點幾分？')">🔄 重播動畫 / 聽題目</button>`
         : `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
       }
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
