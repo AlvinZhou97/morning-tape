@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數學冒險精靈 ✨ 拯救數字王國</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Klee+One:wght@400;600&display=swap');
+
+:root{
+  --bg1:#2a1a5e;
+  --bg2:#4a2d8a;
+  --bg3:#6b3fa0;
+  --gold:#ffd54f;
+  --gold-deep:#ffb300;
+  --pink:#ff8fc7;
+  --mint:#7ef0c9;
+  --sky:#7ec8ff;
+  --cream:#fff7e6;
+  --ink:#3a2566;
+  --good:#5fd97a;
+  --soft:#ffe9a8;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'Klee One','Baloo 2',sans-serif;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,213,79,.18), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(126,200,255,.18), transparent 45%),
+    linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+  color:var(--cream);
+  min-height:100%;
+  overflow-x:hidden;
+  position:relative;
+}
+/* twinkling stars */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;background:#fff;border-radius:50%;opacity:.7;animation:tw 3s infinite ease-in-out;}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.7);}50%{opacity:.9;transform:scale(1.2);}}
+
+.wrap{position:relative;z-index:2;max-width:680px;margin:0 auto;padding:18px 16px 40px;}
+
+header{text-align:center;margin-bottom:14px;}
+.title{
+  font-family:'Baloo 2',cursive;font-weight:800;
+  font-size:clamp(26px,7vw,40px);
+  color:var(--gold);
+  text-shadow:0 3px 0 #b07900,0 6px 14px rgba(0,0,0,.4);
+  letter-spacing:1px;
+}
+.subtitle{font-size:14px;color:var(--soft);opacity:.9;margin-top:2px;}
+
+/* progress */
+.progress-area{margin:14px 0 10px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;margin-bottom:6px;}
+.map-name{color:var(--mint);font-family:'Baloo 2';font-weight:700;}
+.lvl-num{background:rgba(255,255,255,.12);padding:3px 12px;border-radius:20px;font-weight:700;color:var(--gold);}
+.bar{height:14px;background:rgba(0,0,0,.28);border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,.15);}
+.bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--gold));border-radius:20px;transition:width .6s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 12px var(--gold);}
+
+/* fairy + dialog */
+.scene{
+  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
+  border:2px solid rgba(255,255,255,.18);
+  border-radius:26px;
+  padding:18px 16px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 14px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  margin-bottom:14px;
+}
+.fairy-row{display:flex;gap:12px;align-items:flex-start;}
+.fairy{
+  font-size:46px;flex-shrink:0;
+  filter:drop-shadow(0 0 10px rgba(255,213,79,.6));
+  animation:float 3.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-8px) rotate(3deg);}}
+.bubble{
+  background:var(--cream);color:var(--ink);
+  border-radius:18px;padding:14px 16px;font-size:17px;line-height:1.6;
+  flex:1;position:relative;font-weight:600;
+  box-shadow:0 6px 0 rgba(0,0,0,.12);
+  animation:pop .35s ease;
+}
+@keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+.bubble:before{content:"";position:absolute;left:-10px;top:18px;border:8px solid transparent;border-right-color:var(--cream);}
+.bubble b{color:#d6429a;}
+.bubble .big{display:block;font-family:'Baloo 2';font-weight:800;font-size:24px;color:#6b3fa0;text-align:center;margin:8px 0;letter-spacing:1px;}
+
+.speak-row{display:flex;justify-content:center;margin-top:10px;}
+.speak-btn{
+  font-family:'Baloo 2';font-weight:700;font-size:15px;
+  border:none;border-radius:20px;padding:8px 18px;cursor:pointer;
+  color:#fff;background:linear-gradient(180deg,var(--pink),#e0609f);
+  box-shadow:0 4px 0 #b13d77,0 6px 12px rgba(0,0,0,.25);
+  transition:transform .08s,box-shadow .08s;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.speak-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #b13d77;}
+.speak-btn.speaking{animation:pulse 1s infinite ease-in-out;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.speak-btn:disabled{opacity:.5;cursor:default;}
+
+/* visual question helper */
+.visual{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0;font-size:30px;}
+.coin{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;font-family:'Baloo 2';font-weight:800;font-size:14px;color:#5a3b00;box-shadow:0 3px 0 rgba(0,0,0,.2);}
+.c1{background:radial-gradient(circle at 35% 30%,#ffe9a0,#d4a017);}
+.c5{background:radial-gradient(circle at 35% 30%,#ffd0e0,#e07ba8);color:#7a2750;}
+.c10{background:radial-gradient(circle at 35% 30%,#bfe9ff,#4a9fd4);color:#0d3a5c;}
+.c50{background:radial-gradient(circle at 35% 30%,#d8c4ff,#8a5fd4);color:#3a1a6b;}
+.clockwrap{display:flex;justify-content:center;margin:8px 0;}
+.seq{font-family:'Baloo 2';font-weight:800;font-size:22px;letter-spacing:2px;color:#6b3fa0;text-align:center;}
+
+/* input */
+.input-row{display:flex;gap:10px;margin-top:14px;}
+#answer{
+  flex:1;font-family:'Baloo 2';font-weight:700;font-size:22px;text-align:center;
+  padding:12px;border-radius:16px;border:3px solid var(--gold);background:#fff;color:var(--ink);
+  outline:none;
+}
+#answer::placeholder{color:#bba;font-weight:600;font-size:16px;}
+#answer:focus{box-shadow:0 0 0 4px rgba(255,213,79,.4);}
+.btn{
+  font-family:'Baloo 2';font-weight:800;font-size:18px;
+  border:none;border-radius:16px;padding:12px 20px;cursor:pointer;
+  color:#5a3b00;background:linear-gradient(180deg,var(--gold),var(--gold-deep));
+  box-shadow:0 5px 0 #a86f00, 0 8px 16px rgba(0,0,0,.3);
+  transition:transform .08s, box-shadow .08s;
+  white-space:nowrap;
+}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #a86f00;}
+.btn.secondary{background:linear-gradient(180deg,var(--sky),#4a9fd4);color:#fff;box-shadow:0 5px 0 #2d6b94,0 8px 16px rgba(0,0,0,.3);}
+.btn.secondary:active{box-shadow:0 1px 0 #2d6b94;}
+
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.choice{
+  font-family:'Baloo 2';font-weight:700;font-size:20px;
+  padding:14px;border-radius:16px;border:3px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.12);color:var(--cream);cursor:pointer;
+  transition:transform .08s,background .15s;
+}
+.choice:hover{background:rgba(255,255,255,.22);}
+.choice:active{transform:scale(.95);}
+
+/* backpack */
+.backpack{
+  background:rgba(0,0,0,.22);border:2px dashed var(--gold);border-radius:18px;
+  padding:10px 14px;margin-bottom:14px;
+}
+.bp-title{font-family:'Baloo 2';font-weight:800;color:var(--gold);font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.bp-items{display:flex;flex-wrap:wrap;gap:6px;}
+.item{
+  background:rgba(255,255,255,.14);border-radius:12px;padding:4px 10px;font-size:14px;font-weight:600;
+  animation:itempop .4s ease;white-space:nowrap;
+}
+@keyframes itempop{from{transform:scale(0) rotate(-20deg);opacity:0;}to{transform:scale(1);opacity:1;}}
+.bp-empty{font-size:13px;opacity:.6;}
+
+/* feedback flash */
+.flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:120px;pointer-events:none;z-index:50;opacity:0;}
+.flash.show{animation:flashAnim 1s ease;}
+@keyframes flashAnim{0%{opacity:0;transform:scale(.3);}30%{opacity:1;transform:scale(1.2);}70%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.4);}}
+
+/* confetti */
+.confetti{position:fixed;top:-20px;width:12px;height:12px;z-index:40;pointer-events:none;}
+
+/* finale */
+.finale{text-align:center;padding:10px;}
+.finale .crown{font-size:70px;animation:float 3s ease-in-out infinite;}
+.finale h2{font-family:'Baloo 2';font-weight:800;color:var(--gold);font-size:30px;margin:8px 0;text-shadow:0 3px 0 #b07900;}
+
+.hidden{display:none !important;}
+footer{text-align:center;font-size:12px;opacity:.5;margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="flash" id="flash"></div>
+
+<div class="wrap">
+  <header>
+    <div class="title">✨ 數學冒險精靈 ✨</div>
+    <div class="subtitle">一起闖 50 關，拯救被魔王抓走的數字精靈！</div>
+  </header>
+
+  <div class="progress-area">
+    <div class="progress-top">
+      <span class="map-name" id="mapName">準備出發</span>
+      <span class="lvl-num" id="lvlNum">第 0 / 50 關</span>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+  </div>
+
+  <div class="backpack">
+    <div class="bp-title">🎒 我的背包</div>
+    <div class="bp-items" id="bpItems"><span class="bp-empty">還沒有道具喔，加油闖關吧！</span></div>
+  </div>
+
+  <div class="scene">
+    <div class="fairy-row">
+      <div class="fairy" id="fairy">🧚</div>
+      <div class="bubble" id="bubble">載入中…</div>
+    </div>
+
+    <div class="speak-row">
+      <button class="speak-btn" id="speakBtn" title="再聽一次題目">🔊 再聽一次</button>
+    </div>
+
+    <div id="visualArea" class="hidden"></div>
+
+    <!-- number input -->
+    <div class="input-row" id="inputRow">
+      <input id="answer" type="text" inputmode="numeric" placeholder="把答案打在這裡…" autocomplete="off">
+      <button class="btn" id="submitBtn">送出 🚀</button>
+    </div>
+
+    <!-- multiple choice -->
+    <div class="choices hidden" id="choicesRow"></div>
+
+    <!-- next button -->
+    <div class="input-row hidden" id="nextRow">
+      <button class="btn secondary" id="nextBtn" style="flex:1;">前往下一關 ➡️</button>
+    </div>
+
+    <!-- start button -->
+    <div class="input-row hidden" id="startRow" style="flex-wrap:wrap;">
+      <button class="btn secondary hidden" id="continueBtn" style="flex:1;min-width:120px;">繼續上次 📖</button>
+      <button class="btn" id="startBtn" style="flex:1;min-width:120px;">從頭開始 🌟</button>
+    </div>
+
+    <!-- restart -->
+    <div class="input-row hidden" id="restartRow">
+      <button class="btn" id="restartBtn" style="flex:1;">再玩一次 🔄</button>
+    </div>
+  </div>
+
+  <footer>數學冒險精靈 · 國小一年級下學期數學複習</footer>
+</div>
+
+<script>
+/* ============================================================
+   道具清單（每過一關隨機賜予一個）
+============================================================ */
+const ITEMS = ["亮晶晶餅乾🍪","彈簧鞋👟","魔法羽毛🪶","彩虹糖果🍬","勇氣徽章🏅",
+"小星星⭐","閃光寶石💎","蜂蜜罐🍯","幸運四葉草🍀","會飛的氣球🎈",
+"神奇蠟筆🖍️","小燈籠🏮","音樂鈴鐺🔔","暖暖披風🧣","魔法種子🌱",
+"金色鑰匙🗝️","會說話的小鳥🐦","跳跳球🏀","發光蘑菇🍄","小精靈帽🎩",
+"甜甜圈🍩","愛心貼紙💖","小火箭🚀","魔法笛子🪈","太陽花🌻",
+"冰淇淋🍦","小皇冠👑","會跳舞的水母🪼","勇者寶劍⚔️","幸運骰子🎲",
+"棉花糖雲☁️","小恐龍🦕","彩色泡泡🫧","魔法書📖","小提燈🕯️",
+"閃電印章⚡","糖霜蛋糕🍰","小帆船⛵","會眨眼的星星🌟","魔法戒指💍",
+"小鈴鐺🛎️","跳跳青蛙🐸","彩虹貝殼🐚","小熊軟糖🐻","魔法掃把🧹",
+"金幣袋💰","小提琴🎻","會飛的魚🐟","勝利旗幟🚩","終極大魔王徽章🏆"];
+
+/* ============================================================
+   50 關卡資料
+   type: "num" 純數字輸入 | "choice" 選擇題
+   answer: 正解(字串，可多個用陣列)
+   hint: 答錯第一次的提示
+   solve: 答錯兩次的示範解法
+   visual: 可選，HTML
+============================================================ */
+const MAPS = [
+  {name:"🌳 地圖一：百數表奇幻森林", range:[1,100]},
+  {name:"🕰️ 地圖二：時鐘高塔的秘密", range:[101,200]},
+  {name:"🍞 地圖三：魔法貨幣麵包店", range:[201,300]},
+  {name:"🏰 地圖四：圖形與測量城堡", range:[301,400]},
+  {name:"👹 地圖五：終極魔王爭霸戰", range:[401,500]},
+];
+
+function clock(svgInner){return `<div class="clockwrap"><svg width="150" height="150" viewBox="0 0 100 100">
+<circle cx="50" cy="50" r="46" fill="#fff7e6" stroke="#ffb300" stroke-width="4"/>
+${[...Array(12)].map((_,i)=>{const a=(i*30-90)*Math.PI/180;const x=50+38*Math.cos(a),y=50+38*Math.sin(a);return `<text x="${x}" y="${y+4}" font-size="9" font-family="Baloo 2" font-weight="800" fill="#6b3fa0" text-anchor="middle">${i===0?12:i}</text>`}).join("")}
+<circle cx="50" cy="50" r="3" fill="#6b3fa0"/>
+${svgInner}</svg></div>`;}
+function hand(deg,len,w,color){const a=(deg-90)*Math.PI/180;const x=50+len*Math.cos(a),y=50+len*Math.sin(a);return `<line x1="50" y1="50" x2="${x}" y2="${y}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;}
+
+/* ============================================================
+   題庫產生器：500 關（每張地圖 100 關）
+   難度會隨關卡逐步提升，並嚴格遵守一年級下學期課綱：
+   - 不出退位減法
+   - 進位加法限個位進到十位
+   - 測量只用非標準單位（迴紋針、積木、格子）
+   每關依「關卡編號」用固定亂數種子產生，確保同一關每次內容一致，
+   存檔讀檔後題目不會跑掉。
+============================================================ */
+const TOTAL_LEVELS = 500;
+const PER_MAP = 100;
+
+/* 以關卡編號為種子的偽亂數，保證同一關內容固定 */
+function seeded(seed){
+  let s = seed * 2654435761 % 2147483647;
+  return function(){
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+function ri(rng,min,max){return min+Math.floor(rng()*(max-min+1));}
+function pick(rng,arr){return arr[Math.floor(rng()*arr.length)];}
+
+const NAMES=["小明","小華","小美","阿寶","小櫻","阿傑","小芳","樂樂","花花","豆豆"];
+const ANIMALS=["🐿️松鼠","🐰兔子","🦊狐狸","🐻小熊","🐦小鳥","🐸青蛙","🦔刺蝟","🐱貓咪"];
+const FOODS=["麵包🍞","餅乾🍪","蛋糕🍰","布丁🍮","果汁🧃","牛奶🥛","糖果🍬","甜甜圈🍩"];
+
+/* 進位加法步驟提示文字 */
+function carrySolve(a,b){
+  const need=10-(a%10);
+  const made=Math.floor((a+ (need))/10)*10;
+  const rest=b-need;
+  if(rest>=0 && a%10!==0){
+    return `${a} + ${b}：先 ${a}+${need}=${made}，再 ${made}+${rest}=${a+b}`;
+  }
+  return `${a} + ${b} = ${a+b}`;
+}
+
+/* ---------- 地圖一：百數表（數與數序、比大小、規律數） ---------- */
+function genMap1(n){            // n: 1..100
+  const lvl=n;                  // 地圖內關序
+  const rng=seeded(n*7+13);
+  const hard=lvl/PER_MAP;       // 0~1 難度比例
+  const cap=Math.min(100, 30+Math.floor(hard*70));   // 數字上限隨難度升高
+
+  // 魔王關（每 25 關一次 + 第 100 關）
+  const boss = (lvl%25===0);
+  const kinds = lvl<20 ? ["next","prev","between"]
+              : lvl<45 ? ["next","prev","between","skip2","skip5","skip10"]
+              : lvl<75 ? ["skip5","skip10","compare2","compareSmall","between","backskip"]
+              : ["compare3","skip5back","skip2","missing","compareSmall"];
+  let kind = boss ? "boss" : pick(rng,kinds);
+
+  if(kind==="next"){const x=ri(rng,10,cap-1);
+    return {q:`${pick(rng,ANIMALS)}在數數字！數到 <b>${x}</b>，<b>下一個</b>數字是多少呢？`,type:"num",answer:String(x+1),
+      hint:`${x} 的後面一個數，就是 ${x} 再加 1 喔！`,solve:`${x} + 1 = <span class='big'>${x+1}</span>！`};}
+
+  if(kind==="prev"){const x=ri(rng,11,cap);
+    return {q:`小精靈往回跳！<b>${x}</b> 的<b>前面</b>一個數字是多少呢？`,type:"num",answer:String(x-1),
+      hint:`前面一個數，就是 ${x} 少 1 喔！`,solve:`${x} − 1 = <span class='big'>${x-1}</span>！`};}
+
+  if(kind==="between"){const x=ri(rng,10,cap-2);
+    return {q:`花仙子排隊！<b>${x}</b> 和 <b>${x+2}</b> 中間，藏著哪一個數字呢？`,type:"num",answer:String(x+1),
+      hint:`${x}、？、${x+2}。${x} 再加 1 是多少呢？`,solve:`中間的數字是 <span class='big'>${x+1}</span>！`};}
+
+  if(kind==="missing"){const start=ri(rng,5,cap-5);
+    const seq=[start,start+1,start+2,start+3].map((v,i)=>i===2?"?":v);
+    return {q:`數字接龍，問號是多少？<br>${seq.join(" → ")}`,type:"num",answer:String(start+2),
+      visual:`<div class='seq'>${seq.join(" → ")}</div>`,
+      hint:`每次加 1 喔！${start+1} 再加 1 是多少？`,solve:`接龍的答案是 <span class='big'>${start+2}</span>！`};}
+
+  if(kind==="skip2"){const start=ri(rng,2,cap-8);const s=[start,start+2,start+4];
+    return {q:`兩個兩個數！<br>${s.join(" → ")} → <b>?</b>`,type:"num",answer:String(start+6),
+      visual:`<div class='seq'>${s.join(" → ")} → ?</div>`,
+      hint:`每次加 2 喔！${start+4} 再加 2 是多少？`,solve:`${start+4} + 2 = <span class='big'>${start+6}</span>！`};}
+
+  if(kind==="skip5"){const start=ri(rng,0,Math.max(5,cap-20));const a=start-(start%5);const s=[a,a+5,a+10];
+    return {q:`五個五個數！<br>${s.join(" → ")} → <b>?</b>`,type:"num",answer:String(a+15),
+      visual:`<div class='seq'>${s.join(" → ")} → ?</div>`,
+      hint:`每次加 5 喔！${a+10} 再加 5 是多少？`,solve:`${a+10} + 5 = <span class='big'>${a+15}</span>！`};}
+
+  if(kind==="skip5back"){const top=ri(rng,40,cap);const a=top-(top%5);const s=[a,a-5,a-10];
+    return {q:`五個五個倒著數！<br>${s.join(" → ")} → <b>?</b>`,type:"num",answer:String(a-15),
+      visual:`<div class='seq'>${s.join(" → ")} → ?</div>`,
+      hint:`每次少 5 喔！${a-10} 再少 5 是多少？`,solve:`${a-10} − 5 = <span class='big'>${a-15}</span>！`};}
+
+  if(kind==="skip10"){const start=ri(rng,0,Math.max(10,cap-30));const a=start-(start%10);const s=[a,a+10,a+20];
+    return {q:`十個十個數！<br>${s.join(" → ")} → <b>?</b>`,type:"num",answer:String(a+30),
+      visual:`<div class='seq'>${s.join(" → ")} → ?</div>`,
+      hint:`每次加 10 喔！${a+20} 再加 10 是多少？`,solve:`${a+20} + 10 = <span class='big'>${a+30}</span>！`};}
+
+  if(kind==="backskip"){const top=ri(rng,40,cap);const a=top-(top%10);const s=[a,a-10,a-20];
+    return {q:`溜滑梯往下溜！<br>${s.join(" → ")} → <b>?</b>`,type:"num",answer:String(a-30),
+      visual:`<div class='seq'>${s.join(" → ")} → ?</div>`,
+      hint:`每次少 10 喔！${a-20} 再少 10 是多少？`,solve:`${a-20} − 10 = <span class='big'>${a-30}</span>！`};}
+
+  if(kind==="compare2"){let a=ri(rng,11,cap),b=ri(rng,11,cap);while(b===a)b=ri(rng,11,cap);
+    const big=Math.max(a,b);
+    return {q:`兩棵魔法樹結了果子：一棵 <b>${a}</b> 顆，一棵 <b>${b}</b> 顆。哪個數字<b>比較大</b>？`,type:"choice",choices:[String(a),String(b)],answer:String(big),
+      hint:`先比十位數！十位數大的就比較大喔！`,solve:`<span class='big'>${big}</span> 比較大！`};}
+
+  if(kind==="compareSmall"){let a=ri(rng,11,cap),b=ri(rng,11,cap);while(b===a)b=ri(rng,11,cap);
+    const small=Math.min(a,b);
+    return {q:`比一比！<b>${a}</b> 和 <b>${b}</b>，哪個<b>比較小</b>？`,type:"choice",choices:[String(a),String(b)],answer:String(small),
+      hint:`先比十位數！十位數小的就比較小喔！`,solve:`<span class='big'>${small}</span> 比較小！`};}
+
+  if(kind==="compare3"){let set=new Set();while(set.size<3)set.add(ri(rng,11,cap));const arr=[...set];const big=Math.max(...arr);
+    return {q:`數字比身高！<b>${arr.join("</b>、<b>")}</b> 裡，哪個<b>最大</b>？`,type:"choice",choices:arr.map(String),answer:String(big),
+      hint:`先看十位數最大的那個！`,solve:`<span class='big'>${big}</span> 最大！`};}
+
+  // boss
+  const base=ri(rng,3,7)*10;const s=[base,base+10,base+20];
+  return {q:`👑 <b>森林魔王來了！</b>小精靈站成一排：${s.join("、")}，魔王偷走了 <b>${base+20} 後面</b>那一個，被偷走的是多少？`,type:"num",answer:String(base+30),
+    hint:`每次加 10，${base+20} 再加 10 是多少？`,solve:`${base+20} + 10 = <span class='big'>${base+30}</span>！魔王被打敗了！🎉`};
+}
+
+/* ---------- 地圖二：時鐘（整點、半點、幾點幾分） ---------- */
+function clockHands(hour,min){
+  const minDeg=min*6, hourDeg=(hour%12)*30+min*0.5;
+  return hand(hourDeg,28,4,"#6b3fa0")+hand(minDeg,38,2.5,"#d6429a");
+}
+function genMap2(n){
+  const lvl=n;const rng=seeded(1000+n*7+5);const hard=lvl/PER_MAP;
+  const boss=(lvl%25===0);
+  let kind;
+  if(lvl<20) kind=pick(rng,["hour","hour","hourAsk"]);
+  else if(lvl<45) kind=pick(rng,["hour","half","half"]);
+  else if(lvl<75) kind=pick(rng,["half","min5","min5"]);
+  else kind=pick(rng,["min5","minDeg","halfAsk","twoStep"]);
+  if(boss) kind="boss";
+
+  if(kind==="hour"){const h=ri(rng,1,12);
+    return {q:`時鐘高塔！長針指 <b>12</b>，短針指 <b>${h}</b>，現在是<b>幾點</b>？（打數字）`,type:"num",answer:String(h),
+      visual:clock(clockHands(h,0)),hint:`長針指 12 是整點，短針指幾就是幾點！`,solve:`現在是 <span class='big'>${h} 點</span>！`};}
+
+  if(kind==="hourAsk"){const h=ri(rng,1,12);
+    return {q:`現在是「<b>${h} 點整</b>」，長針應該指著數字幾呢？（打數字）`,type:"num",answer:"12",
+      hint:`整點的時候，長針一定指著 12 喔！`,solve:`整點時長針指 <span class='big'>12</span>！`};}
+
+  if(kind==="half"){const h=ri(rng,1,12);const nh=(h%12)+1;
+    return {q:`半點囉！長針指 <b>6</b>，短針在 <b>${h} 和 ${nh} 中間</b>，是幾點半？（打數字）`,type:"num",answer:[String(h),h+"點半"],
+      visual:clock(clockHands(h,30)),hint:`長針指 6 是「幾點半」，短針還沒過 ${nh}，所以是 ${h} 點半！`,solve:`是 <span class='big'>${h} 點半</span>！`};}
+
+  if(kind==="halfAsk"){const h=ri(rng,1,12);
+    return {q:`現在是「<b>${h} 點半</b>」，長針應該指著數字幾呢？（打數字）`,type:"num",answer:"6",
+      hint:`「幾點半」的時候，長針一定指著 6！`,solve:`幾點半時長針指 <span class='big'>6</span>！`};}
+
+  if(kind==="min5"){const num=ri(rng,1,11);const min=num*5;const h=ri(rng,1,12);
+    return {q:`幾點幾分！短針在 <b>${h}</b> 旁邊，長針指著 <b>${num}</b>，是 ${h} 點幾分？（一格 5 分，打數字）`,type:"num",answer:String(min),
+      visual:clock(clockHands(h,min)),hint:`長針指 ${num}，從 12 開始 5、10、15… 數 ${num} 格！`,solve:`長針指 ${num} → 過了 <span class='big'>${min} 分</span>！`};}
+
+  if(kind==="minDeg"){const num=ri(rng,1,11);const min=num*5;
+    return {q:`長針指著 <b>${num}</b>，是過了幾分鐘呢？（一格 5 分，打數字）`,type:"num",answer:String(min),
+      hint:`5、10、15… 一格一格數到 ${num}！`,solve:`指 ${num} 就是過了 <span class='big'>${min} 分</span>！`};}
+
+  if(kind==="twoStep"){const h=ri(rng,1,9);const mins=pick(rng,[30]);const after=(h)+ (mins/60>0?0:0);
+    const resH=h, resM=mins; // 整點 + 半小時
+    return {q:`${pick(rng,NAMES)} <b>${h} 點</b>出門，走路花了 <b>半小時</b>，請問到的時候是<b>幾點幾分</b>？（例如 ${h}30 代表 ${h} 點 30 分）`,type:"num",answer:[`${h}30`,`${h}:30`,`${h}點30分`,`${h}點半`],
+      hint:`半小時是 30 分，${h} 點再過 30 分就是 ${h} 點 30 分！`,solve:`${h} 點 + 30 分 = <span class='big'>${h} 點 30 分</span>（打 ${h}30）！`};}
+
+  // boss
+  const h=ri(rng,1,9);
+  return {q:`👑 <b>時鐘魔王！</b>${pick(rng,NAMES)} <b>${h} 點</b>開始畫畫，畫了 <b>半小時（30 分）</b>，畫完是<b>幾點幾分</b>？（打 ${h}30）`,type:"num",answer:[`${h}30`,`${h}:30`,`${h}點30分`,`${h}點半`],
+    hint:`半小時 = 30 分。${h} 點 + 30 分 = ${h} 點 30 分！`,solve:`<span class='big'>${h} 點 30 分</span>（打 ${h}30）！魔王倒下了！🎉`};
+}
+
+/* ---------- 地圖三：貨幣（換算、不進位加、不退位減） ---------- */
+function coinHTML(c10,c5,c1,c50){
+  let h="<div class='visual'>";
+  for(let i=0;i<(c50||0);i++)h+="<span class='coin c50'>50</span>";
+  for(let i=0;i<(c10||0);i++)h+="<span class='coin c10'>10</span>";
+  for(let i=0;i<(c5||0);i++)h+="<span class='coin c5'>5</span>";
+  for(let i=0;i<(c1||0);i++)h+="<span class='coin c1'>1</span>";
+  return h+"</div>";
+}
+function genMap3(n){
+  const lvl=n;const rng=seeded(2000+n*7+9);const hard=lvl/PER_MAP;
+  const boss=(lvl%25===0);
+  let kind;
+  if(lvl<20) kind=pick(rng,["count","count","exchange"]);
+  else if(lvl<45) kind=pick(rng,["count","addNoCarry","addNoCarry"]);
+  else if(lvl<75) kind=pick(rng,["addNoCarry","subNoBorrow","subNoBorrow"]);
+  else kind=pick(rng,["addNoCarry","subNoBorrow","change","threeCoin"]);
+  if(boss) kind="boss";
+
+  if(kind==="count"){const t=ri(rng,1,5),o=ri(rng,1,9);const total=t*10+o;
+    return {q:`收銀台！<b>${t} 個 10 元</b> 和 <b>${o} 個 1 元</b> 合起來是多少元？`,type:"num",answer:String(total),
+      visual:coinHTML(t,0,o,0),hint:`${t} 個 10 元是 ${t*10} 元，再加 ${o} 個 1 元！`,solve:`${t*10} + ${o} = <span class='big'>${total} 元</span>！`};}
+
+  if(kind==="threeCoin"){const f=ri(rng,1,3),fi=ri(rng,1,1),o=ri(rng,1,4);const total=f*10+fi*5+o;
+    return {q:`小豬撲滿！<b>${f} 個 10 元</b>、<b>${fi} 個 5 元</b>、<b>${o} 個 1 元</b> 合起來多少元？`,type:"num",answer:String(total),
+      visual:coinHTML(f,fi,o,0),hint:`${f*10} + ${fi*5} + ${o}，一個一個加！`,solve:`${f*10}+${fi*5}+${o} = <span class='big'>${total} 元</span>！`};}
+
+  if(kind==="exchange"){const big=pick(rng,[50,50,10]);
+    if(big===50)return {q:`換錢魔法！<b>1 個 50 元</b> 可以換成幾個 <b>10 元</b>？`,type:"num",answer:"5",visual:coinHTML(0,0,0,1),
+      hint:`10、20、30… 數到 50 要幾個？`,solve:`需要 <span class='big'>5 個</span> 10 元！`};
+    return {q:`換錢魔法！<b>1 個 10 元</b> 可以換成幾個 <b>5 元</b>？`,type:"num",answer:"2",visual:coinHTML(1,0,0,0),
+      hint:`5、10… 數到 10 要幾個 5 元？`,solve:`需要 <span class='big'>2 個</span> 5 元！`};}
+
+  if(kind==="addNoCarry"){
+    // 確保個位不進位、十位不超過 9
+    let a,b;do{const at=ri(rng,1,4),ao=ri(rng,0,8);const bt=ri(rng,1,9-at),bo=ri(rng,0,9-ao);a=at*10+ao;b=bt*10+bo;}while((a%10)+(b%10)>9||Math.floor(a/10)+Math.floor(b/10)>9||a<10||b<10);
+    const f1=pick(rng,FOODS),f2=pick(rng,FOODS);
+    return {q:`買東西！${f1} <b>${a} 元</b>、${f2} <b>${b} 元</b>，<b>合起來</b>多少元？`,type:"num",answer:String(a+b),
+      hint:`個位加個位（${a%10}+${b%10}），十位加十位（${Math.floor(a/10)*10}+${Math.floor(b/10)*10}）！`,
+      solve:`個位 ${a%10}+${b%10}=${a%10+b%10}，十位 ${Math.floor(a/10)*10}+${Math.floor(b/10)*10}=${(Math.floor(a/10)+Math.floor(b/10))*10}，合起來 <span class='big'>${a+b} 元</span>！`};}
+
+  if(kind==="subNoBorrow"){
+    // 不退位：被減數每位都 >= 減數每位
+    let a,b;do{const at=ri(rng,3,9),ao=ri(rng,1,9);const bt=ri(rng,1,at),bo=ri(rng,0,ao);a=at*10+ao;b=bt*10+bo;}while(a<=b||a%10<b%10||Math.floor(a/10)<Math.floor(b/10));
+    return {q:`找零錢！我有 <b>${a} 元</b>，買了 <b>${b} 元</b> 的東西，<b>還剩</b>多少元？`,type:"num",answer:String(a-b),
+      hint:`個位減個位（${a%10}−${b%10}），十位減十位（${Math.floor(a/10)*10}−${Math.floor(b/10)*10}）！`,
+      solve:`個位 ${a%10}−${b%10}=${a%10-b%10}，十位 ${Math.floor(a/10)*10}−${Math.floor(b/10)*10}=${(Math.floor(a/10)-Math.floor(b/10))*10}，剩下 <span class='big'>${a-b} 元</span>！`};}
+
+  if(kind==="change"){const pay=pick(rng,[50,60,70,80,90,100]);const price=ri(rng,1,pay/10-1)*10;
+    return {q:`找錢！我付 <b>${pay} 元</b>，買了 <b>${price} 元</b> 的東西，店員<b>找我多少元</b>？`,type:"num",answer:String(pay-price),
+      hint:`找的錢 = 付的錢 − 東西的錢，${pay} − ${price}！`,solve:`${pay} − ${price} = <span class='big'>${pay-price} 元</span>！`};}
+
+  // boss
+  const pay=pick(rng,[60,70,80,90,100]);const price=ri(rng,2,pay/10-1)*10;
+  return {q:`👑 <b>麵包店魔王！</b>${pick(rng,NAMES)}有 <b>${pay} 元</b>，買了 <b>${price} 元</b> 的大蛋糕，店員要<b>找多少元</b>？`,type:"num",answer:String(pay-price),
+    hint:`${pay} − ${price} 是多少？`,solve:`${pay} − ${price} = <span class='big'>${pay-price} 元</span>！魔王被打敗了！🎉`};
+}
+
+/* ---------- 地圖四：圖形與測量（非標準單位） ---------- */
+const SHAPES={tri:"🔺",sq:"⬜",circ:"⭕",rect:"▭"};
+function genMap4(n){
+  const lvl=n;const rng=seeded(3000+n*7+11);const hard=lvl/PER_MAP;
+  const boss=(lvl%25===0);
+  let kind;
+  if(lvl<20) kind=pick(rng,["idTri","idCirc","idSq"]);
+  else if(lvl<45) kind=pick(rng,["idTri","idSq","countShape","countShape"]);
+  else if(lvl<75) kind=pick(rng,["countShape","compareLen","compareLen"]);
+  else kind=pick(rng,["countShape","compareLen","diffLen","diffLen"]);
+  if(boss) kind="boss";
+
+  if(kind==="idTri")return {q:`城堡魔法石！有 <b>3 個邊</b>、<b>3 個角</b> 的形狀是什麼？`,type:"choice",choices:["三角形 🔺","正方形 ⬜","圓形 ⭕"],answer:"三角形 🔺",
+    hint:`3 個邊、3 個角，尖尖的那個！`,solve:`是 <span class='big'>三角形 🔺</span>！`};
+  if(kind==="idCirc")return {q:`哪個形狀<b>沒有角</b>，圓圓滾滾的？`,type:"choice",choices:["三角形 🔺","圓形 ⭕","長方形 ▭"],answer:"圓形 ⭕",
+    hint:`沒有角、可以滾動的，像太陽！`,solve:`是 <span class='big'>圓形 ⭕</span>！`};
+  if(kind==="idSq")return {q:`有 <b>4 個一樣長的邊</b>、4 個角的形狀是？`,type:"choice",choices:["長方形 ▭","正方形 ⬜","三角形 🔺"],answer:"正方形 ⬜",
+    hint:`四個邊都一樣長、方方正正！`,solve:`是 <span class='big'>正方形 ⬜</span>！`};
+
+  if(kind==="countShape"){
+    const target=pick(rng,["tri","circ","sq"]);const tName={tri:"三角形",circ:"圓形",sq:"正方形"}[target];
+    const cnt=ri(rng,2,Math.min(8,3+Math.floor(hard*6)));
+    const others=["tri","circ","sq","rect"].filter(s=>s!==target);
+    let arr=[];for(let i=0;i<cnt;i++)arr.push(SHAPES[target]);
+    const noise=ri(rng,2,5);for(let i=0;i<noise;i++)arr.push(SHAPES[pick(rng,others)]);
+    // shuffle
+    for(let i=arr.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+    return {q:`城堡圖案裡有 <b>幾個${tName}</b>？<br>${arr.join("")}`,type:"num",answer:String(cnt),
+      visual:`<div class='visual'>${arr.join("")}</div>`,hint:`只數 ${SHAPES[target]}，一個一個慢慢數！`,
+      solve:`一共有 <span class='big'>${cnt} 個</span>${tName}！`};}
+
+  if(kind==="compareLen"){const unit=pick(rng,["迴紋針📎","積木🧱","格子▫️"]);
+    let a=ri(rng,3,9),b=ri(rng,3,9);while(b===a)b=ri(rng,3,9);
+    const objA=pick(rng,["鉛筆✏️","緞帶🎀","吸管🥤"]),objB=pick(rng,["膠帶","橡皮擦","湯匙🥄"]);
+    const longer=a>b?objA:objB;
+    return {q:`用${unit}量長度！${objA} 有 <b>${a} 個</b>${unit}長，${objB} 有 <b>${b} 個</b>${unit}長。<b>誰比較長</b>？`,type:"choice",choices:[objA,objB],answer:longer,
+      hint:`${unit}越多就越長！${a} 和 ${b} 誰多？`,solve:`<span class='big'>${longer}</span> 比較長！`};}
+
+  if(kind==="diffLen"){const unit=pick(rng,["迴紋針📎","積木🧱"]);
+    let a=ri(rng,4,9),b=ri(rng,2,a-1);
+    const objA=pick(rng,["鉛筆✏️","緞帶🎀"]),objB=pick(rng,["膠帶","橡皮擦"]);
+    return {q:`${objA} 有 <b>${a} 個</b>${unit}長，${objB} 有 <b>${b} 個</b>${unit}長，${objA}比${objB}<b>長幾個</b>${unit}？`,type:"num",answer:String(a-b),
+      hint:`用減法！${a} − ${b} 是多少？`,solve:`${a} − ${b} = <span class='big'>${a-b} 個</span>！`};}
+
+  // boss
+  const cnt=ri(rng,3,6);let arr=[];for(let i=0;i<cnt;i++)arr.push("🔺");
+  for(let i=0;i<ri(rng,3,5);i++)arr.push(pick(rng,["⭕","⬜","▭"]));
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return {q:`👑 <b>圖形魔王盾牌！</b>數一數有幾個<b>三角形</b>？<br>${arr.join("")}`,type:"num",answer:String(cnt),
+    visual:`<div class='visual'>${arr.join("")}</div>`,hint:`只數 🔺，慢慢數！`,solve:`一共 <span class='big'>${cnt} 個</span>三角形！魔王盾牌破啦！🎉`};
+}
+
+/* ---------- 地圖五：兩步驟與進位加法（無退位減法） ---------- */
+function genMap5(n){
+  const lvl=n;const rng=seeded(4000+n*7+3);const hard=lvl/PER_MAP;
+  const boss=(lvl%25===0)||(n===PER_MAP);
+  let kind;
+  if(lvl<20) kind=pick(rng,["carry","carry","carryBig"]);
+  else if(lvl<45) kind=pick(rng,["carry","twoAddSub","twoAddSub"]);
+  else if(lvl<75) kind=pick(rng,["twoAddSub","twoSubAdd","mix"]);
+  else kind=pick(rng,["carryBig","twoSubAdd","mix","mixHard"]);
+  if(boss) kind=(n===PER_MAP)?"finalboss":"boss";
+
+  if(kind==="carry"){const a=ri(rng,11,29);const ones=a%10;const b=ri(rng,11-ones%10>0?(10-ones+1):2,9);
+    // 確保進位：個位 + b >= 10
+    let bb=b;if((ones+bb)<10)bb=10-ones+ri(rng,0,3);if(ones+bb>18)bb=9;
+    const obj=pick(rng,["貼紙","蘋果🍎","星星⭐","糖果🍬"]);
+    return {q:`我有 <b>${a} 個</b>${obj}，${pick(rng,["姐姐","哥哥","媽媽"])}又給我 <b>${bb} 個</b>，現在有<b>幾個</b>？`,type:"num",answer:String(a+bb),
+      hint:`${carrySolve(a,bb)}`,solve:`${carrySolve(a,bb)}，一共 <span class='big'>${a+bb} 個</span>！`};}
+
+  if(kind==="carryBig"){const a=ri(rng,25,48);const ones=a%10;let b=ri(rng,1,9);if(ones+b<10)b=10-ones+ri(rng,0,4);if(b>9)b=9;
+    const obj=pick(rng,["魚🐟","花朵🌸","氣球🎈"]);
+    return {q:`池塘有 <b>${a} 條</b>${obj}，又游來 <b>${b} 條</b>，現在有幾條？`,type:"num",answer:String(a+b),
+      hint:`${carrySolve(a,b)}`,solve:`${carrySolve(a,b)}，一共 <span class='big'>${a+b} 條</span>！`};}
+
+  if(kind==="twoAddSub"){const start=ri(rng,10,20);const down=ri(rng,1,Math.min(start-1,5));const up=ri(rng,2,6);
+    return {q:`魔法公車！車上有 <b>${start} 人</b>，下去 <b>${down} 人</b>，又上來 <b>${up} 人</b>，現在有幾人？`,type:"num",answer:String(start-down+up),
+      hint:`分兩步！先 ${start}−${down}=${start-down}，再 +${up}！`,solve:`${start}−${down}=${start-down}，${start-down}+${up}=${start-down+up}，<span class='big'>${start-down+up} 人</span>！`};}
+
+  if(kind==="twoSubAdd"){const start=ri(rng,20,40);const buy=ri(rng,5,Math.min(start-5,15));const give=ri(rng,5,15);
+    return {q:`${pick(rng,NAMES)}有 <b>${start} 元</b>，買 <b>${buy} 元</b> 的東西後，媽媽又給 <b>${give} 元</b>，現在有幾元？`,type:"num",answer:String(start-buy+give),
+      hint:`分兩步！先 ${start}−${buy}=${start-buy}，再 +${give}！`,solve:`${start}−${buy}=${start-buy}，${start-buy}+${give}=${start-buy+give}，<span class='big'>${start-buy+give} 元</span>！`};}
+
+  if(kind==="mix"){const a=ri(rng,10,30);const b=ri(rng,2,8);const c=ri(rng,1,Math.min(a+b-1,8));
+    return {q:`果子樹有 <b>${a} 顆</b>果子，又長出 <b>${b} 顆</b>，被鳥吃了 <b>${c} 顆</b>，現在有幾顆？`,type:"num",answer:String(a+b-c),
+      hint:`分兩步！先 ${a}+${b}=${a+b}，再 −${c}！`,solve:`${a}+${b}=${a+b}，${a+b}−${c}=${a+b-c}，<span class='big'>${a+b-c} 顆</span>！`};}
+
+  if(kind==="mixHard"){const a=ri(rng,15,35);const b=ri(rng,3,8);const c=ri(rng,2,7);
+    return {q:`寶箱有 <b>${a} 顆</b>寶石💎，找到 <b>${b} 顆</b>，送朋友 <b>${c} 顆</b>，現在有幾顆？`,type:"num",answer:String(a+b-c),
+      hint:`分兩步！先 ${a}+${b}=${a+b}，再 −${c}！`,solve:`${a}+${b}=${a+b}，${a+b}−${c}=${a+b-c}，<span class='big'>${a+b-c} 顆</span>！`};}
+
+  if(kind==="boss"){const x=ri(rng,8,15),y=ri(rng,4,9);
+    return {q:`👑 <b>數字魔王！</b>魔王關了精靈，你先救出 <b>${x} 個</b>，再找到 <b>${y} 個</b>，<b>一共</b>救出幾個？`,type:"num",answer:String(x+y),
+      hint:`兩步驟！${x} + ${y} 是多少？`,solve:`${x}+${y}=<span class='big'>${x+y} 個</span>！魔王被打敗了！🎉`};}
+
+  // 最終大魔王
+  const start=ri(rng,18,28),save=ri(rng,4,8),found=ri(rng,4,8);
+  return {q:`👑👑 <b>終極數字大魔王！</b>魔王關了 <b>${start} 個</b>精靈，你先救出 <b>${save} 個</b>，又找到藏起來的 <b>${found} 個</b>，<b>一共救出幾個</b>精靈？`,type:"num",answer:String(save+found),
+    hint:`兩步驟！先救 ${save} 個，再救 ${found} 個，${save}+${found} 是多少？`,solve:`${save}+${found}=<span class='big'>${save+found} 個</span>！全部精靈都自由啦！🎉🎊👑`};
+}
+
+/* 依全域關卡編號（1..500）回傳題目 */
+function buildLevel(globalLevel){
+  const mapIdx=Math.floor((globalLevel-1)/PER_MAP);  // 0..4
+  const inMap=((globalLevel-1)%PER_MAP)+1;            // 1..100
+  let lv;
+  if(mapIdx===0) lv=genMap1(inMap);
+  else if(mapIdx===1) lv=genMap2(inMap);
+  else if(mapIdx===2) lv=genMap3(inMap);
+  else if(mapIdx===3) lv=genMap4(inMap);
+  else lv=genMap5(inMap);
+  return lv;
+}
+
+
+/* ============================================================
+   遊戲狀態 + 自動存檔（localStorage，關閉後仍保留）
+============================================================ */
+let state = {level:0, items:[], wrongCount:0, awarded:[]};
+let curLevel = null;   // 目前這一關的題目（快取）
+
+const SAVE_KEY = "mathFairyAdventure_v2";
+
+function saveGame(){
+  try{
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      level:state.level, items:state.items, awarded:state.awarded
+    }));
+  }catch(e){/* 無痕模式可能不能存，忽略 */}
+}
+function loadGame(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return null;
+    const d=JSON.parse(raw);
+    if(typeof d.level!=="number")return null;
+    return d;
+  }catch(e){return null;}
+}
+function clearSave(){try{localStorage.removeItem(SAVE_KEY);}catch(e){}}
+
+function level_data(){ return curLevel; }
+
+const el = id=>document.getElementById(id);
+const bubble=el("bubble"), fairy=el("fairy"), visualArea=el("visualArea");
+const inputRow=el("inputRow"), choicesRow=el("choicesRow"), nextRow=el("nextRow"),
+      startRow=el("startRow"), restartRow=el("restartRow");
+const answerInput=el("answer");
+const speakBtn=el("speakBtn");
+
+/* ============================================================
+   語音播放（瀏覽器內建語音合成，免外部服務）
+============================================================ */
+const synth = window.speechSynthesis;
+let zhVoice = null;
+let lastSpeech = "";   // 目前題目的純文字，給「再聽一次」用
+
+function pickVoice(){
+  if(!synth) return;
+  const voices = synth.getVoices();
+  // 優先挑中文（台灣）語音，其次任何中文語音
+  zhVoice = voices.find(v=>/zh-TW/i.test(v.lang))
+        || voices.find(v=>/zh-HK/i.test(v.lang))
+        || voices.find(v=>/zh/i.test(v.lang))
+        || voices.find(v=>/cmn/i.test(v.lang))
+        || null;
+}
+if(synth){
+  pickVoice();
+  // 有些瀏覽器要等 voiceschanged 事件才載得到語音清單
+  synth.onvoiceschanged = pickVoice;
+}
+
+/* 把 HTML 轉成適合朗讀的純文字 */
+function toSpeech(html){
+  let t = html
+    .replace(/<br\s*\/?>/gi," ，")     // 換行當作停頓
+    .replace(/<[^>]+>/g,"")            // 去掉所有標籤
+    .replace(/🎒[^：]*：[^]*$/,"")     // 不要念出背包清單
+    .replace(/[🌟⭐✨🎉🥳👑👏💪💖🎊🔊🧚‍♀️🧚]/g,"")  // 去掉裝飾表情
+    .replace(/\s+/g," ")
+    .trim();
+  return t;
+}
+
+function speak(text){
+  if(!synth || !text){return;}
+  synth.cancel();                       // 先停掉上一段
+  const u = new SpeechSynthesisUtterance(text);
+  if(zhVoice) u.voice = zhVoice;
+  u.lang = zhVoice ? zhVoice.lang : "zh-TW";
+  u.rate = 0.85;                        // 放慢一點，給小朋友聽
+  u.pitch = 1.15;                       // 音調高一點，活潑可愛
+  u.onstart = ()=>speakBtn.classList.add("speaking");
+  u.onend   = ()=>speakBtn.classList.remove("speaking");
+  u.onerror = ()=>speakBtn.classList.remove("speaking");
+  synth.speak(u);
+}
+
+/* stars background */
+(function makeStars(){
+  const s=el("stars");
+  for(let i=0;i<50;i++){const d=document.createElement("div");d.className="star";
+    const sz=Math.random()*3+1;d.style.width=sz+"px";d.style.height=sz+"px";
+    d.style.left=Math.random()*100+"%";d.style.top=Math.random()*100+"%";
+    d.style.animationDelay=Math.random()*3+"s";s.appendChild(d);}
+})();
+
+function currentMap(){
+  const lv=state.level;
+  return MAPS.find(m=>lv>=m.range[0]&&lv<=m.range[1])||MAPS[0];
+}
+
+function updateHUD(){
+  el("lvlNum").textContent="第 "+state.level+" / "+TOTAL_LEVELS+" 關";
+  el("barFill").style.width=(state.level/TOTAL_LEVELS*100)+"%";
+  el("mapName").textContent = state.level>=1 ? currentMap().name : "準備出發";
+}
+
+function renderBackpack(){
+  const c=el("bpItems");
+  if(state.items.length===0){c.innerHTML="<span class='bp-empty'>還沒有道具喔，加油闖關吧！</span>";return;}
+  c.innerHTML="";
+  // 道具很多時只顯示最近 12 個，前面用數量泡泡表示
+  const MAX=12;
+  if(state.items.length>MAX){
+    const more=document.createElement("span");more.className="item";
+    more.style.background="rgba(255,213,79,.25)";
+    more.textContent="🎒 已收集 "+state.items.length+" 個";
+    c.appendChild(more);
+  }
+  state.items.slice(-MAX).forEach(it=>{const d=document.createElement("span");d.className="item";d.textContent=it;c.appendChild(d);});
+}
+
+function hideAll(){[inputRow,choicesRow,nextRow,startRow,restartRow].forEach(r=>r.classList.add("hidden"));}
+
+function setBubble(html, autoSpeak){
+  bubble.innerHTML=html;
+  bubble.style.animation="none";void bubble.offsetWidth;bubble.style.animation="pop .35s ease";
+  lastSpeech = toSpeech(html);
+  if(autoSpeak) speak(lastSpeech);
+}
+
+function flash(emoji){const f=el("flash");f.textContent=emoji;f.classList.remove("show");void f.offsetWidth;f.classList.add("show");}
+
+function confetti(){
+  const colors=["#ffd54f","#ff8fc7","#7ef0c9","#7ec8ff","#ff6b6b","#c39bff"];
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.borderRadius=Math.random()>.5?"50%":"2px";
+    const dur=Math.random()*1.5+2;
+    c.style.transition="transform "+dur+"s linear, opacity "+dur+"s linear";
+    document.body.appendChild(c);
+    requestAnimationFrame(()=>{
+      c.style.transform="translateY("+(window.innerHeight+40)+"px) rotate("+(Math.random()*720)+"deg)";
+      c.style.opacity="0";
+    });
+    setTimeout(()=>c.remove(),dur*1000+100);
+  }
+}
+
+/* 開場 */
+function showIntro(){
+  state.level=0;state.items=[];state.awarded=[];
+  updateHUD();renderBackpack();hideAll();
+  fairy.textContent="🧚";
+  speakBtn.style.display="inline-flex";
+
+  const saved=loadGame();
+  const contBtn=el("continueBtn");
+  const startBtn=el("startBtn");
+  if(saved && saved.level>=1 && saved.level<=TOTAL_LEVELS){
+    // 找出存檔在第幾張地圖
+    const mp=MAPS.find(m=>saved.level>=m.range[0]&&saved.level<=m.range[1]);
+    contBtn.classList.remove("hidden");
+    contBtn.textContent="繼續上次（第 "+saved.level+" 關）📖";
+    startBtn.textContent="重新開始 🌟";
+    setBubble("歡迎回來，小勇者！✨<br><br>精靈幫你記得上次的進度囉～你已經闖到 <b>第 "+saved.level+" 關</b>（"+(mp?mp.name:"")+"），收集了 <b>"+saved.items.length+" 個</b>道具！<br><br>想<b>繼續上次</b>，還是<b>重新開始</b>呢？");
+  }else{
+    contBtn.classList.add("hidden");
+    startBtn.textContent="出發！🌟";
+    setBubble("哈囉！勇敢的小勇者！我是你的<b>數學冒險精靈</b> ✨<br><br>聽說數字王國的精靈被魔王抓走了，你願意用智慧和勇氣，挑戰 <b>"+TOTAL_LEVELS+" 個關卡</b> 來拯救他們嗎？<br><br>準備好了就按下「出發！」，前往第一關 🌳<b>百數表奇幻森林</b>！");
+  }
+  startRow.classList.remove("hidden");
+}
+
+/* 出題 */
+function showLevel(){
+  hideAll();
+  state.wrongCount=0;
+  updateHUD();
+  curLevel = buildLevel(state.level);
+  const lv=curLevel;
+  saveGame();
+  fairy.textContent="🧚";
+  speakBtn.style.display="inline-flex";
+  let head="🌟 <b>第 "+state.level+" 關</b> 🌟<br>";
+  setBubble(head+lv.q, true);
+
+  // visual
+  if(lv.visual){visualArea.innerHTML=lv.visual;visualArea.classList.remove("hidden");}
+  else{visualArea.classList.add("hidden");visualArea.innerHTML="";}
+
+  if(lv.type==="choice"){
+    choicesRow.classList.remove("hidden");
+    choicesRow.innerHTML="";
+    lv.choices.forEach(ch=>{
+      const b=document.createElement("button");b.className="choice";b.textContent=ch;
+      b.onclick=()=>checkAnswer(ch);
+      choicesRow.appendChild(b);
+    });
+  }else{
+    inputRow.classList.remove("hidden");
+    answerInput.value="";
+    setTimeout(()=>answerInput.focus(),100);
+  }
+}
+
+/* 正規化答案 */
+function normalize(s){
+  return String(s).trim()
+    .replace(/[點:：\s]/g,"")
+    .replace(/元|張|顆|個|點|分|人|塊|條|歲/g,"");
+}
+function isUnreadable(s){
+  const t=String(s).trim();
+  if(t==="")return true;
+  // 純標點或無數字也無中文選項字
+  if(/^[\p{P}\p{S}]+$/u.test(t))return true;
+  return false;
+}
+
+/* 判定 */
+function checkAnswer(raw){
+  const lv=curLevel;
+
+  // 選擇題：直接比對文字
+  if(lv.type==="choice"){
+    if(raw===lv.answer){return correct();}
+    return wrong();
+  }
+
+  // 數字題
+  if(isUnreadable(raw)){
+    fairy.textContent="🧚";
+    setBubble("小勇者，精靈剛剛耳朵癢癢的沒聽清楚 👂<br>你說的答案是多少呢？可以再打一次<b>數字</b>給我嗎？😊");
+    answerInput.value="";answerInput.focus();
+    return; // 不算錯
+  }
+
+  const ans = Array.isArray(lv.answer)?lv.answer:[lv.answer];
+  const userN = normalize(raw);
+  // 完全沒有數字也視為聽不清
+  if(!/\d/.test(userN)){
+    fairy.textContent="🧚";
+    setBubble("小勇者，精靈剛剛耳朵癢癢的沒聽清楚 👂<br>可以再打一次<b>數字</b>給我嗎？😊");
+    answerInput.value="";answerInput.focus();
+    return;
+  }
+
+  const ok = ans.some(a=>normalize(a)===userN);
+  if(ok) correct(); else wrong();
+}
+
+function awardItem(){
+  let item;
+  if(state.level===TOTAL_LEVELS){item=ITEMS[49];}            // 最終關固定給冠軍徽章
+  else{ item=ITEMS[Math.floor(Math.random()*49)]; }
+  state.awarded.push(item);
+  state.items.push(item);
+  renderBackpack();
+  return item;
+}
+
+function correct(){
+  hideAll();
+  const item=awardItem();
+  saveGame();
+  flash("🎉");
+  const praises=["太棒了！","你好厲害！","答對啦！","勇者真聰明！","精靈為你鼓掌！👏","完全正確！","你做到了！","好強喔！"];
+  const p=praises[Math.floor(Math.random()*praises.length)];
+  fairy.textContent="🥳";
+  if(state.level===TOTAL_LEVELS){return finale(item);}
+  setBubble("⭐ "+p+" ⭐<br>你成功通過<b>第 "+state.level+" 關</b>！<br>精靈賜給你一個道具：<b>"+item+"</b><br><br>🎒 背包裡已經有 <b>"+state.items.length+" 個</b>道具囉！");
+  nextRow.classList.remove("hidden");
+}
+
+function wrong(){
+  const lv=curLevel;
+  state.wrongCount++;
+  if(state.wrongCount===1){
+    fairy.textContent="🧚";
+    setBubble("沒關係，再試一次就好！💪<br>精靈給你一個小提示：<br><br>👉 "+lv.hint+"", true);
+    if(lv.type==="num"){answerInput.value="";answerInput.focus();}
+  }else{
+    // 第二次錯：示範並推進
+    hideAll();
+    const item=awardItem();
+    saveGame();
+    fairy.textContent="🧚‍♀️";
+    flash("✨");
+    if(state.level===TOTAL_LEVELS){
+      setBubble("✨ 精靈用魔法幫你解開了！✨<br>"+lv.solve+"<br><br>你也太棒了，撐到最後一關！👑", true);
+      setTimeout(()=>finale(item),100);
+      return;
+    }
+    setBubble("✨ 精靈用魔法幫你解開了！✨<br>"+lv.solve+"<br><br>沒關係！下一題你一定會！💖<br>送你一個道具：<b>"+item+"</b>（已收集 "+state.items.length+" 個）", true);
+    nextRow.classList.remove("hidden");
+  }
+}
+
+function nextLevel(){
+  state.level++;
+  if(state.level>TOTAL_LEVELS){return;}
+  showLevel();
+}
+
+function finale(item){
+  hideAll();updateHUD();
+  speakBtn.style.display="none";
+  clearSave();
+  confetti();setTimeout(confetti,600);setTimeout(confetti,1200);
+  fairy.textContent="👑";
+  bubble.innerHTML=`<div class="finale">
+    <div class="crown">👑✨</div>
+    <h2>恭喜全破！</h2>
+    <p style="font-size:18px;line-height:1.7;">勇敢的小勇者，你打敗了終極大魔王，<br><b>闖過全部 ${TOTAL_LEVELS} 關，救出了所有數字精靈！</b><br>數字王國恢復了和平與歡笑 🎉🎊</p>
+    <p style="margin-top:12px;font-size:16px;">你收集了滿滿一背包的 <b>${state.items.length} 個</b> 道具，<br>還拿到最榮耀的 <b>${item}</b>！</p>
+    <p style="margin-top:12px;font-size:16px;color:#7ef0c9;font-weight:700;">你是真正的數學大勇者！⭐⭐⭐</p>
+  </div>`;
+  restartRow.classList.remove("hidden");
+}
+
+/* 事件 */
+speakBtn.onclick=()=>{ if(lastSpeech) speak(lastSpeech); };
+el("continueBtn").onclick=()=>{
+  if(synth) synth.cancel();
+  const saved=loadGame();
+  if(saved){ state.level=saved.level; state.items=saved.items||[]; state.awarded=saved.awarded||[]; }
+  renderBackpack();
+  showLevel();
+};
+el("startBtn").onclick=()=>{
+  if(synth) synth.cancel();
+  clearSave();
+  state={level:1,items:[],wrongCount:0,awarded:[]};
+  renderBackpack();
+  showLevel();
+};
+el("submitBtn").onclick=()=>checkAnswer(answerInput.value);
+answerInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkAnswer(answerInput.value);});
+el("nextBtn").onclick=()=>{ if(synth) synth.cancel(); nextLevel(); };
+el("restartBtn").onclick=()=>{ if(synth) synth.cancel(); clearSave(); state={level:0,items:[],wrongCount:0,awarded:[]};renderBackpack();showIntro();};
+
+showIntro();
+</script>
+</body>
+</html>
