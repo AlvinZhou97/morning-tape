@@ -77,10 +77,10 @@ def gen_pool():
         add("50以內的數",q,q_zh,ans,make_opts(ans,max(1,ans-10),min(50,ans+10),4,rng),
             f"每次增加{step}，空格是{ans}")
 
-    # ── 2. 100以內加法（65題：整十15＋兩位數20＋進位15＋填空15）
-    # A. 整十數加法 15題（10~90）
-    for _ in range(15):
-        a=rng.randint(1,8)*10; b=rng.randint(1,9-a//10)*10
+    # ── 2. 100以內加法（65題：整十8＋兩位數20＋進位22＋填空10＋三數連加5）
+    # A. 整十數加法 8題（減少比重）
+    for _ in range(8):
+        a=rng.randint(2,7)*10; b=rng.randint(1,9-a//10)*10
         ans=a+b
         add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(10,ans-20),min(100,ans+20),4,rng),f"{a}+{b}={ans}")
@@ -92,52 +92,70 @@ def gen_pool():
         if ans>99: continue
         add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(10,ans-15),min(99,ans+15),4,rng),f"{a}+{b}={ans}")
-    # C. 兩位數+兩位數（進位，個位和>10）15題
-    for _ in range(15):
+    # C. 兩位數+兩位數（進位，個位和>10）22題 ★增加★
+    for _ in range(22):
         while True:
-            a=rng.randint(15,65); b=rng.randint(15,65)
+            a=rng.randint(18,72); b=rng.randint(18,72)
             if a%10+b%10>10 and a+b<=100: break
         ans=a+b
         add("100內加法",f"{a} + {b} = ?",f"{num_zh(a)} 加 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(20,ans-15),min(100,ans+15),4,rng),f"{a}+{b}={ans}（進位）")
-    # D. 填空題 15題（□ + b = sum，逆向思考）
-    for _ in range(15):
-        b=rng.choice([10,20,30,40,50]); a=rng.randint(10,50)
+    # D. 填空題 10題（□ + b = sum）
+    for _ in range(10):
+        b=rng.choice([13,17,24,28,35,42,46]); a=rng.randint(15,55)
         total=a+b
         if total>100: continue
         add("100內加法",f"□ + {b} = {total}",
             f"空格加{num_zh(b)}等於{num_zh(total)}，空格是幾？",
             a,make_opts(a,max(5,a-15),min(90,a+15),4,rng),f"{total}-{b}={a}")
+    # E. ★新增★ 三數連加 5題（a+b+c=?，和≤100）
+    for _ in range(5):
+        while True:
+            a=rng.randint(10,40); b=rng.randint(8,30); c=rng.randint(5,20)
+            if a+b+c<=100: break
+        ans=a+b+c
+        add("100內加法",f"{a} + {b} + {c} = ?",
+            f"{num_zh(a)} 加 {num_zh(b)} 加 {num_zh(c)} 等於多少？",
+            ans,make_opts(ans,max(15,ans-18),min(100,ans+18),4,rng),f"{a}+{b}+{c}={ans}")
 
-    # ── 3. 100以內減法（65題：整十15＋兩位數20＋借位15＋填空15）
-    # A. 整十數減法 15題
-    for _ in range(15):
-        a=rng.randint(2,9)*10; b=rng.randint(1,a//10-1)*10
+    # ── 3. 100以內減法（65題：整十8＋不借位15＋借位25＋填空12＋連減5）
+    # A. 整十數減法 8題（減少比重）
+    for _ in range(8):
+        a=rng.randint(3,9)*10; b=rng.randint(1,a//10-1)*10
         ans=a-b
         add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(0,ans-20),min(90,ans+20),4,rng),f"{a}-{b}={ans}")
-    # B. 兩位數-兩位數（不借位）20題
-    for _ in range(20):
+    # B. 兩位數-兩位數（不借位）15題
+    for _ in range(15):
         b1=rng.randint(1,5)*10; b2=rng.randint(0,8)
         a1=rng.randint(b1//10+1,8)*10; a2=rng.randint(b2,9)
         a=a1+a2; b=b1+b2; ans=a-b
         if ans<=0: continue
         add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(1,ans-15),min(89,ans+15),4,rng),f"{a}-{b}={ans}")
-    # C. 兩位數-兩位數（借位，個位不夠減）15題
-    for _ in range(15):
+    # C. 兩位數-兩位數（借位）25題 ★增加★
+    for _ in range(25):
         while True:
-            a=rng.randint(30,90); b=rng.randint(15,a-5)
-            if a%10<b%10 and a-b>0: break  # 個位不夠，需借位
+            a=rng.randint(30,92); b=rng.randint(15,a-4)
+            if a%10<b%10 and a-b>0: break
         ans=a-b
         add("100內減法",f"{a} - {b} = ?",f"{num_zh(a)} 減 {num_zh(b)} 等於多少？",
             ans,make_opts(ans,max(1,ans-15),min(89,ans+15),4,rng),f"{a}-{b}={ans}（借位）")
-    # D. 填空題 15題（a - □ = remain）
-    for _ in range(15):
-        a=rng.randint(30,90); ans_val=rng.randint(10,a-10); b=a-ans_val
+    # D. 填空題 12題（a - □ = remain）
+    for _ in range(12):
+        a=rng.randint(35,95); ans_val=rng.randint(8,a-12); b=a-ans_val
         add("100內減法",f"{a} - □ = {ans_val}",
             f"{num_zh(a)}減空格等於{num_zh(ans_val)}，空格是幾？",
             b,make_opts(b,max(5,b-15),min(80,b+15),4,rng),f"{a}-{ans_val}={b}")
+    # E. ★新增★ 連續減法 5題（a - b - c = ?）
+    for _ in range(5):
+        while True:
+            a=rng.randint(50,95); b=rng.randint(10,30); c=rng.randint(5,20)
+            if a-b-c>0: break
+        ans=a-b-c
+        add("100內減法",f"{a} - {b} - {c} = ?",
+            f"{num_zh(a)} 減 {num_zh(b)} 再減 {num_zh(c)} 等於多少？",
+            ans,make_opts(ans,max(1,ans-15),min(80,ans+15),4,rng),f"{a}-{b}-{c}={ans}")
 
     # ── 4. 圖形與分類（60題）──────────────────────────────────
     shape_pool = [
@@ -389,8 +407,8 @@ def gen_pool():
         add("日曆",q,q_zh,ans,opts,exp)
 
     # ── 9. 時鐘（50題）────────────────────────────────────────
-    # 整點 25 題
-    for _ in range(25):
+    # 整點 15 題
+    for _ in range(15):
         h = rng.randint(1,12); m = 0
         ans = f"{h}點整"
         others = [hh for hh in range(1,13) if hh != h]; rng.shuffle(others)
@@ -398,10 +416,10 @@ def gen_pool():
         qs.append({"id":qid,"cat":"時鐘","q":"時鐘顯示的是幾點？",
                    "q_zh":f"時鐘顯示{num_zh(h)}點整，是幾點？",
                    "q_hour":h,"q_minute":0,"ans":ans,"opts":opts[:4],
-                   "exp":f"短針（時針）指向{h}，長針（分針）指向12，是{ans}"})
+                   "exp":f"短針指向{h}，長針指向12，是{ans}"})
         qid+=1
-    # 半點 25 題
-    for _ in range(25):
+    # 半點 15 題
+    for _ in range(15):
         h = rng.randint(1,12); m = 30
         ans = f"{h}點30分"
         others = [hh for hh in range(1,13) if hh != h]; rng.shuffle(others)
@@ -411,6 +429,29 @@ def gen_pool():
                    "q_zh":f"時鐘顯示{num_zh(h)}點三十分，是幾點幾分？",
                    "q_hour":h,"q_minute":30,"ans":ans,"opts":opts[:4],
                    "exp":f"短針在{h}和{nxt}之間，長針指向6，是{ans}"})
+        qid+=1
+    # ★新增★ 15分 10題
+    for _ in range(10):
+        h = rng.randint(1,12); m = 15
+        ans = f"{h}點15分"
+        others = [hh for hh in range(1,13) if hh != h]; rng.shuffle(others)
+        opts = [ans] + [f"{hh}點15分" for hh in others[:3]]; rng.shuffle(opts)
+        qs.append({"id":qid,"cat":"時鐘","q":"時鐘顯示的是幾點幾分？",
+                   "q_zh":f"時鐘顯示{num_zh(h)}點十五分，是幾點幾分？",
+                   "q_hour":h,"q_minute":15,"ans":ans,"opts":opts[:4],
+                   "exp":f"短針稍過{h}，長針指向3，是{ans}"})
+        qid+=1
+    # ★新增★ 45分 10題
+    for _ in range(10):
+        h = rng.randint(1,12); m = 45
+        ans = f"{h}點45分"
+        others = [hh for hh in range(1,13) if hh != h]; rng.shuffle(others)
+        opts = [ans] + [f"{hh}點45分" for hh in others[:3]]; rng.shuffle(opts)
+        nxt = h%12+1
+        qs.append({"id":qid,"cat":"時鐘","q":"時鐘顯示的是幾點幾分？",
+                   "q_zh":f"時鐘顯示{num_zh(h)}點四十五分，是幾點幾分？",
+                   "q_hour":h,"q_minute":45,"ans":ans,"opts":opts[:4],
+                   "exp":f"短針快到{nxt}了，長針指向9，是{ans}"})
         qid+=1
 
     # ── 10. 有多長（50題）──────────────────────────────────────
@@ -469,9 +510,9 @@ def gen_pool():
     ALL_OBJ = FOOD+ANIMAL+STATY+PERSON+NATURE
 
     def robj(): return rng.choice(ALL_OBJ)
-    def rsmall(lo=2,hi=9): return rng.randint(lo,hi)
-    def rbig(lo=10,hi=18): return rng.randint(lo,hi)
-    def rmed(lo=5,hi=15): return rng.randint(lo,hi)
+    def rsmall(lo=5,hi=18): return rng.randint(lo,hi)   # 提升最小值
+    def rbig(lo=20,hi=50): return rng.randint(lo,hi)   # 提升到50
+    def rmed(lo=10,hi=35): return rng.randint(lo,hi)   # 提升範圍
 
     # ── A. 合併型（兩組合在一起）──────────────────────────────
     A_tmpl = [
@@ -764,9 +805,6 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
   .header,.progress-wrap,.filters{width:var(--maxw)!important;
     border-left:1px solid var(--border);border-right:1px solid var(--border)}
   .feed{width:var(--maxw)}
-  .submit-bar{width:var(--maxw);left:50%;transform:translateX(-50%);
-    border-left:1px solid var(--border);border-right:1px solid var(--border);
-    border-radius:0 0 12px 12px}
   .result-banner{border-radius:12px}
 }
 
@@ -883,11 +921,12 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .cat-badge.c10{background:#F3E8FF;color:#6D28D9}
 .cat-badge.c11{background:#ECFDF5;color:#065F46}
 .cat-badge.c_anim{background:#FEF3C7;color:#B45309}
-.submit-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.96);
-  backdrop-filter:blur(12px);border-top:2px solid var(--border);padding:12px 16px 16px;
-  z-index:30;text-align:center}
-.submit-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  width:min(calc(100% - 32px),520px);
+.submit-bar{position:fixed;bottom:0;left:0;right:0;
+  background:rgba(255,249,240,.96);backdrop-filter:blur(12px);
+  border-top:2px solid var(--border);padding:12px 16px 16px;
+  z-index:30;display:flex;justify-content:center;align-items:center}
+.submit-btn{width:520px;max-width:calc(100vw - 32px);
+  display:flex;align-items:center;justify-content:center;gap:10px;
   background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;
   border-radius:28px;padding:17px 24px;font-family:"Nunito";font-size:20px;
   font-weight:900;letter-spacing:.03em;cursor:pointer;
@@ -1309,9 +1348,11 @@ function submitAnswers(){
   });
   const correct=Object.values(answered).filter(Boolean).length;
   const wrong=qs.length-correct;
-  const pct=Math.round(correct/qs.length*100);
-  const emoji=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
-  const msg=pct>=90?"太厲害了！":pct>=70?"做得很好！":pct>=50?"繼續加油！":"再練習看看！";
+  const score100=Math.round(correct/qs.length*100);
+  const grade=score100>=95?"S":score100>=85?"A":score100>=70?"B":score100>=55?"C":score100>=40?"D":"F";
+  const gradeColor={"S":"#F59E0B","A":"#10B981","B":"#3B82F6","C":"#8B5CF6","D":"#F97316","F":"#EF4444"}[grade];
+  const emoji=score100>=90?"🏆":score100>=70?"⭐":score100>=50?"👍":score100>=30?"💪":"📚";
+  const msg=score100>=90?"太厲害了！":score100>=70?"做得很好！":score100>=50?"不錯喔！":score100>=30?"繼續加油！":"再練習一次！";
   const wrongQs=qs.filter(q=>!answered[q.id]).map(q=>({q, chosen:selections[q.id]}));
   let reviewHTML=wrongQs.length?`
     <div class="review-section">
@@ -1324,12 +1365,22 @@ function submitAnswers(){
           <div class="review-wrong-row">❌ 你選了：<span class="review-wrong-val">${chosen||'未作答'}</span></div>
           <div class="review-correct-row">✅ 正確答案：<span class="review-correct-val">${q.ans}</span></div>
           <div class="review-teach">${makeTeaching(q)}</div></div>`;}).join("")}
-    </div>`:`<div style="margin-top:12px;font-size:15px">🎊 全部答對！超棒的！</div>`;
+    </div>`:`<div style="margin-top:14px;font-size:15px;font-weight:700;color:#065F46">🎊 全部答對！完美！</div>`;
   const banner=document.getElementById("resultBanner");
   if(banner){
-    banner.innerHTML=`<div class="result-emoji">${emoji}</div>
-      <div class="result-score">${correct}<span style="font-size:26px"> / ${qs.length}</span></div>
-      <div class="result-label">${msg}（答對${correct}題，答錯${wrong}題）</div>${reviewHTML}`;
+    banner.innerHTML=`
+      <div class="result-emoji">${emoji}</div>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:8px;margin:4px 0">
+        <div class="result-score" style="font-size:64px">${score100}</div>
+        <div style="font-size:20px;color:#065F46;font-weight:900">分</div>
+        <div style="font-size:28px;font-weight:900;color:${gradeColor};
+          background:${gradeColor}22;border-radius:10px;padding:2px 12px;
+          border:2px solid ${gradeColor}">${grade}</div>
+      </div>
+      <div style="font-size:12px;color:#065F46;margin-bottom:4px">
+        答對 ${correct} 題 ／ 共 ${qs.length} 題（每題 ${(100/qs.length).toFixed(1)} 分）
+      </div>
+      <div class="result-label">${msg}</div>${reviewHTML}`;
     banner.classList.add("show");banner.scrollIntoView({behavior:"smooth",block:"start"});}
   document.getElementById("submitBar").style.display="none";
   updateProgress();
