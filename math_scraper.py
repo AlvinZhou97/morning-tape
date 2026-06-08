@@ -67,7 +67,7 @@ def gen_pool():
             f"{a}{'>'if a>b else('='if a==b else'<')}{b}，所以填{ans}")
     # 數序 32題
     for _ in range(32):
-        start=rng.randint(1,40); step=rng.choice([1,2,5])
+        start=rng.randint(1,40); step=rng.choice([2,5])
         nums=[start+step*i for i in range(5)]
         if any(n>50 for n in nums): nums=[n-step*5 for n in nums]; nums=[max(1,n) for n in nums]
         pos=rng.randint(0,4); ans=nums[pos]
@@ -249,7 +249,7 @@ def gen_pool():
             ans,["大於","小於","等於"],f"{a}{'>'if a>b else('='if a==b else'<')}{b}")
     # 數序 15題
     for _ in range(15):
-        start=rng.randint(10,85); step=rng.choice([1,2,5,10])
+        start=rng.randint(10,85); step=rng.choice([2,5,10])
         nums=[start+step*i for i in range(5)]
         if any(n>100 for n in nums): continue
         pos=rng.randint(0,4); ans=nums[pos]
@@ -977,6 +977,51 @@ body{background:var(--bg);font-family:"Noto Sans TC","Nunito",sans-serif;
 .review-correct-val{background:#D1FAE5;border-radius:5px;padding:1px 7px;font-size:14px}
 .review-teach{font-size:12.5px;color:#374151;line-height:1.65;
   background:#FFFBEB;border-radius:9px;padding:8px 11px;border-left:3px solid #F59E0B}
+/* ══ 慶祝 & 鄙視動畫 ══ */
+#celebOverlay{position:fixed;inset:0;z-index:500;pointer-events:none;overflow:hidden;transition:opacity .6s}
+.ca{position:absolute;line-height:1;animation-timing-function:ease-in-out}
+.ca-big{font-size:52px}.ca-med{font-size:40px}.ca-sm{font-size:34px}
+.celeb-trophy{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
+  font-size:96px;animation:trophyZoom .6s .25s cubic-bezier(.175,.885,.32,1.275) both;
+  filter:drop-shadow(0 0 18px #FFD700)}
+.celeb-rainbow{position:absolute;inset:0;animation:rainbowFlash .9s both;pointer-events:none}
+.celeb-fw{position:absolute;font-size:26px;animation:firework ease-out both}
+.celeb-cf{position:absolute;top:-20px;animation:cfFall linear both}
+.celeb-msg{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:.5px;text-align:center;
+  animation:msgIn .5s .15s cubic-bezier(.175,.885,.32,1.275) both}
+/* 鄙視用 */
+.celeb-bubble{position:absolute;background:#fff;border:2px solid #E5E7EB;border-radius:10px;
+  padding:4px 11px;font-size:13px;font-weight:900;color:#374151;white-space:nowrap;
+  animation:bubbleIn .35s both,bubbleFade .4s 2.6s both}
+.celeb-bubble::after{content:'';position:absolute;bottom:-8px;left:12px;
+  width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:8px solid #fff}
+.celeb-sweat{position:absolute;font-size:18px;animation:sweatDrop .9s 1s infinite ease-in}
+/* Keyframes: celebrate */
+@keyframes cBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+@keyframes cDance{0%,100%{transform:rotate(-15deg)translateY(0)}50%{transform:rotate(15deg)translateY(-12px)}}
+@keyframes cSpin{0%{transform:rotate(0)scale(1)}50%{transform:rotate(180deg)scale(1.2)}100%{transform:rotate(360deg)scale(1)}}
+@keyframes cJump{0%,100%{transform:translateY(0)scaleX(1)}30%{transform:translateY(-38px)scaleX(.9)}70%{transform:translateY(-18px)}}
+@keyframes cFloat{0%,100%{transform:translateY(0)rotate(0)}50%{transform:translateY(-12px)rotate(8deg)}}
+@keyframes cWave{0%,100%{transform:scale(1)rotate(0)}30%{transform:scale(1.3)rotate(-12deg)}70%{transform:scale(1.3)rotate(12deg)}}
+@keyframes cRoll{0%{transform:rotate(0)}100%{transform:rotate(720deg)}}
+@keyframes cHop{0%,100%{transform:translateY(0)}40%{transform:translateY(-30px)scaleY(.85)}90%{transform:translateY(-6px)}}
+@keyframes cPopIn{0%{transform:scale(0)rotate(-20deg);opacity:0}65%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+@keyframes trophyZoom{0%{transform:translate(-50%,-50%)scale(0)rotate(-30deg);opacity:0}65%{transform:translate(-50%,-50%)scale(1.15)}100%{transform:translate(-50%,-50%)scale(1);opacity:1}}
+@keyframes msgIn{0%{transform:translateX(-50%)scale(0)translateY(24px);opacity:0}65%{transform:translateX(-50%)scale(1.08)translateY(-4px)}100%{transform:translateX(-50%)scale(1)translateY(0);opacity:1}}
+@keyframes firework{0%{transform:scale(0);opacity:1}55%{opacity:1}100%{transform:scale(2.4);opacity:0}}
+@keyframes cfFall{0%{transform:translateY(0)rotate(0)scale(1);opacity:1}100%{transform:translateY(105vh)rotate(540deg)scale(.5);opacity:.15}}
+@keyframes rainbowFlash{0%{background:transparent}20%{background:rgba(255,215,0,.22)}50%{background:rgba(147,51,234,.18)}80%{background:rgba(16,185,129,.18)}100%{background:transparent}}
+@keyframes shimmerTxt{0%,100%{text-shadow:0 0 10px #FFD700,0 0 20px #FF6B35}50%{text-shadow:0 0 30px #FFD700,0 0 60px #FF6B35,0 0 90px #fff}}
+/* Keyframes: disdain */
+@keyframes cShake{0%,100%{transform:rotate(0)}18%{transform:rotate(-18deg)}36%{transform:rotate(18deg)}55%{transform:rotate(-12deg)}74%{transform:rotate(12deg)}}
+@keyframes cNod{0%,100%{transform:translateY(0)rotate(0)}50%{transform:translateY(10px)rotate(-8deg)}}
+@keyframes cSigh{0%,100%{transform:scaleY(1)translateY(0)}50%{transform:scaleY(.86)translateY(5px)}}
+@keyframes cWalkOff{0%{transform:translateX(0)scaleX(1);opacity:1}60%{opacity:1}100%{transform:translateX(160px)scaleX(-1);opacity:0}}
+@keyframes bubbleIn{0%{transform:scale(0)translateY(6px);opacity:0}65%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes bubbleFade{0%,70%{opacity:1}100%{opacity:0}}
+@keyframes sweatDrop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(28px);opacity:0}}
 </style>
 </head>
 <body>
@@ -1276,9 +1321,9 @@ function buildFeed(){
       </div>
       ${qDisplay}
       ${isAnim
-        ? `<button class="play-btn" onclick="playAnim(${q.id});sayQ('${sayText.replace(/'/g,"\\'")}')">▶ 開始動畫 / 聽題目</button>`
+        ? `<button class="play-btn" id="play-${q.id}" onclick="playAnim(${q.id});sayQ('${sayText.replace(/'/g,"\\'")}')">▶ 開始動畫 / 聽題目</button>`
         : isClock
-        ? `<button class="play-btn" onclick="animateClock(${q.id},${hDeg_.toFixed(1)},${mDeg_.toFixed(1)});sayQ('時鐘顯示的是幾點幾分？')">▶ 開始動畫 / 聽題目</button>`
+        ? `<button class="play-btn" id="play-${q.id}" onclick="animateClock(${q.id},${hDeg_.toFixed(1)},${mDeg_.toFixed(1)});sayQ('時鐘顯示的是幾點幾分？')">▶ 開始動畫 / 聽題目</button>`
         : `<button class="say-btn" onclick="sayQ('${sayText.replace(/'/g,"\\'")}')">🔊 聽題目</button>`
       }
       <div class="${optsClass}" id="opts-${q.id}">${opts}</div>
@@ -1321,6 +1366,9 @@ function selectOpt(qid, optIdx){
   const card=document.getElementById("qcard-"+qid);
   if(isCorrect){if(fb){fb.className="feedback ok show";fb.textContent="✅ 答對了！真棒！";}if(card)card.className="qcard answered-correct";sayResult("答對了！");}
   else{if(fb){fb.className="feedback ng show";fb.textContent="❌ 答錯了！";}if(card)card.className="qcard answered-wrong";sayResult("答錯了！");}
+  // 鎖定動畫/時鐘按鈕，避免答完後重按產生誤解
+  const pb=document.getElementById("play-"+qid);
+  if(pb){pb.disabled=true;pb.style.opacity='.35';pb.style.cursor='default';pb.style.pointerEvents='none';}
   updateProgress();
 }
 function makeTeaching(q){
@@ -1384,10 +1432,119 @@ function submitAnswers(){
     banner.classList.add("show");banner.scrollIntoView({behavior:"smooth",block:"start"});}
   document.getElementById("submitBar").style.display="none";
   updateProgress();
+  setTimeout(()=>showCelebration(score100),300);
 }
 if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{};}
 document.getElementById("feed").insertAdjacentHTML("beforebegin",'<div class="result-banner" id="resultBanner"></div>');
 buildDateBar();buildFeed();updateProgress();
+function showCelebration(score100){
+  const old=document.getElementById('celebOverlay');
+  if(old)old.remove();
+  const tier=score100>=95?'S':score100>=85?'A':score100>=70?'B':score100>=55?'C':score100>=40?'D':'F';
+  const ALL=['🐕','🐱','🐰','🦊','🐸','🐹','🐼','🦔'];
+  const CLRS=['#FF6B35','#FF69B4','#7ED957','#FF9800','#4CAF50','#CE93D8','#90A4AE','#8D6E63','#FFB800','#00BCD4'];
+  const CFEMOJI=['🎊','⭐','💫','✨','🌟','🎉'];
+  const FWEMOJI=['🎊','⭐','🌟','💫','✨','🎉','🏅','🌈'];
+  const DANCE_A=['cBounce','cDance','cSpin','cJump','cFloat','cWave','cRoll','cHop'];
+
+  // 鄙視設定（D/F）
+  const DISS={
+    'D':{animals:['🐕','🐼'],comments:['加油吧...','哼～'],anims:['cShake','cNod'],dur:3200,
+         msg:'😒 還差一點…',msgClr:'#F97316',bg:'rgba(249,115,22,.06)',sweat:false},
+    'F':{animals:['🐕','🐱','🦊','🐸'],comments:['無言...','哎呀！','差很多喔','加油！'],
+         anims:['cShake','cShake','cNod','cSigh'],dur:4000,
+         msg:'🙄 需要多練習！',msgClr:'#EF4444',bg:'rgba(239,68,68,.08)',sweat:true},
+  };
+
+  // 慶祝設定（A/B/C/S）
+  const CELEB={
+    'S':{n:8,msg:'✨ 完美！滿分100！✨',msgClr:'#FFD700',msgSz:'27px',
+         bg:'rgba(255,215,0,.07)',trophy:true,rainbow:true,fw:12,cf:24,dur:5800},
+    'A':{n:5,msg:'🌟 太優秀了！',msgClr:'#10B981',msgSz:'24px',
+         bg:'rgba(16,185,129,.05)',trophy:false,rainbow:false,fw:6,cf:16,dur:4500},
+    'B':{n:3,msg:'🎉 很厲害！',msgClr:'#3B82F6',msgSz:'22px',
+         bg:'rgba(59,130,246,.05)',trophy:false,rainbow:false,fw:3,cf:10,dur:3600},
+    'C':{n:2,msg:'👍 不錯喔！',msgClr:'#8B5CF6',msgSz:'20px',
+         bg:'rgba(139,92,246,.04)',trophy:false,rainbow:false,fw:0,cf:5,dur:3000},
+  };
+
+  const isDiss=tier==='D'||tier==='F';
+  const cfg=isDiss?DISS[tier]:CELEB[tier];
+
+  const ov=document.createElement('div');
+  ov.id='celebOverlay';
+  ov.style.cssText=`background:${cfg.bg}`;
+  let html='';
+
+  if(isDiss){
+    // ── 鄙視動畫 ──────────────────────────────────────────
+    const {animals,comments,anims}=cfg;
+    animals.forEach((a,i)=>{
+      const x=10+i*(80/(animals.length-1||1));
+      const d=(i*0.22).toFixed(2);
+      const wd=(1.8+i*0.18).toFixed(2);
+      html+=`<div class="ca ca-big"
+        style="left:${x}%;bottom:${10+i%2*12}%;
+          animation-name:${anims[i]},cPopIn,cWalkOff;
+          animation-duration:0.55s,0.5s,0.8s;
+          animation-delay:${d}s,${d}s,${wd}s;
+          animation-iteration-count:3,1,1;
+          animation-fill-mode:none,both,both">${a}</div>
+        <div class="celeb-bubble" style="left:${x+1}%;bottom:${58+i%2*9}%;
+          animation-delay:${(+d+0.35).toFixed(2)}s">
+          ${comments[i]}</div>`;
+    });
+    if(cfg.sweat){
+      html+=`<div class="celeb-sweat" style="left:44%;top:36%">💦</div>
+             <div class="celeb-sweat" style="left:51%;top:36%;animation-delay:1.4s">💦</div>`;
+    }
+    html+=`<div class="celeb-msg" style="top:20%;font-size:20px;color:${cfg.msgClr};
+      animation-delay:.1s">${cfg.msg}</div>`;
+  } else {
+    // ── 慶祝動畫 ──────────────────────────────────────────
+    if(cfg.rainbow) html+=`<div class="celeb-rainbow"></div>`;
+    if(cfg.trophy)  html+=`<div class="celeb-trophy">🏆</div>`;
+
+    // 煙火
+    for(let i=0;i<cfg.fw;i++){
+      html+=`<div class="celeb-fw" style="left:${5+Math.random()*90}%;top:${5+Math.random()*55}%;
+        animation-duration:${(0.7+Math.random()*.5).toFixed(2)}s;
+        animation-delay:${(i*0.2).toFixed(2)}s">${FWEMOJI[i%8]}</div>`;
+    }
+    // 彩帶
+    for(let i=0;i<cfg.cf;i++){
+      html+=`<div class="celeb-cf" style="left:${Math.random()*100}%;font-size:${16+Math.random()*8|0}px;
+        color:${CLRS[i%CLRS.length]};
+        animation-duration:${(1.4+Math.random()*1.4).toFixed(2)}s;
+        animation-delay:${(Math.random()*1.2).toFixed(2)}s">${CFEMOJI[i%6]}</div>`;
+    }
+    // 動物
+    const animals=ALL.slice(0,cfg.n);
+    animals.forEach((a,i)=>{
+      const x=tier==='S'?5+i*(90/(cfg.n-1)):tier==='A'?10+i*(80/(cfg.n-1)):15+i*(70/(cfg.n-1));
+      const d=(i*0.18).toFixed(2);
+      const sz=tier==='S'||tier==='A'?'ca-big':'ca-med';
+      const an=DANCE_A[i%8];
+      html+=`<div class="ca ${sz}"
+        style="left:${x}%;bottom:${8+Math.random()*8}%;
+          animation-name:${an},cPopIn;
+          animation-duration:${(0.5+Math.random()*.2).toFixed(2)}s,0.5s;
+          animation-delay:${d}s,${d}s;
+          animation-iteration-count:infinite,1;
+          animation-fill-mode:none,both">${a}</div>`;
+    });
+    // 訊息
+    const glow=tier==='S'?',shimmerTxt 1.2s .8s infinite':'';
+    html+=`<div class="celeb-msg" style="top:${tier==='S'?'16%':'20%'};
+      font-size:${cfg.msgSz};color:${cfg.msgClr};
+      animation:msgIn .5s .15s both${glow}">${cfg.msg}</div>`;
+  }
+
+  ov.innerHTML=html;
+  document.body.appendChild(ov);
+  setTimeout(()=>{ov.style.opacity='0';setTimeout(()=>ov.remove(),700);},cfg.dur-700);
+}
+
 function checkNewContent(){
   try{
     const KEY='math_seen_v3';
