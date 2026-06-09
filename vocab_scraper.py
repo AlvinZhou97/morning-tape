@@ -18,213 +18,213 @@ OUT_HTML = Path(__file__).parent / "英文單字.html"
 WORDS = [
   # ── 會議 Meeting ──────────────────────────────────────────
   {"word":"agenda","ipa":"/əˈdʒɛndə/","phonetic":"uh-JEN-duh","zh":"議程；待辦事項","category":"會議",
-   "example":"Please review the agenda before the meeting starts.","example_zh":"請在會議開始前查閱議程。","example2":"The agenda was circulated 24 hours before the meeting.","example2_zh":"議程在會議前24小時發送給所有人。"},
+   "example":"Please review the agenda before the meeting starts.","example_zh":"請在會議開始前查閱議程。","example2":"The agenda was circulated 24 hours before the meeting.","example2_zh":"議程在會議前24小時發送給所有人。","pos":"名詞"},
   {"word":"adjourn","ipa":"/əˈdʒɜːrn/","phonetic":"uh-JURN","zh":"散會；休會","category":"會議",
-   "example":"The meeting was adjourned until next Monday.","example_zh":"會議休會至下週一。","example2":"The chairperson proposed to adjourn until further notice.","example2_zh":"主席提議休會，待進一步通知再開。"},
+   "example":"The meeting was adjourned until next Monday.","example_zh":"會議休會至下週一。","example2":"The chairperson proposed to adjourn until further notice.","example2_zh":"主席提議休會，待進一步通知再開。","pos":"動詞"},
   {"word":"brainstorm","ipa":"/ˈbreɪnstɔːrm/","phonetic":"BRAYN-storm","zh":"腦力激盪；集思廣益","category":"會議",
-   "example":"Let's brainstorm ideas for the new product launch.","example_zh":"我們來腦力激盪新產品上市的點子。","example2":"Let's brainstorm ways to improve the onboarding process.","example2_zh":"我們來集思廣益，改善新員工入職流程。"},
+   "example":"Let's brainstorm ideas for the new product launch.","example_zh":"我們來腦力激盪新產品上市的點子。","example2":"Let's brainstorm ways to improve the onboarding process.","example2_zh":"我們來集思廣益，改善新員工入職流程。","pos":"動詞／名詞"},
   {"word":"consensus","ipa":"/kənˈsɛnsəs/","phonetic":"kun-SEN-sus","zh":"共識；一致意見","category":"會議",
-   "example":"We need to reach a consensus before moving forward.","example_zh":"我們需要在推進之前達成共識。","example2":"It took three rounds of discussion to build consensus.","example2_zh":"經過三輪討論，大家終於達成共識。"},
+   "example":"We need to reach a consensus before moving forward.","example_zh":"我們需要在推進之前達成共識。","example2":"It took three rounds of discussion to build consensus.","example2_zh":"經過三輪討論，大家終於達成共識。","pos":"名詞"},
   {"word":"convene","ipa":"/kənˈviːn/","phonetic":"kun-VEEN","zh":"召開（會議）；集合","category":"會議",
-   "example":"The board will convene an emergency meeting tomorrow.","example_zh":"董事會明天將召開緊急會議。","example2":"The emergency task force will convene first thing tomorrow.","example2_zh":"緊急任務小組明天一早將召開會議。"},
+   "example":"The board will convene an emergency meeting tomorrow.","example_zh":"董事會明天將召開緊急會議。","example2":"The emergency task force will convene first thing tomorrow.","example2_zh":"緊急任務小組明天一早將召開會議。","pos":"動詞"},
   {"word":"debrief","ipa":"/diːˈbriːf/","phonetic":"dee-BREEF","zh":"彙報；事後討論","category":"會議",
-   "example":"Let's debrief after the client presentation.","example_zh":"客戶簡報後我們來做個彙報。","example2":"After the product launch, the team gathered to debrief.","example2_zh":"產品發布後，團隊聚在一起做事後彙報。"},
+   "example":"Let's debrief after the client presentation.","example_zh":"客戶簡報後我們來做個彙報。","example2":"After the product launch, the team gathered to debrief.","example2_zh":"產品發布後，團隊聚在一起做事後彙報。","pos":"動詞／名詞"},
   {"word":"delegate","ipa":"/ˈdɛlɪɡeɪt/","phonetic":"DEL-uh-gayt","zh":"授權；委派；代表","category":"會議",
-   "example":"A good manager knows how to delegate tasks effectively.","example_zh":"好的管理者知道如何有效授權。","example2":"She learned to delegate work so she could focus on strategy.","example2_zh":"她學會了授權，以便集中精力在策略上。"},
+   "example":"A good manager knows how to delegate tasks effectively.","example_zh":"好的管理者知道如何有效授權。","example2":"She learned to delegate work so she could focus on strategy.","example2_zh":"她學會了授權，以便集中精力在策略上。","pos":"動詞／名詞"},
   {"word":"facilitate","ipa":"/fəˈsɪlɪteɪt/","phonetic":"fuh-SIL-uh-tayt","zh":"促進；主持（會議）","category":"會議",
-   "example":"She was asked to facilitate the workshop.","example_zh":"她被要求主持這場工作坊。","example2":"Good leaders facilitate discussions rather than dominate them.","example2_zh":"好的領導者是促進討論，而不是主導討論。"},
+   "example":"She was asked to facilitate the workshop.","example_zh":"她被要求主持這場工作坊。","example2":"Good leaders facilitate discussions rather than dominate them.","example2_zh":"好的領導者是促進討論，而不是主導討論。","pos":"動詞"},
   {"word":"keynote","ipa":"/ˈkiːnoʊt/","phonetic":"KEE-note","zh":"主題演講","category":"會議",
-   "example":"The CEO delivered the keynote at the conference.","example_zh":"執行長在大會發表了主題演講。","example2":"The CEO gave a powerful keynote on digital transformation.","example2_zh":"執行長就數位轉型發表了一場有力的主題演講。"},
+   "example":"The CEO delivered the keynote at the conference.","example_zh":"執行長在大會發表了主題演講。","example2":"The CEO gave a powerful keynote on digital transformation.","example2_zh":"執行長就數位轉型發表了一場有力的主題演講。","pos":"名詞"},
   {"word":"minutes","ipa":"/ˈmɪnɪts/","phonetic":"MIN-its","zh":"會議記錄","category":"會議",
-   "example":"Who will take the minutes during today's meeting?","example_zh":"今天的會議記錄由誰負責？","example2":"The minutes confirmed that the budget proposal was approved.","example2_zh":"會議記錄確認預算提案已獲批准。"},
+   "example":"Who will take the minutes during today's meeting?","example_zh":"今天的會議記錄由誰負責？","example2":"The minutes confirmed that the budget proposal was approved.","example2_zh":"會議記錄確認預算提案已獲批准。","pos":"名詞"},
   {"word":"moderator","ipa":"/ˈmɒdəreɪtər/","phonetic":"MOD-uh-ray-ter","zh":"主持人；協調人","category":"會議",
-   "example":"The moderator kept the discussion on track.","example_zh":"主持人讓討論保持在正確方向。","example2":"The moderator skillfully managed the Q&A session.","example2_zh":"主持人熟練地掌控了問答環節。"},
+   "example":"The moderator kept the discussion on track.","example_zh":"主持人讓討論保持在正確方向。","example2":"The moderator skillfully managed the Q&A session.","example2_zh":"主持人熟練地掌控了問答環節。","pos":"名詞"},
   {"word":"negotiate","ipa":"/nɪˈɡoʊʃieɪt/","phonetic":"nuh-GO-shee-ayt","zh":"談判；協商","category":"會議",
-   "example":"We will negotiate the contract terms next week.","example_zh":"我們下週將協商合約條款。","example2":"Our goal is to negotiate better payment terms with the vendor.","example2_zh":"我們的目標是與供應商談判更好的付款條件。"},
+   "example":"We will negotiate the contract terms next week.","example_zh":"我們下週將協商合約條款。","example2":"Our goal is to negotiate better payment terms with the vendor.","example2_zh":"我們的目標是與供應商談判更好的付款條件。","pos":"動詞"},
   {"word":"quorum","ipa":"/ˈkwɔːrəm/","phonetic":"KWOR-um","zh":"法定人數","category":"會議",
-   "example":"We cannot vote until we have a quorum.","example_zh":"在達到法定人數之前我們無法投票。","example2":"We finally reached a quorum after two members joined online.","example2_zh":"兩位成員線上加入後，我們終於達到了法定人數。"},
+   "example":"We cannot vote until we have a quorum.","example_zh":"在達到法定人數之前我們無法投票。","example2":"We finally reached a quorum after two members joined online.","example2_zh":"兩位成員線上加入後，我們終於達到了法定人數。","pos":"名詞"},
   {"word":"resolution","ipa":"/ˌrɛzəˈluːʃən/","phonetic":"rez-uh-LOO-shun","zh":"決議；解決方案","category":"會議",
-   "example":"The board passed a resolution to expand overseas.","example_zh":"董事會通過了海外擴張的決議。","example2":"The resolution was adopted with a majority vote.","example2_zh":"該決議以多數票通過。"},
+   "example":"The board passed a resolution to expand overseas.","example_zh":"董事會通過了海外擴張的決議。","example2":"The resolution was adopted with a majority vote.","example2_zh":"該決議以多數票通過。","pos":"名詞"},
   {"word":"unanimous","ipa":"/juːˈnænɪməs/","phonetic":"yoo-NAN-uh-mus","zh":"全體一致的","category":"會議",
-   "example":"The vote was unanimous in favor of the proposal.","example_zh":"投票結果全體一致支持該提案。","example2":"Board members were unanimous in rejecting the proposal.","example2_zh":"董事會成員一致反對該提案。"},
+   "example":"The vote was unanimous in favor of the proposal.","example_zh":"投票結果全體一致支持該提案。","example2":"Board members were unanimous in rejecting the proposal.","example2_zh":"董事會成員一致反對該提案。","pos":"形容詞"},
   {"word":"escalate","ipa":"/ˈɛskəleɪt/","phonetic":"ES-kuh-layt","zh":"升級；呈報上級","category":"會議",
-   "example":"Please escalate this issue to your manager immediately.","example_zh":"請立即將此問題呈報給你的主管。","example2":"Please escalate this billing dispute to the finance team.","example2_zh":"請將這筆帳單爭議呈報給財務團隊。"},
+   "example":"Please escalate this issue to your manager immediately.","example_zh":"請立即將此問題呈報給你的主管。","example2":"Please escalate this billing dispute to the finance team.","example2_zh":"請將這筆帳單爭議呈報給財務團隊。","pos":"動詞"},
   {"word":"milestone","ipa":"/ˈmaɪlstoʊn/","phonetic":"MYLE-stone","zh":"里程碑；重要節點","category":"會議",
-   "example":"We hit a major milestone by completing the prototype.","example_zh":"完成原型機是我們達到的重要里程碑。","example2":"Signing the first overseas client was a major milestone for us.","example2_zh":"簽下第一個海外客戶是我們的重要里程碑。"},
+   "example":"We hit a major milestone by completing the prototype.","example_zh":"完成原型機是我們達到的重要里程碑。","example2":"Signing the first overseas client was a major milestone for us.","example2_zh":"簽下第一個海外客戶是我們的重要里程碑。","pos":"名詞"},
   {"word":"takeaway","ipa":"/ˈteɪkəweɪ/","phonetic":"TAYK-uh-way","zh":"重點結論；收穫","category":"會議",
-   "example":"The key takeaway from today's meeting is to focus on quality.","example_zh":"今天會議的重點結論是專注於品質。","example2":"The key takeaway from the workshop was the importance of data.","example2_zh":"工作坊的主要收穫是資料的重要性。"},
+   "example":"The key takeaway from today's meeting is to focus on quality.","example_zh":"今天會議的重點結論是專注於品質。","example2":"The key takeaway from the workshop was the importance of data.","example2_zh":"工作坊的主要收穫是資料的重要性。","pos":"名詞"},
   {"word":"action item","ipa":"/ˈækʃən ˈaɪtəm/","phonetic":"AK-shun I-tem","zh":"待辦行動項目","category":"會議",
-   "example":"Each action item must have an owner and a deadline.","example_zh":"每個待辦事項都必須有負責人和截止日期。","example2":"The action items were documented and shared after the meeting.","example2_zh":"會後待辦事項已記錄並分享給所有人。"},
+   "example":"Each action item must have an owner and a deadline.","example_zh":"每個待辦事項都必須有負責人和截止日期。","example2":"The action items were documented and shared after the meeting.","example2_zh":"會後待辦事項已記錄並分享給所有人。","pos":"名詞片語"},
   {"word":"follow-up","ipa":"/ˈfɒloʊˌʌp/","phonetic":"FOL-oh-up","zh":"後續跟進；追蹤","category":"會議",
-   "example":"I will send a follow-up email after the meeting.","example_zh":"會後我會發送一封跟進郵件。","example2":"A follow-up call was scheduled for the following Tuesday.","example2_zh":"後續通話安排在下週二。"},
+   "example":"I will send a follow-up email after the meeting.","example_zh":"會後我會發送一封跟進郵件。","example2":"A follow-up call was scheduled for the following Tuesday.","example2_zh":"後續通話安排在下週二。","pos":"名詞／形容詞"},
 
   # ── 商業 Business ─────────────────────────────────────────
   {"word":"acquisition","ipa":"/ˌækwɪˈzɪʃən/","phonetic":"ak-wih-ZIH-shun","zh":"收購；購買","category":"商業",
-   "example":"The company announced the acquisition of a startup.","example_zh":"公司宣布收購一家新創公司。","example2":"The acquisition is expected to close in the third quarter.","example2_zh":"此次收購預計在第三季完成。"},
+   "example":"The company announced the acquisition of a startup.","example_zh":"公司宣布收購一家新創公司。","example2":"The acquisition is expected to close in the third quarter.","example2_zh":"此次收購預計在第三季完成。","pos":"名詞"},
   {"word":"benchmark","ipa":"/ˈbɛntʃmɑːrk/","phonetic":"BENCH-mark","zh":"基準；標竿","category":"商業",
-   "example":"Our performance is measured against industry benchmarks.","example_zh":"我們的表現以行業基準來衡量。","example2":"We regularly benchmark our pricing against competitors.","example2_zh":"我們定期將定價與競爭對手進行基準比較。"},
+   "example":"Our performance is measured against industry benchmarks.","example_zh":"我們的表現以行業基準來衡量。","example2":"We regularly benchmark our pricing against competitors.","example2_zh":"我們定期將定價與競爭對手進行基準比較。","pos":"名詞／動詞"},
   {"word":"compliance","ipa":"/kəmˈplaɪəns/","phonetic":"kum-PLY-uns","zh":"合規；遵從","category":"商業",
-   "example":"All employees must attend the compliance training.","example_zh":"所有員工必須參加合規培訓。","example2":"The new compliance framework applies to all global offices.","example2_zh":"新的合規框架適用於所有全球辦事處。"},
+   "example":"All employees must attend the compliance training.","example_zh":"所有員工必須參加合規培訓。","example2":"The new compliance framework applies to all global offices.","example2_zh":"新的合規框架適用於所有全球辦事處。","pos":"名詞"},
   {"word":"deliverable","ipa":"/dɪˈlɪvərəbəl/","phonetic":"duh-LIV-er-uh-bul","zh":"交付成果；交付物","category":"商業",
-   "example":"Please list all deliverables in the project plan.","example_zh":"請在專案計畫中列出所有交付成果。","example2":"All deliverables must be reviewed by the project manager first.","example2_zh":"所有交付成果必須先由專案經理審查。"},
+   "example":"Please list all deliverables in the project plan.","example_zh":"請在專案計畫中列出所有交付成果。","example2":"All deliverables must be reviewed by the project manager first.","example2_zh":"所有交付成果必須先由專案經理審查。","pos":"名詞"},
   {"word":"equity","ipa":"/ˈɛkwɪti/","phonetic":"EK-wuh-tee","zh":"股權；公平","category":"商業",
-   "example":"They offered equity as part of the compensation package.","example_zh":"他們提供股權作為薪酬方案的一部分。","example2":"The startup raised capital in exchange for equity.","example2_zh":"這家新創公司以股權換取了資金。"},
+   "example":"They offered equity as part of the compensation package.","example_zh":"他們提供股權作為薪酬方案的一部分。","example2":"The startup raised capital in exchange for equity.","example2_zh":"這家新創公司以股權換取了資金。","pos":"名詞"},
   {"word":"franchise","ipa":"/ˈfræntʃaɪz/","phonetic":"FRAN-chyz","zh":"特許經營；加盟","category":"商業",
-   "example":"They expanded their business through a franchise model.","example_zh":"他們透過加盟模式擴展業務。","example2":"She bought a franchise and opened three locations in two years.","example2_zh":"她購買了加盟權，兩年內開了三家分店。"},
+   "example":"They expanded their business through a franchise model.","example_zh":"他們透過加盟模式擴展業務。","example2":"She bought a franchise and opened three locations in two years.","example2_zh":"她購買了加盟權，兩年內開了三家分店。","pos":"名詞／動詞"},
   {"word":"leverage","ipa":"/ˈlɛvərɪdʒ/","phonetic":"LEV-er-ij","zh":"槓桿；善用資源","category":"商業",
-   "example":"We can leverage our existing network to enter new markets.","example_zh":"我們可以利用現有網絡進入新市場。","example2":"Small companies can leverage technology to compete with larger rivals.","example2_zh":"小公司可以利用科技與大型競爭對手競爭。"},
+   "example":"We can leverage our existing network to enter new markets.","example_zh":"我們可以利用現有網絡進入新市場。","example2":"Small companies can leverage technology to compete with larger rivals.","example2_zh":"小公司可以利用科技與大型競爭對手競爭。","pos":"名詞／動詞"},
   {"word":"merger","ipa":"/ˈmɜːrdʒər/","phonetic":"MUR-jer","zh":"合併","category":"商業",
-   "example":"The merger created the largest company in the sector.","example_zh":"這次合併創造了該行業最大的公司。","example2":"The merger resulted in significant cost savings for both parties.","example2_zh":"合併為雙方帶來了顯著的成本節省。"},
+   "example":"The merger created the largest company in the sector.","example_zh":"這次合併創造了該行業最大的公司。","example2":"The merger resulted in significant cost savings for both parties.","example2_zh":"合併為雙方帶來了顯著的成本節省。","pos":"名詞"},
   {"word":"overhead","ipa":"/ˈoʊvərˌhɛd/","phonetic":"OH-ver-hed","zh":"管銷費用；間接成本","category":"商業",
-   "example":"Reducing overhead costs is essential for profitability.","example_zh":"降低管銷費用對盈利能力至關重要。","example2":"Automating routine tasks helped cut overhead by 25%.","example2_zh":"自動化例行任務幫助降低了25%的管銷費用。"},
+   "example":"Reducing overhead costs is essential for profitability.","example_zh":"降低管銷費用對盈利能力至關重要。","example2":"Automating routine tasks helped cut overhead by 25%.","example2_zh":"自動化例行任務幫助降低了25%的管銷費用。","pos":"名詞"},
   {"word":"procurement","ipa":"/prəˈkjʊərmənt/","phonetic":"pruh-KYOOR-ment","zh":"採購","category":"商業",
-   "example":"The procurement team negotiated better prices with suppliers.","example_zh":"採購團隊與供應商談判了更好的價格。","example2":"The procurement department is evaluating three new suppliers.","example2_zh":"採購部門正在評估三家新供應商。"},
+   "example":"The procurement team negotiated better prices with suppliers.","example_zh":"採購團隊與供應商談判了更好的價格。","example2":"The procurement department is evaluating three new suppliers.","example2_zh":"採購部門正在評估三家新供應商。","pos":"名詞"},
   {"word":"revenue","ipa":"/ˈrɛvɪnjuː/","phonetic":"REV-uh-nyoo","zh":"收益；營業額","category":"商業",
-   "example":"Annual revenue grew by 15% compared to last year.","example_zh":"年收益比去年增長了15%。","example2":"Subscription-based revenue provides more predictable cash flow.","example2_zh":"訂閱制收入提供了更可預測的現金流。"},
+   "example":"Annual revenue grew by 15% compared to last year.","example_zh":"年收益比去年增長了15%。","example2":"Subscription-based revenue provides more predictable cash flow.","example2_zh":"訂閱制收入提供了更可預測的現金流。","pos":"名詞"},
   {"word":"subsidiary","ipa":"/səbˈsɪdiɛri/","phonetic":"sub-SID-ee-air-ee","zh":"子公司","category":"商業",
-   "example":"The subsidiary operates independently in the Asian market.","example_zh":"該子公司在亞洲市場獨立運營。","example2":"The Chinese subsidiary will handle all Asia-Pacific operations.","example2_zh":"中國子公司將負責所有亞太地區業務。"},
+   "example":"The subsidiary operates independently in the Asian market.","example_zh":"該子公司在亞洲市場獨立運營。","example2":"The Chinese subsidiary will handle all Asia-Pacific operations.","example2_zh":"中國子公司將負責所有亞太地區業務。","pos":"名詞"},
   {"word":"synergy","ipa":"/ˈsɪnərdʒi/","phonetic":"SIN-er-jee","zh":"協同效應","category":"商業",
-   "example":"The merger created significant synergy between the two teams.","example_zh":"合併在兩個團隊之間創造了顯著的協同效應。","example2":"The synergy from integrating their logistics networks was impressive.","example2_zh":"整合其物流網絡所產生的協同效應令人印象深刻。"},
+   "example":"The merger created significant synergy between the two teams.","example_zh":"合併在兩個團隊之間創造了顯著的協同效應。","example2":"The synergy from integrating their logistics networks was impressive.","example2_zh":"整合其物流網絡所產生的協同效應令人印象深刻。","pos":"名詞"},
   {"word":"turnover","ipa":"/ˈtɜːrnoʊvər/","phonetic":"TURN-oh-ver","zh":"營業額；人員流動率","category":"商業",
-   "example":"High employee turnover increases recruitment costs.","example_zh":"高員工流動率增加了招募成本。","example2":"High turnover in sales roles is costly and disrupts client relationships.","example2_zh":"銷售職位的高人員流動率成本高昂，且會破壞客戶關係。"},
+   "example":"High employee turnover increases recruitment costs.","example_zh":"高員工流動率增加了招募成本。","example2":"High turnover in sales roles is costly and disrupts client relationships.","example2_zh":"銷售職位的高人員流動率成本高昂，且會破壞客戶關係。","pos":"名詞"},
   {"word":"incentive","ipa":"/ɪnˈsɛntɪv/","phonetic":"in-SEN-tiv","zh":"激勵；獎勵","category":"商業",
-   "example":"Performance bonuses are a great incentive for employees.","example_zh":"績效獎金是員工的絕佳激勵。","example2":"Stock options serve as a long-term incentive for key employees.","example2_zh":"股票期權作為關鍵員工的長期激勵。"},
+   "example":"Performance bonuses are a great incentive for employees.","example_zh":"績效獎金是員工的絕佳激勵。","example2":"Stock options serve as a long-term incentive for key employees.","example2_zh":"股票期權作為關鍵員工的長期激勵。","pos":"名詞"},
   {"word":"outsource","ipa":"/ˈaʊtsɔːrs/","phonetic":"OWT-sors","zh":"外包","category":"商業",
-   "example":"Many companies outsource IT support to reduce costs.","example_zh":"許多公司將IT支援外包以降低成本。","example2":"We plan to outsource logistics to reduce operational costs.","example2_zh":"我們計劃外包物流以降低營運成本。"},
+   "example":"Many companies outsource IT support to reduce costs.","example_zh":"許多公司將IT支援外包以降低成本。","example2":"We plan to outsource logistics to reduce operational costs.","example2_zh":"我們計劃外包物流以降低營運成本。","pos":"動詞"},
   {"word":"scalable","ipa":"/ˈskeɪləbəl/","phonetic":"SKAY-luh-bul","zh":"可擴展的；可規模化的","category":"商業",
-   "example":"We need a scalable solution for our growing customer base.","example_zh":"我們需要一個可擴展的方案來應對不斷增長的客戶群。","example2":"Investors prefer scalable business models with recurring revenue.","example2_zh":"投資者偏好具有定期收入的可規模化商業模式。"},
+   "example":"We need a scalable solution for our growing customer base.","example_zh":"我們需要一個可擴展的方案來應對不斷增長的客戶群。","example2":"Investors prefer scalable business models with recurring revenue.","example2_zh":"投資者偏好具有定期收入的可規模化商業模式。","pos":"形容詞"},
   {"word":"stakeholder","ipa":"/ˈsteɪkhoʊldər/","phonetic":"STAYK-hol-der","zh":"利害關係人","category":"商業",
-   "example":"All stakeholders must approve the project before launch.","example_zh":"所有利害關係人必須在啟動前批准該專案。","example2":"Stakeholder feedback shaped the final design of the product.","example2_zh":"利害關係人的回饋影響了產品的最終設計。"},
+   "example":"All stakeholders must approve the project before launch.","example_zh":"所有利害關係人必須在啟動前批准該專案。","example2":"Stakeholder feedback shaped the final design of the product.","example2_zh":"利害關係人的回饋影響了產品的最終設計。","pos":"名詞"},
   {"word":"supply chain","ipa":"/ˈsʌplaɪ tʃeɪn/","phonetic":"SUP-ly CHAYN","zh":"供應鏈","category":"商業",
-   "example":"The pandemic disrupted global supply chains significantly.","example_zh":"疫情嚴重擾亂了全球供應鏈。","example2":"Companies are reshoring supply chains to reduce geopolitical risk.","example2_zh":"企業正在將供應鏈遷回本國以降低地緣政治風險。"},
+   "example":"The pandemic disrupted global supply chains significantly.","example_zh":"疫情嚴重擾亂了全球供應鏈。","example2":"Companies are reshoring supply chains to reduce geopolitical risk.","example2_zh":"企業正在將供應鏈遷回本國以降低地緣政治風險。","pos":"名詞片語"},
   {"word":"venture","ipa":"/ˈvɛntʃər/","phonetic":"VEN-cher","zh":"冒險；合資企業","category":"商業",
-   "example":"They launched a joint venture with a European partner.","example_zh":"他們與一家歐洲合作夥伴成立了合資企業。","example2":"The venture proved profitable within 18 months of launch.","example2_zh":"這項合資企業在啟動後18個月內就實現了盈利。"},
+   "example":"They launched a joint venture with a European partner.","example_zh":"他們與一家歐洲合作夥伴成立了合資企業。","example2":"The venture proved profitable within 18 months of launch.","example2_zh":"這項合資企業在啟動後18個月內就實現了盈利。","pos":"名詞／動詞"},
 
   # ── 科技 Technology ────────────────────────────────────────
   {"word":"algorithm","ipa":"/ˈælɡərɪðəm/","phonetic":"AL-guh-rith-um","zh":"演算法","category":"科技",
-   "example":"The algorithm recommends products based on your history.","example_zh":"演算法根據您的歷史記錄推薦產品。","example2":"Machine learning algorithms improve with more training data.","example2_zh":"機器學習演算法隨著更多訓練資料而改善。"},
+   "example":"The algorithm recommends products based on your history.","example_zh":"演算法根據您的歷史記錄推薦產品。","example2":"Machine learning algorithms improve with more training data.","example2_zh":"機器學習演算法隨著更多訓練資料而改善。","pos":"名詞"},
   {"word":"automation","ipa":"/ˌɔːtəˈmeɪʃən/","phonetic":"aw-tuh-MAY-shun","zh":"自動化","category":"科技",
-   "example":"Automation has transformed manufacturing processes worldwide.","example_zh":"自動化改變了全球的製造流程。","example2":"Process automation reduced manual errors by over 60%.","example2_zh":"流程自動化將手動錯誤減少了60%以上。"},
+   "example":"Automation has transformed manufacturing processes worldwide.","example_zh":"自動化改變了全球的製造流程。","example2":"Process automation reduced manual errors by over 60%.","example2_zh":"流程自動化將手動錯誤減少了60%以上。","pos":"名詞"},
   {"word":"bandwidth","ipa":"/ˈbændwɪdθ/","phonetic":"BAND-width","zh":"頻寬；處理能力","category":"科技",
-   "example":"We need more bandwidth to support video conferencing.","example_zh":"我們需要更多頻寬來支援視訊會議。","example2":"Heavy video streaming is consuming most of our bandwidth.","example2_zh":"大量的視訊串流佔用了我們大部分的頻寬。"},
+   "example":"We need more bandwidth to support video conferencing.","example_zh":"我們需要更多頻寬來支援視訊會議。","example2":"Heavy video streaming is consuming most of our bandwidth.","example2_zh":"大量的視訊串流佔用了我們大部分的頻寬。","pos":"名詞"},
   {"word":"blockchain","ipa":"/ˈblɒktʃeɪn/","phonetic":"BLOK-chayn","zh":"區塊鏈","category":"科技",
-   "example":"Blockchain technology ensures transparent and secure transactions.","example_zh":"區塊鏈技術確保交易透明且安全。","example2":"The supply chain team is exploring blockchain for better traceability.","example2_zh":"供應鏈團隊正在探索區塊鏈以提升可追溯性。"},
+   "example":"Blockchain technology ensures transparent and secure transactions.","example_zh":"區塊鏈技術確保交易透明且安全。","example2":"The supply chain team is exploring blockchain for better traceability.","example2_zh":"供應鏈團隊正在探索區塊鏈以提升可追溯性。","pos":"名詞"},
   {"word":"cybersecurity","ipa":"/ˌsaɪbərsɪˈkjʊərɪti/","phonetic":"SY-ber-sih-KYOOR-uh-tee","zh":"網路安全","category":"科技",
-   "example":"Investing in cybersecurity is critical for every business.","example_zh":"投資網路安全對每個企業都至關重要。","example2":"Cybersecurity threats are becoming more sophisticated each year.","example2_zh":"每年網路安全威脅變得越來越複雜。"},
+   "example":"Investing in cybersecurity is critical for every business.","example_zh":"投資網路安全對每個企業都至關重要。","example2":"Cybersecurity threats are becoming more sophisticated each year.","example2_zh":"每年網路安全威脅變得越來越複雜。","pos":"名詞"},
   {"word":"encryption","ipa":"/ɪnˈkrɪpʃən/","phonetic":"in-KRIP-shun","zh":"加密","category":"科技",
-   "example":"End-to-end encryption protects your private messages.","example_zh":"端對端加密保護您的私人訊息。","example2":"All customer data is protected using 256-bit encryption.","example2_zh":"所有客戶資料都使用256位元加密保護。"},
+   "example":"End-to-end encryption protects your private messages.","example_zh":"端對端加密保護您的私人訊息。","example2":"All customer data is protected using 256-bit encryption.","example2_zh":"所有客戶資料都使用256位元加密保護。","pos":"名詞"},
   {"word":"infrastructure","ipa":"/ˈɪnfrəˌstrʌktʃər/","phonetic":"IN-fruh-struk-cher","zh":"基礎設施；架構","category":"科技",
-   "example":"Cloud infrastructure reduces the need for physical servers.","example_zh":"雲端基礎設施減少了對實體伺服器的需求。","example2":"The cloud infrastructure scales automatically during peak demand.","example2_zh":"雲端基礎設施在需求高峰期自動擴展。"},
+   "example":"Cloud infrastructure reduces the need for physical servers.","example_zh":"雲端基礎設施減少了對實體伺服器的需求。","example2":"The cloud infrastructure scales automatically during peak demand.","example2_zh":"雲端基礎設施在需求高峰期自動擴展。","pos":"名詞"},
   {"word":"integration","ipa":"/ˌɪntɪˈɡreɪʃən/","phonetic":"in-tuh-GRAY-shun","zh":"整合；集成","category":"科技",
-   "example":"Seamless integration between apps improves user experience.","example_zh":"應用程式之間的無縫整合改善了用戶體驗。","example2":"The API integration allows data to flow between both platforms.","example2_zh":"API整合使資料能夠在兩個平台之間流動。"},
+   "example":"Seamless integration between apps improves user experience.","example_zh":"應用程式之間的無縫整合改善了用戶體驗。","example2":"The API integration allows data to flow between both platforms.","example2_zh":"API整合使資料能夠在兩個平台之間流動。","pos":"名詞"},
   {"word":"iteration","ipa":"/ˌɪtəˈreɪʃən/","phonetic":"it-uh-RAY-shun","zh":"迭代；反覆修改","category":"科技",
-   "example":"Each iteration of the product improves based on feedback.","example_zh":"產品的每次迭代都根據回饋進行改進。","example2":"We are on the fifth iteration and the product is much improved.","example2_zh":"我們已進行第五次迭代，產品改善了很多。"},
+   "example":"Each iteration of the product improves based on feedback.","example_zh":"產品的每次迭代都根據回饋進行改進。","example2":"We are on the fifth iteration and the product is much improved.","example2_zh":"我們已進行第五次迭代，產品改善了很多。","pos":"名詞"},
   {"word":"latency","ipa":"/ˈleɪtənsi/","phonetic":"LAY-ten-see","zh":"延遲時間","category":"科技",
-   "example":"Low latency is essential for real-time gaming applications.","example_zh":"低延遲對於即時遊戲應用至關重要。","example2":"High latency is causing complaints from users in remote regions.","example2_zh":"高延遲導致偏遠地區的用戶投訴。"},
+   "example":"Low latency is essential for real-time gaming applications.","example_zh":"低延遲對於即時遊戲應用至關重要。","example2":"High latency is causing complaints from users in remote regions.","example2_zh":"高延遲導致偏遠地區的用戶投訴。","pos":"名詞"},
   {"word":"machine learning","ipa":"/məˈʃiːn ˈlɜːrnɪŋ/","phonetic":"muh-SHEEN LUR-ning","zh":"機器學習","category":"科技",
-   "example":"Machine learning enables computers to learn from data.","example_zh":"機器學習使電腦能夠從資料中學習。","example2":"Machine learning is being used to detect fraudulent transactions.","example2_zh":"機器學習被用來偵測詐欺性交易。"},
+   "example":"Machine learning enables computers to learn from data.","example_zh":"機器學習使電腦能夠從資料中學習。","example2":"Machine learning is being used to detect fraudulent transactions.","example2_zh":"機器學習被用來偵測詐欺性交易。","pos":"名詞片語"},
   {"word":"optimization","ipa":"/ˌɒptɪmaɪˈzeɪʃən/","phonetic":"op-tuh-my-ZAY-shun","zh":"優化","category":"科技",
-   "example":"Search engine optimization improves your website ranking.","example_zh":"搜尋引擎優化提升您的網站排名。","example2":"Database optimization reduced our page load time by 40%.","example2_zh":"資料庫優化將我們的頁面載入時間縮短了40%。"},
+   "example":"Search engine optimization improves your website ranking.","example_zh":"搜尋引擎優化提升您的網站排名。","example2":"Database optimization reduced our page load time by 40%.","example2_zh":"資料庫優化將我們的頁面載入時間縮短了40%。","pos":"名詞"},
   {"word":"prototype","ipa":"/ˈproʊtətaɪp/","phonetic":"PRO-tuh-typ","zh":"原型；雛形","category":"科技",
-   "example":"We built a prototype to test the concept with users.","example_zh":"我們建立了原型來與用戶測試概念。","example2":"The engineering team built three prototypes before settling on a design.","example2_zh":"工程團隊在確定設計前製作了三個原型。"},
+   "example":"We built a prototype to test the concept with users.","example_zh":"我們建立了原型來與用戶測試概念。","example2":"The engineering team built three prototypes before settling on a design.","example2_zh":"工程團隊在確定設計前製作了三個原型。","pos":"名詞／動詞"},
   {"word":"repository","ipa":"/rɪˈpɒzɪtɔːri/","phonetic":"ruh-POZ-uh-tor-ee","zh":"程式庫；儲存庫","category":"科技",
-   "example":"All code is stored in the GitHub repository.","example_zh":"所有程式碼都儲存在GitHub儲存庫中。","example2":"Please push your changes to the main repository before 6 PM.","example2_zh":"請在下午6點前將您的更改推送到主儲存庫。"},
+   "example":"All code is stored in the GitHub repository.","example_zh":"所有程式碼都儲存在GitHub儲存庫中。","example2":"Please push your changes to the main repository before 6 PM.","example2_zh":"請在下午6點前將您的更改推送到主儲存庫。","pos":"名詞"},
   {"word":"virtualization","ipa":"/ˌvɜːrtʃuəlaɪˈzeɪʃən/","phonetic":"vur-choo-uh-ly-ZAY-shun","zh":"虛擬化","category":"科技",
-   "example":"Server virtualization reduces hardware costs significantly.","example_zh":"伺服器虛擬化大幅降低了硬體成本。","example2":"Server virtualization allows one physical machine to run multiple systems.","example2_zh":"伺服器虛擬化允許一台實體機器運行多個系統。"},
+   "example":"Server virtualization reduces hardware costs significantly.","example_zh":"伺服器虛擬化大幅降低了硬體成本。","example2":"Server virtualization allows one physical machine to run multiple systems.","example2_zh":"伺服器虛擬化允許一台實體機器運行多個系統。","pos":"名詞"},
   {"word":"agile","ipa":"/ˈædʒaɪl/","phonetic":"AJ-ul","zh":"敏捷的；靈活的（開發方法）","category":"科技",
-   "example":"The team uses agile methodology for software development.","example_zh":"團隊使用敏捷方法論進行軟體開發。","example2":"Adopting agile practices helped the team ship features faster.","example2_zh":"採用敏捷實踐幫助團隊更快地發布功能。"},
+   "example":"The team uses agile methodology for software development.","example_zh":"團隊使用敏捷方法論進行軟體開發。","example2":"Adopting agile practices helped the team ship features faster.","example2_zh":"採用敏捷實踐幫助團隊更快地發布功能。","pos":"形容詞"},
   {"word":"deployment","ipa":"/dɪˈplɔɪmənt/","phonetic":"duh-PLOY-ment","zh":"部署；發布","category":"科技",
-   "example":"The deployment of the new system was completed overnight.","example_zh":"新系統的部署在一夜之間完成。","example2":"Automated deployment pipelines reduce human error significantly.","example2_zh":"自動化部署流程大幅減少了人為錯誤。"},
+   "example":"The deployment of the new system was completed overnight.","example_zh":"新系統的部署在一夜之間完成。","example2":"Automated deployment pipelines reduce human error significantly.","example2_zh":"自動化部署流程大幅減少了人為錯誤。","pos":"名詞"},
   {"word":"debugging","ipa":"/diːˈbʌɡɪŋ/","phonetic":"dee-BUG-ing","zh":"除錯；找出並修復錯誤","category":"科技",
-   "example":"Debugging the code took longer than expected.","example_zh":"程式碼除錯花的時間比預期要長。","example2":"Proper logging makes debugging much faster and easier.","example2_zh":"適當的日誌記錄使除錯更快、更容易。"},
+   "example":"Debugging the code took longer than expected.","example_zh":"程式碼除錯花的時間比預期要長。","example2":"Proper logging makes debugging much faster and easier.","example2_zh":"適當的日誌記錄使除錯更快、更容易。","pos":"名詞"},
   {"word":"firewall","ipa":"/ˈfaɪərwɔːl/","phonetic":"FY-er-wall","zh":"防火牆","category":"科技",
-   "example":"The firewall blocked the unauthorized access attempt.","example_zh":"防火牆阻擋了未授權的存取嘗試。","example2":"The firewall rules were updated to allow traffic from new IPs.","example2_zh":"防火牆規則已更新，以允許來自新IP的流量。"},
+   "example":"The firewall blocked the unauthorized access attempt.","example_zh":"防火牆阻擋了未授權的存取嘗試。","example2":"The firewall rules were updated to allow traffic from new IPs.","example2_zh":"防火牆規則已更新，以允許來自新IP的流量。","pos":"名詞"},
   {"word":"user experience","ipa":"/ˈjuːzər ɪkˈspɪriəns/","phonetic":"YOO-zer ik-SPEER-ee-uns","zh":"用戶體驗（UX）","category":"科技",
-   "example":"A great user experience keeps customers coming back.","example_zh":"出色的用戶體驗讓客戶持續回訪。","example2":"Improving user experience is the top priority for our mobile app.","example2_zh":"改善用戶體驗是我們行動應用的首要任務。"},
+   "example":"A great user experience keeps customers coming back.","example_zh":"出色的用戶體驗讓客戶持續回訪。","example2":"Improving user experience is the top priority for our mobile app.","example2_zh":"改善用戶體驗是我們行動應用的首要任務。","pos":"名詞片語"},
 
   # ── 財經 Finance ───────────────────────────────────────────
   {"word":"amortization","ipa":"/əˌmɔːrtɪˈzeɪʃən/","phonetic":"uh-mor-tuh-ZAY-shun","zh":"攤銷；分期償還","category":"財經",
-   "example":"The loan amortization schedule shows monthly payments.","example_zh":"貸款攤銷時間表顯示每月還款金額。","example2":"The software license cost is spread through amortization over five years.","example2_zh":"軟體授權費用透過五年攤銷分攤。"},
+   "example":"The loan amortization schedule shows monthly payments.","example_zh":"貸款攤銷時間表顯示每月還款金額。","example2":"The software license cost is spread through amortization over five years.","example2_zh":"軟體授權費用透過五年攤銷分攤。","pos":"名詞"},
   {"word":"arbitrage","ipa":"/ˈɑːrbɪtrɑːʒ/","phonetic":"AR-buh-trazh","zh":"套利；仲裁","category":"財經",
-   "example":"Traders use arbitrage to profit from price differences.","example_zh":"交易員利用套利從價格差異中獲利。","example2":"Cryptocurrency arbitrage requires fast execution and low fees.","example2_zh":"加密貨幣套利需要快速執行和低費用。"},
+   "example":"Traders use arbitrage to profit from price differences.","example_zh":"交易員利用套利從價格差異中獲利。","example2":"Cryptocurrency arbitrage requires fast execution and low fees.","example2_zh":"加密貨幣套利需要快速執行和低費用。","pos":"名詞／動詞"},
   {"word":"bear market","ipa":"/ˈbɛr ˈmɑːrkɪt/","phonetic":"BAIR MAR-kit","zh":"熊市（股市下跌）","category":"財經",
-   "example":"Investors are cautious during a bear market.","example_zh":"在熊市期間投資者會保持謹慎。","example2":"In a bear market, defensive stocks tend to outperform growth stocks.","example2_zh":"在熊市中，防禦性股票往往優於成長股。"},
+   "example":"Investors are cautious during a bear market.","example_zh":"在熊市期間投資者會保持謹慎。","example2":"In a bear market, defensive stocks tend to outperform growth stocks.","example2_zh":"在熊市中，防禦性股票往往優於成長股。","pos":"名詞片語"},
   {"word":"bull market","ipa":"/ˈbʊl ˈmɑːrkɪt/","phonetic":"BOOL MAR-kit","zh":"牛市（股市上漲）","category":"財經",
-   "example":"The tech sector thrived during the bull market.","example_zh":"科技板塊在牛市期間蓬勃發展。","example2":"The current bull market has lasted longer than most analysts expected.","example2_zh":"當前牛市持續的時間比大多數分析師預期的要長。"},
+   "example":"The tech sector thrived during the bull market.","example_zh":"科技板塊在牛市期間蓬勃發展。","example2":"The current bull market has lasted longer than most analysts expected.","example2_zh":"當前牛市持續的時間比大多數分析師預期的要長。","pos":"名詞片語"},
   {"word":"cash flow","ipa":"/ˈkæʃ floʊ/","phonetic":"KASH floh","zh":"現金流","category":"財經",
-   "example":"Positive cash flow is vital for business survival.","example_zh":"正向現金流對企業生存至關重要。","example2":"Startups often fail due to poor cash flow management, not lack of profit.","example2_zh":"新創公司失敗通常是因為現金流管理不善，而非缺乏利潤。"},
+   "example":"Positive cash flow is vital for business survival.","example_zh":"正向現金流對企業生存至關重要。","example2":"Startups often fail due to poor cash flow management, not lack of profit.","example2_zh":"新創公司失敗通常是因為現金流管理不善，而非缺乏利潤。","pos":"名詞片語"},
   {"word":"depreciation","ipa":"/dɪˌpriːʃɪˈeɪʃən/","phonetic":"duh-pree-shee-AY-shun","zh":"折舊；貶值","category":"財經",
-   "example":"Equipment depreciation reduces taxable income.","example_zh":"設備折舊可減少應稅收入。","example2":"Machinery depreciation is recorded as an expense each year.","example2_zh":"機械折舊每年記錄為一項費用。"},
+   "example":"Equipment depreciation reduces taxable income.","example_zh":"設備折舊可減少應稅收入。","example2":"Machinery depreciation is recorded as an expense each year.","example2_zh":"機械折舊每年記錄為一項費用。","pos":"名詞"},
   {"word":"diversification","ipa":"/daɪˌvɜːrsɪfɪˈkeɪʃən/","phonetic":"dy-vur-suh-fuh-KAY-shun","zh":"多元化；分散投資","category":"財經",
-   "example":"Portfolio diversification reduces investment risk.","example_zh":"投資組合多元化可降低投資風險。","example2":"Geographic diversification protects the portfolio from local downturns.","example2_zh":"地域多元化可保護投資組合免受當地經濟下滑的影響。"},
+   "example":"Portfolio diversification reduces investment risk.","example_zh":"投資組合多元化可降低投資風險。","example2":"Geographic diversification protects the portfolio from local downturns.","example2_zh":"地域多元化可保護投資組合免受當地經濟下滑的影響。","pos":"名詞"},
   {"word":"dividend","ipa":"/ˈdɪvɪdɛnd/","phonetic":"DIV-uh-dend","zh":"股息；紅利","category":"財經",
-   "example":"The company paid a dividend of two dollars per share.","example_zh":"公司支付了每股兩美元的股息。","example2":"The board voted to increase the dividend for the third consecutive year.","example2_zh":"董事會投票決定連續第三年提高股息。"},
+   "example":"The company paid a dividend of two dollars per share.","example_zh":"公司支付了每股兩美元的股息。","example2":"The board voted to increase the dividend for the third consecutive year.","example2_zh":"董事會投票決定連續第三年提高股息。","pos":"名詞"},
   {"word":"fiscal","ipa":"/ˈfɪskəl/","phonetic":"FIS-kul","zh":"財政的；會計年度的","category":"財經",
-   "example":"The fiscal year ends on December 31st.","example_zh":"財政年度於12月31日結束。","example2":"The fiscal year runs from April to March in Japan.","example2_zh":"日本的財政年度從4月到3月。"},
+   "example":"The fiscal year ends on December 31st.","example_zh":"財政年度於12月31日結束。","example2":"The fiscal year runs from April to March in Japan.","example2_zh":"日本的財政年度從4月到3月。","pos":"形容詞"},
   {"word":"hedge fund","ipa":"/ˈhɛdʒ fʌnd/","phonetic":"HEJ fund","zh":"對沖基金","category":"財經",
-   "example":"Hedge funds often use complex strategies to generate returns.","example_zh":"對沖基金常使用複雜策略來產生回報。","example2":"The hedge fund posted a 30% return even during the market downturn.","example2_zh":"即使在市場低迷期間，對沖基金也錄得30%的回報。"},
+   "example":"Hedge funds often use complex strategies to generate returns.","example_zh":"對沖基金常使用複雜策略來產生回報。","example2":"The hedge fund posted a 30% return even during the market downturn.","example2_zh":"即使在市場低迷期間，對沖基金也錄得30%的回報。","pos":"名詞片語"},
   {"word":"inflation","ipa":"/ɪnˈfleɪʃən/","phonetic":"in-FLAY-shun","zh":"通貨膨脹","category":"財經",
-   "example":"Rising inflation erodes purchasing power over time.","example_zh":"通貨膨脹上升會隨時間侵蝕購買力。","example2":"Central banks raised interest rates to combat rising inflation.","example2_zh":"央行提高利率以應對通貨膨脹上升。"},
+   "example":"Rising inflation erodes purchasing power over time.","example_zh":"通貨膨脹上升會隨時間侵蝕購買力。","example2":"Central banks raised interest rates to combat rising inflation.","example2_zh":"央行提高利率以應對通貨膨脹上升。","pos":"名詞"},
   {"word":"liquidity","ipa":"/lɪˈkwɪdɪti/","phonetic":"luh-KWID-uh-tee","zh":"流動性；變現能力","category":"財經",
-   "example":"High liquidity means assets can be quickly converted to cash.","example_zh":"高流動性意味著資產可以快速轉換為現金。","example2":"During the crisis, even well-performing assets faced liquidity problems.","example2_zh":"危機期間，即使表現良好的資產也面臨流動性問題。"},
+   "example":"High liquidity means assets can be quickly converted to cash.","example_zh":"高流動性意味著資產可以快速轉換為現金。","example2":"During the crisis, even well-performing assets faced liquidity problems.","example2_zh":"危機期間，即使表現良好的資產也面臨流動性問題。","pos":"名詞"},
   {"word":"portfolio","ipa":"/pɔːrtˈfoʊlioʊ/","phonetic":"port-FOH-lee-oh","zh":"投資組合；作品集","category":"財經",
-   "example":"A balanced portfolio includes stocks, bonds, and real estate.","example_zh":"均衡的投資組合包括股票、債券和房地產。","example2":"Rebalancing your portfolio quarterly helps maintain your target allocation.","example2_zh":"每季重新平衡投資組合有助於維持目標配置。"},
+   "example":"A balanced portfolio includes stocks, bonds, and real estate.","example_zh":"均衡的投資組合包括股票、債券和房地產。","example2":"Rebalancing your portfolio quarterly helps maintain your target allocation.","example2_zh":"每季重新平衡投資組合有助於維持目標配置。","pos":"名詞"},
   {"word":"return on investment","ipa":"/rɪˈtɜːrn ɒn ɪnˈvɛstmənt/","phonetic":"ruh-TURN on in-VEST-ment","zh":"投資報酬率（ROI）","category":"財經",
-   "example":"This marketing campaign had an excellent return on investment.","example_zh":"這次行銷活動有出色的投資報酬率。","example2":"Calculating return on investment helps prioritize spending decisions.","example2_zh":"計算投資報酬率有助於確定支出決策的優先順序。"},
+   "example":"This marketing campaign had an excellent return on investment.","example_zh":"這次行銷活動有出色的投資報酬率。","example2":"Calculating return on investment helps prioritize spending decisions.","example2_zh":"計算投資報酬率有助於確定支出決策的優先順序。","pos":"名詞片語"},
   {"word":"securities","ipa":"/sɪˈkjʊərɪtiz/","phonetic":"suh-KYOOR-uh-teez","zh":"有價證券","category":"財經",
-   "example":"Government securities are considered low-risk investments.","example_zh":"政府有價證券被視為低風險投資。","example2":"Mortgage-backed securities played a key role in the 2008 financial crisis.","example2_zh":"抵押貸款支持的有價證券在2008年金融危機中發揮了關鍵作用。"},
+   "example":"Government securities are considered low-risk investments.","example_zh":"政府有價證券被視為低風險投資。","example2":"Mortgage-backed securities played a key role in the 2008 financial crisis.","example2_zh":"抵押貸款支持的有價證券在2008年金融危機中發揮了關鍵作用。","pos":"名詞"},
   {"word":"valuation","ipa":"/ˌvæljuˈeɪʃən/","phonetic":"val-yoo-AY-shun","zh":"估值；評估","category":"財經",
-   "example":"The startup received a valuation of one billion dollars.","example_zh":"這家新創公司的估值達到了十億美元。","example2":"A fair valuation requires both financial data and market comparisons.","example2_zh":"公平的估值需要財務資料和市場比較。"},
+   "example":"The startup received a valuation of one billion dollars.","example_zh":"這家新創公司的估值達到了十億美元。","example2":"A fair valuation requires both financial data and market comparisons.","example2_zh":"公平的估值需要財務資料和市場比較。","pos":"名詞"},
   {"word":"venture capital","ipa":"/ˈvɛntʃər ˈkæpɪtəl/","phonetic":"VEN-cher KAP-uh-tul","zh":"創投資金","category":"財經",
-   "example":"Venture capital funds early-stage innovative companies.","example_zh":"創投資金資助早期創新公司。","example2":"Venture capital funding peaked during the technology boom.","example2_zh":"創投資金在科技繁榮期間達到頂峰。"},
+   "example":"Venture capital funds early-stage innovative companies.","example_zh":"創投資金資助早期創新公司。","example2":"Venture capital funding peaked during the technology boom.","example2_zh":"創投資金在科技繁榮期間達到頂峰。","pos":"名詞片語"},
   {"word":"yield","ipa":"/jiːld/","phonetic":"YEELD","zh":"收益率；產生","category":"財經",
-   "example":"The bond yield increased to 4.5% this quarter.","example_zh":"本季債券收益率上升至4.5%。","example2":"Investors moved to high-yield bonds to compensate for higher risk.","example2_zh":"投資者轉向高收益債券以補償更高的風險。"},
+   "example":"The bond yield increased to 4.5% this quarter.","example_zh":"本季債券收益率上升至4.5%。","example2":"Investors moved to high-yield bonds to compensate for higher risk.","example2_zh":"投資者轉向高收益債券以補償更高的風險。","pos":"名詞／動詞"},
   {"word":"balance sheet","ipa":"/ˈbæləns ʃiːt/","phonetic":"BAL-uns sheet","zh":"資產負債表","category":"財經",
-   "example":"The balance sheet shows the company's financial position.","example_zh":"資產負債表顯示公司的財務狀況。","example2":"A strong balance sheet gives companies the flexibility to weather downturns.","example2_zh":"強健的資產負債表使公司在經濟下滑時有靈活應對的空間。"},
+   "example":"The balance sheet shows the company's financial position.","example_zh":"資產負債表顯示公司的財務狀況。","example2":"A strong balance sheet gives companies the flexibility to weather downturns.","example2_zh":"強健的資產負債表使公司在經濟下滑時有靈活應對的空間。","pos":"名詞片語"},
   {"word":"audit","ipa":"/ˈɔːdɪt/","phonetic":"AW-dit","zh":"審計；查帳","category":"財經",
-   "example":"An external auditor conducts the annual financial audit.","example_zh":"外部審計師進行年度財務審計。","example2":"The annual audit revealed no material discrepancies in the accounts.","example2_zh":"年度審計未發現帳目中有任何重大差異。"},
+   "example":"An external auditor conducts the annual financial audit.","example_zh":"外部審計師進行年度財務審計。","example2":"The annual audit revealed no material discrepancies in the accounts.","example2_zh":"年度審計未發現帳目中有任何重大差異。","pos":"名詞／動詞"},
 
   # ── 生活職場 Daily Life / Soft Skills ──────────────────────
   {"word":"proactive","ipa":"/proʊˈæktɪv/","phonetic":"pro-AK-tiv","zh":"主動積極的","category":"生活",
-   "example":"Being proactive helps you solve problems before they arise.","example_zh":"積極主動幫助你在問題發生前解決它。","example2":"Being proactive means anticipating problems before they occur.","example2_zh":"積極主動意味著在問題發生之前預見它們。"},
+   "example":"Being proactive helps you solve problems before they arise.","example_zh":"積極主動幫助你在問題發生前解決它。","example2":"Being proactive means anticipating problems before they occur.","example2_zh":"積極主動意味著在問題發生之前預見它們。","pos":"形容詞"},
   {"word":"transparent","ipa":"/trænsˈpærənt/","phonetic":"trans-PAIR-unt","zh":"透明的；坦誠的","category":"生活",
-   "example":"Leaders should be transparent about company challenges.","example_zh":"領導者應該對公司挑戰保持透明。","example2":"We believe in being transparent about our pricing and policies.","example2_zh":"我們相信對定價和政策保持透明。"},
+   "example":"Leaders should be transparent about company challenges.","example_zh":"領導者應該對公司挑戰保持透明。","example2":"We believe in being transparent about our pricing and policies.","example2_zh":"我們相信對定價和政策保持透明。","pos":"形容詞"},
   {"word":"resilient","ipa":"/rɪˈzɪliənt/","phonetic":"ruh-ZIL-ee-unt","zh":"有韌性的；恢復力強的","category":"生活",
-   "example":"Resilient employees adapt quickly to change.","example_zh":"有韌性的員工能快速適應變化。","example2":"A resilient team bounces back quickly after setbacks.","example2_zh":"有韌性的團隊在挫折後能夠迅速恢復。"},
+   "example":"Resilient employees adapt quickly to change.","example_zh":"有韌性的員工能快速適應變化。","example2":"A resilient team bounces back quickly after setbacks.","example2_zh":"有韌性的團隊在挫折後能夠迅速恢復。","pos":"形容詞"},
   {"word":"empathy","ipa":"/ˈɛmpəθi/","phonetic":"EM-puh-thee","zh":"同理心；設身處地","category":"生活",
-   "example":"Empathy is a key skill for effective leadership.","example_zh":"同理心是有效領導的關鍵技能。","example2":"Managers who show empathy build stronger, more loyal teams.","example2_zh":"展現同理心的管理者建立更強大、更忠誠的團隊。"},
+   "example":"Empathy is a key skill for effective leadership.","example_zh":"同理心是有效領導的關鍵技能。","example2":"Managers who show empathy build stronger, more loyal teams.","example2_zh":"展現同理心的管理者建立更強大、更忠誠的團隊。","pos":"名詞"},
   {"word":"accountability","ipa":"/əˌkaʊntəˈbɪlɪti/","phonetic":"uh-kown-tuh-BIL-uh-tee","zh":"責任感；問責","category":"生活",
-   "example":"Accountability means taking responsibility for your actions.","example_zh":"問責意味著為自己的行動承擔責任。","example2":"A culture of accountability starts at the leadership level.","example2_zh":"問責文化從領導層開始。"},
+   "example":"Accountability means taking responsibility for your actions.","example_zh":"問責意味著為自己的行動承擔責任。","example2":"A culture of accountability starts at the leadership level.","example2_zh":"問責文化從領導層開始。","pos":"名詞"},
   {"word":"assertive","ipa":"/əˈsɜːrtɪv/","phonetic":"uh-SUR-tiv","zh":"果斷的；自信表達的","category":"生活",
-   "example":"Being assertive helps you communicate your needs clearly.","example_zh":"果斷有助於你清楚地溝通自己的需求。","example2":"Be assertive when negotiating; know what you want and ask for it.","example2_zh":"談判時要果斷；清楚自己想要什麼並直接提出。"},
+   "example":"Being assertive helps you communicate your needs clearly.","example_zh":"果斷有助於你清楚地溝通自己的需求。","example2":"Be assertive when negotiating; know what you want and ask for it.","example2_zh":"談判時要果斷；清楚自己想要什麼並直接提出。","pos":"形容詞"},
   {"word":"constructive","ipa":"/kənˈstrʌktɪv/","phonetic":"kun-STRUK-tiv","zh":"建設性的","category":"生活",
-   "example":"Please provide constructive feedback on the report.","example_zh":"請對報告提供建設性的回饋。","example2":"Even negative feedback can be helpful if it is constructive.","example2_zh":"即使是負面的回饋，只要具有建設性就是有幫助的。"},
+   "example":"Please provide constructive feedback on the report.","example_zh":"請對報告提供建設性的回饋。","example2":"Even negative feedback can be helpful if it is constructive.","example2_zh":"即使是負面的回饋，只要具有建設性就是有幫助的。","pos":"形容詞"},
   {"word":"adaptable","ipa":"/əˈdæptəbəl/","phonetic":"uh-DAP-tuh-bul","zh":"適應力強的；靈活的","category":"生活",
-   "example":"Adaptable employees are valuable in a changing environment.","example_zh":"適應力強的員工在變化的環境中非常寶貴。","example2":"The most adaptable employees are often the most valuable.","example2_zh":"適應性最強的員工往往是最有價值的。"},
+   "example":"Adaptable employees are valuable in a changing environment.","example_zh":"適應力強的員工在變化的環境中非常寶貴。","example2":"The most adaptable employees are often the most valuable.","example2_zh":"適應性最強的員工往往是最有價值的。","pos":"形容詞"},
   {"word":"collaborate","ipa":"/kəˈlæbəreɪt/","phonetic":"kuh-LAB-uh-rayt","zh":"合作；協作","category":"生活",
-   "example":"Teams that collaborate effectively achieve better results.","example_zh":"有效合作的團隊能取得更好的成果。","example2":"Teams that collaborate across departments drive better innovation.","example2_zh":"跨部門合作的團隊推動更好的創新。"},
+   "example":"Teams that collaborate effectively achieve better results.","example_zh":"有效合作的團隊能取得更好的成果。","example2":"Teams that collaborate across departments drive better innovation.","example2_zh":"跨部門合作的團隊推動更好的創新。","pos":"動詞"},
   {"word":"integrity","ipa":"/ɪnˈtɛɡrɪti/","phonetic":"in-TEG-ruh-tee","zh":"正直；誠信","category":"生活",
-   "example":"Integrity is the foundation of a trustworthy business.","example_zh":"誠信是值得信賴企業的基礎。","example2":"Acting with integrity, even when no one is watching, builds real trust.","example2_zh":"即使沒人看見，以誠信行事也能建立真正的信任。"},
+   "example":"Integrity is the foundation of a trustworthy business.","example_zh":"誠信是值得信賴企業的基礎。","example2":"Acting with integrity, even when no one is watching, builds real trust.","example2_zh":"即使沒人看見，以誠信行事也能建立真正的信任。","pos":"名詞"},
   {"word":"initiative","ipa":"/ɪˈnɪʃɪətɪv/","phonetic":"ih-NISH-ee-uh-tiv","zh":"主動性；倡議","category":"生活",
-   "example":"Take the initiative and suggest solutions to your manager.","example_zh":"主動出擊，向你的主管提出解決方案。","example2":"She showed great initiative by proposing a solution before being asked.","example2_zh":"她在被詢問之前就主動提出解決方案，展現了極大的主動性。"},
+   "example":"Take the initiative and suggest solutions to your manager.","example_zh":"主動出擊，向你的主管提出解決方案。","example2":"She showed great initiative by proposing a solution before being asked.","example2_zh":"她在被詢問之前就主動提出解決方案，展現了極大的主動性。","pos":"名詞"},
   {"word":"mentor","ipa":"/ˈmɛntɔːr/","phonetic":"MEN-tor","zh":"導師；指導者","category":"生活",
-   "example":"Having a mentor can accelerate your career growth.","example_zh":"有一位導師可以加速你的職業發展。","example2":"She mentored three junior employees who all received promotions.","example2_zh":"她指導了三位初級員工，他們都獲得了晉升。"},
+   "example":"Having a mentor can accelerate your career growth.","example_zh":"有一位導師可以加速你的職業發展。","example2":"She mentored three junior employees who all received promotions.","example2_zh":"她指導了三位初級員工，他們都獲得了晉升。","pos":"名詞／動詞"},
   {"word":"networking","ipa":"/ˈnɛtwɜːrkɪŋ/","phonetic":"NET-wur-king","zh":"人脈建立；社交","category":"生活",
-   "example":"Networking events are great for meeting industry peers.","example_zh":"社交活動非常適合結識行業同仁。","example2":"Networking online can be as effective as meeting people in person.","example2_zh":"線上建立人脈可以和面對面認識人一樣有效。"},
+   "example":"Networking events are great for meeting industry peers.","example_zh":"社交活動非常適合結識行業同仁。","example2":"Networking online can be as effective as meeting people in person.","example2_zh":"線上建立人脈可以和面對面認識人一樣有效。","pos":"名詞"},
   {"word":"multitask","ipa":"/ˈmʌltiˌtæsk/","phonetic":"MUL-tee-task","zh":"同時處理多項工作","category":"生活",
-   "example":"Effective professionals know how to multitask efficiently.","example_zh":"高效的專業人士知道如何高效地同時處理多項工作。","example2":"Though common, trying to multitask often reduces overall quality.","example2_zh":"雖然很普遍，但嘗試同時處理多項工作往往會降低整體質量。"},
+   "example":"Effective professionals know how to multitask efficiently.","example_zh":"高效的專業人士知道如何高效地同時處理多項工作。","example2":"Though common, trying to multitask often reduces overall quality.","example2_zh":"雖然很普遍，但嘗試同時處理多項工作往往會降低整體質量。","pos":"動詞"},
   {"word":"punctual","ipa":"/ˈpʌŋktʃuəl/","phonetic":"PUNK-choo-ul","zh":"準時的","category":"生活",
-   "example":"Being punctual shows respect for others' time.","example_zh":"準時表現了對他人時間的尊重。","example2":"Punctual employees signal professionalism and respect for others.","example2_zh":"準時的員工傳達出專業精神和對他人的尊重。"},
+   "example":"Being punctual shows respect for others' time.","example_zh":"準時表現了對他人時間的尊重。","example2":"Punctual employees signal professionalism and respect for others.","example2_zh":"準時的員工傳達出專業精神和對他人的尊重。","pos":"形容詞"},
   {"word":"streamline","ipa":"/ˈstriːmlaɪn/","phonetic":"STREAM-lyn","zh":"簡化流程；精簡","category":"生活",
-   "example":"We need to streamline the approval process.","example_zh":"我們需要簡化審批流程。","example2":"We streamlined the hiring process from six steps to three.","example2_zh":"我們將招募流程從六個步驟簡化為三個步驟。"},
+   "example":"We need to streamline the approval process.","example_zh":"我們需要簡化審批流程。","example2":"We streamlined the hiring process from six steps to three.","example2_zh":"我們將招募流程從六個步驟簡化為三個步驟。","pos":"動詞"},
   {"word":"sustainable","ipa":"/səˈsteɪnəbəl/","phonetic":"suh-STAY-nuh-bul","zh":"可持續的；永續的","category":"生活",
-   "example":"The company is committed to sustainable business practices.","example_zh":"公司致力於可持續的商業實踐。","example2":"Long-term success requires building a sustainable business model.","example2_zh":"長期成功需要建立可持續的商業模式。"},
+   "example":"The company is committed to sustainable business practices.","example_zh":"公司致力於可持續的商業實踐。","example2":"Long-term success requires building a sustainable business model.","example2_zh":"長期成功需要建立可持續的商業模式。","pos":"形容詞"},
   {"word":"versatile","ipa":"/ˈvɜːrsətaɪl/","phonetic":"VUR-suh-tyl","zh":"多才多藝的；多功能的","category":"生活",
-   "example":"A versatile employee can handle a variety of tasks.","example_zh":"多才多藝的員工可以處理各種任務。","example2":"A versatile professional can contribute to multiple teams and projects.","example2_zh":"多才多藝的專業人士可以為多個團隊和專案做出貢獻。"},
+   "example":"A versatile employee can handle a variety of tasks.","example_zh":"多才多藝的員工可以處理各種任務。","example2":"A versatile professional can contribute to multiple teams and projects.","example2_zh":"多才多藝的專業人士可以為多個團隊和專案做出貢獻。","pos":"形容詞"},
   {"word":"deadline","ipa":"/ˈdɛdlaɪn/","phonetic":"DED-lyn","zh":"截止日期","category":"生活",
-   "example":"Always submit your work before the deadline.","example_zh":"始終在截止日期前提交你的工作。","example2":"Missing a deadline reflects poorly on your reliability.","example2_zh":"錯過截止日期會對你的可靠性產生負面影響。"},
+   "example":"Always submit your work before the deadline.","example_zh":"始終在截止日期前提交你的工作。","example2":"Missing a deadline reflects poorly on your reliability.","example2_zh":"錯過截止日期會對你的可靠性產生負面影響。","pos":"名詞"},
   {"word":"feedback","ipa":"/ˈfiːdbæk/","phonetic":"FEED-bak","zh":"回饋；意見","category":"生活",
-   "example":"Regular feedback helps employees grow and improve.","example_zh":"定期回饋有助於員工成長和進步。","example2":"Open to feedback, she quickly improved her presentation skills.","example2_zh":"她樂於接受回饋，很快就提升了簡報技巧。"},
+   "example":"Regular feedback helps employees grow and improve.","example_zh":"定期回饋有助於員工成長和進步。","example2":"Open to feedback, she quickly improved her presentation skills.","example2_zh":"她樂於接受回饋，很快就提升了簡報技巧。","pos":"名詞"},
 ]
 
 # ══════════════════════════════════════════════════════════════
@@ -762,9 +762,12 @@ body{background:var(--bg);color:var(--ink);
 .cat-chip.財經{background:#FEE2E2;color:#991B1B}
 .cat-chip.生活{background:#F3E8FF;color:#6B21A8}
 
-.word-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.word-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .word-en{font-family:"Outfit";font-weight:800;font-size:30px;
   letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.pos-badge{font-family:"Noto Sans TC","Outfit",sans-serif;font-size:12px;font-weight:700;
+  color:#7C3AED;background:#F3E8FF;border-radius:8px;padding:2px 9px;
+  align-self:center;white-space:nowrap;border:1px solid #DDD6FE}
 .icon-btn{background:none;border:none;cursor:pointer;font-size:18px;
   opacity:.45;padding:2px;transition:opacity .15s;line-height:1}
 .icon-btn:hover{opacity:.9}
@@ -944,6 +947,16 @@ body{background:var(--bg);color:var(--ink);
   </div>
 </div>
 
+<!-- 文法日期篩選列（切換到文法分頁時顯示） -->
+<div id="gramBars" style="display:none">
+  <div class="filters">
+    <div class="filter-row">
+      <span class="filter-label">日期</span>
+      <div class="chips" id="gramDateBar"></div>
+    </div>
+  </div>
+</div>
+
 <div class="feed" id="feed"></div>
 
 <div class="foot" id="foot">
@@ -981,7 +994,7 @@ body{background:var(--bg);color:var(--ink);
 const ALL_DATA = __ALL_DATA_JSON__;
 const CATS  = ["全部","會議","商業","科技","財經","生活"];
 const REPS  = 3;
-let curCat="全部", curDate="全部", curTab="單字", curIdx=0, rate=0.9, playing=false, cancelled=false;
+let curCat="全部", curDate="全部", curTab="單字", curGramDate="全部", curIdx=0, rate=0.9, playing=false, cancelled=false;
 
 const ALL_DATES = Object.keys(ALL_DATA).sort((a,b)=>b.localeCompare(a));
 function getWords(d){ const v=ALL_DATA[d]; return Array.isArray(v)?v:(v?.words||[]); }
@@ -1019,11 +1032,13 @@ function setTab(t){
   curTab=t; stopPlay(); curIdx=0;
   buildMainTabs();
   const sub=document.getElementById("subBars");
+  const gram=document.getElementById("gramBars");
   const bar=document.getElementById("playbar");
   sub.style.display=t==="單字"?"":"none";
+  gram.style.display=t==="文法"?"":"none";
   if(bar) bar.style.display=t==="單字"?"":"none";
   if(t==="單字"){ buildCards(); updateProgress(0); }
-  else buildGrammarCards();
+  else { buildGramDateBar(); buildGrammarCards(); }
 }
 
 // ── 篩選 ─────────────────────────────────────────────────────
@@ -1196,6 +1211,7 @@ function buildCards(){
       </div>
       <div class="word-row">
         <span class="word-en">${w.word}</span>
+        ${w.pos?`<span class="pos-badge">${w.pos}</span>`:''}
         <button class="icon-btn" onclick="sayWord(${i})" title="聆聽單字">🔊</button>
         <button class="icon-btn" onclick="saySpell(${i})" title="逐字母拼出" style="border:1.5px solid var(--border);border-radius:10px;padding:2px 7px;font-family:'Outfit';font-size:11px;font-weight:700;color:var(--muted);opacity:.7">A-B-C</button>
         <button class="icon-btn mic" data-enc="${wEnc}" data-rid="wr-${i}" onclick="startRec(this)">🎤 練習</button>
@@ -1236,19 +1252,57 @@ function buildCards(){
 }
 
 // ── 建立文法卡片 ──────────────────────────────────────────────
+// ── 文法日期篩選 ──────────────────────────────────────────────
+function buildGramDateBar(){
+  const bar=document.getElementById("gramDateBar");
+  if(!bar) return;
+  const btns=[{k:"全部",l:`全部（${ALL_DATES.length}天）`},...ALL_DATES.map(d=>({k:d,l:fmtDate(d)}))];
+  bar.innerHTML=btns.map(b=>
+    `<button class="chip${b.k===curGramDate?" on":""}" onclick="setGramDate('${b.k}')">${b.l}</button>`
+  ).join("");
+}
+function setGramDate(d){
+  curGramDate=d;
+  buildGramDateBar();
+  buildGrammarCards();
+}
+
 function buildGrammarCards(){
   const feed=document.getElementById("feed");
-  const seen=new Set(); const all=[];
-  ALL_DATES.forEach(d=>getGrammar(d).forEach(g=>{
-    if(!seen.has(g.title)){seen.add(g.title);all.push({...g,_date:d});}
+  const todayDate=ALL_DATES[0];
+  const todayG=new Set(getGrammar(todayDate).map(g=>g.title));
+
+  // 依日期篩選
+  let dates = curGramDate==="全部" ? ALL_DATES : [curGramDate];
+  const seen=new Set(); const list=[];
+  dates.forEach(d=>getGrammar(d).forEach(g=>{
+    if(!seen.has(g.title)){seen.add(g.title);list.push({...g,_date:d});}
   }));
-  const todayG=new Set(getGrammar(ALL_DATES[0]).map(g=>g.title));
-  const sorted=[...all.filter(g=>todayG.has(g.title)),...all.filter(g=>!todayG.has(g.title))];
-  feed.innerHTML=sorted.map((g,i)=>`
+
+  if(!list.length){
+    feed.innerHTML=`<div class="empty-msg">此日期無文法資料</div>`;
+    return;
+  }
+
+  // 今日重點排前面（全部模式）；指定日期模式則按原順序
+  const sorted = curGramDate==="全部"
+    ? [...list.filter(g=>todayG.has(g.title)),...list.filter(g=>!todayG.has(g.title))]
+    : list;
+
+  // 全部模式：依日期分組顯示標題
+  let html="", lastDate="";
+  sorted.forEach((g,i)=>{
+    if(curGramDate==="全部" && g._date!==lastDate){
+      lastDate=g._date;
+      const isToday=g._date===todayDate;
+      html+=`<div class="date-hdr">${fmtDate(g._date)} · ${getGrammar(g._date).length} 個文法重點${isToday?' 🔵':''}</div>`;
+    }
+    const isToday=todayG.has(g.title)&&curGramDate==="全部";
+    html+=`
     <div class="gcard">
       <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
         <span class="gcat-chip">${g.category}</span>
-        ${todayG.has(g.title)?'<span class="today-badge">今日重點</span>':''}
+        ${isToday?'<span class="today-badge">今日重點</span>':''}
       </div>
       <div class="g-title">${g.title}</div>
       <div class="g-rule">${g.rule}</div>
@@ -1270,7 +1324,9 @@ function buildGrammarCards(){
         <div class="g-right">✅ 正確說法：${g.right}</div>
       </div>
       <div class="g-tip">💡 ${g.tip}</div>
-    </div>`).join("");
+    </div>`;
+  });
+  feed.innerHTML=html;
 }
 
 // ── 卡片狀態 ──────────────────────────────────────────────────
@@ -1402,32 +1458,46 @@ async function playFrom(startIdx){
     const w=words[i];
     setActive(i);clearDots(i);
 
+    // ── 第一段：單字發音 → 拼音 → 中文（重複3次）──
     for(let rep=0;rep<REPS;rep++){
       if(!playing||cancelled)return;
       setDot(i,rep);
-
       setStatus(i,`🔤 單字`,`${rep+1}/3`);
-      await speak(w.word,"en-US"); await pause(500);
+      await speak(w.word,"en-US"); await pause(400);
       if(!playing||cancelled)return;
 
       setStatus(i,`🔡 拼字`,`${rep+1}/3`);
-      await spellWord(w.word); await pause(400);
+      await spellWord(w.word); await pause(300);
       if(!playing||cancelled)return;
 
-      setStatus(i,`📖 例句 1`,`${rep+1}/3`);
-      await speak(w.example,"en-US"); await pause(350);
+      setStatus(i,`📝 中文`,`${rep+1}/3`);
+      await speak(w.zh,"zh-TW"); await pause(450);
       if(!playing||cancelled)return;
+    }
 
-      setStatus(i,`📝 例句 1 中文`,`${rep+1}/3`);
-      await speak(w.example_zh,"zh-TW"); await pause(400);
-      if(!playing||cancelled)return;
+    // ── 第二段：英文例句1 → 中文例句1（重複3次）──
+    if(w.example){
+      for(let rep=0;rep<REPS;rep++){
+        if(!playing||cancelled)return;
+        setStatus(i,`📖 例句1 英`,`${rep+1}/3`);
+        await speak(w.example,"en-US"); await pause(350);
+        if(!playing||cancelled)return;
 
-      if(w.example2){
-        setStatus(i,`📖 例句 2`,`${rep+1}/3`);
+        setStatus(i,`📝 例句1 中`,`${rep+1}/3`);
+        await speak(w.example_zh,"zh-TW"); await pause(400);
+        if(!playing||cancelled)return;
+      }
+    }
+
+    // ── 第三段：英文例句2 → 中文例句2（重複3次）──
+    if(w.example2){
+      for(let rep=0;rep<REPS;rep++){
+        if(!playing||cancelled)return;
+        setStatus(i,`📖 例句2 英`,`${rep+1}/3`);
         await speak(w.example2,"en-US"); await pause(350);
         if(!playing||cancelled)return;
 
-        setStatus(i,`📝 例句 2 中文`,`${rep+1}/3`);
+        setStatus(i,`📝 例句2 中`,`${rep+1}/3`);
         await speak(w.example2_zh,"zh-TW"); await pause(400);
         if(!playing||cancelled)return;
       }
