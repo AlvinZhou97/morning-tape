@@ -5,6 +5,9 @@ on:
     - cron: '0 23 * * *'   # 台灣時間早上 07:00
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
@@ -15,10 +18,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: python vocab_scraper.py
-      - run: |
-          git config user.name "單字機器人"
+          python-version: '3.12'
+      - name: 安裝依賴
+        run: pip install deep-translator requests
+      - name: 執行單字生成
+        run: python vocab_scraper.py
+      - name: 推送更新
+        run: |
+          git config user.name "英文學習機器人"
           git config user.email "bot@bot.local"
           git add 英文單字.html vocab_history.json
           git diff --staged --quiet || git commit -m "📚 $(date '+%Y/%m/%d') 單字更新"

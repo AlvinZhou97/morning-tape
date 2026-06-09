@@ -1,9 +1,12 @@
-name: 每日晨報自動生成
+name: 晨報每日更新
 
 on:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 23 * * *'   # 台灣時間早上 07:00
   workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
@@ -15,10 +18,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: pip install feedparser deep-translator
-      - run: python scraper.py
-      - run: |
+          python-version: '3.12'
+      - name: 安裝依賴
+        run: pip install feedparser deep-translator requests
+      - name: 執行爬蟲
+        run: python scraper.py
+      - name: 推送更新
+        run: |
           git config user.name "晨報機器人"
           git config user.email "bot@bot.local"
           git add 晨報.html
