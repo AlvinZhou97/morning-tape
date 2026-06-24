@@ -8978,5 +8978,463 @@
         "tip": "Therefore 和 As a result 後面要加逗號。"
       }
     ]
+  },
+  "2026-06-24": {
+    "words": [
+      {
+        "word": "minutes",
+        "ipa": "/ˈmɪnɪts/",
+        "phonetic": "MIN-its",
+        "zh": "會議記錄",
+        "category": "會議",
+        "example": "Who will take the minutes during today's meeting?",
+        "example_zh": "今天的會議記錄由誰負責？",
+        "example2": "The minutes confirmed that the budget proposal was approved.",
+        "example2_zh": "會議記錄確認預算提案已獲批准。",
+        "pos": "名詞"
+      },
+      {
+        "word": "empathy",
+        "ipa": "/ˈɛmpəθi/",
+        "phonetic": "EM-puh-thee",
+        "zh": "同理心；設身處地",
+        "category": "生活",
+        "example": "Empathy is a key skill for effective leadership.",
+        "example_zh": "同理心是有效領導的關鍵技能。",
+        "example2": "Managers who show empathy build stronger, more loyal teams.",
+        "example2_zh": "展現同理心的管理者建立更強大、更忠誠的團隊。",
+        "pos": "名詞"
+      },
+      {
+        "word": "bear market",
+        "ipa": "/ˈbɛr ˈmɑːrkɪt/",
+        "phonetic": "BAIR MAR-kit",
+        "zh": "熊市（股市下跌）",
+        "category": "財經",
+        "example": "Investors are cautious during a bear market.",
+        "example_zh": "在熊市期間投資者會保持謹慎。",
+        "example2": "In a bear market, defensive stocks tend to outperform growth stocks.",
+        "example2_zh": "在熊市中，防禦性股票往往優於成長股。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "firewall",
+        "ipa": "/ˈfaɪərwɔːl/",
+        "phonetic": "FY-er-wall",
+        "zh": "防火牆",
+        "category": "科技",
+        "example": "The firewall blocked the unauthorized access attempt.",
+        "example_zh": "防火牆阻擋了未授權的存取嘗試。",
+        "example2": "The firewall rules were updated to allow traffic from new IPs.",
+        "example2_zh": "防火牆規則已更新，以允許來自新IP的流量。",
+        "pos": "名詞"
+      },
+      {
+        "word": "debrief",
+        "ipa": "/diːˈbriːf/",
+        "phonetic": "dee-BREEF",
+        "zh": "彙報；事後討論",
+        "category": "會議",
+        "example": "Let's debrief after the client presentation.",
+        "example_zh": "客戶簡報後我們來做個彙報。",
+        "example2": "After the product launch, the team gathered to debrief.",
+        "example2_zh": "產品發布後，團隊聚在一起做事後彙報。",
+        "pos": "動詞／名詞"
+      },
+      {
+        "word": "agenda",
+        "ipa": "/əˈdʒɛndə/",
+        "phonetic": "uh-JEN-duh",
+        "zh": "議程；待辦事項",
+        "category": "會議",
+        "example": "Please review the agenda before the meeting starts.",
+        "example_zh": "請在會議開始前查閱議程。",
+        "example2": "The agenda was circulated 24 hours before the meeting.",
+        "example2_zh": "議程在會議前24小時發送給所有人。",
+        "pos": "名詞"
+      },
+      {
+        "word": "yield",
+        "ipa": "/jiːld/",
+        "phonetic": "YEELD",
+        "zh": "收益率；產生",
+        "category": "財經",
+        "example": "The bond yield increased to 4.5% this quarter.",
+        "example_zh": "本季債券收益率上升至4.5%。",
+        "example2": "Investors moved to high-yield bonds to compensate for higher risk.",
+        "example2_zh": "投資者轉向高收益債券以補償更高的風險。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "franchise",
+        "ipa": "/ˈfræntʃaɪz/",
+        "phonetic": "FRAN-chyz",
+        "zh": "特許經營；加盟",
+        "category": "商業",
+        "example": "They expanded their business through a franchise model.",
+        "example_zh": "他們透過加盟模式擴展業務。",
+        "example2": "She bought a franchise and opened three locations in two years.",
+        "example2_zh": "她購買了加盟權，兩年內開了三家分店。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "resolution",
+        "ipa": "/ˌrɛzəˈluːʃən/",
+        "phonetic": "rez-uh-LOO-shun",
+        "zh": "決議；解決方案",
+        "category": "會議",
+        "example": "The board passed a resolution to expand overseas.",
+        "example_zh": "董事會通過了海外擴張的決議。",
+        "example2": "The resolution was adopted with a majority vote.",
+        "example2_zh": "該決議以多數票通過。",
+        "pos": "名詞"
+      },
+      {
+        "word": "punctual",
+        "ipa": "/ˈpʌŋktʃuəl/",
+        "phonetic": "PUNK-choo-ul",
+        "zh": "準時的",
+        "category": "生活",
+        "example": "Being punctual shows respect for others' time.",
+        "example_zh": "準時表現了對他人時間的尊重。",
+        "example2": "Punctual employees signal professionalism and respect for others.",
+        "example2_zh": "準時的員工傳達出專業精神和對他人的尊重。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "feedback",
+        "ipa": "/ˈfiːdbæk/",
+        "phonetic": "FEED-bak",
+        "zh": "回饋；意見",
+        "category": "生活",
+        "example": "Regular feedback helps employees grow and improve.",
+        "example_zh": "定期回饋有助於員工成長和進步。",
+        "example2": "Open to feedback, she quickly improved her presentation skills.",
+        "example2_zh": "她樂於接受回饋，很快就提升了簡報技巧。",
+        "pos": "名詞"
+      },
+      {
+        "word": "audit",
+        "ipa": "/ˈɔːdɪt/",
+        "phonetic": "AW-dit",
+        "zh": "審計；查帳",
+        "category": "財經",
+        "example": "An external auditor conducts the annual financial audit.",
+        "example_zh": "外部審計師進行年度財務審計。",
+        "example2": "The annual audit revealed no material discrepancies in the accounts.",
+        "example2_zh": "年度審計未發現帳目中有任何重大差異。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "equity",
+        "ipa": "/ˈɛkwɪti/",
+        "phonetic": "EK-wuh-tee",
+        "zh": "股權；公平",
+        "category": "商業",
+        "example": "They offered equity as part of the compensation package.",
+        "example_zh": "他們提供股權作為薪酬方案的一部分。",
+        "example2": "The startup raised capital in exchange for equity.",
+        "example2_zh": "這家新創公司以股權換取了資金。",
+        "pos": "名詞"
+      },
+      {
+        "word": "deliverable",
+        "ipa": "/dɪˈlɪvərəbəl/",
+        "phonetic": "duh-LIV-er-uh-bul",
+        "zh": "交付成果；交付物",
+        "category": "商業",
+        "example": "Please list all deliverables in the project plan.",
+        "example_zh": "請在專案計畫中列出所有交付成果。",
+        "example2": "All deliverables must be reviewed by the project manager first.",
+        "example2_zh": "所有交付成果必須先由專案經理審查。",
+        "pos": "名詞"
+      },
+      {
+        "word": "liquidity",
+        "ipa": "/lɪˈkwɪdɪti/",
+        "phonetic": "luh-KWID-uh-tee",
+        "zh": "流動性；變現能力",
+        "category": "財經",
+        "example": "High liquidity means assets can be quickly converted to cash.",
+        "example_zh": "高流動性意味著資產可以快速轉換為現金。",
+        "example2": "During the crisis, even well-performing assets faced liquidity problems.",
+        "example2_zh": "危機期間，即使表現良好的資產也面臨流動性問題。",
+        "pos": "名詞"
+      },
+      {
+        "word": "depreciation",
+        "ipa": "/dɪˌpriːʃɪˈeɪʃən/",
+        "phonetic": "duh-pree-shee-AY-shun",
+        "zh": "折舊；貶值",
+        "category": "財經",
+        "example": "Equipment depreciation reduces taxable income.",
+        "example_zh": "設備折舊可減少應稅收入。",
+        "example2": "Machinery depreciation is recorded as an expense each year.",
+        "example2_zh": "機械折舊每年記錄為一項費用。",
+        "pos": "名詞"
+      },
+      {
+        "word": "valuation",
+        "ipa": "/ˌvæljuˈeɪʃən/",
+        "phonetic": "val-yoo-AY-shun",
+        "zh": "估值；評估",
+        "category": "財經",
+        "example": "The startup received a valuation of one billion dollars.",
+        "example_zh": "這家新創公司的估值達到了十億美元。",
+        "example2": "A fair valuation requires both financial data and market comparisons.",
+        "example2_zh": "公平的估值需要財務資料和市場比較。",
+        "pos": "名詞"
+      },
+      {
+        "word": "hedge fund",
+        "ipa": "/ˈhɛdʒ fʌnd/",
+        "phonetic": "HEJ fund",
+        "zh": "對沖基金",
+        "category": "財經",
+        "example": "Hedge funds often use complex strategies to generate returns.",
+        "example_zh": "對沖基金常使用複雜策略來產生回報。",
+        "example2": "The hedge fund posted a 30% return even during the market downturn.",
+        "example2_zh": "即使在市場低迷期間，對沖基金也錄得30%的回報。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "multitask",
+        "ipa": "/ˈmʌltiˌtæsk/",
+        "phonetic": "MUL-tee-task",
+        "zh": "同時處理多項工作",
+        "category": "生活",
+        "example": "Effective professionals know how to multitask efficiently.",
+        "example_zh": "高效的專業人士知道如何高效地同時處理多項工作。",
+        "example2": "Though common, trying to multitask often reduces overall quality.",
+        "example2_zh": "雖然很普遍，但嘗試同時處理多項工作往往會降低整體質量。",
+        "pos": "動詞"
+      },
+      {
+        "word": "automation",
+        "ipa": "/ˌɔːtəˈmeɪʃən/",
+        "phonetic": "aw-tuh-MAY-shun",
+        "zh": "自動化",
+        "category": "科技",
+        "example": "Automation has transformed manufacturing processes worldwide.",
+        "example_zh": "自動化改變了全球的製造流程。",
+        "example2": "Process automation reduced manual errors by over 60%.",
+        "example2_zh": "流程自動化將手動錯誤減少了60%以上。",
+        "pos": "名詞"
+      },
+      {
+        "word": "venture",
+        "ipa": "/ˈvɛntʃər/",
+        "phonetic": "VEN-cher",
+        "zh": "冒險；合資企業",
+        "category": "商業",
+        "example": "They launched a joint venture with a European partner.",
+        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。",
+        "example2": "The venture proved profitable within 18 months of launch.",
+        "example2_zh": "這項合資企業在啟動後18個月內就實現了盈利。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "debugging",
+        "ipa": "/diːˈbʌɡɪŋ/",
+        "phonetic": "dee-BUG-ing",
+        "zh": "除錯；找出並修復錯誤",
+        "category": "科技",
+        "example": "Debugging the code took longer than expected.",
+        "example_zh": "程式碼除錯花的時間比預期要長。",
+        "example2": "Proper logging makes debugging much faster and easier.",
+        "example2_zh": "適當的日誌記錄使除錯更快、更容易。",
+        "pos": "名詞"
+      },
+      {
+        "word": "dividend",
+        "ipa": "/ˈdɪvɪdɛnd/",
+        "phonetic": "DIV-uh-dend",
+        "zh": "股息；紅利",
+        "category": "財經",
+        "example": "The company paid a dividend of two dollars per share.",
+        "example_zh": "公司支付了每股兩美元的股息。",
+        "example2": "The board voted to increase the dividend for the third consecutive year.",
+        "example2_zh": "董事會投票決定連續第三年提高股息。",
+        "pos": "名詞"
+      },
+      {
+        "word": "return on investment",
+        "ipa": "/rɪˈtɜːrn ɒn ɪnˈvɛstmənt/",
+        "phonetic": "ruh-TURN on in-VEST-ment",
+        "zh": "投資報酬率（ROI）",
+        "category": "財經",
+        "example": "This marketing campaign had an excellent return on investment.",
+        "example_zh": "這次行銷活動有出色的投資報酬率。",
+        "example2": "Calculating return on investment helps prioritize spending decisions.",
+        "example2_zh": "計算投資報酬率有助於確定支出決策的優先順序。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "resilient",
+        "ipa": "/rɪˈzɪliənt/",
+        "phonetic": "ruh-ZIL-ee-unt",
+        "zh": "有韌性的；恢復力強的",
+        "category": "生活",
+        "example": "Resilient employees adapt quickly to change.",
+        "example_zh": "有韌性的員工能快速適應變化。",
+        "example2": "A resilient team bounces back quickly after setbacks.",
+        "example2_zh": "有韌性的團隊在挫折後能夠迅速恢復。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "merger",
+        "ipa": "/ˈmɜːrdʒər/",
+        "phonetic": "MUR-jer",
+        "zh": "合併",
+        "category": "商業",
+        "example": "The merger created the largest company in the sector.",
+        "example_zh": "這次合併創造了該行業最大的公司。",
+        "example2": "The merger resulted in significant cost savings for both parties.",
+        "example2_zh": "合併為雙方帶來了顯著的成本節省。",
+        "pos": "名詞"
+      },
+      {
+        "word": "encryption",
+        "ipa": "/ɪnˈkrɪpʃən/",
+        "phonetic": "in-KRIP-shun",
+        "zh": "加密",
+        "category": "科技",
+        "example": "End-to-end encryption protects your private messages.",
+        "example_zh": "端對端加密保護您的私人訊息。",
+        "example2": "All customer data is protected using 256-bit encryption.",
+        "example2_zh": "所有客戶資料都使用256位元加密保護。",
+        "pos": "名詞"
+      },
+      {
+        "word": "repository",
+        "ipa": "/rɪˈpɒzɪtɔːri/",
+        "phonetic": "ruh-POZ-uh-tor-ee",
+        "zh": "程式庫；儲存庫",
+        "category": "科技",
+        "example": "All code is stored in the GitHub repository.",
+        "example_zh": "所有程式碼都儲存在GitHub儲存庫中。",
+        "example2": "Please push your changes to the main repository before 6 PM.",
+        "example2_zh": "請在下午6點前將您的更改推送到主儲存庫。",
+        "pos": "名詞"
+      },
+      {
+        "word": "subsidiary",
+        "ipa": "/səbˈsɪdiɛri/",
+        "phonetic": "sub-SID-ee-air-ee",
+        "zh": "子公司",
+        "category": "商業",
+        "example": "The subsidiary operates independently in the Asian market.",
+        "example_zh": "該子公司在亞洲市場獨立運營。",
+        "example2": "The Chinese subsidiary will handle all Asia-Pacific operations.",
+        "example2_zh": "中國子公司將負責所有亞太地區業務。",
+        "pos": "名詞"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "Would — 條件與禮貌表達",
+        "category": "情態動詞",
+        "rule": "表示假設、禮貌請求、過去習慣。商務中常用於提案與回應。",
+        "pattern": "I would [動詞]... / Would you like to...?",
+        "examples": [
+          {
+            "en": "I would suggest moving the deadline to next Friday.",
+            "zh": "我建議將截止日期移到下週五。"
+          },
+          {
+            "en": "Would you like to review the contract together?",
+            "zh": "您願意一起審閱合約嗎？"
+          },
+          {
+            "en": "That would be a great opportunity for both companies.",
+            "zh": "這對兩家公司來說都是一個很好的機會。"
+          }
+        ],
+        "wrong": "I will suggest to move the deadline.",
+        "right": "I would suggest moving the deadline.",
+        "tip": "I would suggest + V-ing，不是 to V。"
+      },
+      {
+        "title": "常用介系詞搭配（商務）",
+        "category": "介系詞",
+        "rule": "英文動詞+介系詞的固定搭配，必須整組記憶，不能用中文邏輯翻譯。",
+        "pattern": "[動詞] + [固定介系詞]",
+        "examples": [
+          {
+            "en": "I am responsible for managing the project timeline.",
+            "zh": "我負責管理專案時間表。（responsible for）"
+          },
+          {
+            "en": "We need to focus on the key deliverables this week.",
+            "zh": "本週我們需要專注於關鍵交付成果。（focus on）"
+          },
+          {
+            "en": "This plan depends on the budget approval.",
+            "zh": "這個計畫取決於預算批准。（depend on）"
+          }
+        ],
+        "wrong": "I am responsible of managing the project.",
+        "right": "I am responsible for managing the project.",
+        "tip": "responsible for / focus on / depend on / agree with / result in — 這些固定搭配要整組背。"
+      },
+      {
+        "title": "定冠詞 the — 何時使用",
+        "category": "文章用法",
+        "rule": "用 the 當雙方都知道指哪個（特定的），或前文已提到的，或獨一無二的事物。",
+        "pattern": "the + [特定/已提到/獨一無二的名詞]",
+        "examples": [
+          {
+            "en": "The meeting we discussed yesterday has been rescheduled.",
+            "zh": "我們昨天討論的那個會議已改期。"
+          },
+          {
+            "en": "Please submit the report to the manager by Friday.",
+            "zh": "請在週五前將報告提交給主管。"
+          },
+          {
+            "en": "The CEO announced a new policy this morning.",
+            "zh": "執行長今早宣布了一項新政策。"
+          }
+        ],
+        "wrong": "Please submit a report to a manager by Friday.",
+        "right": "Please submit the report to the manager by Friday.",
+        "tip": "第一次提到用 a/an，之後再提同一個用 the。獨一無二的職位（the CEO）用 the。"
+      },
+      {
+        "title": "表示結論：In conclusion / To summarize",
+        "category": "連接詞",
+        "rule": "用於簡報、報告結尾總結主要論點。",
+        "pattern": "In conclusion, [總結]. / To summarize, [要點].",
+        "examples": [
+          {
+            "en": "In conclusion, this strategy will reduce costs while improving efficiency.",
+            "zh": "總而言之，這個策略將在提升效率的同時降低成本。"
+          },
+          {
+            "en": "To summarize, we need to focus on three key areas: quality, speed, and cost.",
+            "zh": "總結來說，我們需要專注於三個關鍵領域：品質、速度和成本。"
+          },
+          {
+            "en": "In conclusion, I strongly recommend proceeding with the proposed merger.",
+            "zh": "總而言之，我強烈建議推進擬議中的合併。"
+          }
+        ],
+        "wrong": "In conclusion the strategy will reduce costs.",
+        "right": "In conclusion, this strategy will reduce costs.",
+        "tip": "In conclusion / To summarize 後加逗號。常用於簡報最後一張投影片。"
+      }
+    ]
   }
 }
