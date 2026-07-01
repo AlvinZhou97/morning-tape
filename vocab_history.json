@@ -12184,5 +12184,463 @@
         "tip": "if 子句用過去式（be 動詞用 were，不用 was），主句用 would。"
       }
     ]
+  },
+  "2026-07-01": {
+    "words": [
+      {
+        "word": "venture capital",
+        "ipa": "/ˈvɛntʃər ˈkæpɪtəl/",
+        "phonetic": "VEN-cher KAP-uh-tul",
+        "zh": "創投資金",
+        "category": "財經",
+        "example": "Venture capital funds early-stage innovative companies.",
+        "example_zh": "創投資金資助早期創新公司。",
+        "example2": "Venture capital funding peaked during the technology boom.",
+        "example2_zh": "創投資金在科技繁榮期間達到頂峰。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "automation",
+        "ipa": "/ˌɔːtəˈmeɪʃən/",
+        "phonetic": "aw-tuh-MAY-shun",
+        "zh": "自動化",
+        "category": "科技",
+        "example": "Automation has transformed manufacturing processes worldwide.",
+        "example_zh": "自動化改變了全球的製造流程。",
+        "example2": "Process automation reduced manual errors by over 60%.",
+        "example2_zh": "流程自動化將手動錯誤減少了60%以上。",
+        "pos": "名詞"
+      },
+      {
+        "word": "venture",
+        "ipa": "/ˈvɛntʃər/",
+        "phonetic": "VEN-cher",
+        "zh": "冒險；合資企業",
+        "category": "商業",
+        "example": "They launched a joint venture with a European partner.",
+        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。",
+        "example2": "The venture proved profitable within 18 months of launch.",
+        "example2_zh": "這項合資企業在啟動後18個月內就實現了盈利。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "debugging",
+        "ipa": "/diːˈbʌɡɪŋ/",
+        "phonetic": "dee-BUG-ing",
+        "zh": "除錯；找出並修復錯誤",
+        "category": "科技",
+        "example": "Debugging the code took longer than expected.",
+        "example_zh": "程式碼除錯花的時間比預期要長。",
+        "example2": "Proper logging makes debugging much faster and easier.",
+        "example2_zh": "適當的日誌記錄使除錯更快、更容易。",
+        "pos": "名詞"
+      },
+      {
+        "word": "follow-up",
+        "ipa": "/ˈfɒloʊˌʌp/",
+        "phonetic": "FOL-oh-up",
+        "zh": "後續跟進；追蹤",
+        "category": "會議",
+        "example": "I will send a follow-up email after the meeting.",
+        "example_zh": "會後我會發送一封跟進郵件。",
+        "example2": "A follow-up call was scheduled for the following Tuesday.",
+        "example2_zh": "後續通話安排在下週二。",
+        "pos": "名詞／形容詞"
+      },
+      {
+        "word": "initiative",
+        "ipa": "/ɪˈnɪʃɪətɪv/",
+        "phonetic": "ih-NISH-ee-uh-tiv",
+        "zh": "主動性；倡議",
+        "category": "生活",
+        "example": "Take the initiative and suggest solutions to your manager.",
+        "example_zh": "主動出擊，向你的主管提出解決方案。",
+        "example2": "She showed great initiative by proposing a solution before being asked.",
+        "example2_zh": "她在被詢問之前就主動提出解決方案，展現了極大的主動性。",
+        "pos": "名詞"
+      },
+      {
+        "word": "latency",
+        "ipa": "/ˈleɪtənsi/",
+        "phonetic": "LAY-ten-see",
+        "zh": "延遲時間",
+        "category": "科技",
+        "example": "Low latency is essential for real-time gaming applications.",
+        "example_zh": "低延遲對於即時遊戲應用至關重要。",
+        "example2": "High latency is causing complaints from users in remote regions.",
+        "example2_zh": "高延遲導致偏遠地區的用戶投訴。",
+        "pos": "名詞"
+      },
+      {
+        "word": "virtualization",
+        "ipa": "/ˌvɜːrtʃuəlaɪˈzeɪʃən/",
+        "phonetic": "vur-choo-uh-ly-ZAY-shun",
+        "zh": "虛擬化",
+        "category": "科技",
+        "example": "Server virtualization reduces hardware costs significantly.",
+        "example_zh": "伺服器虛擬化大幅降低了硬體成本。",
+        "example2": "Server virtualization allows one physical machine to run multiple systems.",
+        "example2_zh": "伺服器虛擬化允許一台實體機器運行多個系統。",
+        "pos": "名詞"
+      },
+      {
+        "word": "algorithm",
+        "ipa": "/ˈælɡərɪðəm/",
+        "phonetic": "AL-guh-rith-um",
+        "zh": "演算法",
+        "category": "科技",
+        "example": "The algorithm recommends products based on your history.",
+        "example_zh": "演算法根據您的歷史記錄推薦產品。",
+        "example2": "Machine learning algorithms improve with more training data.",
+        "example2_zh": "機器學習演算法隨著更多訓練資料而改善。",
+        "pos": "名詞"
+      },
+      {
+        "word": "resilient",
+        "ipa": "/rɪˈzɪliənt/",
+        "phonetic": "ruh-ZIL-ee-unt",
+        "zh": "有韌性的；恢復力強的",
+        "category": "生活",
+        "example": "Resilient employees adapt quickly to change.",
+        "example_zh": "有韌性的員工能快速適應變化。",
+        "example2": "A resilient team bounces back quickly after setbacks.",
+        "example2_zh": "有韌性的團隊在挫折後能夠迅速恢復。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "benchmark",
+        "ipa": "/ˈbɛntʃmɑːrk/",
+        "phonetic": "BENCH-mark",
+        "zh": "基準；標竿",
+        "category": "商業",
+        "example": "Our performance is measured against industry benchmarks.",
+        "example_zh": "我們的表現以行業基準來衡量。",
+        "example2": "We regularly benchmark our pricing against competitors.",
+        "example2_zh": "我們定期將定價與競爭對手進行基準比較。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "consensus",
+        "ipa": "/kənˈsɛnsəs/",
+        "phonetic": "kun-SEN-sus",
+        "zh": "共識；一致意見",
+        "category": "會議",
+        "example": "We need to reach a consensus before moving forward.",
+        "example_zh": "我們需要在推進之前達成共識。",
+        "example2": "It took three rounds of discussion to build consensus.",
+        "example2_zh": "經過三輪討論，大家終於達成共識。",
+        "pos": "名詞"
+      },
+      {
+        "word": "audit",
+        "ipa": "/ˈɔːdɪt/",
+        "phonetic": "AW-dit",
+        "zh": "審計；查帳",
+        "category": "財經",
+        "example": "An external auditor conducts the annual financial audit.",
+        "example_zh": "外部審計師進行年度財務審計。",
+        "example2": "The annual audit revealed no material discrepancies in the accounts.",
+        "example2_zh": "年度審計未發現帳目中有任何重大差異。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "proactive",
+        "ipa": "/proʊˈæktɪv/",
+        "phonetic": "pro-AK-tiv",
+        "zh": "主動積極的",
+        "category": "生活",
+        "example": "Being proactive helps you solve problems before they arise.",
+        "example_zh": "積極主動幫助你在問題發生前解決它。",
+        "example2": "Being proactive means anticipating problems before they occur.",
+        "example2_zh": "積極主動意味著在問題發生之前預見它們。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "turnover",
+        "ipa": "/ˈtɜːrnoʊvər/",
+        "phonetic": "TURN-oh-ver",
+        "zh": "營業額；人員流動率",
+        "category": "商業",
+        "example": "High employee turnover increases recruitment costs.",
+        "example_zh": "高員工流動率增加了招募成本。",
+        "example2": "High turnover in sales roles is costly and disrupts client relationships.",
+        "example2_zh": "銷售職位的高人員流動率成本高昂，且會破壞客戶關係。",
+        "pos": "名詞"
+      },
+      {
+        "word": "incentive",
+        "ipa": "/ɪnˈsɛntɪv/",
+        "phonetic": "in-SEN-tiv",
+        "zh": "激勵；獎勵",
+        "category": "商業",
+        "example": "Performance bonuses are a great incentive for employees.",
+        "example_zh": "績效獎金是員工的絕佳激勵。",
+        "example2": "Stock options serve as a long-term incentive for key employees.",
+        "example2_zh": "股票期權作為關鍵員工的長期激勵。",
+        "pos": "名詞"
+      },
+      {
+        "word": "mentor",
+        "ipa": "/ˈmɛntɔːr/",
+        "phonetic": "MEN-tor",
+        "zh": "導師；指導者",
+        "category": "生活",
+        "example": "Having a mentor can accelerate your career growth.",
+        "example_zh": "有一位導師可以加速你的職業發展。",
+        "example2": "She mentored three junior employees who all received promotions.",
+        "example2_zh": "她指導了三位初級員工，他們都獲得了晉升。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "sustainable",
+        "ipa": "/səˈsteɪnəbəl/",
+        "phonetic": "suh-STAY-nuh-bul",
+        "zh": "可持續的；永續的",
+        "category": "生活",
+        "example": "The company is committed to sustainable business practices.",
+        "example_zh": "公司致力於可持續的商業實踐。",
+        "example2": "Long-term success requires building a sustainable business model.",
+        "example2_zh": "長期成功需要建立可持續的商業模式。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "empathy",
+        "ipa": "/ˈɛmpəθi/",
+        "phonetic": "EM-puh-thee",
+        "zh": "同理心；設身處地",
+        "category": "生活",
+        "example": "Empathy is a key skill for effective leadership.",
+        "example_zh": "同理心是有效領導的關鍵技能。",
+        "example2": "Managers who show empathy build stronger, more loyal teams.",
+        "example2_zh": "展現同理心的管理者建立更強大、更忠誠的團隊。",
+        "pos": "名詞"
+      },
+      {
+        "word": "negotiate",
+        "ipa": "/nɪˈɡoʊʃieɪt/",
+        "phonetic": "nuh-GO-shee-ayt",
+        "zh": "談判；協商",
+        "category": "會議",
+        "example": "We will negotiate the contract terms next week.",
+        "example_zh": "我們下週將協商合約條款。",
+        "example2": "Our goal is to negotiate better payment terms with the vendor.",
+        "example2_zh": "我們的目標是與供應商談判更好的付款條件。",
+        "pos": "動詞"
+      },
+      {
+        "word": "facilitate",
+        "ipa": "/fəˈsɪlɪteɪt/",
+        "phonetic": "fuh-SIL-uh-tayt",
+        "zh": "促進；主持（會議）",
+        "category": "會議",
+        "example": "She was asked to facilitate the workshop.",
+        "example_zh": "她被要求主持這場工作坊。",
+        "example2": "Good leaders facilitate discussions rather than dominate them.",
+        "example2_zh": "好的領導者是促進討論，而不是主導討論。",
+        "pos": "動詞"
+      },
+      {
+        "word": "liquidity",
+        "ipa": "/lɪˈkwɪdɪti/",
+        "phonetic": "luh-KWID-uh-tee",
+        "zh": "流動性；變現能力",
+        "category": "財經",
+        "example": "High liquidity means assets can be quickly converted to cash.",
+        "example_zh": "高流動性意味著資產可以快速轉換為現金。",
+        "example2": "During the crisis, even well-performing assets faced liquidity problems.",
+        "example2_zh": "危機期間，即使表現良好的資產也面臨流動性問題。",
+        "pos": "名詞"
+      },
+      {
+        "word": "collaborate",
+        "ipa": "/kəˈlæbəreɪt/",
+        "phonetic": "kuh-LAB-uh-rayt",
+        "zh": "合作；協作",
+        "category": "生活",
+        "example": "Teams that collaborate effectively achieve better results.",
+        "example_zh": "有效合作的團隊能取得更好的成果。",
+        "example2": "Teams that collaborate across departments drive better innovation.",
+        "example2_zh": "跨部門合作的團隊推動更好的創新。",
+        "pos": "動詞"
+      },
+      {
+        "word": "repository",
+        "ipa": "/rɪˈpɒzɪtɔːri/",
+        "phonetic": "ruh-POZ-uh-tor-ee",
+        "zh": "程式庫；儲存庫",
+        "category": "科技",
+        "example": "All code is stored in the GitHub repository.",
+        "example_zh": "所有程式碼都儲存在GitHub儲存庫中。",
+        "example2": "Please push your changes to the main repository before 6 PM.",
+        "example2_zh": "請在下午6點前將您的更改推送到主儲存庫。",
+        "pos": "名詞"
+      },
+      {
+        "word": "adjourn",
+        "ipa": "/əˈdʒɜːrn/",
+        "phonetic": "uh-JURN",
+        "zh": "散會；休會",
+        "category": "會議",
+        "example": "The meeting was adjourned until next Monday.",
+        "example_zh": "會議休會至下週一。",
+        "example2": "The chairperson proposed to adjourn until further notice.",
+        "example2_zh": "主席提議休會，待進一步通知再開。",
+        "pos": "動詞"
+      },
+      {
+        "word": "agenda",
+        "ipa": "/əˈdʒɛndə/",
+        "phonetic": "uh-JEN-duh",
+        "zh": "議程；待辦事項",
+        "category": "會議",
+        "example": "Please review the agenda before the meeting starts.",
+        "example_zh": "請在會議開始前查閱議程。",
+        "example2": "The agenda was circulated 24 hours before the meeting.",
+        "example2_zh": "議程在會議前24小時發送給所有人。",
+        "pos": "名詞"
+      },
+      {
+        "word": "convene",
+        "ipa": "/kənˈviːn/",
+        "phonetic": "kun-VEEN",
+        "zh": "召開（會議）；集合",
+        "category": "會議",
+        "example": "The board will convene an emergency meeting tomorrow.",
+        "example_zh": "董事會明天將召開緊急會議。",
+        "example2": "The emergency task force will convene first thing tomorrow.",
+        "example2_zh": "緊急任務小組明天一早將召開會議。",
+        "pos": "動詞"
+      },
+      {
+        "word": "inflation",
+        "ipa": "/ɪnˈfleɪʃən/",
+        "phonetic": "in-FLAY-shun",
+        "zh": "通貨膨脹",
+        "category": "財經",
+        "example": "Rising inflation erodes purchasing power over time.",
+        "example_zh": "通貨膨脹上升會隨時間侵蝕購買力。",
+        "example2": "Central banks raised interest rates to combat rising inflation.",
+        "example2_zh": "央行提高利率以應對通貨膨脹上升。",
+        "pos": "名詞"
+      },
+      {
+        "word": "debrief",
+        "ipa": "/diːˈbriːf/",
+        "phonetic": "dee-BREEF",
+        "zh": "彙報；事後討論",
+        "category": "會議",
+        "example": "Let's debrief after the client presentation.",
+        "example_zh": "客戶簡報後我們來做個彙報。",
+        "example2": "After the product launch, the team gathered to debrief.",
+        "example2_zh": "產品發布後，團隊聚在一起做事後彙報。",
+        "pos": "動詞／名詞"
+      },
+      {
+        "word": "merger",
+        "ipa": "/ˈmɜːrdʒər/",
+        "phonetic": "MUR-jer",
+        "zh": "合併",
+        "category": "商業",
+        "example": "The merger created the largest company in the sector.",
+        "example_zh": "這次合併創造了該行業最大的公司。",
+        "example2": "The merger resulted in significant cost savings for both parties.",
+        "example2_zh": "合併為雙方帶來了顯著的成本節省。",
+        "pos": "名詞"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "確認理解：If I understand correctly...",
+        "category": "澄清確認",
+        "rule": "重述對方的意思以確認自己理解正確，商務溝通中避免誤解的關鍵技巧。",
+        "pattern": "If I understand correctly, [重述]. / So what you're saying is [重述]?",
+        "examples": [
+          {
+            "en": "If I understand correctly, you want to delay the project by two weeks?",
+            "zh": "如果我理解正確，您想將專案延遲兩週？"
+          },
+          {
+            "en": "So what you're saying is that the budget needs to be approved first?",
+            "zh": "所以您的意思是預算需要先獲得批准？"
+          },
+          {
+            "en": "Let me confirm — you need the report by Monday morning, correct?",
+            "zh": "讓我確認一下——您需要在週一早上前收到報告，對嗎？"
+          }
+        ],
+        "wrong": "You mean delay two weeks?",
+        "right": "If I understand correctly, you want to delay the project by two weeks?",
+        "tip": "用完整句型重述，讓對方確認，可以避免很多誤解。"
+      },
+      {
+        "title": "表示對比：However / Although",
+        "category": "連接詞",
+        "rule": "However 放句首加逗號；Although 放在子句前面。表示轉折或對比。",
+        "pattern": "However, [句子]. / Although [子句], [主句].",
+        "examples": [
+          {
+            "en": "The project is on schedule. However, the budget is running low.",
+            "zh": "專案進展順利。然而，預算正在減少。"
+          },
+          {
+            "en": "Although the market is challenging, we remain optimistic.",
+            "zh": "雖然市場充滿挑戰，我們仍然保持樂觀。"
+          },
+          {
+            "en": "The results are promising. However, we need more data.",
+            "zh": "結果很有希望。然而，我們需要更多數據。"
+          }
+        ],
+        "wrong": "However the project is on schedule, the budget is low.",
+        "right": "The project is on schedule. However, the budget is running low.",
+        "tip": "However 是副詞，後面加逗號，不能像 although 一樣連接兩個子句。"
+      },
+      {
+        "title": "強調句型：It is... that/who...",
+        "category": "句型結構",
+        "rule": "把要強調的成分移到 It is 後面，其餘用 that/who 連接。",
+        "pattern": "It is/was [強調部分] that/who [其餘部分].",
+        "examples": [
+          {
+            "en": "It was the marketing team that identified this opportunity.",
+            "zh": "正是行銷團隊發現了這個機會。"
+          },
+          {
+            "en": "It is the quality of our product that sets us apart from competitors.",
+            "zh": "正是我們產品的品質使我們有別於競爭對手。"
+          },
+          {
+            "en": "It was the client who requested an urgent revision.",
+            "zh": "正是客戶要求緊急修改的。"
+          }
+        ],
+        "wrong": "It is that the marketing team identified this opportunity.",
+        "right": "It was the marketing team that identified this opportunity.",
+        "tip": "強調人用 who，強調其他成分用 that。"
+      },
+      {
+        "title": "表示結果：Therefore / As a result",
+        "category": "連接詞",
+        "rule": "兩者都表示因此、所以，放在結果句的句首或句中。",
+        "pattern": "Therefore, [結果句]. / As a result, [結果句].",
+        "examples": [
+          {
+            "en": "Sales exceeded expectations. Therefore, we will expand the team.",
+            "zh": "銷售超出預期。因此，我們將擴充團隊。"
+          },
+          {
+            "en": "The supplier delayed delivery. As a result, production was affected.",
+            "zh": "供應商延誤交貨。結果，生產受到影響。"
+          },
+          {
+            "en": "The market shifted rapidly; therefore, we had to adapt our strategy.",
+            "zh": "市場迅速變化；因此，我們不得不調整策略。"
+          }
+        ],
+        "wrong": "Therefore we will expand the team.",
+        "right": "Therefore, we will expand the team.",
+        "tip": "Therefore 和 As a result 後面要加逗號。"
+      }
+    ]
   }
 }
