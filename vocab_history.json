@@ -52946,5 +52946,463 @@
         "tip": "if 子句用現在式，不用 will（這是最常見的錯誤！）"
       }
     ]
+  },
+  "2026-09-29": {
+    "words": [
+      {
+        "word": "venture",
+        "ipa": "/ˈvɛntʃər/",
+        "phonetic": "VEN-cher",
+        "zh": "冒險；合資企業",
+        "category": "商業",
+        "example": "They launched a joint venture with a European partner.",
+        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。",
+        "example2": "The venture proved profitable within 18 months of launch.",
+        "example2_zh": "這項合資企業在啟動後18個月內就實現了盈利。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "turnover",
+        "ipa": "/ˈtɜːrnoʊvər/",
+        "phonetic": "TURN-oh-ver",
+        "zh": "營業額；人員流動率",
+        "category": "商業",
+        "example": "High employee turnover increases recruitment costs.",
+        "example_zh": "高員工流動率增加了招募成本。",
+        "example2": "High turnover in sales roles is costly and disrupts client relationships.",
+        "example2_zh": "銷售職位的高人員流動率成本高昂，且會破壞客戶關係。",
+        "pos": "名詞"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "multitask",
+        "ipa": "/ˈmʌltiˌtæsk/",
+        "phonetic": "MUL-tee-task",
+        "zh": "同時處理多項工作",
+        "category": "生活",
+        "example": "Effective professionals know how to multitask efficiently.",
+        "example_zh": "高效的專業人士知道如何高效地同時處理多項工作。",
+        "example2": "Though common, trying to multitask often reduces overall quality.",
+        "example2_zh": "雖然很普遍，但嘗試同時處理多項工作往往會降低整體質量。",
+        "pos": "動詞"
+      },
+      {
+        "word": "proactive",
+        "ipa": "/proʊˈæktɪv/",
+        "phonetic": "pro-AK-tiv",
+        "zh": "主動積極的",
+        "category": "生活",
+        "example": "Being proactive helps you solve problems before they arise.",
+        "example_zh": "積極主動幫助你在問題發生前解決它。",
+        "example2": "Being proactive means anticipating problems before they occur.",
+        "example2_zh": "積極主動意味著在問題發生之前預見它們。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "deliverable",
+        "ipa": "/dɪˈlɪvərəbəl/",
+        "phonetic": "duh-LIV-er-uh-bul",
+        "zh": "交付成果；交付物",
+        "category": "商業",
+        "example": "Please list all deliverables in the project plan.",
+        "example_zh": "請在專案計畫中列出所有交付成果。",
+        "example2": "All deliverables must be reviewed by the project manager first.",
+        "example2_zh": "所有交付成果必須先由專案經理審查。",
+        "pos": "名詞"
+      },
+      {
+        "word": "hedge fund",
+        "ipa": "/ˈhɛdʒ fʌnd/",
+        "phonetic": "HEJ fund",
+        "zh": "對沖基金",
+        "category": "財經",
+        "example": "Hedge funds often use complex strategies to generate returns.",
+        "example_zh": "對沖基金常使用複雜策略來產生回報。",
+        "example2": "The hedge fund posted a 30% return even during the market downturn.",
+        "example2_zh": "即使在市場低迷期間，對沖基金也錄得30%的回報。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "infrastructure",
+        "ipa": "/ˈɪnfrəˌstrʌktʃər/",
+        "phonetic": "IN-fruh-struk-cher",
+        "zh": "基礎設施；架構",
+        "category": "科技",
+        "example": "Cloud infrastructure reduces the need for physical servers.",
+        "example_zh": "雲端基礎設施減少了對實體伺服器的需求。",
+        "example2": "The cloud infrastructure scales automatically during peak demand.",
+        "example2_zh": "雲端基礎設施在需求高峰期自動擴展。",
+        "pos": "名詞"
+      },
+      {
+        "word": "prototype",
+        "ipa": "/ˈproʊtətaɪp/",
+        "phonetic": "PRO-tuh-typ",
+        "zh": "原型；雛形",
+        "category": "科技",
+        "example": "We built a prototype to test the concept with users.",
+        "example_zh": "我們建立了原型來與用戶測試概念。",
+        "example2": "The engineering team built three prototypes before settling on a design.",
+        "example2_zh": "工程團隊在確定設計前製作了三個原型。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "virtualization",
+        "ipa": "/ˌvɜːrtʃuəlaɪˈzeɪʃən/",
+        "phonetic": "vur-choo-uh-ly-ZAY-shun",
+        "zh": "虛擬化",
+        "category": "科技",
+        "example": "Server virtualization reduces hardware costs significantly.",
+        "example_zh": "伺服器虛擬化大幅降低了硬體成本。",
+        "example2": "Server virtualization allows one physical machine to run multiple systems.",
+        "example2_zh": "伺服器虛擬化允許一台實體機器運行多個系統。",
+        "pos": "名詞"
+      },
+      {
+        "word": "action item",
+        "ipa": "/ˈækʃən ˈaɪtəm/",
+        "phonetic": "AK-shun I-tem",
+        "zh": "待辦行動項目",
+        "category": "會議",
+        "example": "Each action item must have an owner and a deadline.",
+        "example_zh": "每個待辦事項都必須有負責人和截止日期。",
+        "example2": "The action items were documented and shared after the meeting.",
+        "example2_zh": "會後待辦事項已記錄並分享給所有人。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "debugging",
+        "ipa": "/diːˈbʌɡɪŋ/",
+        "phonetic": "dee-BUG-ing",
+        "zh": "除錯；找出並修復錯誤",
+        "category": "科技",
+        "example": "Debugging the code took longer than expected.",
+        "example_zh": "程式碼除錯花的時間比預期要長。",
+        "example2": "Proper logging makes debugging much faster and easier.",
+        "example2_zh": "適當的日誌記錄使除錯更快、更容易。",
+        "pos": "名詞"
+      },
+      {
+        "word": "arbitrage",
+        "ipa": "/ˈɑːrbɪtrɑːʒ/",
+        "phonetic": "AR-buh-trazh",
+        "zh": "套利；仲裁",
+        "category": "財經",
+        "example": "Traders use arbitrage to profit from price differences.",
+        "example_zh": "交易員利用套利從價格差異中獲利。",
+        "example2": "Cryptocurrency arbitrage requires fast execution and low fees.",
+        "example2_zh": "加密貨幣套利需要快速執行和低費用。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "audit",
+        "ipa": "/ˈɔːdɪt/",
+        "phonetic": "AW-dit",
+        "zh": "審計；查帳",
+        "category": "財經",
+        "example": "An external auditor conducts the annual financial audit.",
+        "example_zh": "外部審計師進行年度財務審計。",
+        "example2": "The annual audit revealed no material discrepancies in the accounts.",
+        "example2_zh": "年度審計未發現帳目中有任何重大差異。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "outsource",
+        "ipa": "/ˈaʊtsɔːrs/",
+        "phonetic": "OWT-sors",
+        "zh": "外包",
+        "category": "商業",
+        "example": "Many companies outsource IT support to reduce costs.",
+        "example_zh": "許多公司將IT支援外包以降低成本。",
+        "example2": "We plan to outsource logistics to reduce operational costs.",
+        "example2_zh": "我們計劃外包物流以降低營運成本。",
+        "pos": "動詞"
+      },
+      {
+        "word": "constructive",
+        "ipa": "/kənˈstrʌktɪv/",
+        "phonetic": "kun-STRUK-tiv",
+        "zh": "建設性的",
+        "category": "生活",
+        "example": "Please provide constructive feedback on the report.",
+        "example_zh": "請對報告提供建設性的回饋。",
+        "example2": "Even negative feedback can be helpful if it is constructive.",
+        "example2_zh": "即使是負面的回饋，只要具有建設性就是有幫助的。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "stakeholder",
+        "ipa": "/ˈsteɪkhoʊldər/",
+        "phonetic": "STAYK-hol-der",
+        "zh": "利害關係人",
+        "category": "商業",
+        "example": "All stakeholders must approve the project before launch.",
+        "example_zh": "所有利害關係人必須在啟動前批准該專案。",
+        "example2": "Stakeholder feedback shaped the final design of the product.",
+        "example2_zh": "利害關係人的回饋影響了產品的最終設計。",
+        "pos": "名詞"
+      },
+      {
+        "word": "amortization",
+        "ipa": "/əˌmɔːrtɪˈzeɪʃən/",
+        "phonetic": "uh-mor-tuh-ZAY-shun",
+        "zh": "攤銷；分期償還",
+        "category": "財經",
+        "example": "The loan amortization schedule shows monthly payments.",
+        "example_zh": "貸款攤銷時間表顯示每月還款金額。",
+        "example2": "The software license cost is spread through amortization over five years.",
+        "example2_zh": "軟體授權費用透過五年攤銷分攤。",
+        "pos": "名詞"
+      },
+      {
+        "word": "balance sheet",
+        "ipa": "/ˈbæləns ʃiːt/",
+        "phonetic": "BAL-uns sheet",
+        "zh": "資產負債表",
+        "category": "財經",
+        "example": "The balance sheet shows the company's financial position.",
+        "example_zh": "資產負債表顯示公司的財務狀況。",
+        "example2": "A strong balance sheet gives companies the flexibility to weather downturns.",
+        "example2_zh": "強健的資產負債表使公司在經濟下滑時有靈活應對的空間。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "deployment",
+        "ipa": "/dɪˈplɔɪmənt/",
+        "phonetic": "duh-PLOY-ment",
+        "zh": "部署；發布",
+        "category": "科技",
+        "example": "The deployment of the new system was completed overnight.",
+        "example_zh": "新系統的部署在一夜之間完成。",
+        "example2": "Automated deployment pipelines reduce human error significantly.",
+        "example2_zh": "自動化部署流程大幅減少了人為錯誤。",
+        "pos": "名詞"
+      },
+      {
+        "word": "liquidity",
+        "ipa": "/lɪˈkwɪdɪti/",
+        "phonetic": "luh-KWID-uh-tee",
+        "zh": "流動性；變現能力",
+        "category": "財經",
+        "example": "High liquidity means assets can be quickly converted to cash.",
+        "example_zh": "高流動性意味著資產可以快速轉換為現金。",
+        "example2": "During the crisis, even well-performing assets faced liquidity problems.",
+        "example2_zh": "危機期間，即使表現良好的資產也面臨流動性問題。",
+        "pos": "名詞"
+      },
+      {
+        "word": "resilient",
+        "ipa": "/rɪˈzɪliənt/",
+        "phonetic": "ruh-ZIL-ee-unt",
+        "zh": "有韌性的；恢復力強的",
+        "category": "生活",
+        "example": "Resilient employees adapt quickly to change.",
+        "example_zh": "有韌性的員工能快速適應變化。",
+        "example2": "A resilient team bounces back quickly after setbacks.",
+        "example2_zh": "有韌性的團隊在挫折後能夠迅速恢復。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "minutes",
+        "ipa": "/ˈmɪnɪts/",
+        "phonetic": "MIN-its",
+        "zh": "會議記錄",
+        "category": "會議",
+        "example": "Who will take the minutes during today's meeting?",
+        "example_zh": "今天的會議記錄由誰負責？",
+        "example2": "The minutes confirmed that the budget proposal was approved.",
+        "example2_zh": "會議記錄確認預算提案已獲批准。",
+        "pos": "名詞"
+      },
+      {
+        "word": "procurement",
+        "ipa": "/prəˈkjʊərmənt/",
+        "phonetic": "pruh-KYOOR-ment",
+        "zh": "採購",
+        "category": "商業",
+        "example": "The procurement team negotiated better prices with suppliers.",
+        "example_zh": "採購團隊與供應商談判了更好的價格。",
+        "example2": "The procurement department is evaluating three new suppliers.",
+        "example2_zh": "採購部門正在評估三家新供應商。",
+        "pos": "名詞"
+      },
+      {
+        "word": "supply chain",
+        "ipa": "/ˈsʌplaɪ tʃeɪn/",
+        "phonetic": "SUP-ly CHAYN",
+        "zh": "供應鏈",
+        "category": "商業",
+        "example": "The pandemic disrupted global supply chains significantly.",
+        "example_zh": "疫情嚴重擾亂了全球供應鏈。",
+        "example2": "Companies are reshoring supply chains to reduce geopolitical risk.",
+        "example2_zh": "企業正在將供應鏈遷回本國以降低地緣政治風險。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "user experience",
+        "ipa": "/ˈjuːzər ɪkˈspɪriəns/",
+        "phonetic": "YOO-zer ik-SPEER-ee-uns",
+        "zh": "用戶體驗（UX）",
+        "category": "科技",
+        "example": "A great user experience keeps customers coming back.",
+        "example_zh": "出色的用戶體驗讓客戶持續回訪。",
+        "example2": "Improving user experience is the top priority for our mobile app.",
+        "example2_zh": "改善用戶體驗是我們行動應用的首要任務。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "benchmark",
+        "ipa": "/ˈbɛntʃmɑːrk/",
+        "phonetic": "BENCH-mark",
+        "zh": "基準；標竿",
+        "category": "商業",
+        "example": "Our performance is measured against industry benchmarks.",
+        "example_zh": "我們的表現以行業基準來衡量。",
+        "example2": "We regularly benchmark our pricing against competitors.",
+        "example2_zh": "我們定期將定價與競爭對手進行基準比較。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "portfolio",
+        "ipa": "/pɔːrtˈfoʊlioʊ/",
+        "phonetic": "port-FOH-lee-oh",
+        "zh": "投資組合；作品集",
+        "category": "財經",
+        "example": "A balanced portfolio includes stocks, bonds, and real estate.",
+        "example_zh": "均衡的投資組合包括股票、債券和房地產。",
+        "example2": "Rebalancing your portfolio quarterly helps maintain your target allocation.",
+        "example2_zh": "每季重新平衡投資組合有助於維持目標配置。",
+        "pos": "名詞"
+      },
+      {
+        "word": "resolution",
+        "ipa": "/ˌrɛzəˈluːʃən/",
+        "phonetic": "rez-uh-LOO-shun",
+        "zh": "決議；解決方案",
+        "category": "會議",
+        "example": "The board passed a resolution to expand overseas.",
+        "example_zh": "董事會通過了海外擴張的決議。",
+        "example2": "The resolution was adopted with a majority vote.",
+        "example2_zh": "該決議以多數票通過。",
+        "pos": "名詞"
+      },
+      {
+        "word": "blockchain",
+        "ipa": "/ˈblɒktʃeɪn/",
+        "phonetic": "BLOK-chayn",
+        "zh": "區塊鏈",
+        "category": "科技",
+        "example": "Blockchain technology ensures transparent and secure transactions.",
+        "example_zh": "區塊鏈技術確保交易透明且安全。",
+        "example2": "The supply chain team is exploring blockchain for better traceability.",
+        "example2_zh": "供應鏈團隊正在探索區塊鏈以提升可追溯性。",
+        "pos": "名詞"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "表示原因：Because / Due to",
+        "category": "連接詞",
+        "rule": "Because 後接完整子句；due to 後接名詞或名詞片語。",
+        "pattern": "Because [子句] / Due to [名詞片語]",
+        "examples": [
+          {
+            "en": "We postponed the launch because the product needed more testing.",
+            "zh": "我們推遲了發布，因為產品需要更多測試。"
+          },
+          {
+            "en": "Due to budget constraints, we cannot proceed with the original plan.",
+            "zh": "由於預算限制，我們無法繼續原計畫。"
+          },
+          {
+            "en": "Sales declined because of the global economic slowdown.",
+            "zh": "由於全球經濟放緩，銷售額下降。"
+          }
+        ],
+        "wrong": "Due to we don't have enough budget, we cannot proceed.",
+        "right": "Due to budget constraints, we cannot proceed.",
+        "tip": "due to 後面接名詞，不接子句！要接子句就用 because。"
+      },
+      {
+        "title": "定冠詞 the — 何時使用",
+        "category": "文章用法",
+        "rule": "用 the 當雙方都知道指哪個（特定的），或前文已提到的，或獨一無二的事物。",
+        "pattern": "the + [特定/已提到/獨一無二的名詞]",
+        "examples": [
+          {
+            "en": "The meeting we discussed yesterday has been rescheduled.",
+            "zh": "我們昨天討論的那個會議已改期。"
+          },
+          {
+            "en": "Please submit the report to the manager by Friday.",
+            "zh": "請在週五前將報告提交給主管。"
+          },
+          {
+            "en": "The CEO announced a new policy this morning.",
+            "zh": "執行長今早宣布了一項新政策。"
+          }
+        ],
+        "wrong": "Please submit a report to a manager by Friday.",
+        "right": "Please submit the report to the manager by Friday.",
+        "tip": "第一次提到用 a/an，之後再提同一個用 the。獨一無二的職位（the CEO）用 the。"
+      },
+      {
+        "title": "現在完成進行式 — 持續到現在",
+        "category": "時態",
+        "rule": "Have/has been + V-ing。強調從過去開始、持續到現在仍在進行的動作。",
+        "pattern": "We have been [V-ing] since/for [時間].",
+        "examples": [
+          {
+            "en": "We have been working on this project for six months.",
+            "zh": "我們一直在做這個專案，已經六個月了。"
+          },
+          {
+            "en": "The team has been experiencing technical difficulties since Monday.",
+            "zh": "自週一起，團隊一直在遭遇技術困難。"
+          },
+          {
+            "en": "I have been trying to reach you all morning.",
+            "zh": "我整個上午都在試圖聯繫你。"
+          }
+        ],
+        "wrong": "We are working on this project for six months.",
+        "right": "We have been working on this project for six months.",
+        "tip": "for + 時間長度 / since + 時間點，配合完成（進行）式使用。"
+      },
+      {
+        "title": "簡報開場白",
+        "category": "簡報技巧",
+        "rule": "正式開場的標準句型。清楚說明目的、時間和結構。",
+        "pattern": "I'd like to / Today I'm going to + [動詞原形]...",
+        "examples": [
+          {
+            "en": "Good morning. I'd like to present our Q3 financial results.",
+            "zh": "早安。我想報告我們第三季的財務業績。"
+          },
+          {
+            "en": "Today I'm going to walk you through our new product roadmap.",
+            "zh": "今天我將帶大家了解我們新的產品路線圖。"
+          },
+          {
+            "en": "My presentation will cover three main areas: market analysis, strategy, and implementation.",
+            "zh": "我的簡報將涵蓋三個主要領域：市場分析、策略和執行。"
+          }
+        ],
+        "wrong": "I will tell you about our results today.",
+        "right": "I'd like to present our Q3 financial results.",
+        "tip": "I'd like to（較正式）。結尾說 I'll be happy to take any questions at the end."
+      }
+    ]
   }
 }
