@@ -65770,5 +65770,463 @@
         "tip": "must 和 have to 後面都接動詞原形，不加 to。"
       }
     ]
+  },
+  "2026-10-27": {
+    "words": [
+      {
+        "word": "securities",
+        "ipa": "/sɪˈkjʊərɪtiz/",
+        "phonetic": "suh-KYOOR-uh-teez",
+        "zh": "有價證券",
+        "category": "財經",
+        "example": "Government securities are considered low-risk investments.",
+        "example_zh": "政府有價證券被視為低風險投資。",
+        "example2": "Mortgage-backed securities played a key role in the 2008 financial crisis.",
+        "example2_zh": "抵押貸款支持的有價證券在2008年金融危機中發揮了關鍵作用。",
+        "pos": "名詞"
+      },
+      {
+        "word": "venture capital",
+        "ipa": "/ˈvɛntʃər ˈkæpɪtəl/",
+        "phonetic": "VEN-cher KAP-uh-tul",
+        "zh": "創投資金",
+        "category": "財經",
+        "example": "Venture capital funds early-stage innovative companies.",
+        "example_zh": "創投資金資助早期創新公司。",
+        "example2": "Venture capital funding peaked during the technology boom.",
+        "example2_zh": "創投資金在科技繁榮期間達到頂峰。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "fiscal",
+        "ipa": "/ˈfɪskəl/",
+        "phonetic": "FIS-kul",
+        "zh": "財政的；會計年度的",
+        "category": "財經",
+        "example": "The fiscal year ends on December 31st.",
+        "example_zh": "財政年度於12月31日結束。",
+        "example2": "The fiscal year runs from April to March in Japan.",
+        "example2_zh": "日本的財政年度從4月到3月。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "automation",
+        "ipa": "/ˌɔːtəˈmeɪʃən/",
+        "phonetic": "aw-tuh-MAY-shun",
+        "zh": "自動化",
+        "category": "科技",
+        "example": "Automation has transformed manufacturing processes worldwide.",
+        "example_zh": "自動化改變了全球的製造流程。",
+        "example2": "Process automation reduced manual errors by over 60%.",
+        "example2_zh": "流程自動化將手動錯誤減少了60%以上。",
+        "pos": "名詞"
+      },
+      {
+        "word": "integrity",
+        "ipa": "/ɪnˈtɛɡrɪti/",
+        "phonetic": "in-TEG-ruh-tee",
+        "zh": "正直；誠信",
+        "category": "生活",
+        "example": "Integrity is the foundation of a trustworthy business.",
+        "example_zh": "誠信是值得信賴企業的基礎。",
+        "example2": "Acting with integrity, even when no one is watching, builds real trust.",
+        "example2_zh": "即使沒人看見，以誠信行事也能建立真正的信任。",
+        "pos": "名詞"
+      },
+      {
+        "word": "takeaway",
+        "ipa": "/ˈteɪkəweɪ/",
+        "phonetic": "TAYK-uh-way",
+        "zh": "重點結論；收穫",
+        "category": "會議",
+        "example": "The key takeaway from today's meeting is to focus on quality.",
+        "example_zh": "今天會議的重點結論是專注於品質。",
+        "example2": "The key takeaway from the workshop was the importance of data.",
+        "example2_zh": "工作坊的主要收穫是資料的重要性。",
+        "pos": "名詞"
+      },
+      {
+        "word": "valuation",
+        "ipa": "/ˌvæljuˈeɪʃən/",
+        "phonetic": "val-yoo-AY-shun",
+        "zh": "估值；評估",
+        "category": "財經",
+        "example": "The startup received a valuation of one billion dollars.",
+        "example_zh": "這家新創公司的估值達到了十億美元。",
+        "example2": "A fair valuation requires both financial data and market comparisons.",
+        "example2_zh": "公平的估值需要財務資料和市場比較。",
+        "pos": "名詞"
+      },
+      {
+        "word": "infrastructure",
+        "ipa": "/ˈɪnfrəˌstrʌktʃər/",
+        "phonetic": "IN-fruh-struk-cher",
+        "zh": "基礎設施；架構",
+        "category": "科技",
+        "example": "Cloud infrastructure reduces the need for physical servers.",
+        "example_zh": "雲端基礎設施減少了對實體伺服器的需求。",
+        "example2": "The cloud infrastructure scales automatically during peak demand.",
+        "example2_zh": "雲端基礎設施在需求高峰期自動擴展。",
+        "pos": "名詞"
+      },
+      {
+        "word": "hedge fund",
+        "ipa": "/ˈhɛdʒ fʌnd/",
+        "phonetic": "HEJ fund",
+        "zh": "對沖基金",
+        "category": "財經",
+        "example": "Hedge funds often use complex strategies to generate returns.",
+        "example_zh": "對沖基金常使用複雜策略來產生回報。",
+        "example2": "The hedge fund posted a 30% return even during the market downturn.",
+        "example2_zh": "即使在市場低迷期間，對沖基金也錄得30%的回報。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "algorithm",
+        "ipa": "/ˈælɡərɪðəm/",
+        "phonetic": "AL-guh-rith-um",
+        "zh": "演算法",
+        "category": "科技",
+        "example": "The algorithm recommends products based on your history.",
+        "example_zh": "演算法根據您的歷史記錄推薦產品。",
+        "example2": "Machine learning algorithms improve with more training data.",
+        "example2_zh": "機器學習演算法隨著更多訓練資料而改善。",
+        "pos": "名詞"
+      },
+      {
+        "word": "debrief",
+        "ipa": "/diːˈbriːf/",
+        "phonetic": "dee-BREEF",
+        "zh": "彙報；事後討論",
+        "category": "會議",
+        "example": "Let's debrief after the client presentation.",
+        "example_zh": "客戶簡報後我們來做個彙報。",
+        "example2": "After the product launch, the team gathered to debrief.",
+        "example2_zh": "產品發布後，團隊聚在一起做事後彙報。",
+        "pos": "動詞／名詞"
+      },
+      {
+        "word": "consensus",
+        "ipa": "/kənˈsɛnsəs/",
+        "phonetic": "kun-SEN-sus",
+        "zh": "共識；一致意見",
+        "category": "會議",
+        "example": "We need to reach a consensus before moving forward.",
+        "example_zh": "我們需要在推進之前達成共識。",
+        "example2": "It took three rounds of discussion to build consensus.",
+        "example2_zh": "經過三輪討論，大家終於達成共識。",
+        "pos": "名詞"
+      },
+      {
+        "word": "overhead",
+        "ipa": "/ˈoʊvərˌhɛd/",
+        "phonetic": "OH-ver-hed",
+        "zh": "管銷費用；間接成本",
+        "category": "商業",
+        "example": "Reducing overhead costs is essential for profitability.",
+        "example_zh": "降低管銷費用對盈利能力至關重要。",
+        "example2": "Automating routine tasks helped cut overhead by 25%.",
+        "example2_zh": "自動化例行任務幫助降低了25%的管銷費用。",
+        "pos": "名詞"
+      },
+      {
+        "word": "franchise",
+        "ipa": "/ˈfræntʃaɪz/",
+        "phonetic": "FRAN-chyz",
+        "zh": "特許經營；加盟",
+        "category": "商業",
+        "example": "They expanded their business through a franchise model.",
+        "example_zh": "他們透過加盟模式擴展業務。",
+        "example2": "She bought a franchise and opened three locations in two years.",
+        "example2_zh": "她購買了加盟權，兩年內開了三家分店。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "constructive",
+        "ipa": "/kənˈstrʌktɪv/",
+        "phonetic": "kun-STRUK-tiv",
+        "zh": "建設性的",
+        "category": "生活",
+        "example": "Please provide constructive feedback on the report.",
+        "example_zh": "請對報告提供建設性的回饋。",
+        "example2": "Even negative feedback can be helpful if it is constructive.",
+        "example2_zh": "即使是負面的回饋，只要具有建設性就是有幫助的。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "venture",
+        "ipa": "/ˈvɛntʃər/",
+        "phonetic": "VEN-cher",
+        "zh": "冒險；合資企業",
+        "category": "商業",
+        "example": "They launched a joint venture with a European partner.",
+        "example_zh": "他們與一家歐洲合作夥伴成立了合資企業。",
+        "example2": "The venture proved profitable within 18 months of launch.",
+        "example2_zh": "這項合資企業在啟動後18個月內就實現了盈利。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "unanimous",
+        "ipa": "/juːˈnænɪməs/",
+        "phonetic": "yoo-NAN-uh-mus",
+        "zh": "全體一致的",
+        "category": "會議",
+        "example": "The vote was unanimous in favor of the proposal.",
+        "example_zh": "投票結果全體一致支持該提案。",
+        "example2": "Board members were unanimous in rejecting the proposal.",
+        "example2_zh": "董事會成員一致反對該提案。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "equity",
+        "ipa": "/ˈɛkwɪti/",
+        "phonetic": "EK-wuh-tee",
+        "zh": "股權；公平",
+        "category": "商業",
+        "example": "They offered equity as part of the compensation package.",
+        "example_zh": "他們提供股權作為薪酬方案的一部分。",
+        "example2": "The startup raised capital in exchange for equity.",
+        "example2_zh": "這家新創公司以股權換取了資金。",
+        "pos": "名詞"
+      },
+      {
+        "word": "deliverable",
+        "ipa": "/dɪˈlɪvərəbəl/",
+        "phonetic": "duh-LIV-er-uh-bul",
+        "zh": "交付成果；交付物",
+        "category": "商業",
+        "example": "Please list all deliverables in the project plan.",
+        "example_zh": "請在專案計畫中列出所有交付成果。",
+        "example2": "All deliverables must be reviewed by the project manager first.",
+        "example2_zh": "所有交付成果必須先由專案經理審查。",
+        "pos": "名詞"
+      },
+      {
+        "word": "return on investment",
+        "ipa": "/rɪˈtɜːrn ɒn ɪnˈvɛstmənt/",
+        "phonetic": "ruh-TURN on in-VEST-ment",
+        "zh": "投資報酬率（ROI）",
+        "category": "財經",
+        "example": "This marketing campaign had an excellent return on investment.",
+        "example_zh": "這次行銷活動有出色的投資報酬率。",
+        "example2": "Calculating return on investment helps prioritize spending decisions.",
+        "example2_zh": "計算投資報酬率有助於確定支出決策的優先順序。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "follow-up",
+        "ipa": "/ˈfɒloʊˌʌp/",
+        "phonetic": "FOL-oh-up",
+        "zh": "後續跟進；追蹤",
+        "category": "會議",
+        "example": "I will send a follow-up email after the meeting.",
+        "example_zh": "會後我會發送一封跟進郵件。",
+        "example2": "A follow-up call was scheduled for the following Tuesday.",
+        "example2_zh": "後續通話安排在下週二。",
+        "pos": "名詞／形容詞"
+      },
+      {
+        "word": "optimization",
+        "ipa": "/ˌɒptɪmaɪˈzeɪʃən/",
+        "phonetic": "op-tuh-my-ZAY-shun",
+        "zh": "優化",
+        "category": "科技",
+        "example": "Search engine optimization improves your website ranking.",
+        "example_zh": "搜尋引擎優化提升您的網站排名。",
+        "example2": "Database optimization reduced our page load time by 40%.",
+        "example2_zh": "資料庫優化將我們的頁面載入時間縮短了40%。",
+        "pos": "名詞"
+      },
+      {
+        "word": "bull market",
+        "ipa": "/ˈbʊl ˈmɑːrkɪt/",
+        "phonetic": "BOOL MAR-kit",
+        "zh": "牛市（股市上漲）",
+        "category": "財經",
+        "example": "The tech sector thrived during the bull market.",
+        "example_zh": "科技板塊在牛市期間蓬勃發展。",
+        "example2": "The current bull market has lasted longer than most analysts expected.",
+        "example2_zh": "當前牛市持續的時間比大多數分析師預期的要長。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "outsource",
+        "ipa": "/ˈaʊtsɔːrs/",
+        "phonetic": "OWT-sors",
+        "zh": "外包",
+        "category": "商業",
+        "example": "Many companies outsource IT support to reduce costs.",
+        "example_zh": "許多公司將IT支援外包以降低成本。",
+        "example2": "We plan to outsource logistics to reduce operational costs.",
+        "example2_zh": "我們計劃外包物流以降低營運成本。",
+        "pos": "動詞"
+      },
+      {
+        "word": "depreciation",
+        "ipa": "/dɪˌpriːʃɪˈeɪʃən/",
+        "phonetic": "duh-pree-shee-AY-shun",
+        "zh": "折舊；貶值",
+        "category": "財經",
+        "example": "Equipment depreciation reduces taxable income.",
+        "example_zh": "設備折舊可減少應稅收入。",
+        "example2": "Machinery depreciation is recorded as an expense each year.",
+        "example2_zh": "機械折舊每年記錄為一項費用。",
+        "pos": "名詞"
+      },
+      {
+        "word": "escalate",
+        "ipa": "/ˈɛskəleɪt/",
+        "phonetic": "ES-kuh-layt",
+        "zh": "升級；呈報上級",
+        "category": "會議",
+        "example": "Please escalate this issue to your manager immediately.",
+        "example_zh": "請立即將此問題呈報給你的主管。",
+        "example2": "Please escalate this billing dispute to the finance team.",
+        "example2_zh": "請將這筆帳單爭議呈報給財務團隊。",
+        "pos": "動詞"
+      },
+      {
+        "word": "moderator",
+        "ipa": "/ˈmɒdəreɪtər/",
+        "phonetic": "MOD-uh-ray-ter",
+        "zh": "主持人；協調人",
+        "category": "會議",
+        "example": "The moderator kept the discussion on track.",
+        "example_zh": "主持人讓討論保持在正確方向。",
+        "example2": "The moderator skillfully managed the Q&A session.",
+        "example2_zh": "主持人熟練地掌控了問答環節。",
+        "pos": "名詞"
+      },
+      {
+        "word": "minutes",
+        "ipa": "/ˈmɪnɪts/",
+        "phonetic": "MIN-its",
+        "zh": "會議記錄",
+        "category": "會議",
+        "example": "Who will take the minutes during today's meeting?",
+        "example_zh": "今天的會議記錄由誰負責？",
+        "example2": "The minutes confirmed that the budget proposal was approved.",
+        "example2_zh": "會議記錄確認預算提案已獲批准。",
+        "pos": "名詞"
+      },
+      {
+        "word": "latency",
+        "ipa": "/ˈleɪtənsi/",
+        "phonetic": "LAY-ten-see",
+        "zh": "延遲時間",
+        "category": "科技",
+        "example": "Low latency is essential for real-time gaming applications.",
+        "example_zh": "低延遲對於即時遊戲應用至關重要。",
+        "example2": "High latency is causing complaints from users in remote regions.",
+        "example2_zh": "高延遲導致偏遠地區的用戶投訴。",
+        "pos": "名詞"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "表示結果：Therefore / As a result",
+        "category": "連接詞",
+        "rule": "兩者都表示因此、所以，放在結果句的句首或句中。",
+        "pattern": "Therefore, [結果句]. / As a result, [結果句].",
+        "examples": [
+          {
+            "en": "Sales exceeded expectations. Therefore, we will expand the team.",
+            "zh": "銷售超出預期。因此，我們將擴充團隊。"
+          },
+          {
+            "en": "The supplier delayed delivery. As a result, production was affected.",
+            "zh": "供應商延誤交貨。結果，生產受到影響。"
+          },
+          {
+            "en": "The market shifted rapidly; therefore, we had to adapt our strategy.",
+            "zh": "市場迅速變化；因此，我們不得不調整策略。"
+          }
+        ],
+        "wrong": "Therefore we will expand the team.",
+        "right": "Therefore, we will expand the team.",
+        "tip": "Therefore 和 As a result 後面要加逗號。"
+      },
+      {
+        "title": "現在完成式 — 與現在相關的過去",
+        "category": "時態",
+        "rule": "Have/has + 過去分詞。強調過去的動作對現在的影響，不說明具體時間。",
+        "pattern": "We have [過去分詞] / The team has [過去分詞]",
+        "examples": [
+          {
+            "en": "We have completed the initial review of the proposal.",
+            "zh": "我們已完成提案的初步審查。"
+          },
+          {
+            "en": "The team has made significant progress this quarter.",
+            "zh": "本季度團隊取得了重大進展。"
+          },
+          {
+            "en": "I have already sent the contract to the client.",
+            "zh": "我已經將合約發給客戶了。"
+          }
+        ],
+        "wrong": "We already complete the review.",
+        "right": "We have already completed the review.",
+        "tip": "already、just、yet 這些詞通常配合現在完成式使用。"
+      },
+      {
+        "title": "Might — 不確定的可能性",
+        "category": "情態動詞",
+        "rule": "表示不太確定的可能性（比 may 更不確定）。會議中表達不確定時使用。",
+        "pattern": "We might [動詞] / This might [動詞]",
+        "examples": [
+          {
+            "en": "We might need to revise our projections for Q4.",
+            "zh": "我們可能需要修訂Q4的預測。"
+          },
+          {
+            "en": "This might affect our timeline significantly.",
+            "zh": "這可能會顯著影響我們的時間表。"
+          },
+          {
+            "en": "The client might request additional changes.",
+            "zh": "客戶可能會要求額外的修改。"
+          }
+        ],
+        "wrong": "We might to revise our projections.",
+        "right": "We might need to revise our projections.",
+        "tip": "might 後面也是動詞原形，不加 to。"
+      },
+      {
+        "title": "被動語態的商務用法",
+        "category": "被動語態",
+        "rule": "當執行者不重要或不知道，或強調被影響的對象時，用被動語態。商業公文很常見。",
+        "pattern": "[主詞] + is/was/will be + [過去分詞]",
+        "examples": [
+          {
+            "en": "All employees are required to complete the training by Friday.",
+            "zh": "所有員工必須在週五前完成培訓。"
+          },
+          {
+            "en": "The decision was made after careful consideration.",
+            "zh": "這個決定是經過深思熟慮後做出的。"
+          },
+          {
+            "en": "The new policy will be implemented starting next quarter.",
+            "zh": "新政策將從下季度開始實施。"
+          }
+        ],
+        "wrong": "Someone requires all employees to complete training.",
+        "right": "All employees are required to complete the training.",
+        "tip": "商業報告、通知、政策說明常用被動語態，因為重點是事情本身，不是誰做的。"
+      }
+    ]
   }
 }
