@@ -74930,5 +74930,463 @@
         "tip": "On the other hand / In contrast 句首加逗號。"
       }
     ]
+  },
+  "2026-11-16": {
+    "words": [
+      {
+        "word": "inflation",
+        "ipa": "/ɪnˈfleɪʃən/",
+        "phonetic": "in-FLAY-shun",
+        "zh": "通貨膨脹",
+        "category": "財經",
+        "example": "Rising inflation erodes purchasing power over time.",
+        "example_zh": "通貨膨脹上升會隨時間侵蝕購買力。",
+        "example2": "Central banks raised interest rates to combat rising inflation.",
+        "example2_zh": "央行提高利率以應對通貨膨脹上升。",
+        "pos": "名詞"
+      },
+      {
+        "word": "minutes",
+        "ipa": "/ˈmɪnɪts/",
+        "phonetic": "MIN-its",
+        "zh": "會議記錄",
+        "category": "會議",
+        "example": "Who will take the minutes during today's meeting?",
+        "example_zh": "今天的會議記錄由誰負責？",
+        "example2": "The minutes confirmed that the budget proposal was approved.",
+        "example2_zh": "會議記錄確認預算提案已獲批准。",
+        "pos": "名詞"
+      },
+      {
+        "word": "collaborate",
+        "ipa": "/kəˈlæbəreɪt/",
+        "phonetic": "kuh-LAB-uh-rayt",
+        "zh": "合作；協作",
+        "category": "生活",
+        "example": "Teams that collaborate effectively achieve better results.",
+        "example_zh": "有效合作的團隊能取得更好的成果。",
+        "example2": "Teams that collaborate across departments drive better innovation.",
+        "example2_zh": "跨部門合作的團隊推動更好的創新。",
+        "pos": "動詞"
+      },
+      {
+        "word": "equity",
+        "ipa": "/ˈɛkwɪti/",
+        "phonetic": "EK-wuh-tee",
+        "zh": "股權；公平",
+        "category": "商業",
+        "example": "They offered equity as part of the compensation package.",
+        "example_zh": "他們提供股權作為薪酬方案的一部分。",
+        "example2": "The startup raised capital in exchange for equity.",
+        "example2_zh": "這家新創公司以股權換取了資金。",
+        "pos": "名詞"
+      },
+      {
+        "word": "transparent",
+        "ipa": "/trænsˈpærənt/",
+        "phonetic": "trans-PAIR-unt",
+        "zh": "透明的；坦誠的",
+        "category": "生活",
+        "example": "Leaders should be transparent about company challenges.",
+        "example_zh": "領導者應該對公司挑戰保持透明。",
+        "example2": "We believe in being transparent about our pricing and policies.",
+        "example2_zh": "我們相信對定價和政策保持透明。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "amortization",
+        "ipa": "/əˌmɔːrtɪˈzeɪʃən/",
+        "phonetic": "uh-mor-tuh-ZAY-shun",
+        "zh": "攤銷；分期償還",
+        "category": "財經",
+        "example": "The loan amortization schedule shows monthly payments.",
+        "example_zh": "貸款攤銷時間表顯示每月還款金額。",
+        "example2": "The software license cost is spread through amortization over five years.",
+        "example2_zh": "軟體授權費用透過五年攤銷分攤。",
+        "pos": "名詞"
+      },
+      {
+        "word": "cash flow",
+        "ipa": "/ˈkæʃ floʊ/",
+        "phonetic": "KASH floh",
+        "zh": "現金流",
+        "category": "財經",
+        "example": "Positive cash flow is vital for business survival.",
+        "example_zh": "正向現金流對企業生存至關重要。",
+        "example2": "Startups often fail due to poor cash flow management, not lack of profit.",
+        "example2_zh": "新創公司失敗通常是因為現金流管理不善，而非缺乏利潤。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "multitask",
+        "ipa": "/ˈmʌltiˌtæsk/",
+        "phonetic": "MUL-tee-task",
+        "zh": "同時處理多項工作",
+        "category": "生活",
+        "example": "Effective professionals know how to multitask efficiently.",
+        "example_zh": "高效的專業人士知道如何高效地同時處理多項工作。",
+        "example2": "Though common, trying to multitask often reduces overall quality.",
+        "example2_zh": "雖然很普遍，但嘗試同時處理多項工作往往會降低整體質量。",
+        "pos": "動詞"
+      },
+      {
+        "word": "deliverable",
+        "ipa": "/dɪˈlɪvərəbəl/",
+        "phonetic": "duh-LIV-er-uh-bul",
+        "zh": "交付成果；交付物",
+        "category": "商業",
+        "example": "Please list all deliverables in the project plan.",
+        "example_zh": "請在專案計畫中列出所有交付成果。",
+        "example2": "All deliverables must be reviewed by the project manager first.",
+        "example2_zh": "所有交付成果必須先由專案經理審查。",
+        "pos": "名詞"
+      },
+      {
+        "word": "keynote",
+        "ipa": "/ˈkiːnoʊt/",
+        "phonetic": "KEE-note",
+        "zh": "主題演講",
+        "category": "會議",
+        "example": "The CEO delivered the keynote at the conference.",
+        "example_zh": "執行長在大會發表了主題演講。",
+        "example2": "The CEO gave a powerful keynote on digital transformation.",
+        "example2_zh": "執行長就數位轉型發表了一場有力的主題演講。",
+        "pos": "名詞"
+      },
+      {
+        "word": "arbitrage",
+        "ipa": "/ˈɑːrbɪtrɑːʒ/",
+        "phonetic": "AR-buh-trazh",
+        "zh": "套利；仲裁",
+        "category": "財經",
+        "example": "Traders use arbitrage to profit from price differences.",
+        "example_zh": "交易員利用套利從價格差異中獲利。",
+        "example2": "Cryptocurrency arbitrage requires fast execution and low fees.",
+        "example2_zh": "加密貨幣套利需要快速執行和低費用。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "milestone",
+        "ipa": "/ˈmaɪlstoʊn/",
+        "phonetic": "MYLE-stone",
+        "zh": "里程碑；重要節點",
+        "category": "會議",
+        "example": "We hit a major milestone by completing the prototype.",
+        "example_zh": "完成原型機是我們達到的重要里程碑。",
+        "example2": "Signing the first overseas client was a major milestone for us.",
+        "example2_zh": "簽下第一個海外客戶是我們的重要里程碑。",
+        "pos": "名詞"
+      },
+      {
+        "word": "feedback",
+        "ipa": "/ˈfiːdbæk/",
+        "phonetic": "FEED-bak",
+        "zh": "回饋；意見",
+        "category": "生活",
+        "example": "Regular feedback helps employees grow and improve.",
+        "example_zh": "定期回饋有助於員工成長和進步。",
+        "example2": "Open to feedback, she quickly improved her presentation skills.",
+        "example2_zh": "她樂於接受回饋，很快就提升了簡報技巧。",
+        "pos": "名詞"
+      },
+      {
+        "word": "leverage",
+        "ipa": "/ˈlɛvərɪdʒ/",
+        "phonetic": "LEV-er-ij",
+        "zh": "槓桿；善用資源",
+        "category": "商業",
+        "example": "We can leverage our existing network to enter new markets.",
+        "example_zh": "我們可以利用現有網絡進入新市場。",
+        "example2": "Small companies can leverage technology to compete with larger rivals.",
+        "example2_zh": "小公司可以利用科技與大型競爭對手競爭。",
+        "pos": "名詞／動詞"
+      },
+      {
+        "word": "return on investment",
+        "ipa": "/rɪˈtɜːrn ɒn ɪnˈvɛstmənt/",
+        "phonetic": "ruh-TURN on in-VEST-ment",
+        "zh": "投資報酬率（ROI）",
+        "category": "財經",
+        "example": "This marketing campaign had an excellent return on investment.",
+        "example_zh": "這次行銷活動有出色的投資報酬率。",
+        "example2": "Calculating return on investment helps prioritize spending decisions.",
+        "example2_zh": "計算投資報酬率有助於確定支出決策的優先順序。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "valuation",
+        "ipa": "/ˌvæljuˈeɪʃən/",
+        "phonetic": "val-yoo-AY-shun",
+        "zh": "估值；評估",
+        "category": "財經",
+        "example": "The startup received a valuation of one billion dollars.",
+        "example_zh": "這家新創公司的估值達到了十億美元。",
+        "example2": "A fair valuation requires both financial data and market comparisons.",
+        "example2_zh": "公平的估值需要財務資料和市場比較。",
+        "pos": "名詞"
+      },
+      {
+        "word": "delegate",
+        "ipa": "/ˈdɛlɪɡeɪt/",
+        "phonetic": "DEL-uh-gayt",
+        "zh": "授權；委派；代表",
+        "category": "會議",
+        "example": "A good manager knows how to delegate tasks effectively.",
+        "example_zh": "好的管理者知道如何有效授權。",
+        "example2": "She learned to delegate work so she could focus on strategy.",
+        "example2_zh": "她學會了授權，以便集中精力在策略上。",
+        "pos": "動詞／名詞"
+      },
+      {
+        "word": "liquidity",
+        "ipa": "/lɪˈkwɪdɪti/",
+        "phonetic": "luh-KWID-uh-tee",
+        "zh": "流動性；變現能力",
+        "category": "財經",
+        "example": "High liquidity means assets can be quickly converted to cash.",
+        "example_zh": "高流動性意味著資產可以快速轉換為現金。",
+        "example2": "During the crisis, even well-performing assets faced liquidity problems.",
+        "example2_zh": "危機期間，即使表現良好的資產也面臨流動性問題。",
+        "pos": "名詞"
+      },
+      {
+        "word": "consensus",
+        "ipa": "/kənˈsɛnsəs/",
+        "phonetic": "kun-SEN-sus",
+        "zh": "共識；一致意見",
+        "category": "會議",
+        "example": "We need to reach a consensus before moving forward.",
+        "example_zh": "我們需要在推進之前達成共識。",
+        "example2": "It took three rounds of discussion to build consensus.",
+        "example2_zh": "經過三輪討論，大家終於達成共識。",
+        "pos": "名詞"
+      },
+      {
+        "word": "takeaway",
+        "ipa": "/ˈteɪkəweɪ/",
+        "phonetic": "TAYK-uh-way",
+        "zh": "重點結論；收穫",
+        "category": "會議",
+        "example": "The key takeaway from today's meeting is to focus on quality.",
+        "example_zh": "今天會議的重點結論是專注於品質。",
+        "example2": "The key takeaway from the workshop was the importance of data.",
+        "example2_zh": "工作坊的主要收穫是資料的重要性。",
+        "pos": "名詞"
+      },
+      {
+        "word": "escalate",
+        "ipa": "/ˈɛskəleɪt/",
+        "phonetic": "ES-kuh-layt",
+        "zh": "升級；呈報上級",
+        "category": "會議",
+        "example": "Please escalate this issue to your manager immediately.",
+        "example_zh": "請立即將此問題呈報給你的主管。",
+        "example2": "Please escalate this billing dispute to the finance team.",
+        "example2_zh": "請將這筆帳單爭議呈報給財務團隊。",
+        "pos": "動詞"
+      },
+      {
+        "word": "dividend",
+        "ipa": "/ˈdɪvɪdɛnd/",
+        "phonetic": "DIV-uh-dend",
+        "zh": "股息；紅利",
+        "category": "財經",
+        "example": "The company paid a dividend of two dollars per share.",
+        "example_zh": "公司支付了每股兩美元的股息。",
+        "example2": "The board voted to increase the dividend for the third consecutive year.",
+        "example2_zh": "董事會投票決定連續第三年提高股息。",
+        "pos": "名詞"
+      },
+      {
+        "word": "facilitate",
+        "ipa": "/fəˈsɪlɪteɪt/",
+        "phonetic": "fuh-SIL-uh-tayt",
+        "zh": "促進；主持（會議）",
+        "category": "會議",
+        "example": "She was asked to facilitate the workshop.",
+        "example_zh": "她被要求主持這場工作坊。",
+        "example2": "Good leaders facilitate discussions rather than dominate them.",
+        "example2_zh": "好的領導者是促進討論，而不是主導討論。",
+        "pos": "動詞"
+      },
+      {
+        "word": "iteration",
+        "ipa": "/ˌɪtəˈreɪʃən/",
+        "phonetic": "it-uh-RAY-shun",
+        "zh": "迭代；反覆修改",
+        "category": "科技",
+        "example": "Each iteration of the product improves based on feedback.",
+        "example_zh": "產品的每次迭代都根據回饋進行改進。",
+        "example2": "We are on the fifth iteration and the product is much improved.",
+        "example2_zh": "我們已進行第五次迭代，產品改善了很多。",
+        "pos": "名詞"
+      },
+      {
+        "word": "unanimous",
+        "ipa": "/juːˈnænɪməs/",
+        "phonetic": "yoo-NAN-uh-mus",
+        "zh": "全體一致的",
+        "category": "會議",
+        "example": "The vote was unanimous in favor of the proposal.",
+        "example_zh": "投票結果全體一致支持該提案。",
+        "example2": "Board members were unanimous in rejecting the proposal.",
+        "example2_zh": "董事會成員一致反對該提案。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "turnover",
+        "ipa": "/ˈtɜːrnoʊvər/",
+        "phonetic": "TURN-oh-ver",
+        "zh": "營業額；人員流動率",
+        "category": "商業",
+        "example": "High employee turnover increases recruitment costs.",
+        "example_zh": "高員工流動率增加了招募成本。",
+        "example2": "High turnover in sales roles is costly and disrupts client relationships.",
+        "example2_zh": "銷售職位的高人員流動率成本高昂，且會破壞客戶關係。",
+        "pos": "名詞"
+      },
+      {
+        "word": "follow-up",
+        "ipa": "/ˈfɒloʊˌʌp/",
+        "phonetic": "FOL-oh-up",
+        "zh": "後續跟進；追蹤",
+        "category": "會議",
+        "example": "I will send a follow-up email after the meeting.",
+        "example_zh": "會後我會發送一封跟進郵件。",
+        "example2": "A follow-up call was scheduled for the following Tuesday.",
+        "example2_zh": "後續通話安排在下週二。",
+        "pos": "名詞／形容詞"
+      },
+      {
+        "word": "hedge fund",
+        "ipa": "/ˈhɛdʒ fʌnd/",
+        "phonetic": "HEJ fund",
+        "zh": "對沖基金",
+        "category": "財經",
+        "example": "Hedge funds often use complex strategies to generate returns.",
+        "example_zh": "對沖基金常使用複雜策略來產生回報。",
+        "example2": "The hedge fund posted a 30% return even during the market downturn.",
+        "example2_zh": "即使在市場低迷期間，對沖基金也錄得30%的回報。",
+        "pos": "名詞片語"
+      },
+      {
+        "word": "constructive",
+        "ipa": "/kənˈstrʌktɪv/",
+        "phonetic": "kun-STRUK-tiv",
+        "zh": "建設性的",
+        "category": "生活",
+        "example": "Please provide constructive feedback on the report.",
+        "example_zh": "請對報告提供建設性的回饋。",
+        "example2": "Even negative feedback can be helpful if it is constructive.",
+        "example2_zh": "即使是負面的回饋，只要具有建設性就是有幫助的。",
+        "pos": "形容詞"
+      },
+      {
+        "word": "adjourn",
+        "ipa": "/əˈdʒɜːrn/",
+        "phonetic": "uh-JURN",
+        "zh": "散會；休會",
+        "category": "會議",
+        "example": "The meeting was adjourned until next Monday.",
+        "example_zh": "會議休會至下週一。",
+        "example2": "The chairperson proposed to adjourn until further notice.",
+        "example2_zh": "主席提議休會，待進一步通知再開。",
+        "pos": "動詞"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "表示對比：On the other hand / In contrast",
+        "category": "連接詞",
+        "rule": "提出不同觀點或相反情況。in contrast 強調差異；on the other hand 提出另一方觀點。",
+        "pattern": "On the other hand, [句子]. / In contrast, [句子].",
+        "examples": [
+          {
+            "en": "The first option is cheaper. On the other hand, it takes longer to implement.",
+            "zh": "第一個選項更便宜。另一方面，實施起來需要更長時間。"
+          },
+          {
+            "en": "Our revenue increased by 20%. In contrast, our main competitor saw a decline.",
+            "zh": "我們的收入增長了20%。相比之下，主要競爭對手出現了下滑。"
+          },
+          {
+            "en": "The new system is more complex. On the other hand, it offers more features.",
+            "zh": "新系統更複雜。另一方面，它提供了更多功能。"
+          }
+        ],
+        "wrong": "On the other hand the option is cheaper.",
+        "right": "The first option is cheaper. On the other hand, it takes longer.",
+        "tip": "On the other hand / In contrast 句首加逗號。"
+      },
+      {
+        "title": "過去進行式 vs. 簡單過去式",
+        "category": "時態",
+        "rule": "過去進行式（was/were + V-ing）強調過去某時正在進行的動作。簡單過去式強調完成的動作。",
+        "pattern": "We were [V-ing] when [事件發生] / We [過去式動詞] [時間]",
+        "examples": [
+          {
+            "en": "We were reviewing the budget when the client called.",
+            "zh": "我們正在審查預算時客戶打電話來了。"
+          },
+          {
+            "en": "The team was preparing the presentation all morning.",
+            "zh": "整個上午團隊都在準備簡報。"
+          },
+          {
+            "en": "While I was attending the conference, the deal was finalized.",
+            "zh": "當我在參加會議時，交易已經敲定。"
+          }
+        ],
+        "wrong": "We reviewed the budget when the client was called.",
+        "right": "We were reviewing the budget when the client called.",
+        "tip": "「當...的時候」背景動作用進行式，發生的事件用簡單過去式。"
+      },
+      {
+        "title": "過去完成式 — 先後順序",
+        "category": "時態",
+        "rule": "Had + 過去分詞。強調兩件過去的事中，先發生的那件用過去完成式。",
+        "pattern": "By the time [過去簡單式], [主詞] had already [過去分詞].",
+        "examples": [
+          {
+            "en": "By the time the manager arrived, the team had already finished the report.",
+            "zh": "主管到達時，團隊已經完成了報告。"
+          },
+          {
+            "en": "We had reviewed all the proposals before making a final decision.",
+            "zh": "在做出最終決定之前，我們已經審查了所有提案。"
+          },
+          {
+            "en": "The client had confirmed the order before we received the payment.",
+            "zh": "在我們收到付款之前，客戶已經確認了訂單。"
+          }
+        ],
+        "wrong": "By the time the manager arrived, the team already finished.",
+        "right": "By the time the manager arrived, the team had already finished the report.",
+        "tip": "兩件過去的事，先發生的用 had+過去分詞，後發生的用過去簡單式。"
+      },
+      {
+        "title": "表示結論：In conclusion / To summarize",
+        "category": "連接詞",
+        "rule": "用於簡報、報告結尾總結主要論點。",
+        "pattern": "In conclusion, [總結]. / To summarize, [要點].",
+        "examples": [
+          {
+            "en": "In conclusion, this strategy will reduce costs while improving efficiency.",
+            "zh": "總而言之，這個策略將在提升效率的同時降低成本。"
+          },
+          {
+            "en": "To summarize, we need to focus on three key areas: quality, speed, and cost.",
+            "zh": "總結來說，我們需要專注於三個關鍵領域：品質、速度和成本。"
+          },
+          {
+            "en": "In conclusion, I strongly recommend proceeding with the proposed merger.",
+            "zh": "總而言之，我強烈建議推進擬議中的合併。"
+          }
+        ],
+        "wrong": "In conclusion the strategy will reduce costs.",
+        "right": "In conclusion, this strategy will reduce costs.",
+        "tip": "In conclusion / To summarize 後加逗號。常用於簡報最後一張投影片。"
+      }
+    ]
   }
 }
